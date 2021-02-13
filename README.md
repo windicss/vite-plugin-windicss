@@ -43,6 +43,11 @@ export default {
 };
 ```
 
+```ts
+// main.js
+import 'windi.css'
+```
+
 ## Example
 
 See [./example](./example).
