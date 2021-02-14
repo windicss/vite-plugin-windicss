@@ -4,6 +4,7 @@ import type { Plugin, ResolvedConfig } from 'vite'
 import fg from 'fast-glob'
 import Windicss from 'windicss'
 import { StyleSheet } from 'windicss/utils/style'
+import { CSSParser } from 'windicss/utils/parser'
 import { Config as WindiCssOptions } from 'windicss/types/interfaces'
 import { htmlTags, MODULE_ID, MODULE_ID_VIRTUAL, preflightTags } from './constants'
 import { debug } from './debug'
@@ -15,6 +16,7 @@ function VitePluginWindicss(options: Options = {}): Plugin[] {
     searchExtensions = ['html', 'vue', 'pug', 'jsx', 'tsx', 'svelte'],
     searchDirs = ['src'],
     preflight = true,
+    transformCSS = true,
   } = options
 
   let config: ResolvedConfig
@@ -99,7 +101,7 @@ function VitePluginWindicss(options: Options = {}): Plugin[] {
       return
 
     debug.detect(id)
-    Array.from(code.matchAll(/['"`]([\w -/:]+)[`'"]/g))
+    Array.from(code.matchAll(/(['"`])((?:\1|.)+)\1/g))
       .flatMap(([, i]) => i.split(' '))
       .forEach((i) => {
         if (!i || classes.has(i))
@@ -168,7 +170,7 @@ function VitePluginWindicss(options: Options = {}): Plugin[] {
     tags.clear()
   }
 
-  return [
+  const plugins: Plugin[] = [
     {
       name: 'vite-plugin-windicss:pre',
       enforce: 'pre',
@@ -222,6 +224,19 @@ function VitePluginWindicss(options: Options = {}): Plugin[] {
       },
     },
   ]
+
+  // if (transformCSS) {
+  //   plugins.push({
+  //     name: 'vite-plugin-windicss:css',
+  //     transform(code, id) {
+  //       if (id.match(/\.css(?:$|\?)/))
+  //         console.log(id)
+  //       return null
+  //     },
+  //   })
+  // }
+
+  return plugins
 }
 
 export default VitePluginWindicss

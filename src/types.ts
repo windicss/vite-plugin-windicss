@@ -34,4 +34,11 @@ export interface Options {
    * @default 'html', 'vue'
    */
   searchExtensions?: string[]
+
+  /**
+   * Transform CSS for `@apply` directive
+   *
+   * @default true
+   */
+  transformCSS?: boolean
 }
