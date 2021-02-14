@@ -116,7 +116,7 @@ function VitePluginWindicss(options: Options = {}): Plugin[] {
         classesPending.add(i)
       })
 
-    Array.from(code.matchAll(/<([a-z]+)/g))
+    Array.from(code.matchAll(/<([a-z]+[0-9]?)/g))
       .flatMap(([, i]) => i)
       .forEach((i) => {
         if (!tagsAvaliable.has(i))
