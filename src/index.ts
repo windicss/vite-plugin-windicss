@@ -83,6 +83,8 @@ function VitePluginWindicss(options: Options = {}): Plugin[] {
           },
         )
 
+        files.unshift(join(config.root, 'index.html'))
+
         debug.glob('files', files)
 
         await Promise.all(files.map(async(id) => {
@@ -104,7 +106,7 @@ function VitePluginWindicss(options: Options = {}): Plugin[] {
       return
 
     const regQuotedString = /(["'`])((?:\\\1|(?:(?!\1)).)*?)\1/g
-    const regClassCheck = /^[a-z\-]+[a-z0-9:\-/\\]*\.?[a-z0-9]$/
+    const regClassCheck = /^[a-z-]+[a-z0-9:\-/\\]*\.?[a-z0-9]$/
 
     debug.detect(id)
     Array.from(code.matchAll(regQuotedString))
@@ -214,7 +216,7 @@ function VitePluginWindicss(options: Options = {}): Plugin[] {
           server.watcher.add(windiConfigFile)
       },
 
-      async handleHotUpdate({ server, file, read, modules }) {
+      async handleHotUpdate({ server, file, read, modules, timestamp }) {
         if (windiConfigFile && file === windiConfigFile) {
           debug.hmr(`config file changed: ${file}`)
           reset()
@@ -232,7 +234,14 @@ function VitePluginWindicss(options: Options = {}): Plugin[] {
 
         detectFile(await read(), file)
 
-        const module = server.moduleGraph.getModuleById(MODULE_ID_VIRTUAL)
+        const module = server.moduleGraph.getModuleById(MODULE_ID_VIRTUAL)!
+
+        if (file.endsWith('.html')) {
+          module.lastHMRTimestamp = timestamp
+          module.transformResult = null
+          return undefined
+        }
+
         return [module!, ...modules]
       },
     },
