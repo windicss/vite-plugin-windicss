@@ -101,8 +101,8 @@ function VitePluginWindicss(options: Options = {}): Plugin[] {
       return
 
     debug.detect(id)
-    Array.from(code.matchAll(/(['"`])((?:\1|.)+)\1/g))
-      .flatMap(([, i]) => i.split(' '))
+    Array.from(code.matchAll(/(["'`])((?:\\\1|(?:(?!\1)).)*)\1/g))
+      .flatMap(m => m[2]?.split(' ') || [])
       .forEach((i) => {
         if (!i || classes.has(i))
           return
