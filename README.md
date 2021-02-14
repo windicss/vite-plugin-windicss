@@ -10,6 +10,14 @@
 </a>
 </p>
 
+## Feature
+
+- On-demand CSS utilities (Compatible with TailwindCSS v2)
+- Load configurations from `tailwind.config.js`
+- HMR
+- Preflight (TailwindCSS style reseting)
+- {WIP} CSS `@apply` directive
+
 ## Usage
 
 Install
@@ -37,6 +45,8 @@ export default {
 // main.js
 import 'windi.css'
 ```
+
+That's all. None of `tailwindcss` `postcss` `autoprefixer` needed, enjoy the speed ⚡️
 
 ## Example
 
