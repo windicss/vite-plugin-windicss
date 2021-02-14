@@ -5,7 +5,7 @@ import fg from 'fast-glob'
 import Windicss from 'windicss'
 import { StyleSheet } from 'windicss/utils/style'
 import { Config as WindiCssOptions } from 'windicss/types/interfaces'
-import { MODULE_ID, MODULE_ID_VIRTUAL, preflightHTML } from './constants'
+import { htmlTags, MODULE_ID, MODULE_ID_VIRTUAL } from './constants'
 import { debug } from './debug'
 import { Options } from './types'
 
@@ -22,12 +22,14 @@ function VitePluginWindicss(options: Options = {}): Plugin[] {
   let windiConfigFile: string | undefined
   const extensionRegex = new RegExp(`\\.(?:${searchExtensions.join('|')})$`, 'i')
 
-  const names = new Set<string>()
-  let ignored = new Set<string>()
+  const classes = new Set<string>()
+  const classesPending = new Set<string>()
 
-  let preflightStyle: StyleSheet | undefined
+  const tags = new Set<string>()
+  const tagsPending = new Set<string>(['html', 'body', 'div'])
+  const tagsAvaliable = new Set(htmlTags)
+
   const preflightOptions = Object.assign({
-    html: preflightHTML,
     includeBase: true,
     includeGlobal: true,
     includePlugin: true,
@@ -73,7 +75,8 @@ function VitePluginWindicss(options: Options = {}): Plugin[] {
             onlyFiles: true,
             cwd: config.root,
             absolute: true,
-          })
+          },
+        )
 
         debug.glob(files)
 
@@ -96,14 +99,72 @@ function VitePluginWindicss(options: Options = {}): Plugin[] {
       return
 
     debug.detect(id)
-    Array.from(code.matchAll(/['"]([\w -/:]+)['"]/g))
-      .flatMap(([, i]) => i.trim().split(' '))
+    Array.from(code.matchAll(/['"`]([\w -/:]+)[`'"]/g))
+      .flatMap(([, i]) => i.split(' '))
       .forEach((i) => {
-        if (ignored.has(i))
+        if (!i || classes.has(i))
           return
-        names.add(i)
+        classesPending.add(i)
       })
-    debug.detect(names)
+
+    Array.from(code.matchAll(/<(\w+)/g))
+      .flatMap(([, i]) => i.toLowerCase())
+      .forEach((i) => {
+        if (!tagsAvaliable.has(i))
+          return
+        tagsPending.add(i)
+        tagsAvaliable.delete(i)
+      })
+
+    debug.detect('classes', classesPending)
+    debug.detect('tags', tagsPending)
+  }
+
+  function add<T>(set: Set<T>, v: T[] | Set<T>) {
+    for (const i of v)
+      set.add(i)
+  }
+
+  let style: StyleSheet = new StyleSheet()
+
+  async function generateCSS() {
+    await search()
+
+    if (classesPending.size) {
+      const result = windi.interpret(Array.from(classesPending).join(' '))
+      if (result.success.length) {
+        add(classes, result.success)
+        classesPending.clear()
+        debug.compile(`compiled ${result.success.length} classes`)
+
+        style = style.extend(result.styleSheet)
+      }
+    }
+
+    if (preflight && tagsPending.size) {
+      const preflightStyle = windi.preflight(
+        Array.from(tagsPending).map(i => `<${i}`).join(' '),
+        preflightOptions.includeBase,
+        preflightOptions.includeGlobal,
+        preflightOptions.includePlugin,
+      )
+      style = style.extend(preflightStyle, true)
+      add(tags, tagsPending)
+      tagsPending.clear()
+    }
+
+    const css = style.build()
+    return css
+  }
+
+  function reset() {
+    windi = createWindicss()
+    style = new StyleSheet()
+    add(classesPending, classes)
+    add(tagsPending, tags)
+    classes.clear()
+    tags.clear()
+    add(tagsAvaliable, htmlTags)
   }
 
   return [
@@ -123,30 +184,8 @@ function VitePluginWindicss(options: Options = {}): Plugin[] {
       },
 
       async load(id) {
-        if (id === MODULE_ID_VIRTUAL) {
-          await search()
-          if (preflight && !preflightStyle) {
-            preflightStyle = windi.preflight(
-              preflightOptions.html,
-              preflightOptions.includeBase,
-              preflightOptions.includeGlobal,
-              preflightOptions.includePlugin,
-            )
-          }
-
-          const result = windi.interpret(Array.from(names).join(' '))
-          result.ignored.forEach((i) => {
-            names.delete(i)
-            ignored.add(i)
-          })
-          debug.compile(`compiling ${names.size} classes`)
-          let style = result.styleSheet
-          if (preflightStyle)
-            style = style.extend(preflightStyle, true)
-
-          const css = style.build()
-          return css
-        }
+        if (id === MODULE_ID_VIRTUAL)
+          return generateCSS()
       },
     },
     {
@@ -162,9 +201,7 @@ function VitePluginWindicss(options: Options = {}): Plugin[] {
       async handleHotUpdate({ server, file, read, modules }) {
         if (windiConfigFile && file === windiConfigFile) {
           debug.hmr(`config file changed: ${file}`)
-          windi = createWindicss()
-          Array.from(ignored.values()).forEach(i => names.add(i))
-          ignored = new Set()
+          reset()
           setTimeout(() => {
             console.log('[vite-plugin-windicss] configure file changed, reloading')
             server.ws.send({ type: 'full-reload' })
