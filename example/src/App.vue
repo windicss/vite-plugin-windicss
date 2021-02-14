@@ -1,5 +1,5 @@
 <template>
-  <div class="block text-red-300 bg-teal-100">
+  <div class="block text-red-300 bg-teal-100 hover:text-red-500">
     Hello World
     <h2>
       Heloo

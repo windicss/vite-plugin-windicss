@@ -71,8 +71,11 @@ function VitePluginWindicss(options: Options = {}): Plugin[] {
   async function search() {
     if (!_searching) {
       _searching = (async() => {
+        const globs = searchDirs.map(i => join(i, `**/*.{${searchExtensions.join(',')}}`).replace(/\\/g, '/'))
+        debug.glob(globs)
+
         const files = await fg(
-          searchDirs.map(i => join(i, `**/*.{${searchExtensions.join(',')}}`)),
+          globs,
           {
             onlyFiles: true,
             cwd: config.root,
@@ -80,7 +83,7 @@ function VitePluginWindicss(options: Options = {}): Plugin[] {
           },
         )
 
-        debug.glob(files)
+        debug.glob('files', files)
 
         await Promise.all(files.map(async(id) => {
           const content = await fs.readFile(id, 'utf-8')
@@ -100,17 +103,21 @@ function VitePluginWindicss(options: Options = {}): Plugin[] {
     if (!isDetectTarget(id))
       return
 
+    const regQuotedString = /(["'`])((?:\\\1|(?:(?!\1)).)*?)\1/g
+    const regClassCheck = /^[a-z0-9:\-/\\]+$/
+
     debug.detect(id)
-    Array.from(code.matchAll(/(["'`])((?:\\\1|(?:(?!\1)).)*)\1/g))
+    Array.from(code.matchAll(regQuotedString))
       .flatMap(m => m[2]?.split(' ') || [])
+      .filter(i => i.match(regClassCheck))
       .forEach((i) => {
         if (!i || classes.has(i))
           return
         classesPending.add(i)
       })
 
-    Array.from(code.matchAll(/<(\w+)/g))
-      .flatMap(([, i]) => i.toLowerCase())
+    Array.from(code.matchAll(/<([a-z]+)/g))
+      .flatMap(([, i]) => i)
       .forEach((i) => {
         if (!tagsAvaliable.has(i))
           return
@@ -138,6 +145,7 @@ function VitePluginWindicss(options: Options = {}): Plugin[] {
         add(classes, result.success)
         classesPending.clear()
         debug.compile(`compiled ${result.success.length} classes`)
+        debug.compile(result.success)
 
         style = style.extend(result.styleSheet)
       }
