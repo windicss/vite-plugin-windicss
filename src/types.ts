@@ -41,4 +41,9 @@ export interface Options {
    * @default true
    */
   transformCSS?: boolean
+
+  /**
+   * Safelist
+   */
+  safelist?: string | string[]
 }

@@ -7,7 +7,9 @@ const config: UserConfig = {
     Vue({
       include: [/\.vue$/, /\.md$/],
     }),
-    ...WindiCSS(),
+    ...WindiCSS({
+      safelist: 'shadow shadow-xl',
+    }),
   ],
 }
 

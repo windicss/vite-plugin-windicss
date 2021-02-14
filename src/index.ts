@@ -10,6 +10,12 @@ import { htmlTags, MODULE_ID, MODULE_ID_VIRTUAL, preflightTags } from './constan
 import { debug } from './debug'
 import { Options } from './types'
 
+function toArray<T>(v: T | T[]): T[] {
+  if (Array.isArray(v))
+    return v
+  return [v]
+}
+
 function VitePluginWindicss(options: Options = {}): Plugin[] {
   const {
     windicssOptions = 'tailwind.config.js',
@@ -22,7 +28,12 @@ function VitePluginWindicss(options: Options = {}): Plugin[] {
   let config: ResolvedConfig
   let windi: Windicss
   let windiConfigFile: string | undefined
-  const extensionRegex = new RegExp(`\\.(?:${searchExtensions.join('|')})$`, 'i')
+  const configSafelist = new Set<string>()
+  const safelist = toArray(options.safelist || []).flatMap(i => i.split(' '))
+
+  const regexId = new RegExp(`\\.(?:${searchExtensions.join('|')})$`, 'i')
+  const regexQuotedString = /(["'`])((?:\\\1|(?:(?!\1)).)*?)\1/g
+  const regexClassCheck = /^[a-z-]+[a-z0-9:\-/\\]*\.?[a-z0-9]$/
 
   const classes = new Set<string>()
   const classesPending = new Set<string>()
@@ -50,6 +61,9 @@ function VitePluginWindicss(options: Options = {}): Plugin[] {
           // eslint-disable-next-line @typescript-eslint/no-var-requires
           options = require(path)
           windiConfigFile = path
+          configSafelist.clear()
+          // @ts-expect-error
+          add(configSafelist, options?.purge?.options?.safelist || options?.purge?.options?.whitelist || [])
         }
         catch (e) {
           console.error(`[vite-plugin-windicss] failed to load config "${windicssOptions}"`)
@@ -98,26 +112,25 @@ function VitePluginWindicss(options: Options = {}): Plugin[] {
   }
 
   function isDetectTarget(id: string) {
-    return id.match(extensionRegex)
+    return id.match(regexId)
   }
 
   function detectFile(code: string, id: string) {
     if (!isDetectTarget(id))
       return
 
-    const regQuotedString = /(["'`])((?:\\\1|(?:(?!\1)).)*?)\1/g
-    const regClassCheck = /^[a-z-]+[a-z0-9:\-/\\]*\.?[a-z0-9]$/
-
     debug.detect(id)
-    Array.from(code.matchAll(regQuotedString))
+    // classes
+    Array.from(code.matchAll(regexQuotedString))
       .flatMap(m => m[2]?.split(' ') || [])
-      .filter(i => i.match(regClassCheck))
+      .filter(i => i.match(regexClassCheck))
       .forEach((i) => {
         if (!i || classes.has(i))
           return
         classesPending.add(i)
       })
 
+    // preflight
     Array.from(code.matchAll(/<([a-z]+[0-9]?)/g))
       .flatMap(([, i]) => i)
       .forEach((i) => {
@@ -178,6 +191,8 @@ function VitePluginWindicss(options: Options = {}): Plugin[] {
     windi = initWindicss()
     style = new StyleSheet()
     add(classesPending, classes)
+    add(tagsPending, configSafelist)
+    add(tagsPending, safelist)
     add(tagsPending, tags)
     add(tagsPending, preflightTags)
     add(tagsAvailable, htmlTags)
