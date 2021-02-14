@@ -16,6 +16,7 @@
 - Load configurations from `tailwind.config.js`
 - HMR
 - Preflight (TailwindCSS style reseting)
+- Framework agnostic - Vue, React, Svelte and vanila!
 - {WIP} CSS `@apply` directive
 
 ## Usage

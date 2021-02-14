@@ -12,7 +12,7 @@ import { Options } from './types'
 function VitePluginWindicss(options: Options = {}): Plugin[] {
   const {
     windicssOptions = 'tailwind.config.js',
-    searchExtensions = ['html', 'vue', 'pug'],
+    searchExtensions = ['html', 'vue', 'pug', 'jsx', 'tsx', 'svelte'],
     searchDirs = ['src'],
     preflight = true,
   } = options
