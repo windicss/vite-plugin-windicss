@@ -104,7 +104,7 @@ function VitePluginWindicss(options: Options = {}): Plugin[] {
       return
 
     const regQuotedString = /(["'`])((?:\\\1|(?:(?!\1)).)*?)\1/g
-    const regClassCheck = /^[a-z0-9:\-/\\]+[a-z0-9]$/
+    const regClassCheck = /^[a-z\-]+[a-z0-9:\-/\\]*\.?[a-z0-9]$/
 
     debug.detect(id)
     Array.from(code.matchAll(regQuotedString))
