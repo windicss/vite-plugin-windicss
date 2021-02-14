@@ -29,7 +29,7 @@ function VitePluginWindicss(options: Options = {}): Plugin[] {
 
   const tags = new Set<string>()
   const tagsPending = new Set<string>()
-  const tagsAvaliable = new Set<string>()
+  const tagsAvailable = new Set<string>()
 
   const preflightOptions = Object.assign({
     includeBase: true,
@@ -119,10 +119,10 @@ function VitePluginWindicss(options: Options = {}): Plugin[] {
     Array.from(code.matchAll(/<([a-z]+)/g))
       .flatMap(([, i]) => i)
       .forEach((i) => {
-        if (!tagsAvaliable.has(i))
+        if (!tagsAvailable.has(i))
           return
         tagsPending.add(i)
-        tagsAvaliable.delete(i)
+        tagsAvailable.delete(i)
       })
 
     debug.detect('classes', classesPending)
@@ -178,7 +178,7 @@ function VitePluginWindicss(options: Options = {}): Plugin[] {
     add(classesPending, classes)
     add(tagsPending, tags)
     add(tagsPending, preflightTags)
-    add(tagsAvaliable, htmlTags)
+    add(tagsAvailable, htmlTags)
     classes.clear()
     tags.clear()
   }
