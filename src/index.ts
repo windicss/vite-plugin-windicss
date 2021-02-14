@@ -5,7 +5,7 @@ import fg from 'fast-glob'
 import Windicss from 'windicss'
 import { StyleSheet } from 'windicss/utils/style'
 import { Config as WindiCssOptions } from 'windicss/types/interfaces'
-import { htmlTags, MODULE_ID, MODULE_ID_VIRTUAL } from './constants'
+import { htmlTags, MODULE_ID, MODULE_ID_VIRTUAL, preflightTags } from './constants'
 import { debug } from './debug'
 import { Options } from './types'
 
@@ -26,8 +26,8 @@ function VitePluginWindicss(options: Options = {}): Plugin[] {
   const classesPending = new Set<string>()
 
   const tags = new Set<string>()
-  const tagsPending = new Set<string>(['html', 'body', 'div'])
-  const tagsAvaliable = new Set(htmlTags)
+  const tagsPending = new Set<string>()
+  const tagsAvaliable = new Set<string>()
 
   const preflightOptions = Object.assign({
     includeBase: true,
@@ -35,7 +35,7 @@ function VitePluginWindicss(options: Options = {}): Plugin[] {
     includePlugin: true,
   }, typeof preflight === 'boolean' ? {} : preflight)
 
-  function createWindicss() {
+  function initWindicss() {
     let options: WindiCssOptions = {}
     if (typeof windicssOptions === 'string') {
       const path = resolve(config.root, windicssOptions)
@@ -158,13 +158,14 @@ function VitePluginWindicss(options: Options = {}): Plugin[] {
   }
 
   function reset() {
-    windi = createWindicss()
+    windi = initWindicss()
     style = new StyleSheet()
     add(classesPending, classes)
     add(tagsPending, tags)
+    add(tagsPending, preflightTags)
+    add(tagsAvaliable, htmlTags)
     classes.clear()
     tags.clear()
-    add(tagsAvaliable, htmlTags)
   }
 
   return [
@@ -174,7 +175,7 @@ function VitePluginWindicss(options: Options = {}): Plugin[] {
 
       configResolved(_config) {
         config = _config
-        windi = createWindicss()
+        reset()
       },
 
       resolveId(id): string | null {
