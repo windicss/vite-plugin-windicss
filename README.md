@@ -1,8 +1,8 @@
-<h2 align='center'><samp>vite-plugin-windicss</samp></h2>
+<h2 align='center'>vite-plugin-windicss</h2>
 
-<p align='center'><b>{WIP}</b></p>
-
-<p align='center'><a href="https://github.com/voorjaar/windicss">Windicss</a><em>(on-demand TailwindCSS)</em> for Vite</p>
+<p align='center'><a href="https://github.com/voorjaar/windicss">Windicss</a> for Vite<br>
+<sup><em>a.k.a On-demand TailwindCSS</em></sup>
+</p>
 
 <p align='center'>
 <a href='https://www.npmjs.com/package/vite-plugin-windicss'>
@@ -10,14 +10,14 @@
 </a>
 </p>
 
-## Feature
+## Features
 
 - On-demand CSS utilities (Compatible with TailwindCSS v2)
+- On-demand native elements style reseting
+- Hot module reload (HMR)
 - Load configurations from `tailwind.config.js`
-- HMR
-- Preflight (TailwindCSS style reseting)
 - Framework agnostic - Vue, React, Svelte and vanila!
-- {WIP} CSS `@apply` directive
+- CSS `@apply` directive transform (also works for Vue SFC `<style>`)
 
 ## Usage
 

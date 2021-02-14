@@ -134,6 +134,11 @@ function VitePluginWindicss(options: Options = {}): Plugin[] {
       set.add(i)
   }
 
+  function convertCSS(css: string) {
+    const style = new CSSParser(css, windi).parse()
+    return style.build()
+  }
+
   let style: StyleSheet = new StyleSheet()
 
   async function generateCSS() {
@@ -233,16 +238,17 @@ function VitePluginWindicss(options: Options = {}): Plugin[] {
     },
   ]
 
-  // if (transformCSS) {
-  //   plugins.push({
-  //     name: 'vite-plugin-windicss:css',
-  //     transform(code, id) {
-  //       if (id.match(/\.css(?:$|\?)/))
-  //         console.log(id)
-  //       return null
-  //     },
-  //   })
-  // }
+  if (transformCSS) {
+    plugins.push({
+      name: 'vite-plugin-windicss:css',
+      transform(code, id) {
+        if (id.match(/\.(post)?css(?:$|\?)/)) {
+          debug.css(id)
+          return convertCSS(code)
+        }
+      },
+    })
+  }
 
   return plugins
 }

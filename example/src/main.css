@@ -1,0 +1,4 @@
+.button {
+  @apply p-4 bg-blue-400 text-white rounded hover:bg-blue-600 cursor-pointer;
+  margin: 5px;
+}
