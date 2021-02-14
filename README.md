@@ -6,19 +6,9 @@
 
 <p align='center'>
 <a href='https://www.npmjs.com/package/vite-plugin-windicss'>
-<img src='https://img.shields.io/npm/v/vite-plugin-windicss?color=222&style=flat-square'>
+<img src='https://img.shields.io/npm/v/vite-plugin-windicss?color=222&style=flat-square&label='>
 </a>
 </p>
-
-<br>
-
-<p align="center">
-  <a href="https://cdn.jsdelivr.net/gh/antfu/static/sponsors.svg">
-    <img src='https://cdn.jsdelivr.net/gh/antfu/static/sponsors.svg'/>
-  </a>
-</p>
-
-<br>
 
 ## Usage
 
@@ -51,6 +41,14 @@ import 'windi.css'
 ## Example
 
 See [./example](./example).
+
+## Sponsors
+
+<p align="center">
+  <a href="https://cdn.jsdelivr.net/gh/antfu/static/sponsors.svg">
+    <img src='https://cdn.jsdelivr.net/gh/antfu/static/sponsors.svg'/>
+  </a>
+</p>
 
 ## License
 
