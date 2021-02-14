@@ -1,57 +1,37 @@
 import { promises as fs, existsSync } from 'fs'
 import { join, resolve } from 'path'
 import type { Plugin, ResolvedConfig } from 'vite'
-import Windicss from 'windicss'
-import _debug from 'debug'
-import { Config as WindiCssOptions } from 'windicss/types/interfaces'
 import fg from 'fast-glob'
-
-const debug = {
-  config: _debug('vite-plugin-windicss:config'),
-  debug: _debug('vite-plugin-windicss:debug'),
-  compile: _debug('vite-plugin-windicss:compile'),
-  glob: _debug('vite-plugin-windicss:glob'),
-  detect: _debug('vite-plugin-windicss:detect'),
-  hmr: _debug('vite-plugin-windicss:hmr'),
-}
-
-export interface Options {
-  /**
-   * Options for windicss/tailwindcss.
-   * Also accepts string as config file path.
-   *
-   * @default 'tailwind.config.js'
-   */
-  windicssOptions?: WindiCssOptions | string
-
-  /**
-   * Directories to search for classnames
-   *
-   * @default 'src'
-   */
-  searchDirs?: string[]
-
-  /**
-   * File extension to search for classnames
-   *
-   * @default 'html', 'vue'
-   */
-  searchExtensions?: string[]
-}
-
-const MODULE_ID = 'windi.css'
-const MODULE_ID_VIRTUAL = `/@windicss/${MODULE_ID}`
+import Windicss from 'windicss'
+import { StyleSheet } from 'windicss/utils/style'
+import { Config as WindiCssOptions } from 'windicss/types/interfaces'
+import { MODULE_ID, MODULE_ID_VIRTUAL, preflightHTML } from './constants'
+import { debug } from './debug'
+import { Options } from './types'
 
 function VitePluginWindicss(options: Options = {}): Plugin[] {
   const {
     windicssOptions = 'tailwind.config.js',
     searchExtensions = ['html', 'vue', 'pug'],
     searchDirs = ['src'],
+    preflight = true,
   } = options
 
   let config: ResolvedConfig
   let windi: Windicss
   let windiConfigFile: string | undefined
+  const extensionRegex = new RegExp(`\\.(?:${searchExtensions.join('|')})$`, 'i')
+
+  const names = new Set<string>()
+  let ignored = new Set<string>()
+
+  let preflightStyle: StyleSheet | undefined
+  const preflightOptions = Object.assign({
+    html: preflightHTML,
+    includeBase: true,
+    includeGlobal: true,
+    includePlugin: true,
+  }, typeof preflight === 'boolean' ? {} : preflight)
 
   function createWindicss() {
     let options: WindiCssOptions = {}
@@ -81,11 +61,6 @@ function VitePluginWindicss(options: Options = {}): Plugin[] {
     debug.config(JSON.stringify(options, null, 2))
     return new Windicss(options)
   }
-
-  const extensionRegex = new RegExp(`\\.(?:${searchExtensions.join('|')})$`, 'i')
-
-  const names = new Set<string>()
-  let ignored = new Set<string>()
 
   let _searching: Promise<void> | null
 
@@ -150,14 +125,27 @@ function VitePluginWindicss(options: Options = {}): Plugin[] {
       async load(id) {
         if (id === MODULE_ID_VIRTUAL) {
           await search()
+          if (preflight && !preflightStyle) {
+            preflightStyle = windi.preflight(
+              preflightOptions.html,
+              preflightOptions.includeBase,
+              preflightOptions.includeGlobal,
+              preflightOptions.includePlugin,
+            )
+          }
+
           const result = windi.interpret(Array.from(names).join(' '))
           result.ignored.forEach((i) => {
             names.delete(i)
             ignored.add(i)
           })
           debug.compile(`compiling ${names.size} classes`)
-          const style = result.styleSheet.build()
-          return style
+          let style = result.styleSheet
+          if (preflightStyle)
+            style = style.extend(preflightStyle, true)
+
+          const css = style.build()
+          return css
         }
       },
     },
