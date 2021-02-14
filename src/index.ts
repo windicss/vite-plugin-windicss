@@ -190,9 +190,13 @@ function VitePluginWindicss(options: Options = {}): Plugin[] {
   function reset() {
     windi = initWindicss()
     style = new StyleSheet()
+
+    debug.config('safelist', safelist)
+    debug.config('configSafelist', configSafelist)
+
+    add(classesPending, configSafelist)
+    add(classesPending, safelist)
     add(classesPending, classes)
-    add(tagsPending, configSafelist)
-    add(tagsPending, safelist)
     add(tagsPending, tags)
     add(tagsPending, preflightTags)
     add(tagsAvailable, htmlTags)

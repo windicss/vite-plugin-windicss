@@ -1,13 +1,7 @@
 module.exports = {
-  variants: {
-    extend: {
-      cursor: ['disabled'],
-      backgroundColor: ['disabled'],
-      borderColor: ['active', 'disabled'],
-      textColor: ['active', 'disabled'],
-      opacity: ['dark', 'active', 'disabled'],
-    },
-  },
+  plugins: [
+    require('windicss/plugin/typography'),
+  ],
   darkMode: 'class',
   theme: {
     extend: {

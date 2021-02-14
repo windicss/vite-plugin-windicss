@@ -8,6 +8,9 @@
   <div class="foo">
     foo
   </div>
+  <div class="prose">
+    Hello
+  </div>
 </template>
 
 <style>
