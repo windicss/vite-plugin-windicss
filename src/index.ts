@@ -1,12 +1,13 @@
-import { promises as fs } from 'fs'
-import { join } from 'path'
-import type { ModuleNode, Plugin, ResolvedConfig } from 'vite'
+import { promises as fs, existsSync } from 'fs'
+import { join, resolve } from 'path'
+import type { Plugin, ResolvedConfig } from 'vite'
 import Windicss from 'windicss'
 import _debug from 'debug'
 import { Config as WindiCssOptions } from 'windicss/types/interfaces'
 import fg from 'fast-glob'
 
 const debug = {
+  config: _debug('vite-plugin-windicss:config'),
   debug: _debug('vite-plugin-windicss:debug'),
   compile: _debug('vite-plugin-windicss:compile'),
   glob: _debug('vite-plugin-windicss:glob'),
@@ -15,7 +16,13 @@ const debug = {
 }
 
 export interface Options {
-  windicssOptions?: WindiCssOptions
+  /**
+   * Options for windicss/tailwindcss.
+   * Also accepts string as config file path.
+   *
+   * @default 'tailwind.config.js'
+   */
+  windicssOptions?: WindiCssOptions | string
 
   /**
    * Directories to search for classnames
@@ -37,17 +44,48 @@ const MODULE_ID_VIRTUAL = `/@windicss/${MODULE_ID}`
 
 function VitePluginWindicss(options: Options = {}): Plugin[] {
   const {
-    windicssOptions,
+    windicssOptions = 'tailwind.config.js',
     searchExtensions = ['html', 'vue', 'pug'],
     searchDirs = ['src'],
   } = options
 
   let config: ResolvedConfig
-  const windi = new Windicss(windicssOptions)
+  let windi: Windicss
+  let windiConfigFile: string | undefined
+
+  function createWindicss() {
+    let options: WindiCssOptions = {}
+    if (typeof windicssOptions === 'string') {
+      const path = resolve(config.root, windicssOptions)
+      if (!existsSync(path)) {
+        console.warn(`[vite-plugin-windicss] config file "${windicssOptions}" not found, ignored`)
+      }
+      else {
+        try {
+          delete require.cache[require.resolve(path)]
+          // eslint-disable-next-line @typescript-eslint/no-var-requires
+          options = require(path)
+          windiConfigFile = path
+        }
+        catch (e) {
+          console.error(`[vite-plugin-windicss] failed to load config "${windicssOptions}"`)
+          console.error(`[vite-plugin-windicss] ${e.toString()}`)
+          process.exit(1)
+        }
+      }
+    }
+    else {
+      options = windicssOptions
+    }
+
+    debug.config(JSON.stringify(options, null, 2))
+    return new Windicss(options)
+  }
+
   const extensionRegex = new RegExp(`\\.(?:${searchExtensions.join('|')})$`, 'i')
 
   const names = new Set<string>()
-  const ignored = new Set<string>()
+  let ignored = new Set<string>()
 
   let _searching: Promise<void> | null
 
@@ -100,6 +138,7 @@ function VitePluginWindicss(options: Options = {}): Plugin[] {
 
       configResolved(_config) {
         config = _config
+        windi = createWindicss()
       },
 
       resolveId(id): string | null {
@@ -121,35 +160,36 @@ function VitePluginWindicss(options: Options = {}): Plugin[] {
           return style
         }
       },
-
-      transformIndexHtml(code) {
-        return code
-      },
     },
     {
       name: 'vite-plugin-windicss:hmr',
       apply: 'serve',
       enforce: 'post',
 
-      async handleHotUpdate({ server, file, read, timestamp, modules }) {
+      configureServer(server) {
+        if (windiConfigFile)
+          server.watcher.add(windiConfigFile)
+      },
+
+      async handleHotUpdate({ server, file, read, modules }) {
+        if (windiConfigFile && file === windiConfigFile) {
+          debug.hmr(`config file changed: ${file}`)
+          windi = createWindicss()
+          Array.from(ignored.values()).forEach(i => names.add(i))
+          ignored = new Set()
+          setTimeout(() => {
+            console.log('[vite-plugin-windicss] configure file changed, reloading')
+            server.ws.send({ type: 'full-reload' })
+          }, 0)
+          return [server.moduleGraph.getModuleById(MODULE_ID_VIRTUAL)!]
+        }
+
         if (!isDetectTarget(file))
           return
 
         debug.hmr(`refreshed by ${file}`)
 
         detectFile(await read(), file)
-
-        // server.ws.send({
-        //   type: 'update',
-        //   updates: [
-        //     {
-        //       type: 'js-update',
-        //       timestamp,
-        //       path: MODULE_ID_VIRTUAL,
-        //       acceptedPath: MODULE_ID_VIRTUAL,
-        //     },
-        //   ],
-        // })
 
         const module = server.moduleGraph.getModuleById(MODULE_ID_VIRTUAL)
         return [module!, ...modules]
