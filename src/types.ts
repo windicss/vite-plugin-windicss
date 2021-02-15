@@ -1,5 +1,7 @@
 import { Config as WindiCssOptions } from 'windicss/types/interfaces'
 
+export type AliasOptions = { [find: string]: string }
+
 export interface Options {
   /**
    * Options for windicss/tailwindcss.
@@ -47,4 +49,9 @@ export interface Options {
    * Safelist
    */
   safelist?: string | string[]
+
+  /**
+   * Safelist
+   */
+  alias?: AliasOptions
 }

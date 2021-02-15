@@ -6,15 +6,10 @@ import Windicss from 'windicss'
 import { StyleSheet } from 'windicss/utils/style'
 import { CSSParser } from 'windicss/utils/parser'
 import { Config as WindiCssOptions } from 'windicss/types/interfaces'
-import { htmlTags, MODULE_ID, MODULE_ID_VIRTUAL, preflightTags } from './constants'
+import { pascalCase, toArray, remove, add } from './utils'
+import { htmlTags, MODULE_ID, MODULE_ID_VIRTUAL, preflightTags, regexQuotedString, regexClassCheck } from './constants'
 import { debug } from './debug'
-import { Options } from './types'
-
-function toArray<T>(v: T | T[]): T[] {
-  if (Array.isArray(v))
-    return v
-  return [v]
-}
+import { Options, AliasOptions } from './types'
 
 function VitePluginWindicss(options: Options = {}): Plugin[] {
   const {
@@ -32,8 +27,6 @@ function VitePluginWindicss(options: Options = {}): Plugin[] {
   const safelist = toArray(options.safelist || []).flatMap(i => i.split(' '))
 
   const regexId = new RegExp(`\\.(?:${searchExtensions.join('|')})$`, 'i')
-  const regexQuotedString = /(["'`])((?:\\\1|(?:(?!\1)).)*?)\1/g
-  const regexClassCheck = /^[a-z-]+[a-z0-9:\-/\\]*\.?[a-z0-9]$/
 
   const classes = new Set<string>()
   const classesPending = new Set<string>()
@@ -41,6 +34,18 @@ function VitePluginWindicss(options: Options = {}): Plugin[] {
   const tags = new Set<string>()
   const tagsPending = new Set<string>()
   const tagsAvailable = new Set<string>()
+
+  const alias = new Map<string, string>()
+
+  const resolvedAlias: AliasOptions = {
+    'router-link': 'a',
+    ...options.alias,
+  }
+
+  Object.keys(resolvedAlias).forEach((find) => {
+    alias.set(find, resolvedAlias[find])
+    alias.set(pascalCase(find), resolvedAlias[find])
+  })
 
   const preflightOptions = Object.assign({
     includeBase: true,
@@ -131,8 +136,6 @@ function VitePluginWindicss(options: Options = {}): Plugin[] {
       })
 
     function addTag(i: string) {
-      if (i === 'router-link')
-        i = 'a'
       if (!tagsAvailable.has(i))
         return
       tagsPending.add(i)
@@ -144,16 +147,13 @@ function VitePluginWindicss(options: Options = {}): Plugin[] {
       .flatMap(([, i]) => i)
       .forEach(i => addTag(i))
 
-    toArray(preflightOptions?.safelist || [])
-      .forEach(i => addTag(i))
+    alias.forEach((replace, find) => {
+      if (code.includes(`<${find}`))
+        addTag(replace)
+    })
 
     debug.detect('classes', classesPending)
     debug.detect('tags', tagsPending)
-  }
-
-  function add<T>(set: Set<T>, v: T[] | Set<T>) {
-    for (const i of v)
-      set.add(i)
   }
 
   function convertCSS(css: string) {
@@ -198,15 +198,22 @@ function VitePluginWindicss(options: Options = {}): Plugin[] {
     windi = initWindicss()
     style = new StyleSheet()
 
+    const preflightSafelist = toArray(preflightOptions?.safelist || []).flatMap(i => i.split(' '))
+
+    debug.config('alias', alias)
     debug.config('safelist', safelist)
     debug.config('configSafelist', configSafelist)
+    debug.config('preflightSafelist', preflightSafelist)
 
     add(classesPending, configSafelist)
     add(classesPending, safelist)
     add(classesPending, classes)
     add(tagsPending, tags)
     add(tagsPending, preflightTags)
+    add(tagsPending, preflightSafelist)
     add(tagsAvailable, htmlTags)
+    remove(tagsAvailable, preflightSafelist)
+
     classes.clear()
     tags.clear()
   }
