@@ -1,9 +1,15 @@
+/* eslint-disable no-use-before-define */
+
 export const MODULE_ID = 'windi.css'
 export const MODULE_ID_VIRTUAL = `/@windicss/${MODULE_ID}`
 
 export const regexQuotedString = /(["'`])((?:\\\1|(?:(?!\1)).)*?)\1/g
 export const regexClassCheck = /^[a-z-]+[a-z0-9:\-/\\]*\.?[a-z0-9]$/
 export const regexHtmlTag = /<([\w-]+)/g
+
+export const defaultAlias: Record<string, TagNames> = {
+  'router-link': 'a',
+}
 
 export const preflightTags = ['html', 'body', 'div']
 export const htmlTags = [
@@ -134,3 +140,5 @@ export const htmlTags = [
   'wbr',
   'xmp',
 ] as const
+
+export type TagNames = (typeof htmlTags)[number]

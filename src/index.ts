@@ -5,51 +5,13 @@ import fg from 'fast-glob'
 import Windicss from 'windicss'
 import { StyleSheet } from 'windicss/utils/style'
 import { CSSParser } from 'windicss/utils/parser'
-import { Config as WindiCssOptions } from 'windicss/types/interfaces'
+import type { Config as WindiCssOptions } from 'windicss/types/interfaces'
 import { toArray, exclude, include, kebabCase } from './utils'
-import { htmlTags, MODULE_ID, MODULE_ID_VIRTUAL, preflightTags, regexQuotedString, regexClassCheck, regexHtmlTag } from './constants'
+import { htmlTags, MODULE_ID, MODULE_ID_VIRTUAL, preflightTags, regexQuotedString, regexClassCheck, regexHtmlTag, TagNames } from './constants'
 import { debug } from './debug'
-import { Options, TagNames } from './types'
+import { resolveOptions, UserOptions } from './options'
 
-export const defaultAlias: Record<string, TagNames> = {
-  'router-link': 'a',
-}
-
-function resolveOptions(options: Options) {
-  const {
-    windicssOptions = 'tailwind.config.js',
-    searchExtensions = ['html', 'vue', 'pug', 'jsx', 'tsx', 'svelte'],
-    searchDirs = ['src'],
-    preflight = true,
-    transformCSS = true,
-    sortUtilities = true,
-  } = options
-
-  const preflightOptions = Object.assign({
-    includeBase: true,
-    includeGlobal: true,
-    includePlugin: true,
-    alias: {},
-  }, typeof preflight === 'boolean' ? {} : preflight)
-
-  preflightOptions.alias = Object.fromEntries(
-    Object.entries({
-      ...defaultAlias,
-      ...preflightOptions.alias,
-    }).filter(([k, v]) => [kebabCase(k), v]),
-  )
-
-  return {
-    windicssOptions,
-    searchExtensions,
-    searchDirs,
-    transformCSS,
-    preflight: Boolean(preflight),
-    preflightOptions,
-  }
-}
-
-function VitePluginWindicss(options: Options = {}): Plugin[] {
+function VitePluginWindicss(options: UserOptions = {}): Plugin[] {
   const {
     windicssOptions,
     searchExtensions,
@@ -57,15 +19,17 @@ function VitePluginWindicss(options: Options = {}): Plugin[] {
     transformCSS,
     preflight,
     preflightOptions,
+    sortUtilities,
   } = resolveOptions(options)
 
-  let config: ResolvedConfig
+  let viteConfig: ResolvedConfig
   let windi: Windicss
   let windiConfigFile: string | undefined
-  const configSafelist = new Set<string>()
-  const safelist = toArray(options.safelist || []).flatMap(i => i.split(' '))
 
   const regexId = new RegExp(`\\.(?:${searchExtensions.join('|')})$`, 'i')
+
+  const configSafelist = new Set<string>()
+  const safelist = new Set(toArray(options.safelist || []).flatMap(i => i.split(' ')))
 
   const classes = new Set<string>()
   const classesPending = new Set<string>()
@@ -76,7 +40,7 @@ function VitePluginWindicss(options: Options = {}): Plugin[] {
   function loadConfiguration() {
     let options: WindiCssOptions = {}
     if (typeof windicssOptions === 'string') {
-      const path = resolve(config.root, windicssOptions)
+      const path = resolve(viteConfig.root, windicssOptions)
       if (!existsSync(path)) {
         console.warn(`[vite-plugin-windicss] config file "${windicssOptions}" not found, ignored`)
       }
@@ -121,12 +85,12 @@ function VitePluginWindicss(options: Options = {}): Plugin[] {
           globs,
           {
             onlyFiles: true,
-            cwd: config.root,
+            cwd: viteConfig.root,
             absolute: true,
           },
         )
 
-        files.unshift(join(config.root, 'index.html'))
+        files.unshift(join(viteConfig.root, 'index.html'))
 
         debug.glob('files', files)
 
@@ -164,10 +128,8 @@ function VitePluginWindicss(options: Options = {}): Plugin[] {
       Array.from(code.matchAll(regexHtmlTag))
         .flatMap(([, i]) => i)
         .forEach((i) => {
-          if (!tagsAvailable.has(i)) {
-            debug.debug(i, kebabCase(i))
+          if (!tagsAvailable.has(i))
             i = preflightOptions.alias[kebabCase(i)]
-          }
           if (!tagsAvailable.has(i))
             return
           tagsPending.add(i)
@@ -227,7 +189,7 @@ function VitePluginWindicss(options: Options = {}): Plugin[] {
     return _cssCache
   }
 
-  function reset() {
+  function init() {
     windi = initWindicss()
     style = new StyleSheet()
 
@@ -258,8 +220,8 @@ function VitePluginWindicss(options: Options = {}): Plugin[] {
       enforce: 'pre',
 
       configResolved(_config) {
-        config = _config
-        reset()
+        viteConfig = _config
+        init()
       },
 
       resolveId(id): string | null {
@@ -286,7 +248,7 @@ function VitePluginWindicss(options: Options = {}): Plugin[] {
       async handleHotUpdate({ server, file, read, modules, timestamp }) {
         if (windiConfigFile && file === windiConfigFile) {
           debug.hmr(`config file changed: ${file}`)
-          reset()
+          init()
           setTimeout(() => {
             console.log('[vite-plugin-windicss] configure file changed, reloading')
             server.ws.send({ type: 'full-reload' })
@@ -329,5 +291,5 @@ function VitePluginWindicss(options: Options = {}): Plugin[] {
   return plugins
 }
 
-export * from './types'
+export type { UserOptions, TagNames }
 export default VitePluginWindicss

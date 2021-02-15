@@ -2,11 +2,11 @@ importers:
   .:
     dependencies:
       fast-glob: 3.2.5
-      windicss: 2.1.3
+      windicss: 2.1.5
     devDependencies:
       '@antfu/eslint-config': 0.4.3_eslint@7.20.0+typescript@4.1.5
       '@types/debug': 4.1.5
-      '@types/node': 14.14.27
+      '@types/node': 14.14.28
       '@typescript-eslint/eslint-plugin': 4.15.0_eslint@7.20.0+typescript@4.1.5
       debug: 4.3.2
       eslint: 7.20.0
@@ -17,16 +17,16 @@ importers:
     specifiers:
       '@antfu/eslint-config': ^0.4.3
       '@types/debug': ^4.1.5
-      '@types/node': ^14.14.27
+      '@types/node': ^14.14.28
       '@typescript-eslint/eslint-plugin': ^4.15.0
       debug: ^4.3.2
       eslint: ^7.20.0
       fast-glob: ^3.2.5
-      rollup: ^2.38.5
+      rollup: ^2.39.0
       tsup: ^3.12.1
       typescript: ^4.1.5
       vite: ^2.0.0-beta.69
-      windicss: ^2.1.3
+      windicss: ^2.1.5
   example:
     dependencies:
       vue: 3.0.5
@@ -297,6 +297,10 @@ packages:
     dev: true
     resolution:
       integrity: sha512-Ecfmo4YDQPwuqTCl1yBxLV5ihKfRlkBmzUEDcfIRvDxOTGQEeikr317Ln7Gcv0tjA8dVgKI3rniqW2G1OyKDng==
+  /@types/node/14.14.28:
+    dev: true
+    resolution:
+      integrity: sha512-lg55ArB+ZiHHbBBttLpzD07akz0QPrZgUODNakeC09i62dnrywr9mFErHuaPlB6I7z+sEbK+IYmplahvplCj2g==
   /@types/normalize-package-data/2.4.0:
     dev: true
     resolution:
@@ -3390,13 +3394,13 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-NsmoXalsWVDMGupxZ5R08ka9flZjjiLvHVAWYOKtiKM8ujtZWr9cRffak+uSE48+Ob8ObalXpwyeUiyDD6QFgg==
-  /windicss/2.1.3:
+  /windicss/2.1.5:
     dev: false
     engines:
       node: '>= 12'
     hasBin: true
     resolution:
-      integrity: sha512-shuHKgN10wUn6CqBvFtaCj5br+0v55U3pPB1QPEuXIVHpB6gQlMfjpGh2EQaAxHJv7qWvgGEZpCCgSWwWcA1Kw==
+      integrity: sha512-ORH5Ra1F001pJQDs1H5bIQ48KYnLEA/xmCcul+FleJtbiZBRY7SN7gWtOj+V0ho6av42ACe1IwvgOcSkGIQ/ng==
   /word-wrap/1.2.3:
     dev: true
     engines:
