@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "fast-glob": "^3.2.5",
-    "windicss": "^2.1.5"
+    "windicss": "^2.1.6"
   },
   "peerDependencies": {
     "vite": "^2.0.0-beta.69"
@@ -34,7 +34,7 @@
     "@antfu/eslint-config": "^0.4.3",
     "@types/debug": "^4.1.5",
     "@types/node": "^14.14.28",
-    "@typescript-eslint/eslint-plugin": "^4.15.0",
+    "@typescript-eslint/eslint-plugin": "^4.15.1",
     "debug": "^4.3.2",
     "eslint": "^7.20.0",
     "rollup": "^2.39.0",
