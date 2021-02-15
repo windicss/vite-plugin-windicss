@@ -3,7 +3,7 @@
 export const MODULE_ID = 'windi.css'
 export const MODULE_ID_VIRTUAL = `/@windicss/${MODULE_ID}`
 
-export const regexQuotedString = /(["'`])([^"'`<>,\n]+?)\1/g
+export const regexQuotedString = /(["'`])((?:\\\1|(?:(?!\1)).)*?)\1/g
 export const regexClassCheck = /^[a-z-]+[a-z0-9:\-/\\]*\.?[a-z0-9]$/
 export const regexHtmlTag = /<([\w-]+)/g
 
