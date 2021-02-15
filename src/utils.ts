@@ -4,21 +4,16 @@ export function toArray<T>(v: T | T[]): T[] {
   return [v]
 }
 
-export function pascalCase(str: string) {
-  const camelStr = camelCase(str)
-  return camelStr.charAt(0).toUpperCase() + camelStr.slice(1)
+export function kebabCase(str: string) {
+  return str.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()
 }
 
-export function camelCase(str: string) {
-  return str.replace(/-(\w)/g, (_, c) => (c ? c.toUpperCase() : ''))
-}
-
-export function add<T>(set: Set<T>, v: T[] | Set<T>) {
+export function include<T>(set: Set<T>, v: T[] | Set<T>) {
   for (const i of v)
     set.add(i)
 }
 
-export function remove<T>(set: Set<T>, v: T[] | Set<T>) {
+export function exclude<T>(set: Set<T>, v: T[] | Set<T>) {
   for (const i of v)
     set.delete(i)
 }
