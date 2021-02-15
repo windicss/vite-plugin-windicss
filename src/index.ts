@@ -264,12 +264,10 @@ function VitePluginWindicss(options: UserOptions = {}): Plugin[] {
         detectFile(await read(), file)
 
         const module = server.moduleGraph.getModuleById(MODULE_ID_VIRTUAL)!
+        server.moduleGraph.invalidateModule(module)
 
-        if (file.endsWith('.html')) {
-          module.lastHMRTimestamp = timestamp
-          module.transformResult = null
+        if (file.endsWith('.html'))
           return undefined
-        }
 
         return [module!, ...modules]
       },
