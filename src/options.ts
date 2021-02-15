@@ -60,6 +60,13 @@ export interface UserOptions {
   searchExtensions?: string[]
 
   /**
+   * Exclude globs
+   *
+   * @default []
+   */
+  searchExclude?: string[]
+
+  /**
    * Transform CSS for `@apply` directive
    *
    * @default true
@@ -82,8 +89,9 @@ export interface UserOptions {
 export function resolveOptions(options: UserOptions) {
   const {
     windicssOptions = 'tailwind.config.js',
-    searchExtensions = ['html', 'vue', 'pug', 'jsx', 'tsx', 'svelte'],
+    searchExtensions = ['html', 'vue', 'md', 'pug', 'jsx', 'tsx', 'svelte'],
     searchDirs = ['src'],
+    searchExclude = [],
     preflight = true,
     transformCSS = true,
     sortUtilities = true,
@@ -110,6 +118,7 @@ export function resolveOptions(options: UserOptions) {
     windicssOptions,
     searchExtensions,
     searchDirs,
+    searchExclude,
     transformCSS,
     preflight: Boolean(preflight),
     preflightOptions,
