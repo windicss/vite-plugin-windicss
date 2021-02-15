@@ -130,15 +130,22 @@ function VitePluginWindicss(options: Options = {}): Plugin[] {
         classesPending.add(i)
       })
 
+    function addTag(i: string) {
+      if (i === 'router-link')
+        i = 'a'
+      if (!tagsAvailable.has(i))
+        return
+      tagsPending.add(i)
+      tagsAvailable.delete(i)
+    }
+
     // preflight
     Array.from(code.matchAll(/<([a-z]+[0-9]?)/g))
       .flatMap(([, i]) => i)
-      .forEach((i) => {
-        if (!tagsAvailable.has(i))
-          return
-        tagsPending.add(i)
-        tagsAvailable.delete(i)
-      })
+      .forEach(i => addTag(i))
+
+    toArray(preflightOptions?.force || [])
+      .forEach(i => addTag(i))
 
     debug.detect('classes', classesPending)
     debug.detect('tags', tagsPending)

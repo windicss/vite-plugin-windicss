@@ -19,6 +19,7 @@ export interface Options {
     includeBase?: boolean
     includeGlobal?: boolean
     includePlugin?: boolean
+    force?: string | string[]
   }
 
   /**
