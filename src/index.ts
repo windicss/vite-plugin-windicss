@@ -119,7 +119,7 @@ function VitePluginWindicss(options: UserOptions = {}): Plugin[] {
     debug.detect(id)
     // classes
     Array.from(code.matchAll(regexQuotedString))
-      .flatMap(m => m[2]?.split(' ') || [])
+      .flatMap(m => m[2]?.split(/[\s'"`{}]/g) || [])
       .filter(i => i.match(regexClassCheck))
       .forEach((i) => {
         if (!i || classes.has(i))
