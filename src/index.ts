@@ -16,6 +16,7 @@ function VitePluginWindicss(options: UserOptions = {}): Plugin[] {
     windicssOptions,
     searchExtensions,
     searchDirs,
+    searchExclude,
     transformCSS,
     preflight,
     preflightOptions,
@@ -84,15 +85,16 @@ function VitePluginWindicss(options: UserOptions = {}): Plugin[] {
         const files = await fg(
           globs,
           {
-            onlyFiles: true,
             cwd: viteConfig.root,
+            ignore: ['node_modules', '.git', ...searchExclude],
+            onlyFiles: true,
             absolute: true,
           },
         )
 
-        const index = join(viteConfig.root, 'index.html')
-        if (existsSync(index))
-          files.unshift(index)
+        const indexPath = join(viteConfig.root, 'index.html')
+        if (existsSync(indexPath))
+          files.unshift(indexPath)
 
         debug.glob('files', files)
 
