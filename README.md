@@ -12,12 +12,12 @@
 
 ## Features
 
-- On-demand CSS utilities (Compatible with TailwindCSS v2)
+- On-demand CSS utilities (Compatible with Tailwind CSS v2)
 - On-demand native elements style reseting
-- Hot module reload (HMR)
+- Hot module replacement (HMR)
 - Load configurations from `tailwind.config.js`
-- Framework agnostic - Vue, React, Svelte and vanila!
-- CSS `@apply` / `@screen` directives transform (also works for Vue SFC `<style>`)
+- Framework-agnostic - Vue, React, Svelte and vanilla!
+- CSS `@apply` / `@screen` directives transforms (also works for Vue SFC's `<style>`)
 
 ## Usage
 
@@ -49,11 +49,11 @@ That's all ⚡️
 
 ## Migration from Tailwind CSS
 
-If you are already using Tailwind CSS for your Vite app, you can follow these instructions to configure your setup.
+If you are already using Tailwind CSS for your Vite app, you can follow these instructions to migrate your installation.
 
 ### `package.json`
 
-Some of your dependencies are no longer required, you can remove them if you don't use them other than TaiwindCSS.
+Some of your dependencies are no longer required, you can remove them if they were only needed for Tailwind CSS.
 
 ```diff
 - "tailwindccs": "*",
@@ -64,7 +64,7 @@ Some of your dependencies are no longer required, you can remove them if you don
 
 ### `tailwind.config.js`
 
-Since it's now bundling on-demand, all `variants` are enabled with any overhead. `purge` is no longer needs as well. `colors` and `plugins` need to renamed to `windicss` instead.
+All `variants` are enabled, since the overhead they caused is fixed by Windi's on-demand nature. `purge` is no longer needed as well. `colors` and `plugins` imports need to be renamed to `windicss` instead.
 
 ```diff
 -const colors = require('tailwindcss/colors')
@@ -126,7 +126,7 @@ import 'windi.css'
 
 ### `main.css`
 
-You can now remove the Taiwind importing from your css entry.
+You can now remove the Taiwind imports from your css entry.
 
 ```diff
 - @import 'tailwindcss/base';
@@ -134,7 +134,7 @@ You can now remove the Taiwind importing from your css entry.
 - @import 'tailwindcss/utilities';
 ```
 
-### Clean Up (optional)
+### Cleanup (optional)
 
 The following files can be removed if you don't use their other features.
 
