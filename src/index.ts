@@ -144,7 +144,7 @@ function VitePluginWindicss(options: Options = {}): Plugin[] {
       .flatMap(([, i]) => i)
       .forEach(i => addTag(i))
 
-    toArray(preflightOptions?.force || [])
+    toArray(preflightOptions?.safelist || [])
       .forEach(i => addTag(i))
 
     debug.detect('classes', classesPending)
