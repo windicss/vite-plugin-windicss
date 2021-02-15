@@ -10,6 +10,12 @@
 </a>
 </p>
 
+<p align='center'>
+<a href='https://twitter.com/antfu7/status/1361398324587163648'>
+<img src='https://user-images.githubusercontent.com/11247099/107987838-b6462900-7009-11eb-8548-3038cb94b06f.png'/>
+</a>
+</p>
+
 ## Features
 
 - On-demand CSS utilities (Compatible with Tailwind CSS v2)
