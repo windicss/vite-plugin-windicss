@@ -91,9 +91,8 @@ function VitePluginWindicss(options: UserOptions = {}): Plugin[] {
         )
 
         const index = join(viteConfig.root, 'index.html')
-        if (existsSync(index)) {
+        if (existsSync(index))
           files.unshift(index)
-        }
 
         debug.glob('files', files)
 
