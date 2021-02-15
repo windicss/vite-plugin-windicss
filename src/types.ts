@@ -1,4 +1,7 @@
 import { Config as WindiCssOptions } from 'windicss/types/interfaces'
+import { htmlTags } from './constants'
+
+export type TagNames = (typeof htmlTags)[number]
 
 export interface Options {
   /**
@@ -15,9 +18,29 @@ export interface Options {
    * @default true
    */
   preflight?: boolean | {
-    html?: string
+    /**
+     * Safelist to always included
+     */
+    safelist?: string | string[]
+
+    /**
+      * Alias for resolving preflight
+      */
+    alias?: Record<string, TagNames>
+
+    /**
+     * @default true
+     */
     includeBase?: boolean
+
+    /**
+     * @default true
+     */
     includeGlobal?: boolean
+
+    /**
+     * @default true
+     */
     includePlugin?: boolean
   }
 
