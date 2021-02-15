@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-teal-100 px-5 p-1">
+  <div class="px-5 p-1 text-white hover:text-green-100" :class="{ 'bg-teal-100': true, 'hover:w-1/3': true }">
     Hello World
   </div>
   <h2 class="button">
