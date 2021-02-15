@@ -245,7 +245,7 @@ function VitePluginWindicss(options: UserOptions = {}): Plugin[] {
           server.watcher.add(windiConfigFile)
       },
 
-      async handleHotUpdate({ server, file, read, modules, timestamp }) {
+      async handleHotUpdate({ server, file, read, modules }) {
         if (windiConfigFile && file === windiConfigFile) {
           debug.hmr(`config file changed: ${file}`)
           init()
