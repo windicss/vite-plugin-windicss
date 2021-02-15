@@ -23,6 +23,7 @@ function VitePluginWindicss(options: Options = {}): Plugin[] {
     searchDirs = ['src'],
     preflight = true,
     transformCSS = true,
+    sortUtilities = true,
   } = options
 
   let config: ResolvedConfig
@@ -155,9 +156,12 @@ function VitePluginWindicss(options: Options = {}): Plugin[] {
   }
 
   let style: StyleSheet = new StyleSheet()
+  let _cssCache: string | undefined
 
   async function generateCSS() {
     await search()
+
+    let changed = false
 
     if (classesPending.size) {
       const result = windi.interpret(Array.from(classesPending).join(' '))
@@ -168,6 +172,7 @@ function VitePluginWindicss(options: Options = {}): Plugin[] {
         debug.compile(result.success)
 
         style = style.extend(result.styleSheet)
+        changed = true
       }
     }
 
@@ -181,10 +186,16 @@ function VitePluginWindicss(options: Options = {}): Plugin[] {
       style = style.extend(preflightStyle, true)
       add(tags, tagsPending)
       tagsPending.clear()
+      changed = true
     }
 
-    const css = style.build()
-    return css
+    if (changed || !_cssCache) {
+      if (sortUtilities)
+        style.sort()
+
+      _cssCache = style.build()
+    }
+    return _cssCache
   }
 
   function reset() {

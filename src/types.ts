@@ -43,7 +43,14 @@ export interface Options {
   transformCSS?: boolean
 
   /**
-   * Safelist
+   * Sort the genrate utilities
+   *
+   * @default true
+   */
+  sortUtilities?: boolean
+
+  /**
+   * Safe class names to be always included.
    */
   safelist?: string | string[]
 }

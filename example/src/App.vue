@@ -1,5 +1,5 @@
 <template>
-  <div class="block text-red-400 bg-teal-100 hover:text-red-500">
+  <div class="bg-teal-100 px-5 p-1">
     Hello World
   </div>
   <h2 class="button">
