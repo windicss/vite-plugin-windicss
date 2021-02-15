@@ -133,7 +133,7 @@ import 'windi.css'
 
 ### `main.css`
 
-You can now remove the Taiwind imports from your css entry.
+You can now remove the Tailwind imports from your css entry.
 
 ```diff
 - @import 'tailwindcss/base';
