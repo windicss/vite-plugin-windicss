@@ -11,9 +11,10 @@
   <div class="prose">
     Hello
   </div>
+  <router-link />
 </template>
 
-<style>
+<style lang="postcss">
 .foo {
   @apply rounded-full bg-pink-400 text-white p-4 w-1/4;
 }

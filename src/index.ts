@@ -1,22 +1,21 @@
 import { promises as fs, existsSync } from 'fs'
 import { join, resolve } from 'path'
-import type { Plugin, ResolvedConfig } from 'vite'
+import { Plugin, ResolvedConfig } from 'vite'
 import fg from 'fast-glob'
 import Windicss from 'windicss'
 import { StyleSheet } from 'windicss/utils/style'
 import { CSSParser } from 'windicss/utils/parser'
 import { Config as WindiCssOptions } from 'windicss/types/interfaces'
-import { htmlTags, MODULE_ID, MODULE_ID_VIRTUAL, preflightTags } from './constants'
+import { toArray, exclude, include, kebabCase } from './utils'
+import { htmlTags, MODULE_ID, MODULE_ID_VIRTUAL, preflightTags, regexQuotedString, regexClassCheck, regexHtmlTag } from './constants'
 import { debug } from './debug'
-import { Options } from './types'
+import { Options, TagNames } from './types'
 
-function toArray<T>(v: T | T[]): T[] {
-  if (Array.isArray(v))
-    return v
-  return [v]
+export const defaultAlias: Record<string, TagNames> = {
+  'router-link': 'a',
 }
 
-function VitePluginWindicss(options: Options = {}): Plugin[] {
+function resolveOptions(options: Options) {
   const {
     windicssOptions = 'tailwind.config.js',
     searchExtensions = ['html', 'vue', 'pug', 'jsx', 'tsx', 'svelte'],
@@ -25,6 +24,40 @@ function VitePluginWindicss(options: Options = {}): Plugin[] {
     transformCSS = true,
   } = options
 
+  const preflightOptions = Object.assign({
+    includeBase: true,
+    includeGlobal: true,
+    includePlugin: true,
+    alias: {},
+  }, typeof preflight === 'boolean' ? {} : preflight)
+
+  preflightOptions.alias = Object.fromEntries(
+    Object.entries({
+      ...defaultAlias,
+      ...preflightOptions.alias,
+    }).filter(([k, v]) => [kebabCase(k), v]),
+  )
+
+  return {
+    windicssOptions,
+    searchExtensions,
+    searchDirs,
+    transformCSS,
+    preflight: Boolean(preflight),
+    preflightOptions,
+  }
+}
+
+function VitePluginWindicss(options: Options = {}): Plugin[] {
+  const {
+    windicssOptions,
+    searchExtensions,
+    searchDirs,
+    transformCSS,
+    preflight,
+    preflightOptions,
+  } = resolveOptions(options)
+
   let config: ResolvedConfig
   let windi: Windicss
   let windiConfigFile: string | undefined
@@ -32,23 +65,14 @@ function VitePluginWindicss(options: Options = {}): Plugin[] {
   const safelist = toArray(options.safelist || []).flatMap(i => i.split(' '))
 
   const regexId = new RegExp(`\\.(?:${searchExtensions.join('|')})$`, 'i')
-  const regexQuotedString = /(["'`])((?:\\\1|(?:(?!\1)).)*?)\1/g
-  const regexClassCheck = /^[a-z-]+[a-z0-9:\-/\\]*\.?[a-z0-9]$/
 
   const classes = new Set<string>()
   const classesPending = new Set<string>()
-
   const tags = new Set<string>()
   const tagsPending = new Set<string>()
   const tagsAvailable = new Set<string>()
 
-  const preflightOptions = Object.assign({
-    includeBase: true,
-    includeGlobal: true,
-    includePlugin: true,
-  }, typeof preflight === 'boolean' ? {} : preflight)
-
-  function initWindicss() {
+  function loadConfiguration() {
     let options: WindiCssOptions = {}
     if (typeof windicssOptions === 'string') {
       const path = resolve(config.root, windicssOptions)
@@ -63,7 +87,7 @@ function VitePluginWindicss(options: Options = {}): Plugin[] {
           windiConfigFile = path
           configSafelist.clear()
           // @ts-expect-error
-          add(configSafelist, options?.purge?.options?.safelist || options?.purge?.options?.whitelist || [])
+          include(configSafelist, options?.purge?.options?.safelist || options?.purge?.options?.whitelist || [])
         }
         catch (e) {
           console.error(`[vite-plugin-windicss] failed to load config "${windicssOptions}"`)
@@ -77,7 +101,11 @@ function VitePluginWindicss(options: Options = {}): Plugin[] {
     }
 
     debug.config(JSON.stringify(options, null, 2))
-    return new Windicss(options)
+    return options
+  }
+
+  function initWindicss() {
+    return new Windicss(loadConfiguration())
   }
 
   let _searching: Promise<void> | null
@@ -130,23 +158,24 @@ function VitePluginWindicss(options: Options = {}): Plugin[] {
         classesPending.add(i)
       })
 
-    // preflight
-    Array.from(code.matchAll(/<([a-z]+[0-9]?)/g))
-      .flatMap(([, i]) => i)
-      .forEach((i) => {
-        if (!tagsAvailable.has(i))
-          return
-        tagsPending.add(i)
-        tagsAvailable.delete(i)
-      })
+    if (preflight) {
+      // preflight
+      Array.from(code.matchAll(regexHtmlTag))
+        .flatMap(([, i]) => i)
+        .forEach((i) => {
+          if (!tagsAvailable.has(i)) {
+            debug.debug(i, kebabCase(i))
+            i = preflightOptions.alias[kebabCase(i)]
+          }
+          if (!tagsAvailable.has(i))
+            return
+          tagsPending.add(i)
+          tagsAvailable.delete(i)
+        })
+    }
 
     debug.detect('classes', classesPending)
     debug.detect('tags', tagsPending)
-  }
-
-  function add<T>(set: Set<T>, v: T[] | Set<T>) {
-    for (const i of v)
-      set.add(i)
   }
 
   function convertCSS(css: string) {
@@ -162,7 +191,7 @@ function VitePluginWindicss(options: Options = {}): Plugin[] {
     if (classesPending.size) {
       const result = windi.interpret(Array.from(classesPending).join(' '))
       if (result.success.length) {
-        add(classes, result.success)
+        include(classes, result.success)
         classesPending.clear()
         debug.compile(`compiled ${result.success.length} classes`)
         debug.compile(result.success)
@@ -179,7 +208,7 @@ function VitePluginWindicss(options: Options = {}): Plugin[] {
         preflightOptions.includePlugin,
       )
       style = style.extend(preflightStyle, true)
-      add(tags, tagsPending)
+      include(tags, tagsPending)
       tagsPending.clear()
     }
 
@@ -191,15 +220,23 @@ function VitePluginWindicss(options: Options = {}): Plugin[] {
     windi = initWindicss()
     style = new StyleSheet()
 
+    const preflightSafelist = toArray(preflightOptions?.safelist || []).flatMap(i => i.split(' '))
+
     debug.config('safelist', safelist)
     debug.config('configSafelist', configSafelist)
+    debug.config('preflightSafelist', preflightSafelist)
 
-    add(classesPending, configSafelist)
-    add(classesPending, safelist)
-    add(classesPending, classes)
-    add(tagsPending, tags)
-    add(tagsPending, preflightTags)
-    add(tagsAvailable, htmlTags)
+    include(classesPending, configSafelist)
+    include(classesPending, safelist)
+    include(classesPending, classes)
+    include(tagsPending, tags)
+    include(tagsPending, preflightTags)
+    include(tagsPending, preflightSafelist)
+    include(tagsAvailable, htmlTags as any as string[])
+
+    exclude(tagsAvailable, preflightTags)
+    exclude(tagsAvailable, preflightSafelist)
+
     classes.clear()
     tags.clear()
   }
@@ -281,4 +318,5 @@ function VitePluginWindicss(options: Options = {}): Plugin[] {
   return plugins
 }
 
+export * from './types'
 export default VitePluginWindicss
