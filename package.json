@@ -26,7 +26,7 @@
   },
   "dependencies": {
     "fast-glob": "^3.2.5",
-    "windicss": "^2.1.6"
+    "windicss": "^2.1.9"
   },
   "peerDependencies": {
     "vite": "^2.0.0-beta.69"

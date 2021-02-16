@@ -82,15 +82,19 @@ h2 {
   font-size: inherit;
   font-weight: inherit;
 }
+.bg-teal-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgba(0, 153, 102, var(--tw-bg-opacity));
+}
 .p-5 {
   padding: 1.25rem;
+}
+.p-1 {
+  padding: 0.25rem;
 }
 .px-5 {
   padding-left: 1.25rem;
   padding-right: 1.25rem;
-}
-.p-1 {
-  padding: 0.25rem;
 }
 .text-white {
   --tw-text-opacity: 1;
@@ -99,10 +103,6 @@ h2 {
 .hover\\\\:text-green-100:hover {
   --tw-text-opacity: 1;
   color: rgba(209, 250, 229, var(--tw-text-opacity));
-}
-.bg-teal-100 {
-  --tw-bg-opacity: 1;
-  background-color: rgba(0, 153, 102, var(--tw-bg-opacity));
 }
 .hover\\\\:w-1\\\\/3:hover {
   width: 33.333333%;

@@ -2,7 +2,7 @@ importers:
   .:
     dependencies:
       fast-glob: 3.2.5
-      windicss: 2.1.6
+      windicss: 2.1.9
     devDependencies:
       '@antfu/eslint-config': 0.4.3_eslint@7.20.0+typescript@4.1.5
       '@types/debug': 4.1.5
@@ -32,7 +32,7 @@ importers:
       tsup: ^3.12.1
       typescript: ^4.1.5
       vite: ^2.0.0-beta.70
-      windicss: ^2.1.6
+      windicss: ^2.1.9
   example:
     dependencies:
       vue: 3.0.5
@@ -6363,13 +6363,13 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-NsmoXalsWVDMGupxZ5R08ka9flZjjiLvHVAWYOKtiKM8ujtZWr9cRffak+uSE48+Ob8ObalXpwyeUiyDD6QFgg==
-  /windicss/2.1.6:
+  /windicss/2.1.9:
     dev: false
     engines:
       node: '>= 12'
     hasBin: true
     resolution:
-      integrity: sha512-G+RCA/SC+LVDf9xXNYKjljmNDZOlS4XhZrHySH7Anh9ymTbo4AXsKGqZU1jKWTzSky6IP5fR4ug5YVBo44NV8Q==
+      integrity: sha512-ezVx55DnMuIlNiWO5/Y7RECoQie7T8bu2TIlQcVqPOX5N+c01Q3zRGwI45CmovsaXuMrFdsuCwfoTjDNmvie1w==
   /word-wrap/1.2.3:
     dev: true
     engines:
