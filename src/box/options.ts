@@ -1,10 +1,19 @@
+/* eslint-disable no-use-before-define */
+
 import type { Config as WindiCssOptions } from 'windicss/types/interfaces'
 import { defaultAlias, TagNames } from './constants'
-import { kebabCase } from './utils'
+import { kebabCase, toArray } from './utils'
 
 export { WindiCssOptions }
 
-export interface UserOptions {
+export interface WindiBoxOptions {
+  /**
+   * Name for debug
+   *
+   * @default 'windi-box'
+   */
+  name?: string
+
   /**
    * Options for windicss/tailwindcss.
    * Also accepts string as config file path.
@@ -84,9 +93,16 @@ export interface UserOptions {
    * Safe class names to be always included.
    */
   safelist?: string | string[]
+
+  /**
+   * CWD
+   *
+   * @default process.cwd
+   */
+  root?: string
 }
 
-export function resolveOptions(options: UserOptions) {
+export function resolveOptions(options: WindiBoxOptions) {
   const {
     windicssOptions = 'tailwind.config.js',
     searchExtensions = ['html', 'vue', 'md', 'pug', 'jsx', 'tsx', 'svelte'],
@@ -95,6 +111,7 @@ export function resolveOptions(options: UserOptions) {
     preflight = true,
     transformCSS = true,
     sortUtilities = true,
+    root = process.cwd(),
   } = options
 
   const preflightOptions = Object.assign(
@@ -107,6 +124,8 @@ export function resolveOptions(options: UserOptions) {
     typeof preflight === 'boolean' ? {} : preflight,
   )
 
+  const safelist = new Set(toArray(options.safelist || []).flatMap(i => i.split(' ')))
+
   preflightOptions.alias = Object.fromEntries(
     Object.entries({
       ...defaultAlias,
@@ -115,6 +134,7 @@ export function resolveOptions(options: UserOptions) {
   )
 
   return {
+    ...options,
     windicssOptions,
     searchExtensions,
     searchDirs,
@@ -123,6 +143,8 @@ export function resolveOptions(options: UserOptions) {
     preflight: Boolean(preflight),
     preflightOptions,
     sortUtilities,
+    safelist,
+    root,
   }
 }
 
