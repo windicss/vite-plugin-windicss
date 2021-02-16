@@ -6,6 +6,7 @@ export const MODULE_ID_VIRTUAL = `/@windicss/${MODULE_ID}`
 export const regexQuotedString = /(["'`])((?:\\\1|(?:(?!\1)).)*?)\1/g
 export const regexClassCheck = /^[a-z-]+[a-z0-9:\-/\\]*\.?[a-z0-9]$/
 export const regexHtmlTag = /<([\w-]+)/g
+export const regexClassSplitter = /[\s'"`{}]/g
 
 export const defaultAlias: Record<string, TagNames> = {
   'router-link': 'a',

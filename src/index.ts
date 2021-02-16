@@ -7,7 +7,7 @@ import { StyleSheet } from 'windicss/utils/style'
 import { CSSParser } from 'windicss/utils/parser'
 import type { Config as WindiCssOptions } from 'windicss/types/interfaces'
 import { toArray, exclude, include, kebabCase } from './utils'
-import { htmlTags, MODULE_ID, MODULE_ID_VIRTUAL, preflightTags, regexQuotedString, regexClassCheck, regexHtmlTag, TagNames } from './constants'
+import { htmlTags, MODULE_ID, MODULE_ID_VIRTUAL, preflightTags, regexQuotedString, regexClassCheck, regexHtmlTag, TagNames, regexClassSplitter } from './constants'
 import { debug } from './debug'
 import { resolveOptions, UserOptions } from './options'
 
@@ -80,7 +80,9 @@ function VitePluginWindicss(options: UserOptions = {}): Plugin[] {
     if (!_searching) {
       _searching = (async() => {
         const globs = searchDirs.map(i => join(i, `**/*.{${searchExtensions.join(',')}}`).replace(/\\/g, '/'))
-        debug.glob(globs)
+        globs.unshift('index.html')
+
+        debug.glob('globs', globs)
 
         const files = await fg(
           globs,
@@ -91,10 +93,6 @@ function VitePluginWindicss(options: UserOptions = {}): Plugin[] {
             absolute: true,
           },
         )
-
-        const indexPath = join(viteConfig.root, 'index.html')
-        if (existsSync(indexPath))
-          files.unshift(indexPath)
 
         debug.glob('files', files)
 
@@ -119,7 +117,7 @@ function VitePluginWindicss(options: UserOptions = {}): Plugin[] {
     debug.detect(id)
     // classes
     Array.from(code.matchAll(regexQuotedString))
-      .flatMap(m => m[2]?.split(/[\s'"`{}]/g) || [])
+      .flatMap(m => m[2]?.split(regexClassSplitter) || [])
       .filter(i => i.match(regexClassCheck))
       .forEach((i) => {
         if (!i || classes.has(i))
