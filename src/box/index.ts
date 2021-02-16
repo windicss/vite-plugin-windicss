@@ -21,6 +21,7 @@ export function createBox(_options: WindiBoxOptions = {}) {
   const {
     name,
     windicssOptions,
+    enableGlobScan,
     searchExtensions,
     searchDirs,
     searchExclude,
@@ -91,7 +92,7 @@ export function createBox(_options: WindiBoxOptions = {}) {
 
   let _searching: Promise<void> | null
 
-  async function search() {
+  async function scan() {
     if (!_searching) {
       _searching = (async() => {
         const globs = searchDirs.map(i => join(i, `**/*.{${searchExtensions.join(',')}}`).replace(/\\/g, '/'))
@@ -113,10 +114,14 @@ export function createBox(_options: WindiBoxOptions = {}) {
 
         debug.glob('files', files)
 
-        const contents = await Promise.all(files.map(async id => [await fs.readFile(id, 'utf-8'), id]))
+        const contents = await Promise.all(
+          files
+            .filter(id => isDetectTarget(id))
+            .map(id => fs.readFile(id, 'utf-8')),
+        )
 
-        for (const [content, id] of contents)
-          extractFile(content, id)
+        for (const content of contents)
+          extractFile(content)
       })()
     }
 
@@ -127,11 +132,7 @@ export function createBox(_options: WindiBoxOptions = {}) {
     return id.match(regexId)
   }
 
-  function extractFile(code: string, id: string) {
-    if (!isDetectTarget(id))
-      return
-
-    debug.detect(id)
+  function extractFile(code: string) {
     // classes
     Array.from(code.matchAll(regexQuotedString))
       .flatMap(m => m[2]?.split(regexClassSplitter) || [])
@@ -171,7 +172,8 @@ export function createBox(_options: WindiBoxOptions = {}) {
   let _cssCache: string | undefined
 
   async function generateCSS() {
-    await search()
+    if (enableGlobScan)
+      await scan()
 
     let changed = false
 
@@ -245,6 +247,7 @@ export function createBox(_options: WindiBoxOptions = {}) {
     clearCache,
     transformCSS,
     isDetectTarget,
+    scan,
 
     classesGenerated,
     classesPending,

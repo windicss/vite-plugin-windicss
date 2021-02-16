@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`plugins aspect-ratio: classes 1`] = `
+Set {
+  "aspect-none",
+}
+`;
+
+exports[`plugins aspect-ratio: generated-css 1`] = `
+".aspect-none {
+  position: static;
+  padding-bottom: 0;
+}
+.aspect-none > * {
+  position: static;
+  height: auto;
+  width: auto;
+  top: auto;
+  right: auto;
+  bottom: auto;
+  left: auto;
+}"
+`;

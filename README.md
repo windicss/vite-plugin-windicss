@@ -57,7 +57,7 @@ If you are already using Tailwind CSS for your Vite app, you can follow these in
 Some of your dependencies are no longer required, you can remove them if they were only needed for Tailwind CSS.
 
 ```diff
-- "tailwindccs": "*",
+- "tailwindcss": "*",
 - "postcss": "*",
 - "autoprefixer": "*",
 + "vite-plugin-windicss": "*"

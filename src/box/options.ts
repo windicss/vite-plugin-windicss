@@ -8,13 +8,6 @@ export { WindiCssOptions }
 
 export interface WindiBoxOptions {
   /**
-   * Name for debug
-   *
-   * @default 'windi-box'
-   */
-  name?: string
-
-  /**
    * Options for windicss/tailwindcss.
    * Also accepts string as config file path.
    *
@@ -53,6 +46,13 @@ export interface WindiBoxOptions {
      */
     includePlugin?: boolean
   }
+
+  /**
+   * Search for glob files
+   *
+   * @default true
+   */
+  enableGlobScan?: boolean
 
   /**
    * Directories to search for classnames
@@ -95,9 +95,18 @@ export interface WindiBoxOptions {
   safelist?: string | string[]
 
   /**
+   * Name for debug
+   *
+   * @default 'windi-box'
+   * @internal
+   */
+  name?: string
+
+  /**
    * CWD
    *
    * @default process.cwd
+   * @internal
    */
   root?: string
 }
@@ -108,6 +117,7 @@ export function resolveOptions(options: WindiBoxOptions) {
     searchExtensions = ['html', 'vue', 'md', 'pug', 'jsx', 'tsx', 'svelte'],
     searchDirs = ['src'],
     searchExclude = [],
+    enableGlobScan = true,
     preflight = true,
     transformCSS = true,
     sortUtilities = true,
@@ -139,6 +149,7 @@ export function resolveOptions(options: WindiBoxOptions) {
     searchExtensions,
     searchDirs,
     searchExclude,
+    enableGlobScan,
     transformCSS,
     preflight: Boolean(preflight),
     preflightOptions,

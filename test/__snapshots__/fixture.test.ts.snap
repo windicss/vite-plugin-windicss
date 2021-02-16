@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`should works: classes 1`] = `
+exports[`fixture should works: classes 1`] = `
 Set {
   "p-5",
   "px-5",
@@ -13,7 +13,7 @@ Set {
 }
 `;
 
-exports[`should works: generated-css 1`] = `
+exports[`fixture should works: generated-css 1`] = `
 "*, ::before, ::after {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
@@ -410,7 +410,7 @@ h2 {
 }"
 `;
 
-exports[`should works: tags 1`] = `
+exports[`fixture should works: tags 1`] = `
 Set {
   "html",
   "body",

@@ -1,15 +1,20 @@
-import { resolve } from 'path'
 import { createBox } from '../src/box'
 
-describe('should', () => {
-  it('works', async() => {
+describe('plugins', () => {
+  it('aspect-ratio', async() => {
     const box = createBox({
-      root: resolve(__dirname, '../example'),
+      windicssOptions: {
+        plugins: [
+          require('windicss/plugin/aspect-ratio'),
+        ],
+      },
+      preflight: false,
     })
     box.init()
+    box.extractFile('"aspect-none"')
+
     const css = await box.generateCSS()
     expect(box.classesGenerated).toMatchSnapshot('classes')
-    expect(box.tagsGenerated).toMatchSnapshot('tags')
     expect(css).toMatchSnapshot('generated-css')
   })
 })
