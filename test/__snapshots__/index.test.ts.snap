@@ -2,6 +2,7 @@
 
 exports[`should works: classes 1`] = `
 Set {
+  "p-5",
   "px-5",
   "p-1",
   "text-white",
@@ -9,7 +10,6 @@ Set {
   "bg-teal-100",
   "hover:w-1/3",
   "prose",
-  "p-5",
 }
 `;
 
@@ -81,6 +81,9 @@ h2 {
   margin: 0;
   font-size: inherit;
   font-weight: inherit;
+}
+.p-5 {
+  padding: 1.25rem;
 }
 .px-5 {
   padding-left: 1.25rem;
@@ -404,9 +407,6 @@ h2 {
 }
 .prose > :last-child {
   margin-bottom: 0;
-}
-.p-5 {
-  padding: 1.25rem;
 }"
 `;
 
@@ -415,12 +415,12 @@ Set {
   "html",
   "body",
   "div",
-  "h2",
-  "a",
-  "style",
   "head",
   "meta",
   "title",
   "script",
+  "h2",
+  "a",
+  "style",
 }
 `;

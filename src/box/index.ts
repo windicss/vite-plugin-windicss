@@ -109,12 +109,14 @@ export function createBox(_options: WindiBoxOptions = {}) {
           },
         )
 
+        files.sort()
+
         debug.glob('files', files)
 
-        await Promise.all(files.map(async(id) => {
-          const content = await fs.readFile(id, 'utf-8')
+        const contents = await Promise.all(files.map(async id => [await fs.readFile(id, 'utf-8'), id]))
+
+        for (const [content, id] of contents)
           extractFile(content, id)
-        }))
       })()
     }
 
