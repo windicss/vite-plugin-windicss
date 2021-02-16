@@ -147,6 +147,11 @@ The following files can be removed if you don't use their other features.
 
 That's all, fire up Vite and enjoy the speed!
 
+## Configuration
+
+See [options.ts](https://github.com/windicss/vite-plugin-windicss/blob/main/src/box/options.ts#L9-L103) for configuration reference
+
+
 ## Example
 
 See [./example](./example) or [`Vitesse@feat/windicss`](https://github.com/antfu/vitesse/tree/feat/windicss)
