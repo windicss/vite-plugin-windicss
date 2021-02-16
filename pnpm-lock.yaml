@@ -13,7 +13,7 @@ importers:
       rollup: 2.39.0
       tsup: 3.12.1_typescript@4.1.5
       typescript: 4.1.5
-      vite: 2.0.0-beta.69
+      vite: 2.0.0-beta.70
     specifiers:
       '@antfu/eslint-config': ^0.4.3
       '@types/debug': ^4.1.5
@@ -25,7 +25,7 @@ importers:
       rollup: ^2.39.0
       tsup: ^3.12.1
       typescript: ^4.1.5
-      vite: ^2.0.0-beta.69
+      vite: ^2.0.0-beta.70
       windicss: ^2.1.6
   example:
     dependencies:
@@ -36,7 +36,7 @@ importers:
       cross-env: 7.0.3
       nodemon: 2.0.7
       typescript: 4.1.5
-      vite: 2.0.0-beta.69
+      vite: 2.0.0-beta.70
       vite-plugin-windicss: 'link:..'
     specifiers:
       '@vitejs/plugin-vue': ^1.1.4
@@ -44,7 +44,7 @@ importers:
       cross-env: ^7.0.3
       nodemon: ^2.0.7
       typescript: ^4.1.5
-      vite: ^2.0.0-beta.69
+      vite: ^2.0.0-beta.70
       vite-plugin-windicss: 'workspace:*'
       vue: ^3.0.5
 lockfileVersion: 5.2
@@ -3400,7 +3400,7 @@ packages:
     dev: true
     resolution:
       integrity: sha512-DpKm2Ui/xN7/HQKCtpZxoRWBhZ9Z0kqtygG8XCgNQ8ZlDnxuQmWhj566j8fN4Cu3/JmbhsDo7fcAJq4s9h27Ew==
-  /vite/2.0.0-beta.69:
+  /vite/2.0.0-beta.70:
     dependencies:
       esbuild: 0.8.45
       postcss: 8.2.6
@@ -3413,7 +3413,7 @@ packages:
     optionalDependencies:
       fsevents: 2.3.2
     resolution:
-      integrity: sha512-Wf4bWOK/b6Q+06Wyk7uJIBy/LiENGx26do6tn9gOMRRZLEuLizN/cDzGqnQkGVVevbb18xdilyxhnTes0lFjZg==
+      integrity: sha512-rbuAYZE8T0jNOUykkyfjiiKmz4MpW2KqzHO8++WCCDXyxzIg56ICQ/B6NLZzVpWyk0iSKiUKr2k8NMkmDlZAQQ==
   /vue-eslint-parser/7.4.1_eslint@7.20.0:
     dependencies:
       debug: 4.3.1
