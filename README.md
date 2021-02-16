@@ -1,24 +1,22 @@
-<h2 align='center'>vite-plugin-windicss</h2>
+<h1 align='center'>vite-plugin-windicss</h1>
 
-<p align='center'><a href="https://github.com/voorjaar/windicss">Windicss</a> for Vite<br>
-<sup><em>a.k.a On-demand TailwindCSS</em></sup>
+<p align='center'><a href="https://github.com/voorjaar/windicss">Windi CSS</a> for Vite<br>
+<sup><em>a.k.a On-demand Tailwind CSS</em></sup>
 </p>
 
 <p align='center'>
 <a href='https://www.npmjs.com/package/vite-plugin-windicss'>
-<img src='https://img.shields.io/npm/v/vite-plugin-windicss?color=222&style=flat-square&label='>
+<img src='https://img.shields.io/npm/v/vite-plugin-windicss?color=0EA5E9&label='>
 </a>
 </p>
 
 <p align='center'>
-<a href='https://twitter.com/antfu7/status/1361398324587163648'>
-<img src='https://user-images.githubusercontent.com/11247099/107987838-b6462900-7009-11eb-8548-3038cb94b06f.png'/>
-</a>
+<a href='https://twitter.com/antfu7/status/1361398324587163648'>⚡️ See speed comparison with Tailwind</a>
 </p>
 
 ## Features
 
-- ⚡️ **It's FAST** - about 15~20 times faster than Tailwind on Vite
+- ⚡️ **It's FAST** - 20~100x times faster than Tailwind on Vite
 - 🧩 On-demand CSS utilities (Compatible with Tailwind CSS v2)
 - 📦 On-demand native elements style reseting
 - 🔥 Hot module replacement (HMR)
@@ -26,15 +24,11 @@
 - 🤝 Framework-agnostic - Vue, React, Svelte and vanilla!
 - 📄 CSS `@apply` / `@screen` directives transforms (also works for Vue SFC's `<style>`)
 
-## Usage
-
-Install
+## Install
 
 ```bash
 npm i vite-plugin-windicss -D # yarn add vite-plugin-windicss -D
 ```
-
-Add it to `vite.config.js`
 
 ```ts
 // vite.config.js
@@ -52,7 +46,7 @@ export default {
 import 'windi.css'
 ```
 
-That's all ⚡️
+That's all. Build your app just like what you would do with Tailwind CSS, but much faster! ⚡️
 
 ## Migration from Tailwind CSS
 
