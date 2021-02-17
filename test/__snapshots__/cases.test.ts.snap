@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`cases conditional: classes 1`] = `
+Set {
+  "font-semibold",
+  "font-normal",
+  "block",
+  "truncate",
+}
+`;
+
+exports[`cases conditional: generated-css 1`] = `
+".font-semibold {
+  font-weight: 600;
+}
+.font-normal {
+  font-weight: 400;
+}
+.block {
+  display: block;
+}
+.truncate {
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}"
+`;
+
+exports[`cases multiple lines: classes 1`] = `
+Set {
+  "p-4",
+  "m-5",
+}
+`;
+
+exports[`cases multiple lines: generated-css 1`] = `
+".m-5 {
+  margin: 1.25rem;
+}
+.p-4 {
+  padding: 1rem;
+}"
+`;
+
+exports[`cases uppercase classnames: classes 1`] = `
+Set {
+  "text-lightBlue-500",
+}
+`;
+
+exports[`cases uppercase classnames: generated-css 1`] = `
+".text-lightBlue-500 {
+  --tw-text-opacity: 1;
+  color: rgba(14, 165, 233, var(--tw-text-opacity));
+}"
+`;
