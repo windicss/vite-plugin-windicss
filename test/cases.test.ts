@@ -41,4 +41,8 @@ describe('cases', () => {
 
     expect(box.classesPending).toMatchSnapshot('classes-pending')
   })
+
+  it('variables', async() => {
+    box.extractFile('"bg-$test-variable"')
+  })
 })
