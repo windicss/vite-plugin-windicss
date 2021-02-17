@@ -2,7 +2,7 @@ importers:
   .:
     dependencies:
       fast-glob: 3.2.5
-      windicss: 2.1.10
+      windicss: 2.1.11
     devDependencies:
       '@antfu/eslint-config': 0.4.3_eslint@7.20.0+typescript@4.1.5
       '@antfu/ni': 0.5.4
@@ -12,12 +12,12 @@ importers:
       bumpp: 6.0.6
       debug: 4.3.2
       eslint: 7.20.0
-      eslint-plugin-jest: 24.1.4_eslint@7.20.0+typescript@4.1.5
-      git-ensure: 0.0.4
+      eslint-plugin-jest: 24.1.5_eslint@7.20.0+typescript@4.1.5
+      git-ensure: 0.0.6
       jest: 26.6.3
       rollup: 2.39.0
       ts-jest: 26.5.1_jest@26.6.3+typescript@4.1.5
-      tsup: 3.12.1_typescript@4.1.5
+      tsup: 4.0.0_typescript@4.1.5
       typescript: 4.1.5
       vite: 2.0.0
     specifiers:
@@ -29,16 +29,16 @@ importers:
       bumpp: ^6.0.6
       debug: ^4.3.2
       eslint: ^7.20.0
-      eslint-plugin-jest: ^24.1.4
+      eslint-plugin-jest: ^24.1.5
       fast-glob: ^3.2.5
-      git-ensure: ^0.0.4
+      git-ensure: ^0.0.6
       jest: ^26.6.3
       rollup: ^2.39.0
       ts-jest: ^26.5.1
-      tsup: ^3.12.1
+      tsup: ^4.0.0
       typescript: ^4.1.5
       vite: ^2.0.0
-      windicss: ^2.1.10
+      windicss: ^2.1.11
   example:
     dependencies:
       vue: 3.0.5
@@ -703,7 +703,7 @@ packages:
       node: '>= 8'
     resolution:
       integrity: sha512-8Broas6vTtW4GIXTAHDoE32hnN2M5ykgCpWGbuXHQ15vEMqr23pB76e/GZcYsZCHALv50ktd24qhEyKr6wBtow==
-  /@rollup/plugin-node-resolve/11.1.1_rollup@2.39.0:
+  /@rollup/plugin-node-resolve/11.2.0_rollup@2.39.0:
     dependencies:
       '@rollup/pluginutils': 3.1.0_rollup@2.39.0
       '@types/resolve': 1.17.1
@@ -718,7 +718,7 @@ packages:
     peerDependencies:
       rollup: ^1.20.0||^2.0.0
     resolution:
-      integrity: sha512-zlBXR4eRS+2m79TsUZWhsd0slrHUYdRx4JF+aVQm+MI0wsKdlpC2vlDVjmlGvtZY1vsefOT9w3JxvmWSBei+Lg==
+      integrity: sha512-qHjNIKYt5pCcn+5RUBQxK8krhRvf1HnyVgUCcFFcweDS7fhkOLZeYh0mhHK6Ery8/bb9tvN/ubPzmfF0qjDCTA==
   /@rollup/pluginutils/3.1.0_rollup@2.39.0:
     dependencies:
       '@types/estree': 0.0.39
@@ -832,10 +832,6 @@ packages:
     dev: true
     resolution:
       integrity: sha1-7ihweulOEdK4J7y+UnC86n8+ce4=
-  /@types/node/14.14.27:
-    dev: true
-    resolution:
-      integrity: sha512-Ecfmo4YDQPwuqTCl1yBxLV5ihKfRlkBmzUEDcfIRvDxOTGQEeikr317Ln7Gcv0tjA8dVgKI3rniqW2G1OyKDng==
   /@types/node/14.14.28:
     dev: true
     resolution:
@@ -854,7 +850,7 @@ packages:
       integrity: sha512-DxZZbyMAM9GWEzXL+BMZROWz9oo6A9EilwwOMET2UVu2uZTqMWS5S69KVtuVKaRjCUpcrOXRalet86/OpG4kqw==
   /@types/resolve/1.17.1:
     dependencies:
-      '@types/node': 14.14.27
+      '@types/node': 14.14.28
     dev: true
     resolution:
       integrity: sha512-yy7HuzQhj0dhGpD8RLXSZWEkLsV9ibvxvi6EiJ3bkqLAO1RGo0WbkWQiwpRlSFymTJRz0d3k5LM3kkx8ArDbLw==
@@ -1600,12 +1596,6 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-mQsnIGsLcH9weV8fluJAAu+Q1ITp1XfPhNBUlXb3MZRhCVLx/i1A+ebOMqLos2kYdqPfBGOyROOj+YAEwZMcFA==
-  /cac/6.7.1:
-    dev: true
-    engines:
-      node: '>=8'
-    resolution:
-      integrity: sha512-LfGt47+ugCY65W4yUEyxnZKd/tJSBJD/gUAxQGiQjH7yqdhbaX2XN0Rli4+0W0DJiDONmYeh0TlJxMtXGZspIg==
   /cac/6.7.2:
     dev: true
     engines:
@@ -2353,6 +2343,12 @@ packages:
     requiresBuild: true
     resolution:
       integrity: sha512-AhR+h/Kat9QMssi0rSJIei0yR+dJ0DQ5aDqnZy4VLu9kOBHdJh8vDSE2XzUlwnm4umvMFnfQTELZlsH7Zmvksw==
+  /esbuild/0.8.46:
+    dev: true
+    hasBin: true
+    requiresBuild: true
+    resolution:
+      integrity: sha512-xck9sXNCNmjDHCCfxTCyhKTiFuEBweh+IDAhMLOJI990v1Fzii6MyIkT1LbkvjgoVgPX2SK1kpi5eZVGNrl8yg==
   /escape-goat/2.1.1:
     dev: true
     engines:
@@ -2467,7 +2463,7 @@ packages:
       eslint: ^2 || ^3 || ^4 || ^5 || ^6 || ^7.2.0
     resolution:
       integrity: sha512-8K7JjINHOpH64ozkAhpT3sd+FswIZTfMZTjdx052pnWrgRCVfp8op9tbjpAk3DdUeI/Ba4C8OjdC0r90erHEOw==
-  /eslint-plugin-jest/24.1.4_eslint@7.20.0+typescript@4.1.5:
+  /eslint-plugin-jest/24.1.5_eslint@7.20.0+typescript@4.1.5:
     dependencies:
       '@typescript-eslint/experimental-utils': 4.15.1_eslint@7.20.0+typescript@4.1.5
       eslint: 7.20.0
@@ -2478,7 +2474,7 @@ packages:
       eslint: '>=5'
       typescript: '*'
     resolution:
-      integrity: sha512-Xly8okNrsR6xwo94SqvdH8eCyHoK7AegEK+6Me63eY/60Q8iZr6Y81WhtqktrEOHu9Q4188Cj9CfMU6H9P5JBA==
+      integrity: sha512-FIP3lwC8EzEG+rOs1y96cOJmMVpdFNreoDJv29B5vIupVssRi8zrSY3QadogT0K3h1Y8TMxJ6ZSAzYUmFCp2hg==
   /eslint-plugin-node/11.1.0_eslint@7.20.0:
     dependencies:
       eslint: 7.20.0
@@ -3087,7 +3083,7 @@ packages:
     dev: true
     resolution:
       integrity: sha1-Xv+OPmhNVprkyysSgmBOi6YhSfo=
-  /git-ensure/0.0.4:
+  /git-ensure/0.0.6:
     dependencies:
       cac: 6.7.2
       chalk: 4.1.0
@@ -3096,7 +3092,7 @@ packages:
     dev: true
     hasBin: true
     resolution:
-      integrity: sha512-QmM6qVZ4FA4LAR5PAtbXd+Guq0NTEN0IOAKYtqKXS6MCD6b75TvjDo0QVLRHinZusKAlymwBNudBUB8cKTLVQw==
+      integrity: sha512-e2k6W5VL2BjC80s1DEZUdfnu9szd/8BwYQpt2FXZ17pc+s/mqSPF591qH+lm37T5IceV4dK3HC6sWob16bn98Q==
   /glob-parent/5.1.1:
     dependencies:
       is-glob: 4.0.1
@@ -6387,13 +6383,13 @@ packages:
     dev: true
     resolution:
       integrity: sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==
-  /tsup/3.12.1_typescript@4.1.5:
+  /tsup/4.0.0_typescript@4.1.5:
     dependencies:
-      '@rollup/plugin-node-resolve': 11.1.1_rollup@2.39.0
-      cac: 6.7.1
+      '@rollup/plugin-node-resolve': 11.2.0_rollup@2.39.0
+      cac: 6.7.2
       chalk: 4.1.0
       chokidar: 3.5.1
-      esbuild: 0.8.45
+      esbuild: 0.8.46
       globby: 11.0.2
       joycon: 2.2.5
       postcss-load-config: 3.0.1
@@ -6406,7 +6402,7 @@ packages:
     peerDependencies:
       typescript: '*'
     resolution:
-      integrity: sha512-W9/XQ7JTEt1iuybQLVk0eNKYBfuIbQ7uvVVyBg6xSEL0XrIdi8sWKj9W2wC8e9KRpXwtQtSZ1a4wnqQMQiIH3w==
+      integrity: sha512-zI1Cy/qp4r2gCpRXOuL8wY0xqP5tmQq0qU2v+V3w1F+OFNL5aok0R4ImOWeRav3SFo3s4lB1boq+gc9GMdVdhg==
   /tsutils/3.20.0_typescript@4.1.5:
     dependencies:
       tslib: 1.14.1
@@ -6734,13 +6730,13 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-NsmoXalsWVDMGupxZ5R08ka9flZjjiLvHVAWYOKtiKM8ujtZWr9cRffak+uSE48+Ob8ObalXpwyeUiyDD6QFgg==
-  /windicss/2.1.10:
+  /windicss/2.1.11:
     dev: false
     engines:
       node: '>= 12'
     hasBin: true
     resolution:
-      integrity: sha512-Hg4UMD4Hc0kGudnzs9BfTqIwLMOx8nGUuVrybh9dUCf5rogrCJKm2cc72j7XSvLGFm/OI+oKdPmhAjZsKzGRBg==
+      integrity: sha512-79mPoUmvamwdJb+MJ/ug+XILxFzrTNCXo/HmacUn3V9sRQ6w5lA9KkpTrG70N7Oab0hbIFaq+X3Yva+QLSV0Pw==
   /word-wrap/1.2.3:
     dev: true
     engines:
