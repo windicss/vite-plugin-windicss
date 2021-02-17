@@ -53,6 +53,28 @@ importers:
       vite: ^2.0.0
       vite-plugin-windicss: 'workspace:*'
       vue: ^3.0.5
+  test/fixtures/css-scoped:
+    dependencies:
+      vue: 3.0.5
+    devDependencies:
+      '@vitejs/plugin-vue': 1.1.4_@vue+compiler-sfc@3.0.5
+      '@vue/compiler-sfc': 3.0.5_vue@3.0.5
+      cross-env: 7.0.3
+      nodemon: 2.0.7
+      sass: 1.32.7
+      stylus: 0.54.8
+      vite: 2.0.0
+      vite-plugin-windicss: 'link:../../..'
+    specifiers:
+      '@vitejs/plugin-vue': ^1.1.4
+      '@vue/compiler-sfc': ^3.0.5
+      cross-env: ^7.0.3
+      nodemon: ^2.0.7
+      sass: ^1.32.7
+      stylus: ^0.54.8
+      vite: ^2.0.0
+      vite-plugin-windicss: 'workspace:*'
+      vue: ^3.0.5
 lockfileVersion: 5.2
 packages:
   /@antfu/eslint-config-basic/0.4.3_eslint@7.20.0:
@@ -1850,6 +1872,21 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-v1plID3y9r/lPhviJ1wrXpLeyUIGAZ2SHNYTEapm7/8A9nLPoyvVp3RK/EPFqn5kEznyWgYZNsRtYYIWbuG8KA==
+  /css-parse/2.0.0:
+    dependencies:
+      css: 2.2.4
+    dev: true
+    resolution:
+      integrity: sha1-pGjuZnwW2BzPBcWMONKpfHgNv9Q=
+  /css/2.2.4:
+    dependencies:
+      inherits: 2.0.4
+      source-map: 0.6.1
+      source-map-resolve: 0.5.3
+      urix: 0.1.0
+    dev: true
+    resolution:
+      integrity: sha512-oUnjmWpy0niI3x/mPL8dVEI1l7MnG3+HHyRPHf+YFSbK+svOhXpmSOcDURUh2aOCgl2grzrOPt1nHLuCVFULLw==
   /cssesc/3.0.0:
     dev: true
     engines:
@@ -1901,6 +1938,12 @@ packages:
     dev: true
     resolution:
       integrity: sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==
+  /debug/3.1.0:
+    dependencies:
+      ms: 2.0.0
+    dev: true
+    resolution:
+      integrity: sha512-OX8XqP7/1a9cqkxYw2yXss15f26NKWBpDXQd0/uK/KPqdQhxbPa994hnzjcE2VqQpDslf55723cKPUOGSmMY3g==
   /debug/3.2.7:
     dependencies:
       ms: 2.1.3
@@ -5413,6 +5456,19 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-hhbzAgTIX8O7SHfp2c8/kREfEn4qO/9q8C9beyY6+tvZ87EpoZ3i1RIEvp27YBswnNbY9mWd6paKVmKbAgLfZA==
+  /sass/1.32.7:
+    dependencies:
+      chokidar: 3.5.1
+    dev: true
+    engines:
+      node: '>=8.9.0'
+    hasBin: true
+    resolution:
+      integrity: sha512-C8Z4bjqGWnsYa11o8hpKAuoyFdRhrSHcYjCr+XAWVPSIQqC8mp2f5Dx4em0dKYehPzg5XSekmCjqJnEZbIls9A==
+  /sax/1.2.4:
+    dev: true
+    resolution:
+      integrity: sha512-NqVDv9TpANUjFm0N8uM5GxL36UgKi9/atZw+x7YFnQ8ckwFGKrl4xX4yWtrey3UJm5nP1kUbnYgLopqWNSRhWw==
   /saxes/5.0.1:
     dependencies:
       xmlchars: 2.2.0
@@ -5788,6 +5844,20 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-6fPc+R4ihwqP6N/aIv2f1gMH8lOVtWQHoqC4yK6oSDVVocumAsfCqjkXnqiYMhmMwS/mEHLp7Vehlt3ql6lEig==
+  /stylus/0.54.8:
+    dependencies:
+      css-parse: 2.0.0
+      debug: 3.1.0
+      glob: 7.1.6
+      mkdirp: 1.0.4
+      safer-buffer: 2.1.2
+      sax: 1.2.4
+      semver: 6.3.0
+      source-map: 0.7.3
+    dev: true
+    hasBin: true
+    resolution:
+      integrity: sha512-vr54Or4BZ7pJafo2mpf0ZcwA74rpuYCZbxrHBsH8kbcXOwSfvBFwsRfpGO5OD5fhG5HDCFW737PKaawI7OqEAg==
   /sucrase/3.17.1:
     dependencies:
       commander: 4.1.1

@@ -81,10 +81,9 @@ function VitePluginWindicss(options: UserOptions = {}): Plugin[] {
     {
       name: `${NAME}:css`,
       transform(code, id) {
-        if (id.match(/\.(post)?css(?:$|\?)/)) {
-          debug.css(id)
+        debug.css(id)
+        if (id.match(/\.(?:postcss|scss|sass|css|stylus)(?:$|\?)/i))
           return box.transformCSS(code)
-        }
       },
     },
   ]

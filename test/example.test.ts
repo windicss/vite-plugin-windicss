@@ -1,8 +1,8 @@
 import { resolve } from 'path'
 import { createBox } from '../src/box'
 
-describe('fixture', () => {
-  it('should works', async() => {
+describe('example', () => {
+  it('should work', async() => {
     const box = createBox({
       root: resolve(__dirname, '../example'),
     })
