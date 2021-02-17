@@ -36,7 +36,7 @@ import WindiCSS from 'vite-plugin-windicss'
 
 export default {
   plugins: [
-    ...WindiCSS()
+    WindiCSS()
   ],
 };
 ```
@@ -110,7 +110,7 @@ import WindiCSS from 'vite-plugin-windicss'
 export default {
   plugins: [
     /* ... */
-    ...WindiCSS({
+    WindiCSS({
       safelist: 'prose prose-sm m-auto'
     })
   ],

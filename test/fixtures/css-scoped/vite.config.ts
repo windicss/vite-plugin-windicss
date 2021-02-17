@@ -7,7 +7,7 @@ const config: UserConfig = {
     Vue({
       include: [/\.vue$/, /\.md$/],
     }),
-    ...WindiCSS(),
+    WindiCSS(),
   ],
 }
 
