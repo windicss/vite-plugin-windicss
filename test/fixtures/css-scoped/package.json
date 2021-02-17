@@ -8,13 +8,13 @@
     "vue": "^3.0.5"
   },
   "devDependencies": {
-    "sass": "^1.32.7",
     "@vitejs/plugin-vue": "^1.1.4",
     "@vue/compiler-sfc": "^3.0.5",
     "cross-env": "^7.0.3",
     "nodemon": "^2.0.7",
+    "sass": "^1.32.7",
     "stylus": "^0.54.8",
-    "vite": "^2.0.0",
+    "vite": "^2.0.1",
     "vite-plugin-windicss": "workspace:*"
   }
 }
