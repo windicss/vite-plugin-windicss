@@ -16,6 +16,11 @@ export interface WindiBoxOptions {
   windicssOptions?: WindiCssOptions | string
 
   /**
+   * Safe class names to be always included.
+   */
+  safelist?: string | string[]
+
+  /**
    * Enabled windicss preflight (a.k.a TailwindCSS style reset)
    *
    * @default true
@@ -48,32 +53,46 @@ export interface WindiBoxOptions {
   }
 
   /**
-   * Search for glob files
+   * Scan the files and extract the usage
    *
    * @default true
    */
-  enableGlobScan?: boolean
+  scan?: boolean | {
+    /**
+     * Auto scan on startup
+     *
+     * @default true
+     */
+    runOnStartup?: boolean
 
-  /**
-   * Directories to search for classnames
-   *
-   * @default 'src'
-   */
-  searchDirs?: string[]
+    /**
+     * Directories to search for classnames
+     *
+     * @default 'src'
+     */
+    dirs?: string[]
 
-  /**
-   * File extension to search for classnames
-   *
-   * @default 'html', 'vue'
-   */
-  searchExtensions?: string[]
+    /**
+     * File extension to search for classnames
+     *
+     * @default 'html', 'vue'
+     */
+    fileExtensions?: string[]
 
-  /**
-   * Exclude globs
-   *
-   * @default []
-   */
-  searchExclude?: string[]
+    /**
+     * Exclude globs
+     *
+     * @default []
+     */
+    exclude?: string[]
+
+    /**
+     * Include globs
+     *
+     * @default []
+     */
+    include?: string[]
+  }
 
   /**
    * Transform CSS for `@apply` directive
@@ -88,11 +107,6 @@ export interface WindiBoxOptions {
    * @default true
    */
   sortUtilities?: boolean
-
-  /**
-   * Safe class names to be always included.
-   */
-  safelist?: string | string[]
 
   /**
    * Name for debug
@@ -114,10 +128,7 @@ export interface WindiBoxOptions {
 export function resolveOptions(options: WindiBoxOptions) {
   const {
     windicssOptions = 'tailwind.config.js',
-    searchExtensions = ['html', 'vue', 'md', 'pug', 'jsx', 'tsx', 'svelte'],
-    searchDirs = ['src'],
-    searchExclude = [],
-    enableGlobScan = true,
+    scan = true,
     preflight = true,
     transformCSS = true,
     sortUtilities = true,
@@ -134,6 +145,17 @@ export function resolveOptions(options: WindiBoxOptions) {
     typeof preflight === 'boolean' ? {} : preflight,
   )
 
+  const scanOptions = Object.assign(
+    {
+      fileExtensions: ['html', 'vue', 'md', 'pug', 'jsx', 'tsx', 'svelte'],
+      dirs: ['src'],
+      exclude: [] as string[],
+      include: [] as string[],
+      runOnStartup: true,
+    },
+    typeof scan === 'boolean' ? {} : scan,
+  )
+
   const safelist = new Set(toArray(options.safelist || []).flatMap(i => i.split(' ')))
 
   preflightOptions.alias = Object.fromEntries(
@@ -146,13 +168,11 @@ export function resolveOptions(options: WindiBoxOptions) {
   return {
     ...options,
     windicssOptions,
-    searchExtensions,
-    searchDirs,
-    searchExclude,
-    enableGlobScan,
-    transformCSS,
+    scan: Boolean(scan),
+    scanOptions,
     preflight: Boolean(preflight),
     preflightOptions,
+    transformCSS,
     sortUtilities,
     safelist,
     root,

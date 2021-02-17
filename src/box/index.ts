@@ -21,12 +21,10 @@ export function createBox(_options: WindiBoxOptions = {}) {
   const {
     name,
     windicssOptions,
-    enableGlobScan,
-    searchExtensions,
-    searchDirs,
-    searchExclude,
+    scan: enabledScan,
+    scanOptions,
     transformCSS: enableCssTransform,
-    preflight,
+    preflight: enablePreflight,
     preflightOptions,
     sortUtilities,
     root,
@@ -44,7 +42,7 @@ export function createBox(_options: WindiBoxOptions = {}) {
   let processor: WindiCssProcessor
   let configFilePath: string | undefined
 
-  const regexId = new RegExp(`\\.(?:${searchExtensions.join('|')})$`, 'i')
+  const regexId = new RegExp(`\\.(?:${scanOptions.fileExtensions.join('|')})$`, 'i')
 
   const configSafelist = new Set<string>()
 
@@ -94,9 +92,11 @@ export function createBox(_options: WindiBoxOptions = {}) {
 
   async function scan() {
     if (!_searching) {
+      const { fileExtensions, dirs, include, exclude } = scanOptions
       _searching = (async() => {
-        const globs = searchDirs.map(i => join(i, `**/*.{${searchExtensions.join(',')}}`).replace(/\\/g, '/'))
+        const globs = dirs.map(i => join(i, `**/*.{${fileExtensions.join(',')}}`).replace(/\\/g, '/'))
         globs.unshift('index.html')
+        globs.unshift(...include)
 
         debug.glob('globs', globs)
 
@@ -104,7 +104,7 @@ export function createBox(_options: WindiBoxOptions = {}) {
           globs,
           {
             cwd: root,
-            ignore: ['node_modules', '.git', ...searchExclude],
+            ignore: ['node_modules', '.git', ...exclude],
             onlyFiles: true,
             absolute: true,
           },
@@ -143,7 +143,7 @@ export function createBox(_options: WindiBoxOptions = {}) {
         classesPending.add(i)
       })
 
-    if (preflight) {
+    if (enablePreflight) {
       // preflight
       Array.from(code.matchAll(regexHtmlTag))
         .flatMap(([, i]) => i)
@@ -172,7 +172,7 @@ export function createBox(_options: WindiBoxOptions = {}) {
   let _cssCache: string | undefined
 
   async function generateCSS() {
-    if (enableGlobScan)
+    if (enabledScan && scanOptions.runOnStartup)
       await scan()
 
     let changed = false
@@ -190,7 +190,7 @@ export function createBox(_options: WindiBoxOptions = {}) {
       }
     }
 
-    if (preflight && tagsPending.size) {
+    if (enablePreflight && tagsPending.size) {
       const preflightStyle = processor.preflight(
         Array.from(tagsPending).map(i => `<${i}`).join(' '),
         preflightOptions.includeBase,
