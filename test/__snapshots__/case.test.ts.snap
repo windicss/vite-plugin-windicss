@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`cases upperCase classnames: classes 1`] = `
+Set {
+  "text-lightBlue-500",
+}
+`;
+
+exports[`cases upperCase classnames: generated-css 1`] = `
+".text-lightBlue-500 {
+  --tw-text-opacity: 1;
+  color: rgba(14, 165, 233, var(--tw-text-opacity));
+}"
+`;

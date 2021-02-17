@@ -8,6 +8,7 @@ describe('plugins', () => {
           require('windicss/plugin/aspect-ratio'),
         ],
       },
+      scan: false,
       preflight: false,
     })
     box.init()
