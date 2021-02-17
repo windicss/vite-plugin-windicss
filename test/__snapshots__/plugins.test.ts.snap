@@ -3,6 +3,9 @@
 exports[`plugins aspect-ratio: classes 1`] = `
 Set {
   "aspect-none",
+  "aspect-w-16",
+  "aspect-h-9",
+  "aspect-16/9",
 }
 `;
 
@@ -19,5 +22,35 @@ exports[`plugins aspect-ratio: generated-css 1`] = `
   right: auto;
   bottom: auto;
   left: auto;
+}
+.aspect-w-16 {
+  --tw-aspect-w: 16;
+  position: relative;
+  padding-bottom: calc(var(--tw-aspect-h) / var(--tw-aspect-w) * 100%);
+}
+.aspect-w-16 > * {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+.aspect-h-9 {
+  --tw-aspect-h: 9;
+}
+.aspect-16\\\\/9 {
+  position: relative;
+  padding-bottom: 177.777778%;
+}
+.aspect-16\\\\/9 > * {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
 }"
 `;
