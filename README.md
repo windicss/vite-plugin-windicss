@@ -1,6 +1,6 @@
 <h1 align='center'>vite-plugin-windicss</h1>
 
-<p align='center'><a href="https://github.com/voorjaar/windicss">Windi CSS</a> for Vite<br>
+<p align='center'><a href="https://github.com/voorjaar/windicss">Windi CSS</a> for Vite, it's fast! ⚡️<br>
 <sup><em>a.k.a On-demand Tailwind CSS</em></sup>
 </p>
 
