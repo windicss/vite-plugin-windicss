@@ -3,7 +3,7 @@ import { createBox } from '../src/box'
 describe('plugins', () => {
   it('aspect-ratio', async() => {
     const box = createBox({
-      windicssOptions: {
+      config: {
         plugins: [
           require('windicss/plugin/aspect-ratio'),
         ],

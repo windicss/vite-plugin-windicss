@@ -13,7 +13,7 @@ export interface WindiBoxOptions {
    *
    * @default 'tailwind.config.js'
    */
-  windicssOptions?: WindiCssOptions | string
+  config?: WindiCssOptions | string
 
   /**
    * Safe class names to be always included.
@@ -134,7 +134,7 @@ export interface WindiBoxOptions {
 
 export function resolveOptions(options: WindiBoxOptions) {
   const {
-    windicssOptions = 'tailwind.config.js',
+    config = 'tailwind.config.js',
     scan = true,
     preflight = true,
     transformCSS = true,
@@ -174,7 +174,7 @@ export function resolveOptions(options: WindiBoxOptions) {
 
   return {
     ...options,
-    windicssOptions,
+    config,
     scan: Boolean(scan),
     scanOptions,
     preflight: Boolean(preflight),

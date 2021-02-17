@@ -4,7 +4,7 @@ describe('cases', () => {
   let box: WindiBox
 
   beforeEach(() => {
-    box = createBox({ windicssOptions: {}, preflight: false, scan: false })
+    box = createBox({ config: {}, preflight: false, scan: false })
     box.init()
   })
 

@@ -20,7 +20,7 @@ export function createBox(_options: WindiBoxOptions = {}) {
 
   const {
     name,
-    windicssOptions,
+    config,
     scan: enabledScan,
     scanOptions,
     transformCSS: enableCssTransform,
@@ -53,35 +53,35 @@ export function createBox(_options: WindiBoxOptions = {}) {
   const tagsAvailable = new Set<string>()
 
   function loadConfiguration() {
-    let options: WindiCssOptions = {}
-    if (typeof windicssOptions === 'string') {
-      const path = resolve(root, windicssOptions)
+    let resolved: WindiCssOptions = {}
+    if (typeof config === 'string') {
+      const path = resolve(root, config)
       if (!existsSync(path)) {
-        console.warn(`[${name}] config file "${windicssOptions}" not found, ignored`)
+        console.warn(`[${name}] config file "${config}" not found, ignored`)
       }
       else {
         try {
           delete require.cache[require.resolve(path)]
           // eslint-disable-next-line @typescript-eslint/no-var-requires
-          options = require(path)
+          resolved = require(path)
           configFilePath = path
           configSafelist.clear()
           // @ts-expect-error
-          include(configSafelist, options?.purge?.options?.safelist || options?.purge?.options?.whitelist || [])
+          include(configSafelist, resolved?.purge?.options?.safelist || resolved?.purge?.options?.whitelist || [])
         }
         catch (e) {
-          console.error(`[${name}] failed to load config "${windicssOptions}"`)
+          console.error(`[${name}] failed to load config "${config}"`)
           console.error(`[${name}] ${e.toString()}`)
           process.exit(1)
         }
       }
     }
     else {
-      options = windicssOptions
+      resolved = config
     }
 
-    debug.config(JSON.stringify(options, null, 2))
-    return options
+    debug.config(JSON.stringify(resolved, null, 2))
+    return resolved
   }
 
   function initWindicss() {
