@@ -55,3 +55,39 @@ exports[`cases uppercase classnames: generated-css 1`] = `
   color: rgba(14, 165, 233, var(--tw-text-opacity));
 }"
 `;
+
+exports[`cases utilities grouping: classes 1`] = `
+Set {
+  "sm:hover:bg-gray-100",
+  "sm:hover:font-medium",
+  "bg-white",
+  "font-light",
+}
+`;
+
+exports[`cases utilities grouping: classes-pending 1`] = `
+Set {
+  "sm:hover:(bg-gray-100 font-medium)",
+  "bg-white",
+  "font-light",
+}
+`;
+
+exports[`cases utilities grouping: generated-css 1`] = `
+".bg-white {
+  --tw-bg-opacity: 1;
+  background-color: rgba(255, 255, 255, var(--tw-bg-opacity));
+}
+.font-light {
+  font-weight: 300;
+}
+@media (min-width: 640px) {
+  .sm\\\\:hover\\\\:bg-gray-100:hover {
+    --tw-bg-opacity: 1;
+    background-color: rgba(243, 244, 246, var(--tw-bg-opacity));
+  }
+  .sm\\\\:hover\\\\:font-medium:hover {
+    font-weight: 500;
+  }
+}"
+`;

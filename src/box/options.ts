@@ -102,6 +102,13 @@ export interface WindiBoxOptions {
   transformCSS?: boolean
 
   /**
+   * Transform groups like `hover:(bg-gray-100 font-medium)`
+   *
+   * @default true
+   */
+  transformGroups?: boolean
+
+  /**
    * Sort the genrate utilities
    *
    * @default true

@@ -1,3 +1,5 @@
+import { regexClassGroup } from './constants'
+
 export function toArray<T>(v: T | T[]): T[] {
   if (Array.isArray(v))
     return v
@@ -16,4 +18,11 @@ export function include<T>(set: Set<T>, v: T[] | Set<T>) {
 export function exclude<T>(set: Set<T>, v: T[] | Set<T>) {
   for (const i of v)
     set.delete(i)
+}
+
+export function transfromGroups(str: string) {
+  return str.replace(
+    regexClassGroup,
+    (_, a: string, b: string) => b.split(/\s/g).map(i => `${a}:${i}`).join(' '),
+  )
 }

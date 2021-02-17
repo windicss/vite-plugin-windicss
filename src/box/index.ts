@@ -5,7 +5,7 @@ import { StyleSheet } from 'windicss/utils/style'
 import { CSSParser } from 'windicss/utils/parser'
 import fg from 'fast-glob'
 import _debug from 'debug'
-import { regexQuotedString, regexClassSplitter, regexClassCheck, regexHtmlTag, preflightTags, htmlTags, defaultAlias, TagNames } from './constants'
+import { regexQuotedString, regexClassSplitter, regexClassCheck, regexHtmlTag, preflightTags, htmlTags, defaultAlias, TagNames, regexClassGroup } from './constants'
 import { resolveOptions, WindiCssOptions, WindiBoxOptions } from './options'
 
 import { toArray, kebabCase, include, exclude } from './utils'
@@ -135,7 +135,14 @@ export function createBox(_options: WindiBoxOptions = {}) {
   function extractFile(code: string) {
     // classes
     Array.from(code.matchAll(regexQuotedString))
-      .flatMap(m => m[2]?.split(regexClassSplitter) || [])
+      .flatMap(m => (m[2] || '')
+        .replace(regexClassGroup, (v) => {
+          if (!classesGenerated.has(v))
+            classesPending.add(v)
+          return ''
+        })
+        .split(regexClassSplitter),
+      )
       .filter(i => i.match(regexClassCheck))
       .forEach((i) => {
         if (!i || classesGenerated.has(i))

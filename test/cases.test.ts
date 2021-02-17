@@ -1,39 +1,44 @@
-import { createBox } from '../src/box'
+import { createBox, WindiBox } from '../src/box'
 
 describe('cases', () => {
+  let box: WindiBox
+
+  beforeEach(() => {
+    box = createBox({ windicssOptions: {}, preflight: false, scan: false })
+    box.init()
+  })
+
+  afterEach(async() => {
+    const css = await box.generateCSS()
+    expect(box.classesGenerated).toMatchSnapshot('classes')
+    expect(css).toMatchSnapshot('generated-css')
+  })
+
   // #16
   it('conditional', async() => {
-    const box = createBox({ windicssOptions: {}, preflight: false, scan: false })
-    box.init()
     // eslint-disable-next-line no-template-curly-in-string
     box.extractFile('<span :class="`${selected ? \'font-semibold\' : \'font-normal\'} block truncate`">')
 
-    const css = await box.generateCSS()
+    await box.generateCSS()
     expect(box.classesGenerated.size).toBe(4)
-    expect(box.classesGenerated).toMatchSnapshot('classes')
-    expect(css).toMatchSnapshot('generated-css')
   })
 
   // #16
   it('uppercase classnames', async() => {
-    const box = createBox({ windicssOptions: {}, preflight: false, scan: false })
-    box.init()
     box.extractFile('"text-lightBlue-500"')
-
-    const css = await box.generateCSS()
-    expect(box.classesGenerated).toMatchSnapshot('classes')
-    expect(css).toMatchSnapshot('generated-css')
   })
 
   // #17
   it('multiple lines', async() => {
-    const box = createBox({ windicssOptions: {}, preflight: false, scan: false })
-    box.init()
     box.extractFile('"p-4\nm-5"')
 
-    const css = await box.generateCSS()
+    await box.generateCSS()
     expect(box.classesGenerated.size).toBe(2)
-    expect(box.classesGenerated).toMatchSnapshot('classes')
-    expect(css).toMatchSnapshot('generated-css')
+  })
+
+  it('utilities grouping', async() => {
+    box.extractFile('"bg-white font-light sm:hover:(bg-gray-100 font-medium)"')
+
+    expect(box.classesPending).toMatchSnapshot('classes-pending')
   })
 })

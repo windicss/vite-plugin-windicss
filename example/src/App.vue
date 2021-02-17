@@ -1,6 +1,6 @@
 <template>
   <div
-    class="px-5 p-1 text-white hover:text-green-100"
+    class="px-5 p-1 text-white hover:(text-green-100 rounded-full)"
     :class="{ 'bg-teal-100': true, 'hover:w-1/3': true }"
   >
     Hello World
@@ -10,9 +10,6 @@
   </h2>
   <div class="foo">
     foo
-  </div>
-  <div class="prose">
-    Hello
   </div>
   <router-link />
 </template>

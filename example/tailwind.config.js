@@ -1,7 +1,4 @@
 module.exports = {
-  plugins: [
-    require('windicss/plugin/typography'),
-  ],
   darkMode: 'class',
   theme: {
     extend: {
