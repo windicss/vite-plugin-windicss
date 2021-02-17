@@ -5,6 +5,7 @@
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "license": "MIT",
+  "funding": "https://github.com/sponsors/antfu",
   "author": "antfu <anthonyfu117@hotmail.com>",
   "repository": {
     "type": "git",
@@ -15,13 +16,19 @@
   "files": [
     "dist"
   ],
+  "keywords": [
+    "vite",
+    "vite-plugin",
+    "windicss",
+    "tailwindcss"
+  ],
   "scripts": {
     "dev": "npm run build -- --watch",
     "example:dev": "npm -C example run dev",
     "example:build": "npm -C example run build",
     "build": "tsup src/index.ts --dts --format cjs,esm",
     "prepublishOnly": "npm run build",
-    "release": "npx bumpp --commit --tag --push && npm publish",
+    "release": "npx git-ensure -a && npx bumpp --commit --tag --push",
     "test": "jest"
   },
   "dependencies": {
