@@ -23,6 +23,7 @@
 - 🍃 Load configurations from `tailwind.config.js`
 - 🤝 Framework-agnostic - Vue, React, Svelte and vanilla!
 - 📄 CSS `@apply` / `@screen` directives transforms (also works for Vue SFC's `<style>`)
+- 🎳 Support Utility Groups - e.g. `bg-gray-200 hover:(bg-gray-100 text-red-300)`
 
 ## Install
 
@@ -149,8 +150,7 @@ That's all, fire up Vite and enjoy the speed!
 
 ## Configuration
 
-See [options.ts](https://github.com/windicss/vite-plugin-windicss/blob/main/src/box/options.ts#L9-L103) for configuration reference
-
+See [options.ts](https://github.com/windicss/vite-plugin-windicss/blob/main/src/box/options.ts#L9-L103) for configuration reference.
 
 ## Example
 
