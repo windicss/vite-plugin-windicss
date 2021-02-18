@@ -22,8 +22,9 @@ function VitePluginWindicss(options: UserOptions = {}): Plugin[] {
   if (options.transformGroups !== false) {
     plugins.push({
       name: `${NAME}:groups`,
-      transform(code) {
-        return transfromGroups(code)
+      transform(code, id) {
+        if (!box.options.scan || box.files.some(file => id.startsWith(file)))
+          return transfromGroups(code)
       },
     })
   }

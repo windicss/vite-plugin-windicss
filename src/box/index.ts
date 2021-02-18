@@ -42,6 +42,10 @@ export function createBox(_options: WindiBoxOptions = {}) {
   let processor: WindiCssProcessor
   let configFilePath: string | undefined
 
+  const globs = getGlobs()
+  const excludeGlobs = getExcludeGlob()
+  const files: string[] = []
+
   const regexId = new RegExp(`\\.(?:${scanOptions.fileExtensions.join('|')})$`, 'i')
 
   const configSafelist = new Set<string>()
@@ -88,31 +92,45 @@ export function createBox(_options: WindiBoxOptions = {}) {
     return new WindiCssProcessor(loadConfiguration())
   }
 
+  function getGlobs() {
+    const { dirs, fileExtensions, include } = scanOptions
+    const globs = dirs.map(i => join(i, `**/*.{${fileExtensions.join(',')}}`).replace(/\\/g, '/'))
+    globs.unshift('index.html')
+    globs.unshift(...include)
+
+    debug.glob('globs', globs)
+    return globs
+  }
+
+  function getExcludeGlob() {
+    return ['node_modules', '.git', ...scanOptions.exclude]
+  }
+
+  async function getFiles() {
+    const files = await fg(
+      globs,
+      {
+        cwd: root,
+        ignore: excludeGlobs,
+        onlyFiles: true,
+        absolute: true,
+      },
+    )
+
+    files.sort()
+
+    debug.glob('files', files)
+
+    return files
+  }
+
+  let scanned = false
   let _searching: Promise<void> | null
 
   async function scan() {
     if (!_searching) {
-      const { fileExtensions, dirs, include, exclude } = scanOptions
       _searching = (async() => {
-        const globs = dirs.map(i => join(i, `**/*.{${fileExtensions.join(',')}}`).replace(/\\/g, '/'))
-        globs.unshift('index.html')
-        globs.unshift(...include)
-
-        debug.glob('globs', globs)
-
-        const files = await fg(
-          globs,
-          {
-            cwd: root,
-            ignore: ['node_modules', '.git', ...exclude],
-            onlyFiles: true,
-            absolute: true,
-          },
-        )
-
-        files.sort()
-
-        debug.glob('files', files)
+        files.push(...await getFiles())
 
         const contents = await Promise.all(
           files
@@ -122,6 +140,8 @@ export function createBox(_options: WindiBoxOptions = {}) {
 
         for (const content of contents)
           extractFile(content)
+
+        scanned = true
       })()
     }
 
@@ -256,12 +276,18 @@ export function createBox(_options: WindiBoxOptions = {}) {
     isDetectTarget,
     scan,
 
+    files,
+    globs,
+
     classesGenerated,
     classesPending,
     tagsGenerated,
     tagsPending,
     tagsAvailable,
 
+    get scanned() {
+      return scanned
+    },
     get configFilePath() {
       return configFilePath
     },
