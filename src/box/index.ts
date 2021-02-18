@@ -1,14 +1,15 @@
 import { promises as fs, existsSync } from 'fs'
-import { join, resolve } from 'path'
+import { join, resolve, relative } from 'path'
 import WindiCssProcessor from 'windicss'
 import { StyleSheet } from 'windicss/utils/style'
 import { CSSParser } from 'windicss/utils/parser'
 import fg from 'fast-glob'
 import _debug from 'debug'
+import micromatch from 'micromatch'
 import { regexQuotedString, regexClassSplitter, regexClassCheck, regexHtmlTag, preflightTags, htmlTags, defaultAlias, TagNames, regexClassGroup } from './constants'
 import { resolveOptions, WindiCssOptions, WindiBoxOptions } from './options'
 
-import { toArray, kebabCase, include, exclude } from './utils'
+import { toArray, kebabCase, include, exclude, slash } from './utils'
 
 export type WindiBox = ReturnType<typeof createBox>
 
@@ -94,7 +95,7 @@ export function createBox(_options: WindiBoxOptions = {}) {
 
   function getGlobs() {
     const { dirs, fileExtensions, include } = scanOptions
-    const globs = dirs.map(i => join(i, `**/*.{${fileExtensions.join(',')}}`).replace(/\\/g, '/'))
+    const globs = dirs.map(i => slash(join(i, `**/*.{${fileExtensions.join(',')}}`)))
     globs.unshift('index.html')
     globs.unshift(...include)
 
@@ -148,8 +149,25 @@ export function createBox(_options: WindiBoxOptions = {}) {
     return _searching
   }
 
+  function isExcluded(id: string) {
+    return id.match(/\b(?:node_modules|.git)\b/)
+    || micromatch.isMatch(slash(relative(root, id)), excludeGlobs)
+  }
+
   function isDetectTarget(id: string) {
-    return id.match(regexId)
+    return id.match(regexId) && !isExcluded(id)
+  }
+
+  function isScanTarget(id: string) {
+    return enabledScan
+      ? files.some(file => id.startsWith(file))
+      : isDetectTarget(id)
+  }
+
+  function isCssTransformTarget(id: string) {
+    if (id.match(/\.(?:postcss|scss|sass|css|stylus)(?:$|\?)/i) && !isExcluded(id))
+      return true
+    return false
   }
 
   function extractFile(code: string) {
@@ -278,6 +296,8 @@ export function createBox(_options: WindiBoxOptions = {}) {
     clearCache,
     transformCSS,
     isDetectTarget,
+    isScanTarget,
+    isCssTransformTarget,
     scan,
 
     files,

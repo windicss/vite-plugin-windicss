@@ -2,11 +2,13 @@ importers:
   .:
     dependencies:
       fast-glob: 3.2.5
+      micromatch: 4.0.2
       windicss: 2.1.11
     devDependencies:
       '@antfu/eslint-config': 0.4.3_eslint@7.20.0+typescript@4.1.5
       '@antfu/ni': 0.5.4
       '@types/debug': 4.1.5
+      '@types/micromatch': 4.0.1
       '@types/node': 14.14.28
       '@typescript-eslint/eslint-plugin': 4.15.1_eslint@7.20.0+typescript@4.1.5
       bumpp: 6.0.6
@@ -24,6 +26,7 @@ importers:
       '@antfu/eslint-config': ^0.4.3
       '@antfu/ni': ^0.5.4
       '@types/debug': ^4.1.5
+      '@types/micromatch': ^4.0.1
       '@types/node': ^14.14.28
       '@typescript-eslint/eslint-plugin': ^4.15.1
       bumpp: ^6.0.6
@@ -33,6 +36,7 @@ importers:
       fast-glob: ^3.2.5
       git-ensure: ^0.1.0
       jest: ^26.6.3
+      micromatch: ^4.0.2
       rollup: ^2.39.0
       ts-jest: ^26.5.1
       tsup: ^4.0.0
@@ -787,6 +791,10 @@ packages:
     dev: true
     resolution:
       integrity: sha512-kSjgDMZONiIfSH1Nxcr5JIRMwUetDki63FSQfpTCz8ogF3Ulqm8+mr5f78dUYs6vMiB6gBusQqfQmBvHZj/lwg==
+  /@types/braces/3.0.0:
+    dev: true
+    resolution:
+      integrity: sha512-TbH79tcyi9FHwbyboOKeRachRq63mSuWYXOflsNO9ZyE5ClQ/JaozNKl+aWUq87qPNsXasXxi2AbgfwIJ+8GQw==
   /@types/debug/4.1.5:
     dev: true
     resolution:
@@ -832,6 +840,12 @@ packages:
     dev: true
     resolution:
       integrity: sha1-7ihweulOEdK4J7y+UnC86n8+ce4=
+  /@types/micromatch/4.0.1:
+    dependencies:
+      '@types/braces': 3.0.0
+    dev: true
+    resolution:
+      integrity: sha512-my6fLBvpY70KattTNzYOK6KU1oR1+UCz9ug/JbcF5UrEmeCt9P7DV2t7L8+t18mMPINqGQCE4O8PLOPbI84gxw==
   /@types/node/14.14.28:
     dev: true
     resolution:

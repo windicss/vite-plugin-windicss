@@ -9,7 +9,8 @@ const MODULE_ID_VIRTUAL = `/@windicss/${MODULE_ID}`
 
 const debug = {
   hmr: _debug(`${NAME}:hmr`),
-  css: _debug(`${NAME}:css-transform`),
+  css: _debug(`${NAME}:transform:css`),
+  group: _debug(`${NAME}:transform:group`),
 }
 
 export type UserOptions = Exclude<WindiBoxOptions, 'name' | 'root'>
@@ -23,8 +24,10 @@ function VitePluginWindicss(options: UserOptions = {}): Plugin[] {
     plugins.push({
       name: `${NAME}:groups`,
       transform(code, id) {
-        if (!box.options.scan || box.files.some(file => id.startsWith(file)))
-          return transfromGroups(code)
+        if (!box.isScanTarget(id))
+          return
+        debug.group(id)
+        return transfromGroups(code)
       },
     })
   }
@@ -96,9 +99,10 @@ function VitePluginWindicss(options: UserOptions = {}): Plugin[] {
     plugins.push({
       name: `${NAME}:css`,
       transform(code, id) {
+        if (!box.isCssTransformTarget(id))
+          return
         debug.css(id)
-        if (id.match(/\.(?:postcss|scss|sass|css|stylus)(?:$|\?)/i))
-          return box.transformCSS(code)
+        return box.transformCSS(code)
       },
     })
   }

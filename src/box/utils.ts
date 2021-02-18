@@ -6,6 +6,10 @@ export function toArray<T>(v: T | T[]): T[] {
   return [v]
 }
 
+export function slash(str: string) {
+  return str.replace(/\\/g, '/')
+}
+
 export function kebabCase(str: string) {
   return str.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()
 }
