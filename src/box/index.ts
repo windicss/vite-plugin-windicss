@@ -170,7 +170,7 @@ export function createBox(_options: WindiBoxOptions = {}) {
         classesPending.add(i)
       })
 
-    if (enablePreflight) {
+    if (enablePreflight || !preflightOptions.enableAll) {
       // preflight
       Array.from(code.matchAll(regexHtmlTag))
         .flatMap(([, i]) => i)
@@ -217,17 +217,21 @@ export function createBox(_options: WindiBoxOptions = {}) {
       }
     }
 
-    if (enablePreflight && tagsPending.size) {
-      const preflightStyle = processor.preflight(
-        Array.from(tagsPending).map(i => `<${i}`).join(' '),
-        preflightOptions.includeBase,
-        preflightOptions.includeGlobal,
-        preflightOptions.includePlugin,
-      )
-      style = style.extend(preflightStyle, true)
-      include(tagsGenerated, tagsPending)
-      tagsPending.clear()
-      changed = true
+    if (enablePreflight) {
+      if (preflightOptions.enableAll || tagsPending.size) {
+        const preflightStyle = processor.preflight(
+          preflightOptions.enableAll
+            ? undefined
+            : Array.from(tagsPending).map(i => `<${i}`).join(' '),
+          preflightOptions.includeBase,
+          preflightOptions.includeGlobal,
+          preflightOptions.includePlugin,
+        )
+        style = style.extend(preflightStyle, true)
+        include(tagsGenerated, tagsPending)
+        tagsPending.clear()
+        changed = true
+      }
     }
 
     if (changed || !_cssCache) {

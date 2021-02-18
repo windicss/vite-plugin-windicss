@@ -18,4 +18,23 @@ describe('plugins', () => {
     expect(box.classesGenerated).toMatchSnapshot('classes')
     expect(css).toMatchSnapshot('generated-css')
   })
+
+  it('forms', async() => {
+    const box = createBox({
+      config: {
+        plugins: [
+          require('windicss/plugin/forms'),
+        ],
+      },
+      scan: false,
+      preflight: {
+        enableAll: true,
+      },
+    })
+    box.init()
+
+    const css = await box.generateCSS()
+    expect(box.classesGenerated).toMatchSnapshot('classes')
+    expect(css).toMatchSnapshot('generated-css')
+  })
 })

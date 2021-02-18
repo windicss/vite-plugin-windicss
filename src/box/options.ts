@@ -27,6 +27,11 @@ export interface WindiBoxOptions {
    */
   preflight?: boolean | {
     /**
+     * Enable all the preflight regardless the template
+     */
+    enableAll?: boolean
+
+    /**
      * Safelist to always included
      */
     safelist?: string | string[]
@@ -147,6 +152,7 @@ export function resolveOptions(options: WindiBoxOptions) {
       includeBase: true,
       includeGlobal: true,
       includePlugin: true,
+      enableAll: false,
       alias: {},
     },
     typeof preflight === 'boolean' ? {} : preflight,
