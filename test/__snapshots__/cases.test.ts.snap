@@ -27,6 +27,22 @@ exports[`cases conditional: generated-css 1`] = `
 }"
 `;
 
+exports[`cases inline style: classes 1`] = `
+Set {
+  "relative",
+  "top-0",
+}
+`;
+
+exports[`cases inline style: generated-css 1`] = `
+".top-0 {
+  top: 0px;
+}
+.relative {
+  position: relative;
+}"
+`;
+
 exports[`cases multiple lines: classes 1`] = `
 Set {
   "p-4",

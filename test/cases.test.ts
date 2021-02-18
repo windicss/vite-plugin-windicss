@@ -45,4 +45,9 @@ describe('cases', () => {
   it('variables', async() => {
     box.extractFile('"bg-$test-variable"')
   })
+
+  // #20
+  it('inline style', async() => {
+    box.extractFile('<div style="max-width: 1920px;"><div class="relative top-0">')
+  })
 })
