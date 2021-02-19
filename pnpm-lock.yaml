@@ -88,6 +88,24 @@ importers:
       tsup: ^4.0.0
       typescript: ^4.1.5
       windicss: ^2.1.12
+  packages/rollup-plugin-windicss:
+    dependencies:
+      '@windicss/plugin-utils': link:../plugin-utils
+      windicss: 2.1.12
+    devDependencies:
+      '@antfu/ni': 0.5.4
+      '@types/node': 14.14.30
+      debug: 4.3.2
+      rollup: 2.39.0
+      tsup: 4.0.0
+    specifiers:
+      '@antfu/ni': ^0.5.4
+      '@types/node': ^14.14.30
+      '@windicss/plugin-utils': workspace:*
+      debug: ^4.3.2
+      rollup: ^2.39.0
+      tsup: ^4.0.0
+      windicss: ^2.1.12
   packages/vite-plugin-windicss:
     dependencies:
       '@windicss/plugin-utils': link:../plugin-utils
@@ -917,7 +935,7 @@ packages:
       integrity: sha512-DxZZbyMAM9GWEzXL+BMZROWz9oo6A9EilwwOMET2UVu2uZTqMWS5S69KVtuVKaRjCUpcrOXRalet86/OpG4kqw==
   /@types/resolve/1.17.1:
     dependencies:
-      '@types/node': 14.14.28
+      '@types/node': 14.14.30
     dev: true
     resolution:
       integrity: sha512-yy7HuzQhj0dhGpD8RLXSZWEkLsV9ibvxvi6EiJ3bkqLAO1RGo0WbkWQiwpRlSFymTJRz0d3k5LM3kkx8ArDbLw==
@@ -2416,6 +2434,12 @@ packages:
     requiresBuild: true
     resolution:
       integrity: sha512-xck9sXNCNmjDHCCfxTCyhKTiFuEBweh+IDAhMLOJI990v1Fzii6MyIkT1LbkvjgoVgPX2SK1kpi5eZVGNrl8yg==
+  /esbuild/0.8.48:
+    dev: true
+    hasBin: true
+    requiresBuild: true
+    resolution:
+      integrity: sha512-lrH8lA8wWQ6Lpe1z6C7ZZaFSmRsUlcQAqe16nf7ITySQ7MV4+vI7qAqQlT/u+c3+9AL3VXmT4MXTxV2e63pO4A==
   /escape-goat/2.1.1:
     dev: true
     engines:
@@ -6494,7 +6518,7 @@ packages:
       cac: 6.7.2
       chalk: 4.1.0
       chokidar: 3.5.1
-      esbuild: 0.8.46
+      esbuild: 0.8.48
       globby: 11.0.2
       joycon: 2.2.5
       postcss-load-config: 3.0.1

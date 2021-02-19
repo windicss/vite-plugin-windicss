@@ -1,0 +1,46 @@
+{
+  "name": "rollup-plugin-windicss",
+  "description": "Windi CSS for Rollup",
+  "version": "0.3.7",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "license": "MIT",
+  "funding": "https://github.com/sponsors/antfu",
+  "author": "antfu <anthonyfu117@hotmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/antfu/vite-plugin-windicss"
+  },
+  "homepage": "https://github.com/antfu/vite-plugin-windicss",
+  "bugs": "https://github.com/antfu/vite-plugin-windicss/issues",
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "rollup",
+    "rollup-plugin",
+    "windicss",
+    "tailwindcss"
+  ],
+  "scripts": {
+    "dev": "npm run build -- --watch",
+    "build": "tsup src/index.ts --dts --format cjs,esm",
+    "prepublishOnly": "npm run build",
+    "publish": "npm publish --access public"
+  },
+  "dependencies": {
+    "@windicss/plugin-utils": "workspace:*",
+    "windicss": "^2.1.12"
+  },
+  "peerDependencies": {
+    "rollup": "^2.0.0"
+  },
+  "devDependencies": {
+    "@antfu/ni": "^0.5.4",
+    "@types/node": "^14.14.30",
+    "debug": "^4.3.2",
+    "rollup": "^2.39.0",
+    "tsup": "^4.0.0"
+  }
+}
