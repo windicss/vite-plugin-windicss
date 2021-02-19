@@ -1,6 +1,6 @@
 import { Plugin } from 'vite'
 import _debug from 'debug'
-import { WindiBoxOptions, createBox, WindiBox, transfromGroups } from '@windicss/plugin-utils'
+import { UserOptions, createUtils, WindiPluginUtils, transfromGroups } from '@windicss/plugin-utils'
 
 const NAME = 'vite-plugin-windicss'
 const MODULE_ID = 'windi.css'
@@ -12,10 +12,8 @@ const debug = {
   group: _debug(`${NAME}:transform:group`),
 }
 
-export type UserOptions = Exclude<WindiBoxOptions, 'name' | 'root'>
-
 function VitePluginWindicss(options: UserOptions = {}): Plugin[] {
-  let box: WindiBox
+  let utils: WindiPluginUtils
 
   const plugins: Plugin[] = []
 
@@ -23,7 +21,7 @@ function VitePluginWindicss(options: UserOptions = {}): Plugin[] {
     plugins.push({
       name: `${NAME}:groups`,
       transform(code, id) {
-        if (!box.isScanTarget(id))
+        if (!utils.isScanTarget(id))
           return
         debug.group(id)
         return transfromGroups(code)
@@ -36,12 +34,12 @@ function VitePluginWindicss(options: UserOptions = {}): Plugin[] {
     enforce: 'pre',
 
     configResolved(_config) {
-      box = createBox({
+      utils = createUtils({
         ...options,
-        name: NAME,
-        root: _config.root,
+        _pluginName: NAME,
+        _projectRoot: _config.root,
       })
-      box.init()
+      utils.init()
     },
 
     resolveId(id): string | null {
@@ -52,7 +50,7 @@ function VitePluginWindicss(options: UserOptions = {}): Plugin[] {
 
     async load(id) {
       if (id === MODULE_ID_VIRTUAL)
-        return box.generateCSS()
+        return utils.generateCSS()
     },
   })
 
@@ -62,14 +60,14 @@ function VitePluginWindicss(options: UserOptions = {}): Plugin[] {
     enforce: 'post',
 
     configureServer(server) {
-      if (box.configFilePath)
-        server.watcher.add(box.configFilePath)
+      if (utils.configFilePath)
+        server.watcher.add(utils.configFilePath)
     },
 
     async handleHotUpdate({ server, file, read, modules }) {
-      if (file === box.configFilePath) {
+      if (file === utils.configFilePath) {
         debug.hmr(`config file changed: ${file}`)
-        box.init()
+        utils.init()
         setTimeout(() => {
           console.log(`[${NAME}] configure file changed, reloading`)
           server.ws.send({ type: 'full-reload' })
@@ -77,12 +75,12 @@ function VitePluginWindicss(options: UserOptions = {}): Plugin[] {
         return [server.moduleGraph.getModuleById(MODULE_ID_VIRTUAL)!]
       }
 
-      if (!box.isDetectTarget(file))
+      if (!utils.isDetectTarget(file))
         return
 
       debug.hmr(`refreshed by ${file}`)
 
-      box.extractFile(await read())
+      utils.extractFile(await read())
 
       const module = server.moduleGraph.getModuleById(MODULE_ID_VIRTUAL)!
       server.moduleGraph.invalidateModule(module)
@@ -98,10 +96,10 @@ function VitePluginWindicss(options: UserOptions = {}): Plugin[] {
     plugins.push({
       name: `${NAME}:css`,
       transform(code, id) {
-        if (!box.isCssTransformTarget(id))
+        if (!utils.isCssTransformTarget(id))
           return
         debug.css(id)
-        return box.transformCSS(code)
+        return utils.transformCSS(code)
       },
     })
   }

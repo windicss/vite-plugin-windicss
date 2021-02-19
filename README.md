@@ -150,7 +150,7 @@ That's all, fire up Vite and enjoy the speed!
 
 ## Configuration
 
-See [options.ts](https://github.com/windicss/vite-plugin-windicss/blob/main/src/box/options.ts#L9-L103) for configuration reference.
+See [options.ts](https://github.com/windicss/vite-plugin-windicss/blob/main/packages/plugin-utils/src/options.ts) for configuration reference.
 
 ## Example
 

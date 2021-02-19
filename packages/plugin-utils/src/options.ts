@@ -6,7 +6,7 @@ import { kebabCase, toArray } from './utils'
 
 export { WindiCssOptions }
 
-export interface WindiBoxOptions {
+export interface WindiPluginUtilsOptions {
   /**
    * Options for windicss/tailwindcss.
    * Also accepts string as config file path.
@@ -123,10 +123,10 @@ export interface WindiBoxOptions {
   /**
    * Name for debug
    *
-   * @default 'windi-box'
+   * @default 'windi-plugin-utils'
    * @internal
    */
-  name?: string
+  _pluginName?: string
 
   /**
    * CWD
@@ -134,17 +134,20 @@ export interface WindiBoxOptions {
    * @default process.cwd
    * @internal
    */
-  root?: string
+  _projectRoot?: string
 }
 
-export function resolveOptions(options: WindiBoxOptions) {
+export type UserOptions = Omit<WindiPluginUtilsOptions, '_pluginName' | '_projectRoot'>
+
+export function resolveOptions(options: WindiPluginUtilsOptions) {
   const {
     config = 'tailwind.config.js',
     scan = true,
     preflight = true,
     transformCSS = true,
     sortUtilities = true,
-    root = process.cwd(),
+    _projectRoot = process.cwd(),
+    _pluginName = 'windi-plugin-utils',
   } = options
 
   const preflightOptions = Object.assign(
@@ -180,6 +183,8 @@ export function resolveOptions(options: WindiBoxOptions) {
 
   return {
     ...options,
+    _projectRoot,
+    _pluginName,
     config,
     scan: Boolean(scan),
     scanOptions,
@@ -188,7 +193,6 @@ export function resolveOptions(options: WindiBoxOptions) {
     transformCSS,
     sortUtilities,
     safelist,
-    root,
   }
 }
 

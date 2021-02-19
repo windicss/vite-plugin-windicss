@@ -1,15 +1,15 @@
 import { resolve } from 'path'
-import { createBox } from '../src'
+import { createUtils } from '../src'
 
 describe('example', () => {
   it('should work', async() => {
-    const box = createBox({
-      root: resolve(__dirname, '../../../example'),
+    const utils = createUtils({
+      _projectRoot: resolve(__dirname, '../../../example'),
     })
-    box.init()
-    const css = await box.generateCSS()
-    expect(box.classesGenerated).toMatchSnapshot('classes')
-    expect(box.tagsGenerated).toMatchSnapshot('tags')
+    utils.init()
+    const css = await utils.generateCSS()
+    expect(utils.classesGenerated).toMatchSnapshot('classes')
+    expect(utils.tagsGenerated).toMatchSnapshot('tags')
     expect(css).toMatchSnapshot('generated-css')
   })
 })

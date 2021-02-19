@@ -1,53 +1,53 @@
-import { createBox, WindiBox } from '../src'
+import { createUtils, WindiPluginUtils } from '../src'
 
 describe('cases', () => {
-  let box: WindiBox
+  let utils: WindiPluginUtils
 
   beforeEach(() => {
-    box = createBox({ config: {}, preflight: false, scan: false })
-    box.init()
+    utils = createUtils({ config: {}, preflight: false, scan: false })
+    utils.init()
   })
 
   afterEach(async() => {
-    const css = await box.generateCSS()
-    expect(box.classesGenerated).toMatchSnapshot('classes')
+    const css = await utils.generateCSS()
+    expect(utils.classesGenerated).toMatchSnapshot('classes')
     expect(css).toMatchSnapshot('generated-css')
   })
 
   // #16
   it('conditional', async() => {
     // eslint-disable-next-line no-template-curly-in-string
-    box.extractFile('<span :class="`${selected ? \'font-semibold\' : \'font-normal\'} block truncate`">')
+    utils.extractFile('<span :class="`${selected ? \'font-semibold\' : \'font-normal\'} block truncate`">')
 
-    await box.generateCSS()
-    expect(box.classesGenerated.size).toBe(4)
+    await utils.generateCSS()
+    expect(utils.classesGenerated.size).toBe(4)
   })
 
   // #16
   it('uppercase classnames', async() => {
-    box.extractFile('"text-lightBlue-500"')
+    utils.extractFile('"text-lightBlue-500"')
   })
 
   // #17
   it('multiple lines', async() => {
-    box.extractFile('"p-4\nm-5"')
+    utils.extractFile('"p-4\nm-5"')
 
-    await box.generateCSS()
-    expect(box.classesGenerated.size).toBe(2)
+    await utils.generateCSS()
+    expect(utils.classesGenerated.size).toBe(2)
   })
 
   it('utilities grouping', async() => {
-    box.extractFile('"bg-white font-light sm:hover:(bg-gray-100 font-medium)"')
+    utils.extractFile('"bg-white font-light sm:hover:(bg-gray-100 font-medium)"')
 
-    expect(box.classesPending).toMatchSnapshot('classes-pending')
+    expect(utils.classesPending).toMatchSnapshot('classes-pending')
   })
 
   it('variables', async() => {
-    box.extractFile('"bg-$test-variable"')
+    utils.extractFile('"bg-$test-variable"')
   })
 
   // #20
   it('inline style', async() => {
-    box.extractFile('<div style="max-width: 1920px;"><div class="relative top-0">')
+    utils.extractFile('<div style="max-width: 1920px;"><div class="relative top-0">')
   })
 })

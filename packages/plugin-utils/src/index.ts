@@ -7,20 +7,19 @@ import fg from 'fast-glob'
 import _debug from 'debug'
 import micromatch from 'micromatch'
 import { regexQuotedString, regexClassSplitter, regexClassCheck, regexHtmlTag, preflightTags, htmlTags, defaultAlias, TagNames, regexClassGroup } from './constants'
-import { resolveOptions, WindiCssOptions, WindiBoxOptions } from './options'
+import { resolveOptions, WindiCssOptions, WindiPluginUtilsOptions, UserOptions } from './options'
 
 import { toArray, kebabCase, include, exclude, slash, transfromGroups } from './utils'
 
-export type WindiBox = ReturnType<typeof createBox>
+export type WindiPluginUtils = ReturnType<typeof createUtils>
 
 export { preflightTags, htmlTags, defaultAlias, transfromGroups }
-export type { WindiBoxOptions, TagNames }
+export type { WindiPluginUtilsOptions, TagNames, UserOptions }
 
-export function createBox(_options: WindiBoxOptions = {}) {
+export function createUtils(_options: WindiPluginUtilsOptions = {}) {
   const options = resolveOptions(_options)
 
   const {
-    name,
     config,
     scan: enabledScan,
     scanOptions,
@@ -28,8 +27,9 @@ export function createBox(_options: WindiBoxOptions = {}) {
     preflight: enablePreflight,
     preflightOptions,
     sortUtilities,
-    root,
     safelist,
+    _pluginName: name,
+    _projectRoot: root,
   } = options
 
   const debug = {

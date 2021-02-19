@@ -75,7 +75,6 @@ importers:
       debug: 4.3.2
       tsup: 4.0.0_typescript@4.1.5
       typescript: 4.1.5
-      vite: 2.0.1
     specifiers:
       '@antfu/ni': ^0.5.4
       '@types/debug': ^4.1.5
@@ -86,7 +85,6 @@ importers:
       micromatch: ^4.0.2
       tsup: ^4.0.0
       typescript: ^4.1.5
-      vite: ^2.0.1
       windicss: ^2.1.12
   packages/vite-plugin-windicss:
     dependencies:
