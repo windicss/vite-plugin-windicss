@@ -16,6 +16,7 @@ importers:
       fs-extra: 9.1.0
       git-ensure: 0.1.0
       jest: 26.6.3
+      pnpm: 5.17.2
       rollup: 2.39.0
       ts-jest: 26.5.1_jest@26.6.3+typescript@4.1.5
       tsup: 4.0.0_typescript@4.1.5
@@ -37,6 +38,7 @@ importers:
       fs-extra: ^9.1.0
       git-ensure: ^0.1.0
       jest: ^26.6.3
+      pnpm: ^5.17.2
       rollup: ^2.39.0
       ts-jest: ^26.5.1
       tsup: ^4.0.0
@@ -5262,6 +5264,13 @@ packages:
       node: '>=4'
     resolution:
       integrity: sha512-Nc3IT5yHzflTfbjgqWcCPpo7DaKy4FnpB0l/zCAW0Tc7jxAiuqSxHasntB3D7887LSrA93kDJ9IXovxJYxyLCA==
+  /pnpm/5.17.2:
+    dev: true
+    engines:
+      node: '>=10.16'
+    hasBin: true
+    resolution:
+      integrity: sha512-X0WEumozKhlYZObL1E+Nmi67f+ZMS+fbpE6vAymlazT2lx0B+Agw9iJsdd//tjAqIzxcsxxgZScx0EIPc42Ulw==
   /posix-character-classes/0.1.1:
     dev: true
     engines:
