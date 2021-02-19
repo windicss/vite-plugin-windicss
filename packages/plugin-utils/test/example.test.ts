@@ -1,10 +1,10 @@
 import { resolve } from 'path'
-import { createBox } from '../src/box'
+import { createBox } from '../src'
 
 describe('example', () => {
   it('should work', async() => {
     const box = createBox({
-      root: resolve(__dirname, '../example'),
+      root: resolve(__dirname, '../../../example'),
     })
     box.init()
     const css = await box.generateCSS()

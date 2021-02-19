@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
     "module": "ESNext",
     "target": "es2017",
     "lib": ["ESNext", "DOM"],
@@ -8,7 +9,10 @@
     "strictNullChecks": true,
     "moduleResolution": "Node",
     "resolveJsonModule": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "paths": {
+      "@windicss/plugin-utils": ["packages/plugin-utils"]
+    }
   },
   "exclude": [
     "**/dist",

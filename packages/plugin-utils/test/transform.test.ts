@@ -1,4 +1,4 @@
-import { transfromGroups } from '../src/box/utils'
+import { transfromGroups } from '../src'
 
 describe('transfrom', () => {
   it('group basic', async() => {

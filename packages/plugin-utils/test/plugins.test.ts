@@ -1,4 +1,4 @@
-import { createBox } from '../src/box'
+import { createBox } from '../src'
 
 describe('plugins', () => {
   it('aspect-ratio', async() => {

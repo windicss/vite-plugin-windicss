@@ -1,4 +1,4 @@
-import { createBox, WindiBox } from '../src/box'
+import { createBox, WindiBox } from '../src'
 
 describe('cases', () => {
   let box: WindiBox

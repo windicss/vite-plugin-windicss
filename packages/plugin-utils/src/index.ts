@@ -9,11 +9,11 @@ import micromatch from 'micromatch'
 import { regexQuotedString, regexClassSplitter, regexClassCheck, regexHtmlTag, preflightTags, htmlTags, defaultAlias, TagNames, regexClassGroup } from './constants'
 import { resolveOptions, WindiCssOptions, WindiBoxOptions } from './options'
 
-import { toArray, kebabCase, include, exclude, slash } from './utils'
+import { toArray, kebabCase, include, exclude, slash, transfromGroups } from './utils'
 
 export type WindiBox = ReturnType<typeof createBox>
 
-export { preflightTags, htmlTags, defaultAlias }
+export { preflightTags, htmlTags, defaultAlias, transfromGroups }
 export type { WindiBoxOptions, TagNames }
 
 export function createBox(_options: WindiBoxOptions = {}) {

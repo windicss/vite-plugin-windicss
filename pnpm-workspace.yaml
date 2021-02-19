@@ -1,3 +1,4 @@
 packages:
   - example/
   - test/fixtures/*
+  - packages/*

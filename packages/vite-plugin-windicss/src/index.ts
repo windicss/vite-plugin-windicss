@@ -1,7 +1,6 @@
 import { Plugin } from 'vite'
 import _debug from 'debug'
-import { WindiBoxOptions, createBox, WindiBox } from './box'
-import { transfromGroups } from './box/utils'
+import { WindiBoxOptions, createBox, WindiBox, transfromGroups } from '@windicss/plugin-utils'
 
 const NAME = 'vite-plugin-windicss'
 const MODULE_ID = 'windi.css'
@@ -110,5 +109,5 @@ function VitePluginWindicss(options: UserOptions = {}): Plugin[] {
   return plugins
 }
 
-export * from './box'
+export * from '@windicss/plugin-utils'
 export default VitePluginWindicss

@@ -1,20 +1,19 @@
 importers:
   .:
-    dependencies:
-      fast-glob: 3.2.5
-      micromatch: 4.0.2
-      windicss: 2.1.11
     devDependencies:
       '@antfu/eslint-config': 0.4.3_eslint@7.20.0+typescript@4.1.5
       '@antfu/ni': 0.5.4
       '@types/debug': 4.1.5
+      '@types/fs-extra': 9.0.7
       '@types/micromatch': 4.0.1
-      '@types/node': 14.14.28
+      '@types/node': 14.14.30
       '@typescript-eslint/eslint-plugin': 4.15.1_eslint@7.20.0+typescript@4.1.5
       bumpp: 6.0.6
       debug: 4.3.2
       eslint: 7.20.0
       eslint-plugin-jest: 24.1.5_eslint@7.20.0+typescript@4.1.5
+      fast-glob: 3.2.5
+      fs-extra: 9.1.0
       git-ensure: 0.1.0
       jest: 26.6.3
       rollup: 2.39.0
@@ -26,23 +25,23 @@ importers:
       '@antfu/eslint-config': ^0.4.3
       '@antfu/ni': ^0.5.4
       '@types/debug': ^4.1.5
+      '@types/fs-extra': ^9.0.7
       '@types/micromatch': ^4.0.1
-      '@types/node': ^14.14.28
+      '@types/node': ^14.14.30
       '@typescript-eslint/eslint-plugin': ^4.15.1
       bumpp: ^6.0.6
       debug: ^4.3.2
       eslint: ^7.20.0
       eslint-plugin-jest: ^24.1.5
       fast-glob: ^3.2.5
+      fs-extra: ^9.1.0
       git-ensure: ^0.1.0
       jest: ^26.6.3
-      micromatch: ^4.0.2
       rollup: ^2.39.0
       ts-jest: ^26.5.1
       tsup: ^4.0.0
       typescript: ^4.1.5
       vite: ^2.0.1
-      windicss: ^2.1.11
   example:
     dependencies:
       vue: 3.0.5
@@ -53,7 +52,7 @@ importers:
       nodemon: 2.0.7
       typescript: 4.1.5
       vite: 2.0.1
-      vite-plugin-windicss: 'link:..'
+      vite-plugin-windicss: link:../packages/vite-plugin-windicss
     specifiers:
       '@vitejs/plugin-vue': ^1.1.4
       '@vue/compiler-sfc': ^3.0.5
@@ -61,8 +60,52 @@ importers:
       nodemon: ^2.0.7
       typescript: ^4.1.5
       vite: ^2.0.1
-      vite-plugin-windicss: 'workspace:*'
+      vite-plugin-windicss: workspace:*
       vue: ^3.0.5
+  packages/plugin-utils:
+    dependencies:
+      fast-glob: 3.2.5
+      micromatch: 4.0.2
+      windicss: 2.1.12
+    devDependencies:
+      '@antfu/ni': 0.5.4
+      '@types/debug': 4.1.5
+      '@types/micromatch': 4.0.1
+      '@types/node': 14.14.30
+      debug: 4.3.2
+      tsup: 4.0.0_typescript@4.1.5
+      typescript: 4.1.5
+      vite: 2.0.1
+    specifiers:
+      '@antfu/ni': ^0.5.4
+      '@types/debug': ^4.1.5
+      '@types/micromatch': ^4.0.1
+      '@types/node': ^14.14.30
+      debug: ^4.3.2
+      fast-glob: ^3.2.5
+      micromatch: ^4.0.2
+      tsup: ^4.0.0
+      typescript: ^4.1.5
+      vite: ^2.0.1
+      windicss: ^2.1.12
+  packages/vite-plugin-windicss:
+    dependencies:
+      '@windicss/plugin-utils': link:../plugin-utils
+      windicss: 2.1.12
+    devDependencies:
+      '@antfu/ni': 0.5.4
+      '@types/node': 14.14.30
+      debug: 4.3.2
+      tsup: 4.0.0
+      vite: 2.0.1
+    specifiers:
+      '@antfu/ni': ^0.5.4
+      '@types/node': ^14.14.30
+      '@windicss/plugin-utils': workspace:*
+      debug: ^4.3.2
+      tsup: ^4.0.0
+      vite: ^2.0.1
+      windicss: ^2.1.12
   test/fixtures/css-scoped:
     dependencies:
       vue: 3.0.5
@@ -71,19 +114,19 @@ importers:
       '@vue/compiler-sfc': 3.0.5_vue@3.0.5
       cross-env: 7.0.3
       nodemon: 2.0.7
-      sass: 1.32.7
+      sass: 1.32.8
       stylus: 0.54.8
       vite: 2.0.1
-      vite-plugin-windicss: 'link:../../..'
+      vite-plugin-windicss: link:../../../packages/vite-plugin-windicss
     specifiers:
       '@vitejs/plugin-vue': ^1.1.4
       '@vue/compiler-sfc': ^3.0.5
       cross-env: ^7.0.3
       nodemon: ^2.0.7
-      sass: ^1.32.7
+      sass: ^1.32.8
       stylus: ^0.54.8
       vite: ^2.0.1
-      vite-plugin-windicss: 'workspace:*'
+      vite-plugin-windicss: workspace:*
       vue: ^3.0.5
 lockfileVersion: 5.2
 packages:
@@ -803,6 +846,12 @@ packages:
     dev: true
     resolution:
       integrity: sha512-EYNwp3bU+98cpU4lAWYYL7Zz+2gryWH1qbdDTidVd6hkiR6weksdbMadyXKXNPEkQFhXM+hVO9ZygomHXp+AIw==
+  /@types/fs-extra/9.0.7:
+    dependencies:
+      '@types/node': 14.14.30
+    dev: true
+    resolution:
+      integrity: sha512-YGq2A6Yc3bldrLUlm17VNWOnUbnEzJ9CMgOeLFtQF3HOCN5lQBO8VyjG00a5acA5NNSM30kHVGp1trZgnVgi1Q==
   /@types/graceful-fs/4.1.5:
     dependencies:
       '@types/node': 14.14.28
@@ -850,6 +899,10 @@ packages:
     dev: true
     resolution:
       integrity: sha512-lg55ArB+ZiHHbBBttLpzD07akz0QPrZgUODNakeC09i62dnrywr9mFErHuaPlB6I7z+sEbK+IYmplahvplCj2g==
+  /@types/node/14.14.30:
+    dev: true
+    resolution:
+      integrity: sha512-gUWhy8s45fQp4PqqKecsnOkdW0kt1IaKjgOIR3HPokkzTmQj9ji2wWFID5THu1MKrtO+d4s2lVrlEhXUsPXSvg==
   /@types/normalize-package-data/2.4.0:
     dev: true
     resolution:
@@ -1377,6 +1430,12 @@ packages:
     dev: true
     resolution:
       integrity: sha1-x57Zf380y48robyXkLzDZkdLS3k=
+  /at-least-node/1.0.0:
+    dev: true
+    engines:
+      node: '>= 4.0.0'
+    resolution:
+      integrity: sha512-+q/t7Ekv1EDY2l6Gda6LLiX14rU9TV20Wa3ofeQmwPFZbOMo9DXrLbOjFaaclkXKWidIaopwAObQDqwWtGUjqg==
   /atob/2.1.2:
     dev: true
     engines:
@@ -3004,6 +3063,17 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha1-QpD60n8T6Jvn8zeZxrxaCr//DRk=
+  /fs-extra/9.1.0:
+    dependencies:
+      at-least-node: 1.0.0
+      graceful-fs: 4.2.6
+      jsonfile: 6.1.0
+      universalify: 2.0.0
+    dev: true
+    engines:
+      node: '>=10'
+    resolution:
+      integrity: sha512-hcg3ZmepS30/7BSFqRvoo3DOMQu7IjqxO5nCDt+zM9XWjb33Wg7ziNT+Qvqbuc3+gWpzO02JubVyk2G4Zvo1OQ==
   /fs.realpath/1.0.0:
     dev: true
     resolution:
@@ -4338,6 +4408,14 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-f+8cldu7X/y7RAJurMEJmdoKXGB/X550w2Nr3tTbezL6RwEE/iMcm+tZnXeoZtKuOq6ft8+CqzEkrIgx1fPoQA==
+  /jsonfile/6.1.0:
+    dependencies:
+      universalify: 2.0.0
+    dev: true
+    optionalDependencies:
+      graceful-fs: 4.2.6
+    resolution:
+      integrity: sha512-5dgndWOriYSm5cnYaJNhalLNDKOqFwyDB/rr1E9ZsGciGvKPs8R2xYGCacuf3z6K1YKDz182fd+fY3cn3pMqXQ==
   /jsprim/1.4.1:
     dependencies:
       assert-plus: 1.0.0
@@ -5519,7 +5597,7 @@ packages:
       request-promise-core: 1.1.4_request@2.88.2
       stealthy-require: 1.1.1
       tough-cookie: 2.5.0
-    deprecated: 'request-promise-native has been deprecated because it extends the now deprecated request package, see https://github.com/request/request/issues/3142'
+    deprecated: request-promise-native has been deprecated because it extends the now deprecated request package, see https://github.com/request/request/issues/3142
     dev: true
     engines:
       node: '>=0.12.0'
@@ -5549,7 +5627,7 @@ packages:
       tough-cookie: 2.5.0
       tunnel-agent: 0.6.0
       uuid: 3.4.0
-    deprecated: 'request has been deprecated, see https://github.com/request/request/issues/3142'
+    deprecated: request has been deprecated, see https://github.com/request/request/issues/3142
     dev: true
     engines:
       node: '>= 6'
@@ -5596,7 +5674,7 @@ packages:
     resolution:
       integrity: sha512-qYg9KP24dD5qka9J47d0aVky0N+b4fTU89LN9iDnjB5waksiC49rvMB0PrUJQGoTmH50XPiqOvAjDfaijGxYZw==
   /resolve-url/0.2.1:
-    deprecated: 'https://github.com/lydell/resolve-url#deprecated'
+    deprecated: https://github.com/lydell/resolve-url#deprecated
     dev: true
     resolution:
       integrity: sha1-LGN/53yJOv0qZj/iGqkIAGjiBSo=
@@ -5641,6 +5719,18 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-JZkJMZkAGFFPP2YqXZXPbMlMBgsxzE8ILs4lMIX/2o0L9UBw9O/Y3o6wFw/i9YLapcUJWwqbi3kdxIPdC62TIA==
+  /rollup-plugin-dts/2.0.1_rollup@2.39.0:
+    dependencies:
+      magic-string: 0.25.7
+      rollup: 2.39.0
+    dev: true
+    optionalDependencies:
+      '@babel/code-frame': 7.12.13
+    peerDependencies:
+      rollup: ^2.34.2
+      typescript: ^4.1.2
+    resolution:
+      integrity: sha512-y38NSXIY37YExCumbGBTL5dXg7pL7XD+Kbe98iEHWFN9yiKJf7t4kKBOkml5ylUDjQIXBnNClGDeRktc1T5dmA==
   /rollup-plugin-dts/2.0.1_rollup@2.39.0+typescript@4.1.5:
     dependencies:
       magic-string: 0.25.7
@@ -5729,7 +5819,7 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-hhbzAgTIX8O7SHfp2c8/kREfEn4qO/9q8C9beyY6+tvZ87EpoZ3i1RIEvp27YBswnNbY9mWd6paKVmKbAgLfZA==
-  /sass/1.32.7:
+  /sass/1.32.8:
     dependencies:
       chokidar: 3.5.1
     dev: true
@@ -5737,7 +5827,7 @@ packages:
       node: '>=8.9.0'
     hasBin: true
     resolution:
-      integrity: sha512-C8Z4bjqGWnsYa11o8hpKAuoyFdRhrSHcYjCr+XAWVPSIQqC8mp2f5Dx4em0dKYehPzg5XSekmCjqJnEZbIls9A==
+      integrity: sha512-Sl6mIeGpzjIUZqvKnKETfMf0iDAswD9TNlv13A7aAF3XZlRPMq4VvJWBC2N2DXbp94MQVdNSFG6LfF/iOXrPHQ==
   /sax/1.2.4:
     dev: true
     resolution:
@@ -6391,6 +6481,24 @@ packages:
     dev: true
     resolution:
       integrity: sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==
+  /tsup/4.0.0:
+    dependencies:
+      '@rollup/plugin-node-resolve': 11.2.0_rollup@2.39.0
+      cac: 6.7.2
+      chalk: 4.1.0
+      chokidar: 3.5.1
+      esbuild: 0.8.46
+      globby: 11.0.2
+      joycon: 2.2.5
+      postcss-load-config: 3.0.1
+      resolve-from: 5.0.0
+      rollup: 2.39.0
+      rollup-plugin-dts: 2.0.1_rollup@2.39.0
+      sucrase: 3.17.1
+    dev: true
+    hasBin: true
+    resolution:
+      integrity: sha512-zI1Cy/qp4r2gCpRXOuL8wY0xqP5tmQq0qU2v+V3w1F+OFNL5aok0R4ImOWeRav3SFo3s4lB1boq+gc9GMdVdhg==
   /tsup/4.0.0_typescript@4.1.5:
     dependencies:
       '@rollup/plugin-node-resolve': 11.2.0_rollup@2.39.0
@@ -6520,6 +6628,12 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-uNaeirEPvpZWSgzwsPGtU2zVSTrn/8L5q/IexZmH0eH6SA73CmAA5U4GwORTxQAZs95TAXLNqeLoPPNO5gZfWg==
+  /universalify/2.0.0:
+    dev: true
+    engines:
+      node: '>= 10.0.0'
+    resolution:
+      integrity: sha512-hAZsKq7Yy11Zu1DE0OzWjw7nnLZmJZYTDZZyEFHZdUhV8FkH5MCfoU1XMaxXovpyW5nq5scPqq0ZDP9Zyl04oQ==
   /unset-value/1.0.0:
     dependencies:
       has-value: 0.3.1
@@ -6556,7 +6670,7 @@ packages:
     resolution:
       integrity: sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==
   /urix/0.1.0:
-    deprecated: 'Please see https://github.com/lydell/urix#deprecated'
+    deprecated: Please see https://github.com/lydell/urix#deprecated
     dev: true
     resolution:
       integrity: sha1-2pN/emLiH+wf0Y1Js1wpNQZ6bHI=
@@ -6738,13 +6852,13 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-NsmoXalsWVDMGupxZ5R08ka9flZjjiLvHVAWYOKtiKM8ujtZWr9cRffak+uSE48+Ob8ObalXpwyeUiyDD6QFgg==
-  /windicss/2.1.11:
+  /windicss/2.1.12:
     dev: false
     engines:
       node: '>= 12'
     hasBin: true
     resolution:
-      integrity: sha512-79mPoUmvamwdJb+MJ/ug+XILxFzrTNCXo/HmacUn3V9sRQ6w5lA9KkpTrG70N7Oab0hbIFaq+X3Yva+QLSV0Pw==
+      integrity: sha512-VC057iG65zlvdqUI+1ynzOuKikalvYg6XqPGbG17HEAfwQ0sg1dACTk2plEp1QAEQNtKU3BnLnueWa4oKlltEQ==
   /word-wrap/1.2.3:
     dev: true
     engines:
