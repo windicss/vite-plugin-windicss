@@ -1,6 +1,6 @@
 {
   "name": "@windicss/plugin-utils",
-  "description": "Common utils for build plugins for Windi CSS",
+  "description": "Common utils for building integrations of Windi CSS",
   "version": "0.3.4",
   "main": "dist/index.js",
   "module": "dist/index.mjs",

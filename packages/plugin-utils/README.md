@@ -1,6 +1,6 @@
 # @windicss/plugin-utils
 
-Common utils for build plugins for [Windi CSS](https://github.com/voorjaar/windicss).
+Common utils for building integrations of [Windi CSS](https://github.com/voorjaar/windicss).
 
 See [`vite-plugin-windicss`](https://github.com/antfu/vite-plugin-windicss) for more details.
 
