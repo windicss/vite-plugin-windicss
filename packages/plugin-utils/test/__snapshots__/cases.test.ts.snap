@@ -116,7 +116,6 @@ Set {
 
 exports[`cases variables: generated-css 1`] = `
 ".bg-\\\\$test-variable {
-  --tw-bg-opacity: 1;
-  background-color: rgba(var(--test-variable), var(--tw-bg-opacity));
+  background-color: var(--test-variable);
 }"
 `;
