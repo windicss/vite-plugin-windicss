@@ -9,7 +9,6 @@ const config: UserConfig = {
     }),
     WindiCSS({
       safelist: 'shadow shadow-xl',
-      scan: false,
     }),
   ],
 }

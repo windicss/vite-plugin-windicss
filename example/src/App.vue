@@ -1,3 +1,7 @@
+<script setup lang='ts'>
+import Foo from './Foo.vue'
+</script>
+
 <template>
   <div
     class="px-5 p-1 text-white hover:(text-green-100 rounded-full)"
@@ -11,6 +15,7 @@
   <div class="foo">
     foo
   </div>
+  <Foo />
   <router-link />
 </template>
 

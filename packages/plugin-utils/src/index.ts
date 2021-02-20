@@ -6,7 +6,7 @@ import { CSSParser } from 'windicss/utils/parser'
 import fg from 'fast-glob'
 import _debug from 'debug'
 import micromatch from 'micromatch'
-import { regexQuotedString, regexClassSplitter, regexClassCheck, regexHtmlTag, preflightTags, htmlTags, defaultAlias, TagNames, regexClassGroup } from './constants'
+import { regexQuotedString, regexClassSplitter, regexClassCheck, regexHtmlTag, preflightTags, htmlTags, defaultAlias, TagNames } from './constants'
 import { resolveOptions, WindiCssOptions, WindiPluginUtilsOptions, UserOptions } from './options'
 
 import { toArray, kebabCase, include, exclude, slash, transfromGroups } from './utils'
@@ -171,20 +171,15 @@ export function createUtils(_options: WindiPluginUtilsOptions = {}) {
   }
 
   function extractFile(code: string) {
+    let changed = false
     // classes
     Array.from(code.matchAll(regexQuotedString))
-      .flatMap(m => (m[2] || '')
-        .replace(regexClassGroup, (v) => {
-          if (!classesGenerated.has(v))
-            classesPending.add(v)
-          return ''
-        })
-        .split(regexClassSplitter),
-      )
+      .flatMap(m => (m[2] || '').split(regexClassSplitter))
       .filter(i => i.match(regexClassCheck))
       .forEach((i) => {
         if (!i || classesGenerated.has(i))
           return
+        changed = true
         classesPending.add(i)
       })
 
@@ -197,13 +192,18 @@ export function createUtils(_options: WindiPluginUtilsOptions = {}) {
             i = preflightOptions.alias[kebabCase(i)]
           if (!tagsAvailable.has(i))
             return
+          changed = true
           tagsPending.add(i)
           tagsAvailable.delete(i)
         })
     }
 
-    debug.detect('classes', classesPending)
-    debug.detect('tags', tagsPending)
+    if (changed) {
+      debug.detect('classes', classesPending)
+      debug.detect('tags', tagsPending)
+    }
+
+    return changed
   }
 
   function transformCSS(css: string) {

@@ -92,10 +92,11 @@ function VitePluginWindicss(options: UserOptions = {}): Plugin[] {
       if (!utils.isDetectTarget(file))
         return
 
+      const changed = utils.extractFile(await read())
+      if (!changed)
+        return
+
       debug.hmr(`refreshed by ${file}`)
-
-      utils.extractFile(await read())
-
       const module = server.moduleGraph.getModuleById(MODULE_ID_VIRTUAL)!
       server.moduleGraph.invalidateModule(module)
 
