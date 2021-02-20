@@ -224,7 +224,7 @@ export function createUtils(
         .forEach((i) => {
           if (!tagsAvailable.has(i))
             i = preflightOptions.alias[kebabCase(i)]
-          if (!tagsAvailable.has(i) || !tagsPending.has(i))
+          if (!tagsAvailable.has(i) || tagsPending.has(i))
             return
           tagsPending.add(i)
           tagsAvailable.delete(i)
