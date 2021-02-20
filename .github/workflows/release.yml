@@ -18,6 +18,7 @@ jobs:
           registry-url: https://registry.npmjs.org/
       - run: npm i -g pnpm @antfu/ni
       - run: nci
+      - run: nr build
       - run: nr test --if-present
       - run: npx conventional-github-releaser -p angular
         env:
