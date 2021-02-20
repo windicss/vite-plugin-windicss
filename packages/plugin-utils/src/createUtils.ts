@@ -211,10 +211,10 @@ export function createUtils(
       .flatMap(m => (m[2] || '').split(regexClassSplitter))
       .filter(i => i.match(regexClassCheck))
       .forEach((i) => {
-        if (!i || classesGenerated.has(i))
+        if (!i || classesGenerated.has(i) || classesPending.has(i))
           return
-        changed = true
         classesPending.add(i)
+        changed = true
       })
 
     if (enablePreflight || !preflightOptions.enableAll) {
@@ -224,11 +224,11 @@ export function createUtils(
         .forEach((i) => {
           if (!tagsAvailable.has(i))
             i = preflightOptions.alias[kebabCase(i)]
-          if (!tagsAvailable.has(i))
+          if (!tagsAvailable.has(i) || !tagsPending.has(i))
             return
-          changed = true
           tagsPending.add(i)
           tagsAvailable.delete(i)
+          changed = true
         })
     }
 

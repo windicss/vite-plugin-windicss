@@ -70,7 +70,7 @@ importers:
       esbuild-register: 2.0.0_esbuild@0.8.49
       fast-glob: 3.2.5
       micromatch: 4.0.2
-      windicss: 2.1.14
+      windicss: 2.1.15
     devDependencies:
       '@antfu/ni': 0.5.4
       '@types/debug': 4.1.5
@@ -91,11 +91,11 @@ importers:
       micromatch: ^4.0.2
       tsup: ^4.0.0
       typescript: ^4.1.5
-      windicss: ^2.1.14
+      windicss: ^2.1.15
   packages/rollup-plugin-windicss:
     dependencies:
       '@windicss/plugin-utils': link:../plugin-utils
-      windicss: 2.1.14
+      windicss: 2.1.15
     devDependencies:
       '@antfu/ni': 0.5.4
       '@types/node': 14.14.31
@@ -109,11 +109,11 @@ importers:
       debug: ^4.3.2
       rollup: ^2.39.0
       tsup: ^4.0.0
-      windicss: ^2.1.14
+      windicss: ^2.1.15
   packages/vite-plugin-windicss:
     dependencies:
       '@windicss/plugin-utils': link:../plugin-utils
-      windicss: 2.1.14
+      windicss: 2.1.15
     devDependencies:
       '@antfu/ni': 0.5.4
       '@types/node': 14.14.31
@@ -127,7 +127,7 @@ importers:
       debug: ^4.3.2
       tsup: ^4.0.0
       vite: ^2.0.1
-      windicss: ^2.1.14
+      windicss: ^2.1.15
 lockfileVersion: 5.2
 overrides:
   esbuild: 0.8.49
@@ -6763,13 +6763,13 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-NsmoXalsWVDMGupxZ5R08ka9flZjjiLvHVAWYOKtiKM8ujtZWr9cRffak+uSE48+Ob8ObalXpwyeUiyDD6QFgg==
-  /windicss/2.1.14:
+  /windicss/2.1.15:
     dev: false
     engines:
       node: '>= 12'
     hasBin: true
     resolution:
-      integrity: sha512-qxsiUxH81yYI9StGSi/A9RVcbtNdMBgbxmBnt25p8pRbk+NSeRJTATA9/NSJOmxuvscc1NVq8BjaFCzILpKrkg==
+      integrity: sha512-gBihXNJPzv/kBaelOlXvbrmWsWuv98OPSf/yUYjc8EnRGCOxDOQIRin4FYPTWCmZi91PZThh7nMjzQZiBV+MYg==
   /word-wrap/1.2.3:
     dev: true
     engines:
