@@ -104,7 +104,7 @@ export function createUtils(
         catch (e) {
           console.error(`[${name}] failed to load config "${path}"`)
           console.error(`[${name}] ${e.toString()}`)
-          process.exit(1)
+          setTimeout(() => process.exit(1))
         }
       }
     }
