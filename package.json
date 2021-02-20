@@ -39,5 +39,10 @@
     "tsup": "^4.0.0",
     "typescript": "^4.1.5",
     "vite": "^2.0.1"
+  },
+  "pnpm": {
+    "overrides": {
+      "esbuild": "0.8.49"
+    }
   }
 }
