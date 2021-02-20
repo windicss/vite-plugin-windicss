@@ -1,4 +1,4 @@
-import { regexClassGroup } from './constants'
+import { regexClassGroup } from './regexes'
 
 export function toArray<T>(v: T | T[]): T[] {
   if (Array.isArray(v))

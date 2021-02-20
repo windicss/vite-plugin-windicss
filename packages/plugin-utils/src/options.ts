@@ -11,7 +11,7 @@ export interface UserOptions {
    * Options for windicss/tailwindcss.
    * Also accepts string as config file path.
    *
-   * @default 'tailwind.config.js'
+   * @default auto searching for `windi.config.ts` / `tailwind.config.js`
    */
   config?: WindiCssOptions | string
 
@@ -138,10 +138,17 @@ export interface WindiPluginUtilsOptions {
     * @internal
     */
   root?: string
+
+  /**
+   * Use esbuild-register to load configs in TypeScript
+   *
+   * @default true
+   */
+  enabledTypeScriptConfig?: boolean
 }
 
 export interface ResolvedOptions {
-  config: string | WindiCssOptions
+  config: string | WindiCssOptions | undefined
   scan: boolean
   scanOptions: {
     fileExtensions: string[]
@@ -175,7 +182,6 @@ export function resolveOptions(options: UserOptions | ResolvedOptions = {}): Res
     return options
 
   const {
-    config = 'tailwind.config.js',
     scan = true,
     preflight = true,
     transformCSS = true,
@@ -219,7 +225,6 @@ export function resolveOptions(options: UserOptions | ResolvedOptions = {}): Res
 
   return {
     ...options,
-    config,
     scan: Boolean(scan),
     scanOptions,
     preflight: Boolean(preflight),

@@ -1,6 +1,6 @@
 import { Plugin } from 'vite'
 import _debug from 'debug'
-import { UserOptions, createUtils, WindiPluginUtils, resolveOptions } from '@windicss/plugin-utils'
+import { UserOptions, WindiPluginUtils, resolveOptions, createUtils } from '@windicss/plugin-utils'
 
 const NAME = 'vite-plugin-windicss'
 const MODULE_ID = 'windi.css'

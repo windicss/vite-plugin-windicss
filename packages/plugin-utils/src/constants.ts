@@ -1,16 +1,17 @@
 /* eslint-disable no-use-before-define */
-
-export const regexQuotedString = /(["'`])((?:\\\1|(?:(?!\1)|\n).)*?)\1/mg
-export const regexClassCheck = /^[a-z.-]+[\w:/\\.$-]*\w$/
-export const regexHtmlTag = /<(\w[\w-]*)/g
-export const regexClassSplitter = /[\s'"`{}]/g
-export const regexClassGroup = /(\w[\w:_/-]*?):\(([\w\s/-]*?)\)/gm
+export const configureFiles = [
+  'windi.config.ts',
+  'windi.config.js',
+  'tailwind.config.ts',
+  'tailwind.config.js',
+]
 
 export const defaultAlias: Record<string, TagNames> = {
   'router-link': 'a',
 }
 
 export const preflightTags = ['html', 'body', 'div']
+
 export const htmlTags = [
   'html',
   'body',

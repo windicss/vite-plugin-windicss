@@ -27,8 +27,10 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
+    "esbuild": "^0.8.49",
     "fast-glob": "^3.2.5",
     "micromatch": "^4.0.2",
+    "esbuild-register": "^2.0.0",
     "windicss": "^2.1.14"
   },
   "devDependencies": {

@@ -66,6 +66,8 @@ importers:
       vue: ^3.0.5
   packages/plugin-utils:
     dependencies:
+      esbuild: 0.8.49
+      esbuild-register: 2.0.0_esbuild@0.8.49
       fast-glob: 3.2.5
       micromatch: 4.0.2
       windicss: 2.1.14
@@ -83,6 +85,8 @@ importers:
       '@types/micromatch': ^4.0.1
       '@types/node': ^14.14.31
       debug: ^4.3.2
+      esbuild: ^0.8.49
+      esbuild-register: ^2.0.0
       fast-glob: ^3.2.5
       micromatch: ^4.0.2
       tsup: ^4.0.0
@@ -124,28 +128,6 @@ importers:
       tsup: ^4.0.0
       vite: ^2.0.1
       windicss: ^2.1.14
-  test/fixtures/css-scoped:
-    dependencies:
-      vue: 3.0.5
-    devDependencies:
-      '@vitejs/plugin-vue': 1.1.4_@vue+compiler-sfc@3.0.5
-      '@vue/compiler-sfc': 3.0.5_vue@3.0.5
-      cross-env: 7.0.3
-      nodemon: 2.0.7
-      sass: 1.32.8
-      stylus: 0.54.8
-      vite: 2.0.1
-      vite-plugin-windicss: link:../../../packages/vite-plugin-windicss
-    specifiers:
-      '@vitejs/plugin-vue': ^1.1.4
-      '@vue/compiler-sfc': ^3.0.5
-      cross-env: ^7.0.3
-      nodemon: ^2.0.7
-      sass: ^1.32.8
-      stylus: ^0.54.8
-      vite: ^2.0.1
-      vite-plugin-windicss: workspace:*
-      vue: ^3.0.5
 lockfileVersion: 5.2
 packages:
   /@antfu/eslint-config-basic/0.4.3_eslint@7.20.0:
@@ -1614,7 +1596,6 @@ packages:
     resolution:
       integrity: sha512-gQxTNE/GAfIIrmHLUE3oJyp5FO6HRBfhjnw4/wMmA63ZGDJnWBmgY/lyQBpnDUkGmAhbSe39tx2d/iTOAfglwQ==
   /buffer-from/1.1.1:
-    dev: true
     resolution:
       integrity: sha512-MQcXEUbCKtEo7bhqEs6560Hyd4XaovZlO/k9V3hjVUF/zwW7KBVdSK4gIt/bzwS9MbR5qob+F5jusZsb0YQK2A==
   /builtin-modules/3.2.0:
@@ -2004,21 +1985,6 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-v1plID3y9r/lPhviJ1wrXpLeyUIGAZ2SHNYTEapm7/8A9nLPoyvVp3RK/EPFqn5kEznyWgYZNsRtYYIWbuG8KA==
-  /css-parse/2.0.0:
-    dependencies:
-      css: 2.2.4
-    dev: true
-    resolution:
-      integrity: sha1-pGjuZnwW2BzPBcWMONKpfHgNv9Q=
-  /css/2.2.4:
-    dependencies:
-      inherits: 2.0.4
-      source-map: 0.6.1
-      source-map-resolve: 0.5.3
-      urix: 0.1.0
-    dev: true
-    resolution:
-      integrity: sha512-oUnjmWpy0niI3x/mPL8dVEI1l7MnG3+HHyRPHf+YFSbK+svOhXpmSOcDURUh2aOCgl2grzrOPt1nHLuCVFULLw==
   /cssesc/3.0.0:
     dev: true
     engines:
@@ -2070,12 +2036,6 @@ packages:
     dev: true
     resolution:
       integrity: sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==
-  /debug/3.1.0:
-    dependencies:
-      ms: 2.0.0
-    dev: true
-    resolution:
-      integrity: sha512-OX8XqP7/1a9cqkxYw2yXss15f26NKWBpDXQd0/uK/KPqdQhxbPa994hnzjcE2VqQpDslf55723cKPUOGSmMY3g==
   /debug/3.2.7:
     dependencies:
       ms: 2.1.3
@@ -2367,12 +2327,30 @@ packages:
       node: '>= 0.4'
     resolution:
       integrity: sha512-QCOllgZJtaUo9miYBcLChTUaHNjJF3PYs1VidD7AwiEj1kYxKeQTctLAezAOH5ZKRH0g2IgPn6KwB4IT8iRpvA==
+  /esbuild-register/2.0.0_esbuild@0.8.49:
+    dependencies:
+      esbuild: 0.8.49
+      joycon: 2.2.5
+      pirates: 4.0.1
+      source-map-support: 0.5.19
+      strip-json-comments: 3.1.1
+    dev: false
+    peerDependencies:
+      esbuild: '>=0.8.31'
+    resolution:
+      integrity: sha512-98i1+7OnCURCbKaWw5wnY05e4v7uknFEER7LtVxi/lCs8U+sl6/LnITvfeoDLrsqxlA3O6BjxK8QqsirfYULfA==
   /esbuild/0.8.48:
     dev: true
     hasBin: true
     requiresBuild: true
     resolution:
       integrity: sha512-lrH8lA8wWQ6Lpe1z6C7ZZaFSmRsUlcQAqe16nf7ITySQ7MV4+vI7qAqQlT/u+c3+9AL3VXmT4MXTxV2e63pO4A==
+  /esbuild/0.8.49:
+    dev: false
+    hasBin: true
+    requiresBuild: true
+    resolution:
+      integrity: sha512-itiFVYv5UZz4NooO7/Y0bRGVDGz/M/cxKbl6zyNI5pnKaz1mZjvZXAFhhDVz6rGCmcdTKj5oag6rh8DaaSSmfQ==
   /escape-goat/2.1.1:
     dev: true
     engines:
@@ -4265,7 +4243,6 @@ packages:
     resolution:
       integrity: sha512-lGS5PXGAzR4RF7V5+XObhqz2KZIDUA1yD0DG6pBVmy10eh0ZIXQImRuzocsI/N2XZ1GrLFwTS27In2i2jlpq1Q==
   /joycon/2.2.5:
-    dev: true
     engines:
       node: '>=6'
     resolution:
@@ -4784,7 +4761,6 @@ packages:
     resolution:
       integrity: sha1-h6kGXNs1XTGC2PlM4RGIuCXGijs=
   /node-modules-regexp/1.0.0:
-    dev: true
     engines:
       node: '>=0.10.0'
     resolution:
@@ -5204,7 +5180,6 @@ packages:
   /pirates/4.0.1:
     dependencies:
       node-modules-regexp: 1.0.0
-    dev: true
     engines:
       node: '>= 6'
     resolution:
@@ -5793,19 +5768,6 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-hhbzAgTIX8O7SHfp2c8/kREfEn4qO/9q8C9beyY6+tvZ87EpoZ3i1RIEvp27YBswnNbY9mWd6paKVmKbAgLfZA==
-  /sass/1.32.8:
-    dependencies:
-      chokidar: 3.5.1
-    dev: true
-    engines:
-      node: '>=8.9.0'
-    hasBin: true
-    resolution:
-      integrity: sha512-Sl6mIeGpzjIUZqvKnKETfMf0iDAswD9TNlv13A7aAF3XZlRPMq4VvJWBC2N2DXbp94MQVdNSFG6LfF/iOXrPHQ==
-  /sax/1.2.4:
-    dev: true
-    resolution:
-      integrity: sha512-NqVDv9TpANUjFm0N8uM5GxL36UgKi9/atZw+x7YFnQ8ckwFGKrl4xX4yWtrey3UJm5nP1kUbnYgLopqWNSRhWw==
   /saxes/5.0.1:
     dependencies:
       xmlchars: 2.2.0
@@ -5976,7 +5938,6 @@ packages:
     dependencies:
       buffer-from: 1.1.1
       source-map: 0.6.1
-    dev: true
     resolution:
       integrity: sha512-Wonm7zOCIJzBGQdB+thsPar0kYuCIzYvxZwlBa87yi/Mdjv7Tip2cyVbLj5o0cFPN4EVkuTwb3GDDyUx2DGnGw==
   /source-map-url/0.4.1:
@@ -6190,25 +6151,10 @@ packages:
     resolution:
       integrity: sha1-PFMZQukIwml8DsNEhYwobHygpgo=
   /strip-json-comments/3.1.1:
-    dev: true
     engines:
       node: '>=8'
     resolution:
       integrity: sha512-6fPc+R4ihwqP6N/aIv2f1gMH8lOVtWQHoqC4yK6oSDVVocumAsfCqjkXnqiYMhmMwS/mEHLp7Vehlt3ql6lEig==
-  /stylus/0.54.8:
-    dependencies:
-      css-parse: 2.0.0
-      debug: 3.1.0
-      glob: 7.1.6
-      mkdirp: 1.0.4
-      safer-buffer: 2.1.2
-      sax: 1.2.4
-      semver: 6.3.0
-      source-map: 0.7.3
-    dev: true
-    hasBin: true
-    resolution:
-      integrity: sha512-vr54Or4BZ7pJafo2mpf0ZcwA74rpuYCZbxrHBsH8kbcXOwSfvBFwsRfpGO5OD5fhG5HDCFW737PKaawI7OqEAg==
   /sucrase/3.17.1:
     dependencies:
       commander: 4.1.1

@@ -148,6 +148,30 @@ The following files can be removed if you don't use their other features.
 
 That's all, fire up Vite and enjoy the speed!
 
+## TypeScript
+
+Enable TypeScript for your `tailwind.config.js`? Sure, why not?
+
+Rename it to `tailwind.config.ts` and things will just work!
+
+```ts
+// tailwind.config.ts
+import { defineConfig } from 'vite-plugin-windicss'
+
+export default defineConfig({
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        teal: {
+          100: '#096',
+        },
+      },
+    },
+  },
+})
+```
+
 ## Configuration
 
 See [options.ts](https://github.com/windicss/vite-plugin-windicss/blob/main/packages/plugin-utils/src/options.ts) for configuration reference.
