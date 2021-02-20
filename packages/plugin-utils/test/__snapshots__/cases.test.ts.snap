@@ -43,6 +43,28 @@ exports[`cases inline style: generated-css 1`] = `
 }"
 `;
 
+exports[`cases leading + and numbers: classes 1`] = `
+Set {
+  "2xl:text-xl",
+  "+lg:bg-red-900",
+}
+`;
+
+exports[`cases leading + and numbers: generated-css 1`] = `
+"@media (min-width: 1024px) and (max-width: 1280px) {
+  .\\\\+lg\\\\:bg-red-900 {
+    --tw-bg-opacity: 1;
+    background-color: rgba(127, 29, 29, var(--tw-bg-opacity));
+  }
+}
+@media (min-width: 1536px) {
+  .\\\\32 xl\\\\:text-xl {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+  }
+}"
+`;
+
 exports[`cases multiple lines: classes 1`] = `
 Set {
   "p-4",

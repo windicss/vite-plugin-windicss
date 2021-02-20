@@ -50,4 +50,8 @@ describe('cases', () => {
   it('inline style', async() => {
     utils.extractFile('<div style="max-width: 1920px;"><div class="relative top-0">')
   })
+
+  it('leading + and numbers', async() => {
+    utils.extractFile('<div class="2xl:text-xl +lg:bg-red-900">')
+  })
 })
