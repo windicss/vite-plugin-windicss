@@ -1,6 +1,6 @@
 import { Plugin } from 'rollup'
 import _debug from 'debug'
-import { UserOptions, WindiPluginUtils, transfromGroups } from '@windicss/plugin-utils'
+import { UserOptions, WindiPluginUtils } from '@windicss/plugin-utils'
 
 const NAME = 'rollup-plugin-windicss'
 const MODULE_ID = 'windi.css'
@@ -24,13 +24,13 @@ function WindiCssRollupPlugin(options: UserOptions = {}): Plugin[] {
         if (!utils.isScanTarget(id))
           return
         debug.group(id)
-        return transfromGroups(code)
+        return utils.transfromGroups(code)
       },
     })
   }
 
   plugins.push({
-    name: `${NAME}:virtual`,
+    name: `${NAME}:entry`,
 
     resolveId(id): string | null {
       return id.startsWith(MODULE_ID) || id === MODULE_ID_VIRTUAL

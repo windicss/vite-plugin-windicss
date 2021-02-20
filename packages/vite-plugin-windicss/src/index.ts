@@ -1,6 +1,6 @@
 import { Plugin } from 'vite'
 import _debug from 'debug'
-import { UserOptions, createUtils, WindiPluginUtils, transfromGroups } from '@windicss/plugin-utils'
+import { UserOptions, createUtils, WindiPluginUtils } from '@windicss/plugin-utils'
 
 const NAME = 'vite-plugin-windicss'
 const MODULE_ID = 'windi.css'
@@ -25,15 +25,15 @@ function VitePluginWindicss(options: UserOptions = {}): Plugin[] {
         if (!utils.isScanTarget(id))
           return
         debug.group(id)
-        return transfromGroups(code)
+        return utils.transfromGroups(code)
       },
     })
   }
 
   // CSS Entry via virtual module
   plugins.push({
-    name: `${NAME}:pre`,
-    enforce: 'pre',
+    name: `${NAME}:entry`,
+    enforce: 'post',
 
     configResolved(_config) {
       utils = createUtils({
@@ -52,9 +52,20 @@ function VitePluginWindicss(options: UserOptions = {}): Plugin[] {
 
     async load(id) {
       if (id === MODULE_ID_VIRTUAL)
-        return utils.generateCSS()
+        return await utils.generateCSS()
     },
   })
+
+  // // Build
+  // plugins.push({
+  //   name: `${NAME}:build`,
+  //   apply: 'build',
+  //   enforce: 'post',
+  //   transform(code, id) {
+  //     utils.extractFile(code)
+  //     return null
+  //   },
+  // })
 
   // HMR
   plugins.push({

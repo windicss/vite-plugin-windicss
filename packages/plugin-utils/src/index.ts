@@ -13,7 +13,7 @@ import { toArray, kebabCase, include, exclude, slash, transfromGroups } from './
 
 export type WindiPluginUtils = ReturnType<typeof createUtils>
 
-export { preflightTags, htmlTags, defaultAlias, transfromGroups }
+export { preflightTags, htmlTags, defaultAlias }
 export type { WindiPluginUtilsOptions, TagNames, UserOptions }
 
 export function createUtils(_options: WindiPluginUtilsOptions = {}) {
@@ -295,6 +295,7 @@ export function createUtils(_options: WindiPluginUtilsOptions = {}) {
     generateCSS,
     clearCache,
     transformCSS,
+    transfromGroups,
     isDetectTarget,
     isScanTarget,
     isCssTransformTarget,
@@ -314,6 +315,9 @@ export function createUtils(_options: WindiPluginUtilsOptions = {}) {
     },
     get configFilePath() {
       return configFilePath
+    },
+    get hasPending() {
+      return Boolean(tagsPending.size || classesPending.size)
     },
   }
 }
