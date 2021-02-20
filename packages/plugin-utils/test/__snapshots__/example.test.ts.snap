@@ -12,6 +12,7 @@ Set {
   "hover:w-1/3",
   "mt-10px",
   "bg-yellow-200",
+  "mt-2",
 }
 `;
 
@@ -65,10 +66,6 @@ abbr[title] {
   -webkit-text-decoration: underline dotted;
   text-decoration: underline dotted;
 }
-a {
-  color: inherit;
-  text-decoration: inherit;
-}
 body {
   margin: 0;
   font-family: inherit;
@@ -78,11 +75,6 @@ html {
   -webkit-text-size-adjust: 100%;
   font-family: ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,\\"Segoe UI\\",Roboto,\\"Helvetica Neue\\",Arial,\\"Noto Sans\\",sans-serif,\\"Apple Color Emoji\\",\\"Segoe UI Emoji\\",\\"Segoe UI Symbol\\",\\"Noto Color Emoji\\";
   line-height: 1.5;
-}
-h2 {
-  margin: 0;
-  font-size: inherit;
-  font-weight: inherit;
 }
 .bg-teal-100 {
   --tw-bg-opacity: 1;
@@ -94,6 +86,9 @@ h2 {
 }
 .mt-10px {
   margin-top: 10px;
+}
+.mt-2 {
+  margin-top: 0.5rem;
 }
 .p-5 {
   padding: 1.25rem;
@@ -126,12 +121,5 @@ Set {
   "html",
   "body",
   "div",
-  "head",
-  "meta",
-  "title",
-  "script",
-  "h2",
-  "a",
-  "style",
 }
 `;
