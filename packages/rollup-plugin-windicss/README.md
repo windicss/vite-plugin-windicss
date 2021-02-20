@@ -15,7 +15,6 @@
 - ⚡️ Fast
 - 🧩 On-demand CSS utilities (Compatible with Tailwind CSS v2)
 - 📦 On-demand native elements style reseting
-- 🔥 Hot module replacement (HMR)
 - 🍃 Load configurations from `tailwind.config.js`
 - 🤝 Framework-agnostic - Vue, React, Svelte and vanilla!
 - 📄 CSS `@apply` / `@screen` directives transforms (also works for Vue SFC's `<style>`)

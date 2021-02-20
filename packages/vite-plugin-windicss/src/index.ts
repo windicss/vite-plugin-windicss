@@ -17,6 +17,7 @@ function VitePluginWindicss(options: UserOptions = {}): Plugin[] {
 
   const plugins: Plugin[] = []
 
+  // Utilities grouping transform
   if (options.transformGroups !== false) {
     plugins.push({
       name: `${NAME}:groups`,
@@ -29,6 +30,7 @@ function VitePluginWindicss(options: UserOptions = {}): Plugin[] {
     })
   }
 
+  // CSS Entry via virtual module
   plugins.push({
     name: `${NAME}:pre`,
     enforce: 'pre',
@@ -54,6 +56,7 @@ function VitePluginWindicss(options: UserOptions = {}): Plugin[] {
     },
   })
 
+  // HMR
   plugins.push({
     name: `${NAME}:hmr`,
     apply: 'serve',
@@ -92,6 +95,7 @@ function VitePluginWindicss(options: UserOptions = {}): Plugin[] {
     },
   })
 
+  // CSS transform
   if (options.transformCSS !== false) {
     plugins.push({
       name: `${NAME}:css`,
