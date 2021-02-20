@@ -6,7 +6,7 @@ importers:
       '@types/debug': 4.1.5
       '@types/fs-extra': 9.0.7
       '@types/micromatch': 4.0.1
-      '@types/node': 14.14.30
+      '@types/node': 14.14.31
       '@typescript-eslint/eslint-plugin': 4.15.1_eslint@7.20.0+typescript@4.1.5
       bumpp: 6.0.6
       debug: 4.3.2
@@ -28,7 +28,7 @@ importers:
       '@types/debug': ^4.1.5
       '@types/fs-extra': ^9.0.7
       '@types/micromatch': ^4.0.1
-      '@types/node': ^14.14.30
+      '@types/node': ^14.14.31
       '@typescript-eslint/eslint-plugin': ^4.15.1
       bumpp: ^6.0.6
       debug: ^4.3.2
@@ -68,12 +68,12 @@ importers:
     dependencies:
       fast-glob: 3.2.5
       micromatch: 4.0.2
-      windicss: 2.1.12
+      windicss: 2.1.14
     devDependencies:
       '@antfu/ni': 0.5.4
       '@types/debug': 4.1.5
       '@types/micromatch': 4.0.1
-      '@types/node': 14.14.30
+      '@types/node': 14.14.31
       debug: 4.3.2
       tsup: 4.0.0_typescript@4.1.5
       typescript: 4.1.5
@@ -81,49 +81,49 @@ importers:
       '@antfu/ni': ^0.5.4
       '@types/debug': ^4.1.5
       '@types/micromatch': ^4.0.1
-      '@types/node': ^14.14.30
+      '@types/node': ^14.14.31
       debug: ^4.3.2
       fast-glob: ^3.2.5
       micromatch: ^4.0.2
       tsup: ^4.0.0
       typescript: ^4.1.5
-      windicss: ^2.1.12
+      windicss: ^2.1.14
   packages/rollup-plugin-windicss:
     dependencies:
       '@windicss/plugin-utils': link:../plugin-utils
-      windicss: 2.1.12
+      windicss: 2.1.14
     devDependencies:
       '@antfu/ni': 0.5.4
-      '@types/node': 14.14.30
+      '@types/node': 14.14.31
       debug: 4.3.2
       rollup: 2.39.0
       tsup: 4.0.0
     specifiers:
       '@antfu/ni': ^0.5.4
-      '@types/node': ^14.14.30
+      '@types/node': ^14.14.31
       '@windicss/plugin-utils': workspace:*
       debug: ^4.3.2
       rollup: ^2.39.0
       tsup: ^4.0.0
-      windicss: ^2.1.12
+      windicss: ^2.1.14
   packages/vite-plugin-windicss:
     dependencies:
       '@windicss/plugin-utils': link:../plugin-utils
-      windicss: 2.1.12
+      windicss: 2.1.14
     devDependencies:
       '@antfu/ni': 0.5.4
-      '@types/node': 14.14.30
+      '@types/node': 14.14.31
       debug: 4.3.2
       tsup: 4.0.0
       vite: 2.0.1
     specifiers:
       '@antfu/ni': ^0.5.4
-      '@types/node': ^14.14.30
+      '@types/node': ^14.14.31
       '@windicss/plugin-utils': workspace:*
       debug: ^4.3.2
       tsup: ^4.0.0
       vite: ^2.0.1
-      windicss: ^2.1.12
+      windicss: ^2.1.14
   test/fixtures/css-scoped:
     dependencies:
       vue: 3.0.5
@@ -947,6 +947,10 @@ packages:
     dev: true
     resolution:
       integrity: sha512-gUWhy8s45fQp4PqqKecsnOkdW0kt1IaKjgOIR3HPokkzTmQj9ji2wWFID5THu1MKrtO+d4s2lVrlEhXUsPXSvg==
+  /@types/node/14.14.31:
+    dev: true
+    resolution:
+      integrity: sha512-vFHy/ezP5qI0rFgJ7aQnjDXwAMrG0KqqIH7tQG5PPv3BWBayOPIQNBjVc/P6hhdZfMx51REc6tfDNXHUio893g==
   /@types/normalize-package-data/2.4.0:
     dev: true
     resolution:
@@ -6822,13 +6826,13 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-NsmoXalsWVDMGupxZ5R08ka9flZjjiLvHVAWYOKtiKM8ujtZWr9cRffak+uSE48+Ob8ObalXpwyeUiyDD6QFgg==
-  /windicss/2.1.12:
+  /windicss/2.1.14:
     dev: false
     engines:
       node: '>= 12'
     hasBin: true
     resolution:
-      integrity: sha512-VC057iG65zlvdqUI+1ynzOuKikalvYg6XqPGbG17HEAfwQ0sg1dACTk2plEp1QAEQNtKU3BnLnueWa4oKlltEQ==
+      integrity: sha512-qxsiUxH81yYI9StGSi/A9RVcbtNdMBgbxmBnt25p8pRbk+NSeRJTATA9/NSJOmxuvscc1NVq8BjaFCzILpKrkg==
   /word-wrap/1.2.3:
     dev: true
     engines:
