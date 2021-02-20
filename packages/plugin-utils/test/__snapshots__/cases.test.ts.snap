@@ -74,18 +74,19 @@ exports[`cases uppercase classnames: generated-css 1`] = `
 
 exports[`cases utilities grouping: classes 1`] = `
 Set {
-  "sm:hover:bg-gray-100",
-  "sm:hover:font-medium",
   "bg-white",
   "font-light",
+  "sm:hover:bg-gray-100",
+  "sm:hover:font-medium",
 }
 `;
 
 exports[`cases utilities grouping: classes-pending 1`] = `
 Set {
-  "sm:hover:(bg-gray-100 font-medium)",
   "bg-white",
   "font-light",
+  "sm:hover:bg-gray-100",
+  "sm:hover:font-medium",
 }
 `;
 

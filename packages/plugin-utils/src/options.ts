@@ -145,6 +145,7 @@ export function resolveOptions(options: WindiPluginUtilsOptions) {
     scan = true,
     preflight = true,
     transformCSS = true,
+    transformGroups = true,
     sortUtilities = true,
     _projectRoot = process.cwd(),
     _pluginName = 'windi-plugin-utils',
@@ -191,6 +192,7 @@ export function resolveOptions(options: WindiPluginUtilsOptions) {
     preflight: Boolean(preflight),
     preflightOptions,
     transformCSS,
+    transformGroups,
     sortUtilities,
     safelist,
   }

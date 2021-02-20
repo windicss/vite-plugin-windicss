@@ -22,7 +22,7 @@ function VitePluginWindicss(options: UserOptions = {}): Plugin[] {
     plugins.push({
       name: `${NAME}:groups`,
       transform(code, id) {
-        if (!utils.isScanTarget(id))
+        if (!utils.isDetectTarget(id))
           return
         debug.group(id)
         return utils.transfromGroups(code)
@@ -92,7 +92,7 @@ function VitePluginWindicss(options: UserOptions = {}): Plugin[] {
       if (!utils.isDetectTarget(file))
         return
 
-      const changed = utils.extractFile(await read())
+      const changed = utils.extractFile(await read(), false)
       if (!changed)
         return
 

@@ -23,6 +23,7 @@ export function createUtils(_options: WindiPluginUtilsOptions = {}) {
     config,
     scan: enabledScan,
     scanOptions,
+    transformGroups: enableGroupsTransform,
     transformCSS: enableCssTransform,
     preflight: enablePreflight,
     preflightOptions,
@@ -140,7 +141,7 @@ export function createUtils(_options: WindiPluginUtilsOptions = {}) {
         )
 
         for (const content of contents)
-          extractFile(content)
+          extractFile(content, true)
 
         scanned = true
       })()
@@ -155,6 +156,8 @@ export function createUtils(_options: WindiPluginUtilsOptions = {}) {
   }
 
   function isDetectTarget(id: string) {
+    if (files.some(file => id.startsWith(file)))
+      return true
     return id.match(regexId) && !isExcluded(id)
   }
 
@@ -170,7 +173,12 @@ export function createUtils(_options: WindiPluginUtilsOptions = {}) {
     return false
   }
 
-  function extractFile(code: string) {
+  function extractFile(code: string, applyTransform = true) {
+    if (applyTransform) {
+      if (enableGroupsTransform)
+        code = transfromGroups(code)
+    }
+
     let changed = false
     // classes
     Array.from(code.matchAll(regexQuotedString))
