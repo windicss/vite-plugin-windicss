@@ -7,17 +7,20 @@ import fg from 'fast-glob'
 import _debug from 'debug'
 import micromatch from 'micromatch'
 import { regexQuotedString, regexClassSplitter, regexClassCheck, regexHtmlTag, preflightTags, htmlTags, defaultAlias, TagNames } from './constants'
-import { resolveOptions, WindiCssOptions, WindiPluginUtilsOptions, UserOptions } from './options'
+import { resolveOptions, WindiCssOptions, WindiPluginUtilsOptions, UserOptions, ResolvedOptions } from './options'
 
 import { toArray, kebabCase, include, exclude, slash, transfromGroups } from './utils'
 
 export type WindiPluginUtils = ReturnType<typeof createUtils>
 
-export { preflightTags, htmlTags, defaultAlias }
-export type { WindiPluginUtilsOptions, TagNames, UserOptions }
+export { preflightTags, htmlTags, defaultAlias, resolveOptions }
+export type { WindiPluginUtilsOptions, TagNames, UserOptions, ResolvedOptions }
 
-export function createUtils(_options: WindiPluginUtilsOptions = {}) {
-  const options = resolveOptions(_options)
+export function createUtils(
+  userOptions: UserOptions | ResolvedOptions = {},
+  utilsOptions: WindiPluginUtilsOptions = {},
+) {
+  const options = resolveOptions(userOptions)
 
   const {
     config,
@@ -29,9 +32,12 @@ export function createUtils(_options: WindiPluginUtilsOptions = {}) {
     preflightOptions,
     sortUtilities,
     safelist,
-    _pluginName: name,
-    _projectRoot: root,
   } = options
+
+  const {
+    name = 'windicss-plugin-utils',
+    root = process.cwd(),
+  } = utilsOptions
 
   const debug = {
     config: _debug(`${name}:config`),
@@ -273,7 +279,7 @@ export function createUtils(_options: WindiPluginUtilsOptions = {}) {
     style = new StyleSheet()
     _cssCache = undefined
 
-    const preflightSafelist = toArray(preflightOptions?.safelist || []).flatMap(i => i.split(' '))
+    const preflightSafelist = toArray(preflightOptions.safelist).flatMap(i => i.split(' '))
 
     include(classesPending, configSafelist)
     include(classesPending, safelist)

@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "nodemon --watch ../dist/index.js -x \"cross-env DEBUG=vite-plugin-windicss:* vite\"",
+    "dev": "nodemon --watch ../dist/index.js -x \"cross-env DEBUG=vite-plugin-windicss:* vite --open\"",
     "build": "cross-env DEBUG=vite-plugin-windicss:* vite build"
   },
   "dependencies": {

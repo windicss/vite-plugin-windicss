@@ -1,6 +1,6 @@
 import { Plugin } from 'vite'
 import _debug from 'debug'
-import { UserOptions, createUtils, WindiPluginUtils } from '@windicss/plugin-utils'
+import { UserOptions, createUtils, WindiPluginUtils, resolveOptions } from '@windicss/plugin-utils'
 
 const NAME = 'vite-plugin-windicss'
 const MODULE_ID = 'windi.css'
@@ -12,13 +12,14 @@ const debug = {
   group: _debug(`${NAME}:transform:group`),
 }
 
-function VitePluginWindicss(options: UserOptions = {}): Plugin[] {
+function VitePluginWindicss(userOptions: UserOptions = {}): Plugin[] {
   let utils: WindiPluginUtils
 
+  const options = resolveOptions(userOptions)
   const plugins: Plugin[] = []
 
   // Utilities grouping transform
-  if (options.transformGroups !== false) {
+  if (options.transformGroups) {
     plugins.push({
       name: `${NAME}:groups`,
       transform(code, id) {
@@ -36,10 +37,9 @@ function VitePluginWindicss(options: UserOptions = {}): Plugin[] {
     enforce: 'post',
 
     configResolved(_config) {
-      utils = createUtils({
-        ...options,
-        _pluginName: NAME,
-        _projectRoot: _config.root,
+      utils = createUtils(options, {
+        name: NAME,
+        root: _config.root,
       })
       utils.init()
     },
@@ -108,7 +108,7 @@ function VitePluginWindicss(options: UserOptions = {}): Plugin[] {
   })
 
   // CSS transform
-  if (options.transformCSS !== false) {
+  if (options.transformCSS) {
     plugins.push({
       name: `${NAME}:css`,
       transform(code, id) {

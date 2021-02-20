@@ -1,6 +1,6 @@
 import { Plugin } from 'rollup'
 import _debug from 'debug'
-import { UserOptions, WindiPluginUtils } from '@windicss/plugin-utils'
+import { resolveOptions, UserOptions, WindiPluginUtils } from '@windicss/plugin-utils'
 
 const NAME = 'rollup-plugin-windicss'
 const MODULE_ID = 'windi.css'
@@ -12,16 +12,17 @@ const debug = {
   group: _debug(`${NAME}:transform:group`),
 }
 
-function WindiCssRollupPlugin(options: UserOptions = {}): Plugin[] {
+function WindiCssRollupPlugin(userOptions: UserOptions = {}): Plugin[] {
   let utils: WindiPluginUtils
 
+  const options = resolveOptions(userOptions)
   const plugins: Plugin[] = []
 
-  if (options.transformGroups !== false) {
+  if (options.transformGroups) {
     plugins.push({
       name: `${NAME}:groups`,
       transform(code, id) {
-        if (!utils.isScanTarget(id))
+        if (!utils.isDetectTarget(id))
           return
         debug.group(id)
         return utils.transfromGroups(code)
@@ -44,7 +45,7 @@ function WindiCssRollupPlugin(options: UserOptions = {}): Plugin[] {
     },
   })
 
-  if (options.transformCSS !== false) {
+  if (options.transformCSS) {
     plugins.push({
       name: `${NAME}:css`,
       transform(code, id) {

@@ -6,7 +6,7 @@ import { kebabCase, toArray } from './utils'
 
 export { WindiCssOptions }
 
-export interface WindiPluginUtilsOptions {
+export interface UserOptions {
   /**
    * Options for windicss/tailwindcss.
    * Also accepts string as config file path.
@@ -120,26 +120,60 @@ export interface WindiPluginUtilsOptions {
    */
   sortUtilities?: boolean
 
+}
+
+export interface WindiPluginUtilsOptions {
   /**
    * Name for debug
    *
    * @default 'windi-plugin-utils'
    * @internal
    */
-  _pluginName?: string
+  name?: string
 
   /**
-   * CWD
-   *
-   * @default process.cwd
-   * @internal
-   */
-  _projectRoot?: string
+    * CWD
+    *
+    * @default process.cwd
+    * @internal
+    */
+  root?: string
 }
 
-export type UserOptions = Omit<WindiPluginUtilsOptions, '_pluginName' | '_projectRoot'>
+export interface ResolvedOptions {
+  config: string | WindiCssOptions
+  scan: boolean
+  scanOptions: {
+    fileExtensions: string[]
+    dirs: string[]
+    exclude: string[]
+    include: string[]
+    runOnStartup: boolean
+  }
+  preflight: boolean
+  preflightOptions: {
+    includeBase: boolean
+    includeGlobal: boolean
+    includePlugin: boolean
+    enableAll: boolean
+    safelist: string[]
+    alias: Record<string, TagNames>
+  }
+  transformCSS: boolean
+  transformGroups: boolean
+  sortUtilities: boolean
+  safelist: Set<string>
+}
 
-export function resolveOptions(options: WindiPluginUtilsOptions) {
+function isResolvedOptions(options: UserOptions | ResolvedOptions): options is ResolvedOptions {
+  // @ts-expect-error internal flag
+  return options.__windi_resolved
+}
+
+export function resolveOptions(options: UserOptions | ResolvedOptions = {}): ResolvedOptions {
+  if (isResolvedOptions(options))
+    return options
+
   const {
     config = 'tailwind.config.js',
     scan = true,
@@ -147,8 +181,6 @@ export function resolveOptions(options: WindiPluginUtilsOptions) {
     transformCSS = true,
     transformGroups = true,
     sortUtilities = true,
-    _projectRoot = process.cwd(),
-    _pluginName = 'windi-plugin-utils',
   } = options
 
   const preflightOptions = Object.assign(
@@ -157,6 +189,7 @@ export function resolveOptions(options: WindiPluginUtilsOptions) {
       includeGlobal: true,
       includePlugin: true,
       enableAll: false,
+      safelist: [],
       alias: {},
     },
     typeof preflight === 'boolean' ? {} : preflight,
@@ -176,16 +209,16 @@ export function resolveOptions(options: WindiPluginUtilsOptions) {
   const safelist = new Set(toArray(options.safelist || []).flatMap(i => i.split(' ')))
 
   preflightOptions.alias = Object.fromEntries(
-    Object.entries({
-      ...defaultAlias,
-      ...preflightOptions.alias,
-    }).filter(([k, v]) => [kebabCase(k), v]),
+    Object
+      .entries({
+        ...defaultAlias,
+        ...preflightOptions.alias,
+      })
+      .filter(([k, v]) => [kebabCase(k), v]),
   )
 
   return {
     ...options,
-    _projectRoot,
-    _pluginName,
     config,
     scan: Boolean(scan),
     scanOptions,
@@ -195,7 +228,7 @@ export function resolveOptions(options: WindiPluginUtilsOptions) {
     transformGroups,
     sortUtilities,
     safelist,
+    // @ts-expect-error internal
+    __windi_resolved: true,
   }
 }
-
-export type ResolvedOptions = ReturnType<typeof resolveOptions>
