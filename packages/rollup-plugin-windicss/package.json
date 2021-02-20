@@ -1,7 +1,7 @@
 {
   "name": "rollup-plugin-windicss",
   "description": "Windi CSS for Rollup",
-  "version": "0.3.12",
+  "version": "0.3.13",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
