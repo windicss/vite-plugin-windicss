@@ -122,7 +122,17 @@ export function createUtils(
 
   function getGlobs() {
     const { dirs, fileExtensions, include } = scanOptions
-    const globs = dirs.map(i => slash(join(i, `**/*.{${fileExtensions.join(',')}}`)))
+    const globs = fileExtensions.length
+      ? dirs.map(i => slash(
+        join(
+          i,
+          fileExtensions.length > 1
+            ? `**/*.{${fileExtensions.join(',')}}`
+            : `**/*.${fileExtensions[0]}`,
+        ),
+      ))
+      : []
+
     globs.unshift('index.html')
     globs.unshift(...include)
 
