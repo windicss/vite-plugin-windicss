@@ -8,7 +8,7 @@ const config: UserConfig = {
       include: [/\.vue$/, /\.md$/],
     }),
     WindiCSS({
-      safelist: 'shadow shadow-xl',
+      safelist: 'no-select',
     }),
   ],
 }
