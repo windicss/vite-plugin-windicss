@@ -130,7 +130,7 @@ importers:
       windicss: ^2.1.18
 lockfileVersion: 5.2
 overrides:
-  esbuild: 0.8.49
+  esbuild: 0.8.50
 packages:
   /@antfu/eslint-config-basic/0.4.3_eslint@7.20.0:
     dependencies:
@@ -2337,14 +2337,7 @@ packages:
       esbuild: '>=0.8.31'
     resolution:
       integrity: sha512-98i1+7OnCURCbKaWw5wnY05e4v7uknFEER7LtVxi/lCs8U+sl6/LnITvfeoDLrsqxlA3O6BjxK8QqsirfYULfA==
-  /esbuild/0.8.49:
-    dev: true
-    hasBin: true
-    requiresBuild: true
-    resolution:
-      integrity: sha512-itiFVYv5UZz4NooO7/Y0bRGVDGz/M/cxKbl6zyNI5pnKaz1mZjvZXAFhhDVz6rGCmcdTKj5oag6rh8DaaSSmfQ==
   /esbuild/0.8.50:
-    dev: false
     hasBin: true
     requiresBuild: true
     resolution:
@@ -6409,7 +6402,7 @@ packages:
       cac: 6.7.2
       chalk: 4.1.0
       chokidar: 3.5.1
-      esbuild: 0.8.49
+      esbuild: 0.8.50
       globby: 11.0.2
       joycon: 2.2.5
       postcss-load-config: 3.0.1
@@ -6427,7 +6420,7 @@ packages:
       cac: 6.7.2
       chalk: 4.1.0
       chokidar: 3.5.1
-      esbuild: 0.8.49
+      esbuild: 0.8.50
       globby: 11.0.2
       joycon: 2.2.5
       postcss-load-config: 3.0.1
@@ -6658,7 +6651,7 @@ packages:
       integrity: sha1-OhBcoXBTr1XW4nDB+CiGguGNpAA=
   /vite/2.0.1:
     dependencies:
-      esbuild: 0.8.49
+      esbuild: 0.8.50
       postcss: 8.2.6
       resolve: 1.20.0
       rollup: 2.39.0
