@@ -104,7 +104,7 @@ export interface UserOptions {
    *
    * @default true
    */
-  transformCSS?: boolean
+  transformCSS?: boolean | 'pre' | 'post'
 
   /**
    * Transform groups like `hover:(bg-gray-100 font-medium)`
@@ -166,7 +166,7 @@ export interface ResolvedOptions {
     safelist: string[]
     alias: Record<string, TagNames>
   }
-  transformCSS: boolean
+  transformCSS: boolean | 'pre' | 'post'
   transformGroups: boolean
   sortUtilities: boolean
   safelist: Set<string>

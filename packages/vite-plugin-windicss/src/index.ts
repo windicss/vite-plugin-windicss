@@ -111,6 +111,9 @@ function VitePluginWindicss(userOptions: UserOptions = {}): Plugin[] {
   if (options.transformCSS) {
     plugins.push({
       name: `${NAME}:css`,
+      enforce: typeof options.transformCSS === 'string'
+        ? options.transformCSS
+        : undefined,
       transform(code, id) {
         if (!utils.isCssTransformTarget(id))
           return

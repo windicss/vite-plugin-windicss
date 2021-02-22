@@ -26,8 +26,14 @@ import Foo from './Foo.vue'
   </div>
 </template>
 
-<style lang="postcss">
+<style lang="postcss" scoped>
 .bar {
   @apply rounded-full bg-pink-400 text-white p-4 w-1/4;
+}
+
+@screen md {
+  .bar {
+    background: red;
+  }
 }
 </style>
