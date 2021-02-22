@@ -1,5 +1,5 @@
 <template>
   <div class="mt-10px bg-yellow-200">
-    Foo
+    Should be Yellow
   </div>
 </template>

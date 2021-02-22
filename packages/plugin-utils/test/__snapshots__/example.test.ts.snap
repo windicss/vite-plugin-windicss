@@ -10,6 +10,10 @@ Set {
   "hover:rounded-full",
   "bg-teal-100",
   "hover:w-1/3",
+  "bg-black",
+  "bg-blue-200",
+  "bg-red-200",
+  "!bg-blue-200",
   "mt-10px",
   "bg-yellow-200",
   "mt-2",
@@ -88,6 +92,22 @@ h2 {
 .bg-teal-100 {
   --tw-bg-opacity: 1;
   background-color: rgba(0, 153, 102, var(--tw-bg-opacity));
+}
+.bg-black {
+  --tw-bg-opacity: 1;
+  background-color: rgba(0, 0, 0, var(--tw-bg-opacity));
+}
+.bg-blue-200 {
+  --tw-bg-opacity: 1;
+  background-color: rgba(191, 219, 254, var(--tw-bg-opacity));
+}
+.bg-red-200 {
+  --tw-bg-opacity: 1;
+  background-color: rgba(254, 202, 202, var(--tw-bg-opacity));
+}
+.\\\\!bg-blue-200 {
+  --tw-bg-opacity: 1 !important;
+  background-color: rgba(191, 219, 254, var(--tw-bg-opacity)) !important;
 }
 .bg-yellow-200 {
   --tw-bg-opacity: 1;

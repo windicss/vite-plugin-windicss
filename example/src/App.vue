@@ -12,15 +12,22 @@ import Foo from './Foo.vue'
   <h2 class="button">
     Button
   </h2>
-  <div class="foo">
-    foo
+  <div class="bar">
+    Bar
   </div>
   <Foo />
   <router-link />
+
+  <div class="bg-black bg-blue-200 bg-red-200">
+    Without ! (red)
+  </div>
+  <div class="bg-black !bg-blue-200 bg-red-200">
+    With ! (blue)
+  </div>
 </template>
 
 <style lang="postcss">
-.foo {
+.bar {
   @apply rounded-full bg-pink-400 text-white p-4 w-1/4;
 }
 </style>

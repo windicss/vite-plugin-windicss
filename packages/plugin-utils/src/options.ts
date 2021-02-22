@@ -1,6 +1,6 @@
 /* eslint-disable no-use-before-define */
 
-import type { Config as WindiCssOptions } from 'windicss/interfaces'
+import type { Config as WindiCssOptions } from 'windicss/types/interfaces'
 import { defaultAlias, TagNames } from './constants'
 import { kebabCase, toArray } from './utils'
 

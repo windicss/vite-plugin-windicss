@@ -1,5 +1,45 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`cases !important groups: classes 1`] = `
+Set {
+  "mt-10",
+  "pt-10",
+  "!hover:m-2",
+  "!hover:p-2",
+}
+`;
+
+exports[`cases !important groups: generated-css 1`] = `
+".mt-10 {
+  margin-top: 2.5rem;
+}
+.pt-10 {
+  padding-top: 2.5rem;
+}
+.\\\\!hover\\\\:m-2:hover {
+  margin: 0.5rem !important;
+}
+.\\\\!hover\\\\:p-2:hover {
+  padding: 0.5rem !important;
+}"
+`;
+
+exports[`cases !important: classes 1`] = `
+Set {
+  "mt-10",
+  "!m-2",
+}
+`;
+
+exports[`cases !important: generated-css 1`] = `
+".\\\\!m-2 {
+  margin: 0.5rem !important;
+}
+.mt-10 {
+  margin-top: 2.5rem;
+}"
+`;
+
 exports[`cases conditional: classes 1`] = `
 Set {
   "font-semibold",

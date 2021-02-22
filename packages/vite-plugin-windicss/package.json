@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "@windicss/plugin-utils": "workspace:*",
-    "windicss": "^2.1.15"
+    "windicss": "^2.1.18"
   },
   "peerDependencies": {
     "vite": "^2.0.1"

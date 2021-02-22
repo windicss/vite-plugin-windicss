@@ -54,4 +54,12 @@ describe('cases', () => {
   it('leading + and numbers', async() => {
     utils.extractFile('<div class="2xl:text-xl +lg:bg-red-900">')
   })
+
+  it('!important', async() => {
+    utils.extractFile('<div class="mt-10 !m-2">')
+  })
+
+  it('!important groups', async() => {
+    utils.extractFile('<div class="mt-10 pt-10 !hover:(m-2 p-2)">')
+  })
 })
