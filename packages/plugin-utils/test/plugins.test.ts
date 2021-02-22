@@ -27,11 +27,10 @@ describe('plugins', () => {
         ],
       },
       scan: false,
-      preflight: {
-        enableAll: true,
-      },
     })
     utils.init()
+
+    utils.extractFile('<input type="text"/><input type="number"/><select multiple/>')
 
     const css = await utils.generateCSS()
     expect(utils.classesGenerated).toMatchSnapshot('classes')

@@ -6,7 +6,7 @@ import { CSSParser } from 'windicss/utils/parser'
 import fg from 'fast-glob'
 import _debug from 'debug'
 import micromatch from 'micromatch'
-import { preflightTags, htmlTags, configureFiles } from './constants'
+import { preflightTags, htmlTags, configureFiles, tagsEnableAttrs } from './constants'
 import { regexQuotedString, regexClassSplitter, regexClassCheck, regexHtmlTag } from './regexes'
 import { resolveOptions, WindiCssOptions, WindiPluginUtilsOptions, UserOptions, ResolvedOptions } from './options'
 import { toArray, kebabCase, include, exclude, slash, transfromGroups } from './utils'
@@ -40,7 +40,9 @@ export function createUtils(
     debug: _debug(`${name}:debug`),
     compile: _debug(`${name}:compile`),
     glob: _debug(`${name}:glob`),
-    detect: _debug(`${name}:detect`),
+    detectClass: _debug(`${name}:detect:class`),
+    detectTag: _debug(`${name}:detect:tag`),
+    detectAttr: _debug(`${name}:detect:attr`),
   }
 
   let processor: WindiCssProcessor
@@ -58,6 +60,8 @@ export function createUtils(
   const classesPending = new Set<string>()
   const tagsGenerated = new Set<string>()
   const tagsPending = new Set<string>()
+  const attrsGenerated = new Set<string>()
+  const attrsPending = new Set<string>()
   const tagsAvailable = new Set<string>()
 
   function loadConfiguration() {
@@ -230,21 +234,25 @@ export function createUtils(
     if (enablePreflight || !preflightOptions.enableAll) {
       // preflight
       Array.from(code.matchAll(regexHtmlTag))
-        .flatMap(([, i]) => i)
-        .forEach((i) => {
-          if (!tagsAvailable.has(i))
-            i = preflightOptions.alias[kebabCase(i)]
-          if (!tagsAvailable.has(i) || tagsPending.has(i))
-            return
-          tagsPending.add(i)
-          tagsAvailable.delete(i)
-          changed = true
+        .forEach(([full, tag]) => {
+          if (!tagsAvailable.has(tag))
+            tag = preflightOptions.alias[kebabCase(tag)]
+          if (tagsAvailable.has(tag) && !tagsPending.has(tag)) {
+            tagsPending.add(tag)
+            tagsAvailable.delete(tag)
+            changed = true
+          }
+          if (tagsEnableAttrs[tag] && !attrsPending.has(full)) {
+            attrsPending.add(full)
+            changed = true
+          }
         })
     }
 
     if (changed) {
-      debug.detect('classes', classesPending)
-      debug.detect('tags', tagsPending)
+      debug.detectClass(classesPending)
+      debug.detectTag(tagsPending)
+      debug.detectAttr(attrsPending)
     }
 
     return changed
@@ -284,14 +292,19 @@ export function createUtils(
         const preflightStyle = processor.preflight(
           preflightOptions.enableAll
             ? undefined
-            : Array.from(tagsPending).map(i => `<${i}`).join(' '),
+            : [
+              ...Array.from(tagsPending).map(i => `<${i}/>`),
+              ...Array.from(attrsPending),
+            ].join(' '),
           preflightOptions.includeBase,
           preflightOptions.includeGlobal,
           preflightOptions.includePlugin,
         )
         style = style.extend(preflightStyle, true)
         include(tagsGenerated, tagsPending)
+        include(attrsGenerated, attrsPending)
         tagsPending.clear()
+        attrsPending.clear()
         changed = true
       }
     }
@@ -325,6 +338,8 @@ export function createUtils(
 
     classesGenerated.clear()
     tagsGenerated.clear()
+    attrsGenerated.clear()
+    attrsPending.clear()
   }
 
   function init() {
