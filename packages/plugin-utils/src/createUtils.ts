@@ -314,6 +314,11 @@ export function createUtils(
         style.sort()
 
       _cssCache = style.build()
+
+      options.onGenerated?.({
+        classes: classesGenerated,
+        tags: tagsGenerated,
+      })
     }
     return _cssCache
   }

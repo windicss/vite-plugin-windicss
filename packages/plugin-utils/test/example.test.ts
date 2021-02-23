@@ -12,4 +12,20 @@ describe('example', () => {
     expect(utils.tagsGenerated).toMatchSnapshot('tags')
     expect(css).toMatchSnapshot('generated-css')
   })
+
+  it('should allow access to generated tags and classes by a callback', async() => {
+    let classesByCallback, tagsByCallback
+    const utils = createUtils({
+      onGenerated: ({ classes, tags }) => {
+        classesByCallback = classes
+        tagsByCallback = tags
+      },
+    }, {
+      root: resolve(__dirname, '../../../example'),
+    })
+    utils.init()
+    await utils.generateCSS()
+    expect(classesByCallback).toMatchSnapshot('classes')
+    expect(tagsByCallback).toMatchSnapshot('tags')
+  })
 })
