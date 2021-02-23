@@ -21,7 +21,55 @@ Set {
 }
 `;
 
+exports[`example should allow access to generated tags and classes by a callback: classesPending 1`] = `
+Set {
+  "en",
+  "viewport",
+  "app",
+  "p-5",
+  "module",
+  "ts",
+  "./Foo.vue",
+  "px-5",
+  "p-1",
+  "text-white",
+  "hover:text-green-100",
+  "hover:rounded-full",
+  "bg-teal-100",
+  "hover:w-1/3",
+  "true",
+  "btn",
+  "bar",
+  "bg-black",
+  "bg-blue-200",
+  "bg-red-200",
+  "!bg-blue-200",
+  "postcss",
+  "scss",
+  "stylus",
+  "pl-100px",
+  "bg-yellow-200",
+  "mt-2",
+}
+`;
+
 exports[`example should allow access to generated tags and classes by a callback: tags 1`] = `
+Set {
+  "html",
+  "body",
+  "div",
+  "head",
+  "meta",
+  "title",
+  "script",
+  "nav",
+  "h2",
+  "a",
+  "style",
+}
+`;
+
+exports[`example should allow access to generated tags and classes by a callback: tagsPending 1`] = `
 Set {
   "html",
   "body",

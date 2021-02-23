@@ -121,6 +121,11 @@ export interface UserOptions {
   sortUtilities?: boolean
 
   /**
+   * Callback before classes css generated
+   */
+  onBeforeGenerate?: (ctx: { classesPending: Set<string>; tagsPending: Set<string> }) => void
+
+  /**
    * Callback when classes and/or tags are generated/changed
    */
   onGenerated?: (ctx: { classes: Set<string>; tags: Set<string> }) => void
@@ -175,7 +180,8 @@ export interface ResolvedOptions {
   transformGroups: boolean
   sortUtilities: boolean
   safelist: Set<string>
-  onGenerated: Function
+  onBeforeGenerate: UserOptions['onBeforeGenerate']
+  onGenerated: UserOptions['onGenerated']
 }
 
 function isResolvedOptions(options: UserOptions | ResolvedOptions): options is ResolvedOptions {

@@ -272,6 +272,11 @@ export function createUtils(
     if (enabledScan && scanOptions.runOnStartup)
       await scan()
 
+    options.onBeforeGenerate?.({
+      classesPending,
+      tagsPending,
+    })
+
     let changed = false
 
     if (classesPending.size) {
