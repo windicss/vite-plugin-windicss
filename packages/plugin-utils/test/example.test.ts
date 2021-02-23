@@ -16,7 +16,7 @@ describe('example', () => {
   it('should allow access to generated tags and classes by a callback', async() => {
     let classesByCallback, tagsByCallback
     const utils = createUtils({
-      onGenerated: (classes, tags) => {
+      onGenerated: ({ classes, tags }) => {
         classesByCallback = classes
         tagsByCallback = tags
       },

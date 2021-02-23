@@ -123,7 +123,7 @@ export interface UserOptions {
   /**
    * Callback when classes and/or tags are generated/changed
    */
-  onGenerated?: (classes: Set<string>, tags: Set<string>) => void
+  onGenerated?: (ctx: { classes: Set<string>; tags: Set<string> }) => void
 
 }
 

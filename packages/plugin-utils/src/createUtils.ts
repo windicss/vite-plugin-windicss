@@ -315,7 +315,10 @@ export function createUtils(
 
       _cssCache = style.build()
 
-      options.onGenerated?.(classesGenerated, tagsGenerated)
+      options.onGenerated?.({
+        classes: classesGenerated,
+        tags: tagsGenerated,
+      })
     }
     return _cssCache
   }
