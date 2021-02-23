@@ -314,6 +314,8 @@ export function createUtils(
         style.sort()
 
       _cssCache = style.build()
+
+      options.onGenerated?.(classesGenerated, tagsGenerated)
     }
     return _cssCache
   }

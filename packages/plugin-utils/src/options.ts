@@ -120,6 +120,11 @@ export interface UserOptions {
    */
   sortUtilities?: boolean
 
+  /**
+   * Callback when classes and/or tags are generated/changed
+   */
+  onGenerated?: (classes: Set<string>, tags: Set<string>) => void
+
 }
 
 export interface WindiPluginUtilsOptions {
@@ -170,6 +175,7 @@ export interface ResolvedOptions {
   transformGroups: boolean
   sortUtilities: boolean
   safelist: Set<string>
+  onGenerated: Function
 }
 
 function isResolvedOptions(options: UserOptions | ResolvedOptions): options is ResolvedOptions {
