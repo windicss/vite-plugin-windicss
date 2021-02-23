@@ -358,6 +358,7 @@ export function createUtils(
     isDetectTarget,
     isScanTarget,
     isCssTransformTarget,
+    isExcluded,
     scan,
 
     files,

@@ -108,12 +108,31 @@ function VitePluginWindicss(userOptions: UserOptions = {}): Plugin[] {
   })
 
   // CSS transform
-  if (options.transformCSS) {
+  if (options.transformCSS === true) {
+    plugins.push({
+      name: `${NAME}:css:pre`,
+      enforce: 'pre',
+      transform(code, id) {
+        if (!id.match(/\.(?:postcss|scss|css)(?:$|\?)/i) || utils.isExcluded(id) || id === MODULE_ID_VIRTUAL)
+          return
+        debug.css('pre', id)
+        return utils.transformCSS(code)
+      },
+    })
+    plugins.push({
+      name: `${NAME}:css:post`,
+      transform(code, id) {
+        if (!id.match(/\.(?:sass|stylus)(?:$|\?)/i) || utils.isExcluded(id) || id === MODULE_ID_VIRTUAL)
+          return
+        debug.css('post', id)
+        return utils.transformCSS(code)
+      },
+    })
+  }
+  else if (typeof options.transformCSS === 'string') {
     plugins.push({
       name: `${NAME}:css`,
-      enforce: typeof options.transformCSS === 'string'
-        ? options.transformCSS
-        : undefined,
+      enforce: options.transformCSS,
       transform(code, id) {
         if (!utils.isCssTransformTarget(id) || id === MODULE_ID_VIRTUAL)
           return

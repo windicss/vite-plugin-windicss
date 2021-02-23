@@ -31,7 +31,7 @@ import Foo from './Foo.vue'
 
 <style lang="postcss" scoped>
 .bar {
-  @apply bg-pink-400 text-white p-4 w-1/4;
+  @apply text-white p-4 w-1/4;
 }
 
 @screen md {
@@ -39,4 +39,17 @@ import Foo from './Foo.vue'
     background: red;
   }
 }
+</style>
+
+<style lang="scss" scoped>
+@screen lg {
+  .bar {
+    background: orange;
+  }
+}
+</style>
+
+<style lang="stylus">
+.bar
+  @apply bg-pink-500;
 </style>

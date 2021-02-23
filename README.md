@@ -176,6 +176,11 @@ export default defineConfig({
 
 See [options.ts](https://github.com/windicss/vite-plugin-windicss/blob/main/packages/plugin-utils/src/options.ts) for configuration reference.
 
+
+## Caveats
+
+- `@media` directive with scoped style can only works with `css` `postcss` `scss` but not `sass` and `stylus`
+
 ## Example
 
 See [./example](./example) or [`Vitesse@feat/windicss`](https://github.com/antfu/vitesse/tree/feat/windicss)
