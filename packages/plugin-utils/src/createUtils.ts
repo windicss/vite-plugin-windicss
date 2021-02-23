@@ -208,7 +208,7 @@ export function createUtils(
   }
 
   function isCssTransformTarget(id: string) {
-    if (id.match(/\.(?:postcss|scss|sass|css|stylus)(?:$|\?)/i) && !isExcluded(id))
+    if (id.match(/\.(?:postcss|scss|sass|css|stylus|less)(?:$|\?)/i) && !isExcluded(id))
       return true
     return false
   }
