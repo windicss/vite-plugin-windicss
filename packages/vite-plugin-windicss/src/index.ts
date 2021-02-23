@@ -115,7 +115,7 @@ function VitePluginWindicss(userOptions: UserOptions = {}): Plugin[] {
         ? options.transformCSS
         : undefined,
       transform(code, id) {
-        if (!utils.isCssTransformTarget(id))
+        if (!utils.isCssTransformTarget(id) || id === MODULE_ID_VIRTUAL)
           return
         debug.css(id)
         return utils.transformCSS(code)

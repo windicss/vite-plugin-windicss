@@ -1,5 +1,5 @@
 import { promises as fs, existsSync } from 'fs'
-import { join, resolve, relative } from 'path'
+import { join, resolve } from 'path'
 import WindiCssProcessor from 'windicss'
 import { StyleSheet } from 'windicss/utils/style'
 import { CSSParser } from 'windicss/utils/parser'
@@ -192,7 +192,7 @@ export function createUtils(
 
   function isExcluded(id: string) {
     return id.match(/\b(?:node_modules|.git)\b/)
-      || micromatch.isMatch(slash(relative(root, id)), excludeGlobs)
+      || micromatch.isMatch(slash(id), excludeGlobs)
   }
 
   function isDetectTarget(id: string) {
