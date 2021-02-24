@@ -56,17 +56,6 @@ function VitePluginWindicss(userOptions: UserOptions = {}): Plugin[] {
     },
   })
 
-  // // Build
-  // plugins.push({
-  //   name: `${NAME}:build`,
-  //   apply: 'build',
-  //   enforce: 'post',
-  //   transform(code, id) {
-  //     utils.extractFile(code)
-  //     return null
-  //   },
-  // })
-
   // HMR
   plugins.push({
     name: `${NAME}:hmr`,
@@ -110,6 +99,17 @@ function VitePluginWindicss(userOptions: UserOptions = {}): Plugin[] {
   // CSS transform
   if (options.transformCSS === true) {
     plugins.push({
+      name: `${NAME}:css`,
+      transform(code, id) {
+        if (!utils.isCssTransformTarget(id) || id === MODULE_ID_VIRTUAL)
+          return
+        debug.css(id)
+        return utils.transformCSS(code)
+      },
+    })
+  }
+  else if (options.transformCSS === 'auto') {
+    plugins.push({
       name: `${NAME}:css:pre`,
       enforce: 'pre',
       transform(code, id) {
@@ -120,7 +120,7 @@ function VitePluginWindicss(userOptions: UserOptions = {}): Plugin[] {
       },
     })
     plugins.push({
-      name: `${NAME}:css:post`,
+      name: `${NAME}:css`,
       transform(code, id) {
         if (!id.match(/\.(?:sass|stylus|less)(?:$|\?)/i) || utils.isExcluded(id) || id === MODULE_ID_VIRTUAL)
           return

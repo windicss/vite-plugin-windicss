@@ -179,7 +179,12 @@ See [options.ts](https://github.com/windicss/vite-plugin-windicss/blob/main/pack
 
 ## Caveats
 
-- `@media` directive with scoped style can only works with `css` `postcss` `scss` but not `sass` and `stylus`
+### Scoped Style
+
+You will need to set `transformCSS: 'pre'` to get it work.
+
+`@media` directive with scoped style can **only works** with `css` `postcss` `scss` but not `sass`, `less` nor `stylus`
+
 
 ## Example
 

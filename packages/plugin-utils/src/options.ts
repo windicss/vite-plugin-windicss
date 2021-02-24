@@ -176,7 +176,7 @@ export interface ResolvedOptions {
     safelist: string[]
     alias: Record<string, TagNames>
   }
-  transformCSS: boolean | 'pre' | 'post'
+  transformCSS: boolean | 'pre' | 'auto' | 'post'
   transformGroups: boolean
   sortUtilities: boolean
   safelist: Set<string>
