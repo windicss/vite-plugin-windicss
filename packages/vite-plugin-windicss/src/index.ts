@@ -113,7 +113,7 @@ function VitePluginWindicss(userOptions: UserOptions = {}): Plugin[] {
       name: `${NAME}:css:pre`,
       enforce: 'pre',
       transform(code, id) {
-        if (!id.match(/\.(?:postcss|scss|css|less)(?:$|\?)/i) || utils.isExcluded(id) || id === MODULE_ID_VIRTUAL)
+        if (!id.match(/\.(?:postcss|scss|css)(?:$|\?)/i) || utils.isExcluded(id) || id === MODULE_ID_VIRTUAL)
           return
         debug.css('pre', id)
         return utils.transformCSS(code)
@@ -122,7 +122,7 @@ function VitePluginWindicss(userOptions: UserOptions = {}): Plugin[] {
     plugins.push({
       name: `${NAME}:css:post`,
       transform(code, id) {
-        if (!id.match(/\.(?:sass|stylus)(?:$|\?)/i) || utils.isExcluded(id) || id === MODULE_ID_VIRTUAL)
+        if (!id.match(/\.(?:sass|stylus|less)(?:$|\?)/i) || utils.isExcluded(id) || id === MODULE_ID_VIRTUAL)
           return
         debug.css('post', id)
         return utils.transformCSS(code)
