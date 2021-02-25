@@ -1,4 +1,4 @@
-import { Plugin } from 'vite'
+import { Plugin, ResolvedConfig } from 'vite'
 import _debug from 'debug'
 import { UserOptions, WindiPluginUtils, resolveOptions, createUtils } from '@windicss/plugin-utils'
 
@@ -15,6 +15,7 @@ const debug = {
 function VitePluginWindicss(userOptions: UserOptions = {}): Plugin[] {
   let utils: WindiPluginUtils
 
+  let viteConfig: ResolvedConfig
   const options = resolveOptions(userOptions)
   const plugins: Plugin[] = []
 
@@ -26,7 +27,10 @@ function VitePluginWindicss(userOptions: UserOptions = {}): Plugin[] {
         if (!utils.isDetectTarget(id))
           return
         debug.group(id)
-        return utils.transfromGroups(code)
+        if (viteConfig.build.sourcemap)
+          return utils.transfromGroupsWithSourcemap(code)
+        else
+          return utils.transfromGroups(code)
       },
     })
   }
@@ -37,6 +41,7 @@ function VitePluginWindicss(userOptions: UserOptions = {}): Plugin[] {
     enforce: 'post',
 
     configResolved(_config) {
+      viteConfig = _config
       utils = createUtils(options, {
         name: NAME,
         root: _config.root,

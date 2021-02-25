@@ -1,4 +1,4 @@
 packages:
-  - example/
+  - examples/*
   - test/fixtures/*
   - packages/*

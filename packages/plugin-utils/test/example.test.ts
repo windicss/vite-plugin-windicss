@@ -4,7 +4,7 @@ import { createUtils } from '../src'
 describe('example', () => {
   it('should work', async() => {
     const utils = createUtils({}, {
-      root: resolve(__dirname, '../../../example'),
+      root: resolve(__dirname, '../../../examples/vue'),
     })
     utils.init()
     const css = await utils.generateCSS()
@@ -25,7 +25,7 @@ describe('example', () => {
         tags = ctx.tags
       },
     }, {
-      root: resolve(__dirname, '../../../example'),
+      root: resolve(__dirname, '../../../examples/vue'),
     })
     utils.init()
     await utils.generateCSS()

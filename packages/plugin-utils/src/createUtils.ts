@@ -9,7 +9,7 @@ import micromatch from 'micromatch'
 import { preflightTags, htmlTags, configureFiles, tagsEnableAttrs } from './constants'
 import { regexQuotedString, regexClassSplitter, regexClassCheck, regexHtmlTag } from './regexes'
 import { resolveOptions, WindiCssOptions, WindiPluginUtilsOptions, UserOptions, ResolvedOptions } from './options'
-import { toArray, kebabCase, include, exclude, slash, transfromGroups } from './utils'
+import { toArray, kebabCase, include, exclude, slash, transfromGroups, transfromGroupsWithSourcemap } from './utils'
 
 export function createUtils(
   userOptions: UserOptions | ResolvedOptions = {},
@@ -365,6 +365,7 @@ export function createUtils(
     clearCache,
     transformCSS,
     transfromGroups,
+    transfromGroupsWithSourcemap,
     isDetectTarget,
     isScanTarget,
     isCssTransformTarget,

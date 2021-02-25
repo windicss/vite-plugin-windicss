@@ -8,8 +8,8 @@
     "tailwindcss"
   ],
   "scripts": {
-    "example:dev": "npm -C example run dev",
-    "example:build": "npm -C example run build",
+    "example:dev": "npm -C examples/vue run dev",
+    "example:build": "npm -C examples/vue run build",
     "dev": "pnpm -r --parallel --filter ./packages run dev",
     "build": "cp README.md packages/vite-plugin-windicss && pnpm -r --filter ./packages run build",
     "publish:ci": "pnpm -r --filter ./packages publish --access public --no-git-checks",
@@ -33,6 +33,7 @@
     "fs-extra": "^9.1.0",
     "git-ensure": "^0.1.0",
     "jest": "^26.6.3",
+    "magic-string": "^0.25.7",
     "pnpm": "^5.18.0",
     "rollup": "^2.39.1",
     "ts-jest": "^26.5.1",
