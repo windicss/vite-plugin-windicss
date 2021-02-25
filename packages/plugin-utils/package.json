@@ -27,7 +27,7 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "esbuild": "^0.8.50",
+    "esbuild": "^0.8.52",
     "esbuild-register": "^2.0.0",
     "fast-glob": "^3.2.5",
     "micromatch": "^4.0.2",
@@ -39,7 +39,7 @@
     "@types/micromatch": "^4.0.1",
     "@types/node": "^14.14.31",
     "debug": "^4.3.2",
-    "tsup": "^4.2.0",
-    "typescript": "^4.1.5"
+    "tsup": "^4.3.1",
+    "typescript": "^4.2.2"
   }
 }
