@@ -9,7 +9,7 @@ import micromatch from 'micromatch'
 import { preflightTags, htmlTags, configureFiles, tagsEnableAttrs } from './constants'
 import { regexQuotedString, regexClassSplitter, regexClassCheck, regexHtmlTag } from './regexes'
 import { resolveOptions, WindiCssOptions, WindiPluginUtilsOptions, UserOptions, ResolvedOptions } from './options'
-import { toArray, kebabCase, include, exclude, slash, transfromGroups, transfromGroupsWithSourcemap } from './utils'
+import { kebabCase, include, exclude, slash, transfromGroups, transfromGroupsWithSourcemap } from './utils'
 
 export function createUtils(
   userOptions: UserOptions | ResolvedOptions = {},
@@ -27,6 +27,7 @@ export function createUtils(
     preflightOptions,
     sortUtilities,
     safelist,
+    blocklist,
   } = options
 
   const {
@@ -225,7 +226,7 @@ export function createUtils(
       .flatMap(m => (m[2] || '').split(regexClassSplitter))
       .filter(i => i.match(regexClassCheck))
       .forEach((i) => {
-        if (!i || classesGenerated.has(i) || classesPending.has(i))
+        if (!i || classesGenerated.has(i) || classesPending.has(i) || blocklist.has(i))
           return
         classesPending.add(i)
         changed = true
@@ -237,6 +238,8 @@ export function createUtils(
         .forEach(([full, tag]) => {
           if (!tagsAvailable.has(tag))
             tag = preflightOptions.alias[kebabCase(tag)]
+          if (preflightOptions.blocklist.has(tag))
+            return
           if (tagsAvailable.has(tag) && !tagsPending.has(tag)) {
             tagsPending.add(tag)
             tagsAvailable.delete(tag)
@@ -332,19 +335,17 @@ export function createUtils(
     style = new StyleSheet()
     _cssCache = undefined
 
-    const preflightSafelist = toArray(preflightOptions.safelist).flatMap(i => i.split(' '))
-
     include(classesPending, configSafelist)
     include(classesPending, safelist)
     include(classesPending, classesGenerated)
 
     include(tagsPending, tagsGenerated)
     include(tagsPending, preflightTags)
-    include(tagsPending, preflightSafelist)
+    include(tagsPending, preflightOptions.safelist)
     include(tagsAvailable, htmlTags as any as string[])
 
     exclude(tagsAvailable, preflightTags)
-    exclude(tagsAvailable, preflightSafelist)
+    exclude(tagsAvailable, preflightOptions.safelist)
 
     classesGenerated.clear()
     tagsGenerated.clear()

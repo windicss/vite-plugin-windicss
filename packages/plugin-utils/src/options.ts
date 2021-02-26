@@ -21,6 +21,11 @@ export interface UserOptions {
   safelist?: string | string[]
 
   /**
+   * Class names to be always excluded.
+   */
+  blocklist?: string | string[]
+
+  /**
    * Enabled windicss preflight (a.k.a TailwindCSS style reset)
    *
    * @default true
@@ -35,6 +40,11 @@ export interface UserOptions {
      * Safelist to always included
      */
     safelist?: string | string[]
+
+    /**
+     * Blocklist to always excluded
+     */
+    blocklist?: string | string[]
 
     /**
       * Alias for resolving preflight
@@ -173,13 +183,15 @@ export interface ResolvedOptions {
     includeGlobal: boolean
     includePlugin: boolean
     enableAll: boolean
-    safelist: string[]
+    safelist: Set<string>
+    blocklist: Set<string>
     alias: Record<string, TagNames>
   }
   transformCSS: boolean | 'pre' | 'auto' | 'post'
   transformGroups: boolean
   sortUtilities: boolean
   safelist: Set<string>
+  blocklist: Set<string>
   onBeforeGenerate: UserOptions['onBeforeGenerate']
   onGenerated: UserOptions['onGenerated']
 }
@@ -208,10 +220,11 @@ export function resolveOptions(options: UserOptions | ResolvedOptions = {}): Res
       includePlugin: true,
       enableAll: false,
       safelist: [],
+      blocklist: [],
       alias: {},
     },
     typeof preflight === 'boolean' ? {} : preflight,
-  )
+  ) as unknown as ResolvedOptions['preflightOptions']
 
   const scanOptions = Object.assign(
     {
@@ -225,6 +238,12 @@ export function resolveOptions(options: UserOptions | ResolvedOptions = {}): Res
   )
 
   const safelist = new Set(toArray(options.safelist || []).flatMap(i => i.split(' ')))
+  const blocklist = new Set(toArray(options.blocklist || []).flatMap(i => i.split(' ')))
+
+  // @ts-expect-error cast
+  preflightOptions.safelist = new Set(toArray(preflightOptions.safelist || []).flatMap(i => i.split(' ')))
+  // @ts-expect-error cast
+  preflightOptions.blocklist = new Set(toArray(preflightOptions.blocklist || []).flatMap(i => i.split(' ')))
 
   preflightOptions.alias = Object.fromEntries(
     Object
@@ -245,6 +264,7 @@ export function resolveOptions(options: UserOptions | ResolvedOptions = {}): Res
     transformGroups,
     sortUtilities,
     safelist,
+    blocklist,
     // @ts-expect-error internal
     __windi_resolved: true,
   }
