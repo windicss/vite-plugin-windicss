@@ -91,13 +91,14 @@ function VitePluginWindicss(userOptions: UserOptions = {}): Plugin[] {
         return
 
       debug.hmr(`refreshed by ${file}`)
-      const module = server.moduleGraph.getModuleById(MODULE_ID_VIRTUAL)!
-      server.moduleGraph.invalidateModule(module)
+      const module = server.moduleGraph.getModuleById(MODULE_ID_VIRTUAL)
+      if (module)
+        server.moduleGraph.invalidateModule(module)
 
       if (file.endsWith('.html'))
         return undefined
 
-      return [module!, ...modules]
+      return [module!, ...modules].filter(Boolean)
     },
   })
 
