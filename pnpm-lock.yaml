@@ -98,6 +98,7 @@ importers:
       '@vue/compiler-sfc': 3.0.6_vue@3.0.6
       cross-env: 7.0.3
       nodemon: 2.0.7
+      pug: 3.0.0
       sass: 1.32.8
       stylus: 0.54.8
       typescript: 4.2.2
@@ -108,6 +109,7 @@ importers:
       '@vue/compiler-sfc': ^3.0.6
       cross-env: ^7.0.3
       nodemon: ^2.0.7
+      pug: ^3.0.0
       sass: ^1.32.8
       stylus: ^0.54.8
       typescript: ^4.2.2
@@ -3358,7 +3360,7 @@ packages:
     dependencies:
       function-bind: 1.1.1
       has: 1.0.3
-      has-symbols: 1.0.1
+      has-symbols: 1.0.2
     dev: true
     resolution:
       integrity: sha512-kWZrnVM42QCiEA2Ig1bG8zjoIMOgxWwYCEeNdwY6Tv/cOSeGpcoX4pXHfKUxNKVoArnrEr2e9srnAxxGIraS9Q==
@@ -3526,6 +3528,12 @@ packages:
       node: '>= 0.4'
     resolution:
       integrity: sha512-PLcsoqu++dmEIZB+6totNFKq/7Do+Z0u4oT0zKOJNl3lYK6vGwwu2hjHs+68OEZbTjiUE9bgOABXbP/GvrS0Kg==
+  /has-symbols/1.0.2:
+    dev: true
+    engines:
+      node: '>= 0.4'
+    resolution:
+      integrity: sha512-chXa79rL/UC2KlX17jo3vRGz0azaWEx5tGqZg5pO3NUyEJVB17dMruQlzCCOfUvElghKcm5194+BCRvi2Rv/Gw==
   /has-value/0.3.1:
     dependencies:
       get-value: 2.0.6
@@ -4008,7 +4016,7 @@ packages:
   /is-regex/1.1.2:
     dependencies:
       call-bind: 1.0.2
-      has-symbols: 1.0.1
+      has-symbols: 1.0.2
     dev: true
     engines:
       node: '>= 0.4'

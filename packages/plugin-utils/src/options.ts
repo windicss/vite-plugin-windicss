@@ -1,7 +1,7 @@
 /* eslint-disable no-use-before-define */
 
 import type { Config as WindiCssOptions } from 'windicss/types/interfaces'
-import { TransformerFunction } from './transformers'
+import { PugTransformer, TransformerFunction } from './transformers'
 import { defaultAlias, TagNames } from './constants'
 import { kebabCase, toArray } from './utils'
 
@@ -210,6 +210,21 @@ function isResolvedOptions(options: UserOptions | ResolvedOptions): options is R
   return options.__windi_resolved
 }
 
+function getDefaultTransformers() {
+  const transformers: TransformerFunction[] = []
+
+  // auto detect pug
+  try {
+    require.resolve('pug')
+    transformers.push(
+      PugTransformer(),
+    )
+  }
+  catch (e) {}
+
+  return transformers
+}
+
 export function resolveOptions(options: UserOptions | ResolvedOptions = {}): ResolvedOptions {
   if (isResolvedOptions(options))
     return options
@@ -242,7 +257,7 @@ export function resolveOptions(options: UserOptions | ResolvedOptions = {}): Res
       exclude: [] as string[],
       include: [] as string[],
       runOnStartup: true,
-      transformers: [],
+      transformers: getDefaultTransformers(),
     },
     typeof scan === 'boolean' ? {} : scan,
   )

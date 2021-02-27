@@ -174,24 +174,7 @@ export default defineConfig({
 
 ## Pug Support
 
-To enabled Pug support for `.pug` file and Vue SFC, configure as below:
-
-```ts
-// vite.config.js
-import WindiCSS, { PugTransformer } from 'vite-plugin-windicss'
-
-export default {
-  plugins: [
-    WindiCSS({
-      scan: {
-        transformers: [
-          PugTransformer(), // <--
-        ],
-      },
-    }),
-  ],
-}
-```
+It will automatically enable Pug support for `.pug` and Vue SFC when dependency `pug` is found in the workspace.
 
 ## Configuration
 
