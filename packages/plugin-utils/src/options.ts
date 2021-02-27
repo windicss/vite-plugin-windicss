@@ -114,7 +114,7 @@ export interface UserOptions {
      *
      * @default []
      */
-    transformers: TransformerFunction[]
+    transformers?: TransformerFunction[]
   }
 
   /**
