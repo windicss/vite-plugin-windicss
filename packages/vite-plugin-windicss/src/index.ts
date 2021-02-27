@@ -86,7 +86,7 @@ function VitePluginWindicss(userOptions: UserOptions = {}): Plugin[] {
       if (!utils.isDetectTarget(file))
         return
 
-      const changed = utils.extractFile(await read(), false)
+      const changed = utils.extractFile(await read(), file, false)
       if (!changed)
         return
 

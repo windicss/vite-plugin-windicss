@@ -1,0 +1,8 @@
+nav {
+  @apply fixed top-0 left-0 right-0 bg-white shadow shadow-2xl;
+  padding: 10px;
+}
+
+html {
+  @apply pt-10;
+}

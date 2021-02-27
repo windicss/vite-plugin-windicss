@@ -1,6 +1,7 @@
 /* eslint-disable no-use-before-define */
 
 import type { Config as WindiCssOptions } from 'windicss/types/interfaces'
+import { TransformerFunction } from './transformers'
 import { defaultAlias, TagNames } from './constants'
 import { kebabCase, toArray } from './utils'
 
@@ -107,6 +108,13 @@ export interface UserOptions {
      * @default []
      */
     include?: string[]
+
+    /**
+     * Transformers to apply before doing extraction
+     *
+     * @default []
+     */
+    transformers: TransformerFunction[]
   }
 
   /**
@@ -176,6 +184,7 @@ export interface ResolvedOptions {
     exclude: string[]
     include: string[]
     runOnStartup: boolean
+    transformers: TransformerFunction[]
   }
   preflight: boolean
   preflightOptions: {
@@ -233,6 +242,7 @@ export function resolveOptions(options: UserOptions | ResolvedOptions = {}): Res
       exclude: [] as string[],
       include: [] as string[],
       runOnStartup: true,
+      transformers: [],
     },
     typeof scan === 'boolean' ? {} : scan,
   )

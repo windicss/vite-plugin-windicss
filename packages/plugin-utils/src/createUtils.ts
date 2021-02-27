@@ -40,7 +40,8 @@ export function createUtils(
     config: _debug(`${name}:config`),
     debug: _debug(`${name}:debug`),
     compile: _debug(`${name}:compile`),
-    glob: _debug(`${name}:glob`),
+    glob: _debug(`${name}:scan:glob`),
+    scanTransform: _debug(`${name}:scan:transform`),
     detectClass: _debug(`${name}:detect:class`),
     detectTag: _debug(`${name}:detect:tag`),
     detectAttr: _debug(`${name}:detect:attr`),
@@ -178,11 +179,11 @@ export function createUtils(
         const contents = await Promise.all(
           files
             .filter(id => isDetectTarget(id))
-            .map(id => fs.readFile(id, 'utf-8')),
+            .map(async id => [await fs.readFile(id, 'utf-8'), id]),
         )
 
-        for (const content of contents)
-          extractFile(content, true)
+        for (const [content, id] of contents)
+          extractFile(content, id, true)
 
         scanned = true
       })()
@@ -214,10 +215,19 @@ export function createUtils(
     return false
   }
 
-  function extractFile(code: string, applyTransform = true) {
-    if (applyTransform) {
+  function extractFile(code: string, id?: string, applyGroupTransform = true) {
+    if (applyGroupTransform) {
       if (enableGroupsTransform)
         code = transfromGroups(code)
+    }
+
+    if (id) {
+      debug.scanTransform(id)
+      for (const trans of scanOptions.transformers) {
+        const result = trans(code, id)
+        if (result != null)
+          code = result
+      }
     }
 
     let changed = false
