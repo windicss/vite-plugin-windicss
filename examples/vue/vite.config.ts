@@ -1,8 +1,8 @@
-import { UserConfig } from 'vite'
+import { defineConfig } from 'vite'
 import Vue from '@vitejs/plugin-vue'
 import WindiCSS from 'vite-plugin-windicss'
 
-const config: UserConfig = {
+export default defineConfig({
   plugins: [
     Vue({
       include: [/\.vue$/, /\.md$/],
@@ -11,6 +11,4 @@ const config: UserConfig = {
       safelist: 'no-select',
     }),
   ],
-}
-
-export default config
+})

@@ -1,8 +1,8 @@
-import { UserConfig } from 'vite'
+import { defineConfig } from 'vite'
 import Vue from '@vitejs/plugin-vue'
 import WindiCSS, { PugTransformer } from 'vite-plugin-windicss'
 
-const config: UserConfig = {
+export default defineConfig({
   plugins: [
     Vue({
       include: [/\.vue$/, /\.md$/],
@@ -16,6 +16,4 @@ const config: UserConfig = {
       },
     }),
   ],
-}
-
-export default config
+})
