@@ -94,24 +94,24 @@ importers:
     dependencies:
       vue: 3.0.6
     devDependencies:
-      '@vitejs/plugin-vue': 1.1.4_@vue+compiler-sfc@3.0.6
+      '@vitejs/plugin-vue': 1.1.5_@vue+compiler-sfc@3.0.6
       '@vue/compiler-sfc': 3.0.6_vue@3.0.6
       cross-env: 7.0.3
       nodemon: 2.0.7
       sass: 1.32.8
       stylus: 0.54.8
       typescript: 4.2.2
-      vite: 2.0.3
+      vite: 2.0.4
       vite-plugin-windicss: link:../../packages/vite-plugin-windicss
     specifiers:
-      '@vitejs/plugin-vue': ^1.1.4
+      '@vitejs/plugin-vue': ^1.1.5
       '@vue/compiler-sfc': ^3.0.6
       cross-env: ^7.0.3
       nodemon: ^2.0.7
       sass: ^1.32.8
       stylus: ^0.54.8
       typescript: ^4.2.2
-      vite: ^2.0.3
+      vite: ^2.0.4
       vite-plugin-windicss: workspace:*
       vue: ^3.0.6
   packages/plugin-utils:
@@ -1312,6 +1312,16 @@ packages:
       '@vue/compiler-sfc': ^3.0.4
     resolution:
       integrity: sha512-cUDILd++9jdhdjpuhgJofQqOabOKe+kTWTE2HQY2PBHEUO2fgwTurLE0cJg9UcIo1x4lHfsp+59S9TBCHgTZkw==
+  /@vitejs/plugin-vue/1.1.5_@vue+compiler-sfc@3.0.6:
+    dependencies:
+      '@vue/compiler-sfc': 3.0.6_vue@3.0.6
+    dev: true
+    engines:
+      node: '>=12.0.0'
+    peerDependencies:
+      '@vue/compiler-sfc': ^3.0.6
+    resolution:
+      integrity: sha512-4DV8VPYo8/OR1YsnK39QN16xhKENt2XvcmJxqfRtyz75kvbjBYh1zTSHLp7XsXqv4R2I+fOZlbEBvxosMYLcPA==
   /@vue/compiler-core/3.0.6:
     dependencies:
       '@babel/parser': 7.12.17
@@ -7139,6 +7149,20 @@ packages:
       fsevents: 2.3.2
     resolution:
       integrity: sha512-4CUm3FVUHyTSSSK6vHWkj3SVkP+GGNNzwYcFsHOjjc8xQ3BPjJa1JDDmFlYxpxR29ANa+7RWptYPoyHyJ29Nhw==
+  /vite/2.0.4:
+    dependencies:
+      esbuild: 0.8.52
+      postcss: 8.2.6
+      resolve: 1.20.0
+      rollup: 2.39.1
+    dev: true
+    engines:
+      node: '>=12.0.0'
+    hasBin: true
+    optionalDependencies:
+      fsevents: 2.3.2
+    resolution:
+      integrity: sha512-+PP89D7AKXFE4gps8c5+4eP5yXTh5qCogjdYX7iSsIxbLZAa26JoGSq6OLk0qdb/fqDh7gtJqGiLbG2V6NvkKQ==
   /void-elements/3.1.0:
     dev: true
     engines:
