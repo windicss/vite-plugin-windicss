@@ -58,11 +58,7 @@ exports[`plugins aspect-ratio: generated-css 1`] = `
 exports[`plugins forms: classes 1`] = `Set {}`;
 
 exports[`plugins forms: generated-css 1`] = `
-"
-[type='text'],
-[multiple],
-select
- {
+"[type='text'], [multiple], select {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
