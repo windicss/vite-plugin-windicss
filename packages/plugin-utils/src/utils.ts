@@ -25,14 +25,14 @@ export function exclude<T>(set: Set<T>, v: T[] | Set<T>) {
     set.delete(i)
 }
 
-export function transfromGroups(str: string) {
+export function transformGroups(str: string) {
   return str.replace(
     regexClassGroup,
     (_, a: string, b: string) => b.split(/\s/g).map(i => `${a}:${i}`).join(' '),
   )
 }
 
-export function transfromGroupsWithSourcemap(code: string) {
+export function transformGroupsWithSourcemap(code: string) {
   const s = new MagicString(code)
   let hasReplaced = false
   let match

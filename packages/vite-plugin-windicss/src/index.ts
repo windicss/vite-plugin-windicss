@@ -28,9 +28,9 @@ function VitePluginWindicss(userOptions: UserOptions = {}): Plugin[] {
           return
         debug.group(id)
         if (viteConfig.build.sourcemap)
-          return utils.transfromGroupsWithSourcemap(code)
+          return utils.transformGroupsWithSourcemap(code)
         else
-          return utils.transfromGroups(code)
+          return utils.transformGroups(code)
       },
     })
   }

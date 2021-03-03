@@ -25,7 +25,7 @@ function WindiCssRollupPlugin(userOptions: UserOptions = {}): Plugin[] {
         if (!utils.isDetectTarget(id))
           return
         debug.group(id)
-        return utils.transfromGroupsWithSourcemap(code)
+        return utils.transformGroupsWithSourcemap(code)
       },
     })
   }
