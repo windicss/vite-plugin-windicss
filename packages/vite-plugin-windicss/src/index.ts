@@ -35,6 +35,14 @@ function VitePluginWindicss(userOptions: UserOptions = {}): Plugin[] {
     })
   }
 
+  // exposing api
+  plugins.push({
+    name: NAME,
+    get api() {
+      return utils
+    },
+  })
+
   // CSS Entry via virtual module
   plugins.push({
     name: `${NAME}:entry`,
