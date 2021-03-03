@@ -27,6 +27,7 @@
     "@typescript-eslint/eslint-plugin": "^4.16.1",
     "bumpp": "^6.0.6",
     "debug": "^4.3.2",
+    "esbuild": "^0.8.54",
     "eslint": "^7.21.0",
     "eslint-plugin-jest": "^24.1.5",
     "fast-glob": "^3.2.5",
@@ -43,7 +44,7 @@
   },
   "pnpm": {
     "overrides": {
-      "esbuild": "0.8.53"
+      "esbuild": "0.8.54"
     }
   }
 }
