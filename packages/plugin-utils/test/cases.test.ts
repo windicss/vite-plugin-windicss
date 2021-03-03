@@ -25,7 +25,7 @@ describe('cases', () => {
 
   // #16
   it('uppercase classnames', async() => {
-    utils.extractFile('"text-lightBlue-500"')
+    utils.extractFile('"text-light-blue-500"')
   })
 
   // #17

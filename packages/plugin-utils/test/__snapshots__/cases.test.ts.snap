@@ -123,12 +123,12 @@ exports[`cases multiple lines: generated-css 1`] = `
 
 exports[`cases uppercase classnames: classes 1`] = `
 Set {
-  "text-lightBlue-500",
+  "text-light-blue-500",
 }
 `;
 
 exports[`cases uppercase classnames: generated-css 1`] = `
-".text-lightBlue-500 {
+".text-light-blue-500 {
   --tw-text-opacity: 1;
   color: rgba(14, 165, 233, var(--tw-text-opacity));
 }"

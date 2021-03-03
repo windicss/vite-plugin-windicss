@@ -27,11 +27,11 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "esbuild": "^0.8.53",
+    "esbuild": "^0.8.54",
     "esbuild-register": "^2.0.0",
     "fast-glob": "^3.2.5",
     "micromatch": "^4.0.2",
-    "windicss": "^2.2.1"
+    "windicss": "^2.2.3"
   },
   "devDependencies": {
     "@antfu/ni": "^0.5.4",
@@ -40,8 +40,8 @@
     "@types/node": "^14.14.31",
     "@types/pug": "^2.0.4",
     "debug": "^4.3.2",
-    "pug": "^3.0.0",
-    "tsup": "^4.5.1",
+    "pug": "^3.0.2",
+    "tsup": "^4.6.0",
     "typescript": "^4.2.2"
   }
 }
