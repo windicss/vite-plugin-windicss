@@ -69,6 +69,14 @@ export interface UserOptions {
   }
 
   /**
+    * File paths will be resolved against this directory.
+    *
+    * @default process.cwd
+    * @internal
+    */
+  root?: string
+
+  /**
    * Scan the files and extract the usage
    *
    * @default true
@@ -196,6 +204,7 @@ export interface ResolvedOptions {
     blocklist: Set<string>
     alias: Record<string, TagNames>
   }
+  root: string
   transformCSS: boolean | 'pre' | 'auto' | 'post'
   transformGroups: boolean
   sortUtilities: boolean
