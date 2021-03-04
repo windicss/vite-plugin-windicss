@@ -1,3 +1,4 @@
+import { resolve } from 'path'
 import { Plugin, ResolvedConfig } from 'vite'
 import _debug from 'debug'
 import { UserOptions, WindiPluginUtils, resolveOptions, createUtils } from '@windicss/plugin-utils'
@@ -81,7 +82,8 @@ function VitePluginWindicss(userOptions: UserOptions = {}): Plugin[] {
     },
 
     async handleHotUpdate({ server, file, read, modules }) {
-      if (file === utils.configFilePath) {
+      // resolve normalized file path to system path
+      if (resolve(file) === utils.configFilePath) {
         debug.hmr(`config file changed: ${file}`)
         utils.init()
         setTimeout(() => {
