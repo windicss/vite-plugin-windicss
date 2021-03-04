@@ -157,6 +157,7 @@ Rename it to `tailwind.config.ts` and things will just work!
 ```ts
 // tailwind.config.ts
 import { defineConfig } from 'vite-plugin-windicss'
+import formsPlugin from 'windicss/plugin/forms'
 
 export default defineConfig({
   darkMode: 'class',
@@ -169,6 +170,7 @@ export default defineConfig({
       },
     },
   },
+  plugins: [formsPlugin],
 })
 ```
 
