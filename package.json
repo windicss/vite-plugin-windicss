@@ -45,7 +45,7 @@
   },
   "pnpm": {
     "overrides": {
-      "esbuild": "0.8.54"
+      "esbuild": "latest"
     }
   }
 }
