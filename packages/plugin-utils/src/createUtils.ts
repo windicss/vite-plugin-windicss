@@ -25,6 +25,7 @@ export function createUtils(
     transformCSS: enableCssTransform,
     preflight: enablePreflight,
     preflightOptions,
+    root = utilsOptions.root || process.cwd(),
     sortUtilities,
     safelist,
     blocklist,
@@ -32,7 +33,6 @@ export function createUtils(
 
   const {
     name = 'windicss-plugin-utils',
-    root = process.cwd(),
     enabledTypeScriptConfig = true,
   } = utilsOptions
 
