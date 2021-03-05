@@ -30,16 +30,16 @@
   },
   "dependencies": {
     "@windicss/plugin-utils": "workspace:*",
-    "windicss": "^2.2.3"
+    "windicss": "^2.2.6"
   },
   "peerDependencies": {
     "vite": "^2.0.1"
   },
   "devDependencies": {
-    "@antfu/ni": "^0.5.4",
+    "@antfu/ni": "^0.5.5",
     "@types/node": "^14.14.31",
     "debug": "^4.3.2",
-    "tsup": "^4.6.0",
+    "tsup": "^4.6.1",
     "vite": "^2.0.5"
   }
 }
