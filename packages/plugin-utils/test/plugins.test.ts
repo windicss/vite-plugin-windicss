@@ -26,11 +26,34 @@ describe('plugins', () => {
           require('windicss/plugin/forms'),
         ],
       },
+      preflight: {
+        includeBase: false,
+      },
       scan: false,
     })
     utils.init()
 
     utils.extractFile('<input type="text"/><input type="number"/><select multiple/>')
+
+    const css = await utils.generateCSS()
+    expect(utils.classesGenerated).toMatchSnapshot('classes')
+    expect(css).toMatchSnapshot('generated-css')
+  })
+
+  it('forms', async() => {
+    const utils = createUtils({
+      config: {
+        plugins: [
+          require('windicss/plugin/forms'),
+        ],
+      },
+      preflight: {
+        includeBase: false,
+        safelist: ['[type="text"]', '[type="number"]'],
+      },
+      scan: false,
+    })
+    utils.init()
 
     const css = await utils.generateCSS()
     expect(utils.classesGenerated).toMatchSnapshot('classes')

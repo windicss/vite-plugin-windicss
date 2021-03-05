@@ -274,10 +274,23 @@ export function resolveOptions(options: UserOptions | ResolvedOptions = {}): Res
   const safelist = new Set(toArray(options.safelist || []).flatMap(i => i.split(' ')))
   const blocklist = new Set(toArray(options.blocklist || []).flatMap(i => i.split(' ')))
 
-  // @ts-expect-error cast
-  preflightOptions.safelist = new Set(toArray(preflightOptions.safelist || []).flatMap(i => i.split(' ')))
-  // @ts-expect-error cast
-  preflightOptions.blocklist = new Set(toArray(preflightOptions.blocklist || []).flatMap(i => i.split(' ')))
+  preflightOptions.safelist = new Set<string>(
+    toArray(preflightOptions.safelist || [])
+      // @ts-expect-error cast
+      .flatMap(i => i.split(' '))
+      .map((i) => {
+        // selector
+        const match = i.match(/^\[(.*?)\]$/)?.[1]
+        if (match)
+          return `div ${match}`
+        return i
+      }))
+
+  preflightOptions.blocklist = new Set<string>(
+    toArray(preflightOptions.blocklist || [])
+      // @ts-expect-error cast
+      .flatMap(i => i.split(' ')),
+  )
 
   preflightOptions.alias = Object.fromEntries(
     Object
