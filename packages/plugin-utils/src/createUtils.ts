@@ -91,16 +91,13 @@ export function createUtils(
         try {
           debug.config('loading from ', path)
 
-          if (enabledTypeScriptConfig && path.endsWith('.ts')) {
-            // eslint-disable-next-line @typescript-eslint/no-var-requires
+          if (enabledTypeScriptConfig && path.endsWith('.ts'))
             require('esbuild-register')
-          }
 
           delete require.cache[require.resolve(path)]
-          // eslint-disable-next-line @typescript-eslint/no-var-requires
           resolved = require(path)
-          // @ts-expect-error esm resolve
-          if (resolved.default) resolved = resolved.default
+          if (resolved.default)
+            resolved = resolved.default
 
           configFilePath = path
           configSafelist.clear()
