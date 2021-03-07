@@ -7,13 +7,13 @@ importers:
       '@types/fs-extra': 9.0.8
       '@types/jest': 26.0.20
       '@types/micromatch': 4.0.1
-      '@types/node': 14.14.31
+      '@types/node': 14.14.32
       '@typescript-eslint/eslint-plugin': 4.16.1_eslint@7.21.0+typescript@4.2.3
       bumpp: 6.0.6
       debug: 4.3.2
       esbuild: 0.8.56
       eslint: 7.21.0
-      eslint-plugin-jest: 24.1.5_eslint@7.21.0+typescript@4.2.3
+      eslint-plugin-jest: 24.1.7_eslint@7.21.0+typescript@4.2.3
       fast-glob: 3.2.5
       fs-extra: 9.1.0
       git-ensure: 0.1.0
@@ -32,13 +32,13 @@ importers:
       '@types/fs-extra': ^9.0.8
       '@types/jest': ^26.0.20
       '@types/micromatch': ^4.0.1
-      '@types/node': ^14.14.31
+      '@types/node': ^14.14.32
       '@typescript-eslint/eslint-plugin': ^4.16.1
       bumpp: ^6.0.6
       debug: ^4.3.2
       esbuild: ^0.8.56
       eslint: ^7.21.0
-      eslint-plugin-jest: ^24.1.5
+      eslint-plugin-jest: ^24.1.7
       fast-glob: ^3.2.5
       fs-extra: ^9.1.0
       git-ensure: ^0.1.0
@@ -55,14 +55,14 @@ importers:
       react: 17.0.1
       react-dom: 17.0.1_react@17.0.1
     devDependencies:
-      '@types/react': 17.0.2
+      '@types/react': 17.0.3
       '@types/react-dom': 17.0.1
       '@vitejs/plugin-react-refresh': 1.3.1
       typescript: 4.2.3
       vite: 2.0.5
       vite-plugin-windicss: link:../../packages/vite-plugin-windicss
     specifiers:
-      '@types/react': ^17.0.2
+      '@types/react': ^17.0.3
       '@types/react-dom': ^17.0.1
       '@vitejs/plugin-react-refresh': ^1.3.1
       react: ^17.0.1
@@ -126,12 +126,12 @@ importers:
       esbuild-register: 2.2.0_esbuild@0.8.56
       fast-glob: 3.2.5
       micromatch: 4.0.2
-      windicss: 2.2.6
+      windicss: 2.2.8
     devDependencies:
       '@antfu/ni': 0.5.5
       '@types/debug': 4.1.5
       '@types/micromatch': 4.0.1
-      '@types/node': 14.14.31
+      '@types/node': 14.14.32
       '@types/pug': 2.0.4
       debug: 4.3.2
       pug: 3.0.2
@@ -141,7 +141,7 @@ importers:
       '@antfu/ni': ^0.5.5
       '@types/debug': ^4.1.5
       '@types/micromatch': ^4.0.1
-      '@types/node': ^14.14.31
+      '@types/node': ^14.14.32
       '@types/pug': ^2.0.4
       debug: ^4.3.2
       esbuild: ^0.8.56
@@ -151,43 +151,43 @@ importers:
       pug: ^3.0.2
       tsup: ^4.6.1
       typescript: ^4.2.3
-      windicss: ^2.2.6
+      windicss: ^2.2.8
   packages/rollup-plugin-windicss:
     dependencies:
       '@windicss/plugin-utils': link:../plugin-utils
-      windicss: 2.2.6
+      windicss: 2.2.8
     devDependencies:
       '@antfu/ni': 0.5.5
-      '@types/node': 14.14.31
+      '@types/node': 14.14.32
       debug: 4.3.2
       rollup: 2.40.0
       tsup: 4.6.1
     specifiers:
       '@antfu/ni': ^0.5.5
-      '@types/node': ^14.14.31
+      '@types/node': ^14.14.32
       '@windicss/plugin-utils': workspace:*
       debug: ^4.3.2
       rollup: ^2.40.0
       tsup: ^4.6.1
-      windicss: ^2.2.6
+      windicss: ^2.2.8
   packages/vite-plugin-windicss:
     dependencies:
       '@windicss/plugin-utils': link:../plugin-utils
-      windicss: 2.2.6
+      windicss: 2.2.8
     devDependencies:
       '@antfu/ni': 0.5.5
-      '@types/node': 14.14.31
+      '@types/node': 14.14.32
       debug: 4.3.2
       tsup: 4.6.1
       vite: 2.0.5
     specifiers:
       '@antfu/ni': ^0.5.5
-      '@types/node': ^14.14.31
+      '@types/node': ^14.14.32
       '@windicss/plugin-utils': workspace:*
       debug: ^4.3.2
       tsup: ^4.6.1
       vite: ^2.0.5
-      windicss: ^2.2.6
+      windicss: ^2.2.8
 lockfileVersion: 5.2
 overrides:
   esbuild: latest
@@ -1121,6 +1121,10 @@ packages:
     dev: true
     resolution:
       integrity: sha512-vFHy/ezP5qI0rFgJ7aQnjDXwAMrG0KqqIH7tQG5PPv3BWBayOPIQNBjVc/P6hhdZfMx51REc6tfDNXHUio893g==
+  /@types/node/14.14.32:
+    dev: true
+    resolution:
+      integrity: sha512-/Ctrftx/zp4m8JOujM5ZhwzlWLx22nbQJiVqz8/zE15gOeEW+uly3FSX4fGFpcfEvFzXcMCJwq9lGVWgyARXhg==
   /@types/normalize-package-data/2.4.0:
     dev: true
     resolution:
@@ -1154,12 +1158,24 @@ packages:
     dev: true
     resolution:
       integrity: sha512-Xt40xQsrkdvjn1EyWe1Bc0dJLcil/9x2vAuW7ya+PuQip4UYUaXyhzWmAbwRsdMgwOFHpfp7/FFZebDU6Y8VHA==
+  /@types/react/17.0.3:
+    dependencies:
+      '@types/prop-types': 15.7.3
+      '@types/scheduler': 0.16.1
+      csstype: 3.0.7
+    dev: true
+    resolution:
+      integrity: sha512-wYOUxIgs2HZZ0ACNiIayItyluADNbONl7kt8lkLjVK8IitMH5QMyAh75Fwhmo37r1m7L2JaFj03sIfxBVDvRAg==
   /@types/resolve/1.17.1:
     dependencies:
       '@types/node': 14.14.31
     dev: true
     resolution:
       integrity: sha512-yy7HuzQhj0dhGpD8RLXSZWEkLsV9ibvxvi6EiJ3bkqLAO1RGo0WbkWQiwpRlSFymTJRz0d3k5LM3kkx8ArDbLw==
+  /@types/scheduler/0.16.1:
+    dev: true
+    resolution:
+      integrity: sha512-EaCxbanVeyxDRTQBkdLb3Bvl/HK7PBK6UJjsSixB0iHKoWxE5uu2Q/DgtpOhPIojN0Zl1whvOd7PoHs2P0s5eA==
   /@types/stack-utils/2.0.0:
     dev: true
     resolution:
@@ -2763,7 +2779,7 @@ packages:
       eslint: ^2 || ^3 || ^4 || ^5 || ^6 || ^7.2.0
     resolution:
       integrity: sha512-8K7JjINHOpH64ozkAhpT3sd+FswIZTfMZTjdx052pnWrgRCVfp8op9tbjpAk3DdUeI/Ba4C8OjdC0r90erHEOw==
-  /eslint-plugin-jest/24.1.5_eslint@7.21.0+typescript@4.2.3:
+  /eslint-plugin-jest/24.1.7_eslint@7.21.0+typescript@4.2.3:
     dependencies:
       '@typescript-eslint/experimental-utils': 4.16.1_eslint@7.21.0+typescript@4.2.3
       eslint: 7.21.0
@@ -2774,7 +2790,7 @@ packages:
       eslint: '>=5'
       typescript: '*'
     resolution:
-      integrity: sha512-FIP3lwC8EzEG+rOs1y96cOJmMVpdFNreoDJv29B5vIupVssRi8zrSY3QadogT0K3h1Y8TMxJ6ZSAzYUmFCp2hg==
+      integrity: sha512-p5Dk/Rgiv+ThxguYl96dj7Hqkow09dwSH1G5ALKdREM4pHO1V1xP0N6/myzoquD3z4h+1YPYHzM+g7Fd0xyaXg==
   /eslint-plugin-node/11.1.0_eslint@7.21.0:
     dependencies:
       eslint: 7.21.0
@@ -7297,13 +7313,13 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-NsmoXalsWVDMGupxZ5R08ka9flZjjiLvHVAWYOKtiKM8ujtZWr9cRffak+uSE48+Ob8ObalXpwyeUiyDD6QFgg==
-  /windicss/2.2.6:
+  /windicss/2.2.8:
     dev: false
     engines:
       node: '>= 12'
     hasBin: true
     resolution:
-      integrity: sha512-RK502Xwsw0ptjVueJum0TEr286YJgtqK6kXpa60R6a1z2gGkVpEcaIfr6okQ5EYUk8WMRLrXoK6B2E6dSRg/sw==
+      integrity: sha512-zNh65NiuGDChJvCjkEEMpA5NpykouYOc5vGeT3ynC5XydbENJYCEP7Jt9cfVD9BAG+OQxsNYtsYOabtzQeq4Iw==
   /with/7.0.2:
     dependencies:
       '@babel/parser': 7.13.4
