@@ -4,8 +4,8 @@ import _debug from 'debug'
 import { UserOptions, WindiPluginUtils, resolveOptions, createUtils } from '@windicss/plugin-utils'
 
 const NAME = 'vite-plugin-windicss'
-const MODULE_ID = 'windi.css'
-const MODULE_ID_VIRTUAL = `/@windicss/${MODULE_ID}`
+const MODULE_IDS = ['windi.css', '@virtual/windi.css']
+const MODULE_ID_VIRTUAL = '/@windicss/windi.css'
 
 const debug = {
   hmr: _debug(`${NAME}:hmr`),
@@ -58,8 +58,8 @@ function VitePluginWindicss(userOptions: UserOptions = {}): Plugin[] {
       utils.init()
     },
 
-    resolveId(id): string | null {
-      return id.startsWith(MODULE_ID) || id === MODULE_ID_VIRTUAL
+    resolveId(id) {
+      return MODULE_IDS.includes(id) || MODULE_IDS.some(i => id.startsWith(i))
         ? MODULE_ID_VIRTUAL
         : null
     },

@@ -3,8 +3,8 @@ import _debug from 'debug'
 import { resolveOptions, UserOptions, WindiPluginUtils } from '@windicss/plugin-utils'
 
 const NAME = 'rollup-plugin-windicss'
-const MODULE_ID = 'windi.css'
-const MODULE_ID_VIRTUAL = `/@windicss/${MODULE_ID}`
+const MODULE_IDS = ['windi.css', '@virtual/windi.css']
+const MODULE_ID_VIRTUAL = '/@windicss/windi.css'
 
 const debug = {
   hmr: _debug(`${NAME}:hmr`),
@@ -33,8 +33,8 @@ function WindiCssRollupPlugin(userOptions: UserOptions = {}): Plugin[] {
   plugins.push({
     name: `${NAME}:entry`,
 
-    resolveId(id): string | null {
-      return id.startsWith(MODULE_ID) || id === MODULE_ID_VIRTUAL
+    resolveId(id) {
+      return MODULE_IDS.includes(id) || MODULE_IDS.some(i => id.startsWith(i))
         ? MODULE_ID_VIRTUAL
         : null
     },
