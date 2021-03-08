@@ -336,14 +336,6 @@ export function createUtils(
       })
     }
 
-    // clear cache
-    // @ts-expect-error private API
-    processor._cache = {
-      html: [],
-      classes: [],
-      utilities: [],
-    }
-
     return _cssCache
   }
 

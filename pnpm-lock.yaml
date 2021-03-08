@@ -11,15 +11,15 @@ importers:
       '@typescript-eslint/eslint-plugin': 4.16.1_eslint@7.21.0+typescript@4.2.3
       bumpp: 6.0.6
       debug: 4.3.2
-      esbuild: 0.8.56
+      esbuild: 0.8.57
       eslint: 7.21.0
-      eslint-plugin-jest: 24.1.7_eslint@7.21.0+typescript@4.2.3
+      eslint-plugin-jest: 24.1.9_eslint@7.21.0+typescript@4.2.3
       fast-glob: 3.2.5
       fs-extra: 9.1.0
       git-ensure: 0.1.0
       jest: 26.6.3
       magic-string: 0.25.7
-      pnpm: 5.18.3
+      pnpm: 5.18.4
       rollup: 2.40.0
       ts-jest: 26.5.3_jest@26.6.3+typescript@4.2.3
       tsup: 4.6.1_typescript@4.2.3
@@ -36,15 +36,15 @@ importers:
       '@typescript-eslint/eslint-plugin': ^4.16.1
       bumpp: ^6.0.6
       debug: ^4.3.2
-      esbuild: ^0.8.56
+      esbuild: ^0.8.57
       eslint: ^7.21.0
-      eslint-plugin-jest: ^24.1.7
+      eslint-plugin-jest: ^24.1.9
       fast-glob: ^3.2.5
       fs-extra: ^9.1.0
       git-ensure: ^0.1.0
       jest: ^26.6.3
       magic-string: ^0.25.7
-      pnpm: ^5.18.3
+      pnpm: ^5.18.4
       rollup: ^2.40.0
       ts-jest: ^26.5.3
       tsup: ^4.6.1
@@ -122,11 +122,11 @@ importers:
       vue: ^3.0.7
   packages/plugin-utils:
     dependencies:
-      esbuild: 0.8.56
-      esbuild-register: 2.2.0_esbuild@0.8.56
+      esbuild: 0.8.57
+      esbuild-register: 2.2.0_esbuild@0.8.57
       fast-glob: 3.2.5
       micromatch: 4.0.2
-      windicss: 2.2.8
+      windicss: 2.3.0
     devDependencies:
       '@antfu/ni': 0.5.5
       '@types/debug': 4.1.5
@@ -144,18 +144,18 @@ importers:
       '@types/node': ^14.14.32
       '@types/pug': ^2.0.4
       debug: ^4.3.2
-      esbuild: ^0.8.56
+      esbuild: ^0.8.57
       esbuild-register: ^2.2.0
       fast-glob: ^3.2.5
       micromatch: ^4.0.2
       pug: ^3.0.2
       tsup: ^4.6.1
       typescript: ^4.2.3
-      windicss: ^2.2.8
+      windicss: ^2.3.0
   packages/rollup-plugin-windicss:
     dependencies:
       '@windicss/plugin-utils': link:../plugin-utils
-      windicss: 2.2.8
+      windicss: 2.3.0
     devDependencies:
       '@antfu/ni': 0.5.5
       '@types/node': 14.14.32
@@ -169,11 +169,11 @@ importers:
       debug: ^4.3.2
       rollup: ^2.40.0
       tsup: ^4.6.1
-      windicss: ^2.2.8
+      windicss: ^2.3.0
   packages/vite-plugin-windicss:
     dependencies:
       '@windicss/plugin-utils': link:../plugin-utils
-      windicss: 2.2.8
+      windicss: 2.3.0
     devDependencies:
       '@antfu/ni': 0.5.5
       '@types/node': 14.14.32
@@ -187,7 +187,7 @@ importers:
       debug: ^4.3.2
       tsup: ^4.6.1
       vite: ^2.0.5
-      windicss: ^2.2.8
+      windicss: ^2.3.0
 lockfileVersion: 5.2
 overrides:
   esbuild: latest
@@ -2645,20 +2645,20 @@ packages:
       node: '>= 0.4'
     resolution:
       integrity: sha512-QCOllgZJtaUo9miYBcLChTUaHNjJF3PYs1VidD7AwiEj1kYxKeQTctLAezAOH5ZKRH0g2IgPn6KwB4IT8iRpvA==
-  /esbuild-register/2.2.0_esbuild@0.8.56:
+  /esbuild-register/2.2.0_esbuild@0.8.57:
     dependencies:
-      esbuild: 0.8.56
+      esbuild: 0.8.57
       jsonc-parser: 3.0.0
     dev: false
     peerDependencies:
       esbuild: '>=0.8.31'
     resolution:
       integrity: sha512-27039YMtpC3lI8yYGGm78SAQBtBo/4IPMReWVsNh4++VtvozmasBd1a2HiTdk0297iuA2pMzrzvL5cZJqQCKxQ==
-  /esbuild/0.8.56:
+  /esbuild/0.8.57:
     hasBin: true
     requiresBuild: true
     resolution:
-      integrity: sha512-PTMdAWK3JI2MNW811znGssGP5GR44tQPr++VQ1rPP0n8Z1cTKbCPD3S/kXPLr3ZZDIwAaVm08fuFym6Rp8l/0A==
+      integrity: sha512-j02SFrUwFTRUqiY0Kjplwjm1psuzO1d6AjaXKuOR9hrY0HuPsT6sV42B6myW34h1q4CRy+Y3g4RU/cGJeI/nNA==
   /escalade/3.1.1:
     dev: true
     engines:
@@ -2779,7 +2779,7 @@ packages:
       eslint: ^2 || ^3 || ^4 || ^5 || ^6 || ^7.2.0
     resolution:
       integrity: sha512-8K7JjINHOpH64ozkAhpT3sd+FswIZTfMZTjdx052pnWrgRCVfp8op9tbjpAk3DdUeI/Ba4C8OjdC0r90erHEOw==
-  /eslint-plugin-jest/24.1.7_eslint@7.21.0+typescript@4.2.3:
+  /eslint-plugin-jest/24.1.9_eslint@7.21.0+typescript@4.2.3:
     dependencies:
       '@typescript-eslint/experimental-utils': 4.16.1_eslint@7.21.0+typescript@4.2.3
       eslint: 7.21.0
@@ -2790,7 +2790,7 @@ packages:
       eslint: '>=5'
       typescript: '*'
     resolution:
-      integrity: sha512-p5Dk/Rgiv+ThxguYl96dj7Hqkow09dwSH1G5ALKdREM4pHO1V1xP0N6/myzoquD3z4h+1YPYHzM+g7Fd0xyaXg==
+      integrity: sha512-dobHZxHQGiwpNuI/CNU69Q0T8oBWfJjhroOPD0vBUBbAuKzzjcflT7dqKj6NBvhNs5TfdBofX9GGswmQL2iKzQ==
   /eslint-plugin-node/11.1.0_eslint@7.21.0:
     dependencies:
       eslint: 7.21.0
@@ -5574,13 +5574,13 @@ packages:
       node: '>=4'
     resolution:
       integrity: sha512-Nc3IT5yHzflTfbjgqWcCPpo7DaKy4FnpB0l/zCAW0Tc7jxAiuqSxHasntB3D7887LSrA93kDJ9IXovxJYxyLCA==
-  /pnpm/5.18.3:
+  /pnpm/5.18.4:
     dev: true
     engines:
       node: '>=10.16'
     hasBin: true
     resolution:
-      integrity: sha512-2PJ6eY+qq/4WUBX6uxkyuCJzRT18uIUF9QOZJBBjhOamLsB3mE1mIyNP/dc9n9pt4MT3/ZJDdKpKG7h5rLvzqQ==
+      integrity: sha512-E+bxxagCwnoPlSr5pduJhcBu7s3rG1RLFpK2eaj40rKfbFzPtT0q+8bwX8OpwPpFBP12JekQ4ZfC2QaIjbjQJw==
   /posix-character-classes/0.1.1:
     dev: true
     engines:
@@ -6916,7 +6916,7 @@ packages:
       cac: 6.7.2
       chalk: 4.1.0
       chokidar: 3.5.1
-      esbuild: 0.8.56
+      esbuild: 0.8.57
       globby: 11.0.2
       joycon: 2.2.5
       postcss-load-config: 3.0.1
@@ -6938,7 +6938,7 @@ packages:
       cac: 6.7.2
       chalk: 4.1.0
       chokidar: 3.5.1
-      esbuild: 0.8.56
+      esbuild: 0.8.57
       globby: 11.0.2
       joycon: 2.2.5
       postcss-load-config: 3.0.1
@@ -7181,7 +7181,7 @@ packages:
       integrity: sha1-OhBcoXBTr1XW4nDB+CiGguGNpAA=
   /vite/2.0.5:
     dependencies:
-      esbuild: 0.8.56
+      esbuild: 0.8.57
       postcss: 8.2.6
       resolve: 1.20.0
       rollup: 2.40.0
@@ -7313,13 +7313,13 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-NsmoXalsWVDMGupxZ5R08ka9flZjjiLvHVAWYOKtiKM8ujtZWr9cRffak+uSE48+Ob8ObalXpwyeUiyDD6QFgg==
-  /windicss/2.2.8:
+  /windicss/2.3.0:
     dev: false
     engines:
       node: '>= 12'
     hasBin: true
     resolution:
-      integrity: sha512-zNh65NiuGDChJvCjkEEMpA5NpykouYOc5vGeT3ynC5XydbENJYCEP7Jt9cfVD9BAG+OQxsNYtsYOabtzQeq4Iw==
+      integrity: sha512-OR/ULZmcVhtEJDIFnkz4S4v4efpZ8DuvDtzBwXNgbtiPQIxN0Zhpo59q0rfF0i3tfwjKw2KCQXNxL5E98bMuVA==
   /with/7.0.2:
     dependencies:
       '@babel/parser': 7.13.4

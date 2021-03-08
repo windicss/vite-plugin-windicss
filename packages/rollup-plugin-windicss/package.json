@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "@windicss/plugin-utils": "workspace:*",
-    "windicss": "^2.2.8"
+    "windicss": "^2.3.0"
   },
   "peerDependencies": {
     "rollup": "^2.0.0"
