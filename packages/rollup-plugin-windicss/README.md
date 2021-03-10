@@ -34,7 +34,7 @@ import WindiCSS from 'rollup-plugin-windicss'
 
 export default {
   plugins: [
-    ...WindiCSS()
+    WindiCSS()
   ],
 };
 ```
