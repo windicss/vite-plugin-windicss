@@ -92,7 +92,7 @@ export function createUtils(
           debug.config('loading from ', path)
 
           if (enabledTypeScriptConfig && path.endsWith('.ts'))
-            require('esbuild-register')
+            require('sucrase/register/ts')
 
           delete require.cache[require.resolve(path)]
           resolved = require(path)

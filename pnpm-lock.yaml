@@ -122,10 +122,9 @@ importers:
       vue: ^3.0.7
   packages/plugin-utils:
     dependencies:
-      esbuild: 0.8.57
-      esbuild-register: 2.2.0_esbuild@0.8.57
       fast-glob: 3.2.5
       micromatch: 4.0.2
+      sucrase: 3.17.1
       windicss: 2.3.0
     devDependencies:
       '@antfu/ni': 0.5.5
@@ -144,11 +143,10 @@ importers:
       '@types/node': ^14.14.32
       '@types/pug': ^2.0.4
       debug: ^4.3.2
-      esbuild: ^0.8.57
-      esbuild-register: ^2.2.0
       fast-glob: ^3.2.5
       micromatch: ^4.0.2
       pug: ^3.0.2
+      sucrase: ^3.17.1
       tsup: ^4.6.1
       typescript: ^4.2.3
       windicss: ^2.3.0
@@ -190,7 +188,7 @@ importers:
       windicss: ^2.3.0
 lockfileVersion: 5.2
 overrides:
-  esbuild: latest
+  esbuild: 0.8.57
 packages:
   /@antfu/eslint-config-basic/0.4.3_eslint@7.21.0:
     dependencies:
@@ -1513,7 +1511,6 @@ packages:
     resolution:
       integrity: sha512-zbB9rCJAT1rbjiVDb2hqKFHNYLxgtk8NURxZ3IZwD3F6NtxbXZQCnnSi1Lkx+IDohdPlFp222wVALIheZJQSEg==
   /any-promise/1.3.0:
-    dev: true
     resolution:
       integrity: sha1-q8av7tzqUugJzcA3au0845Y10X8=
   /anymatch/2.0.0:
@@ -1746,7 +1743,6 @@ packages:
     resolution:
       integrity: sha512-GAwkz0AihzY5bkwIY5QDR+LvsRQgB/B+1foMPvi0FZPMl5fjD7ICiznUiBdLYMH1QYe6vqu4gWYytZOccLouFw==
   /balanced-match/1.0.0:
-    dev: true
     resolution:
       integrity: sha1-ibTRmasr7kneFk6gK4nORi1xt2c=
   /base/0.11.2:
@@ -1802,7 +1798,6 @@ packages:
     dependencies:
       balanced-match: 1.0.0
       concat-map: 0.0.1
-    dev: true
     resolution:
       integrity: sha512-iCuPHDFgrHX7H2vEI/5xpz07zSHB00TpugqhmYtVmMO6518mCuRMoOYFldEBl0g187ufozdaHgWKcYFb61qGiA==
   /braces/2.3.2:
@@ -2154,7 +2149,6 @@ packages:
     resolution:
       integrity: sha512-hL/eG8lrll1Qy1ezvkant+trihbGnaKaeEjj6Scyr3DN+RC7iQ5Rz84IeLERfAWDGo0HBSNAakczwgCilDXnWg==
   /commander/4.1.1:
-    dev: true
     engines:
       node: '>= 6'
     resolution:
@@ -2164,7 +2158,6 @@ packages:
     resolution:
       integrity: sha512-Rd3se6QB+sO1TwqZjscQrurpEPIfO0/yYnSin6Q/rD3mOutHvUrCAhJub3r90uNb+SESBuE0QYoB90YdfatsRg==
   /concat-map/0.0.1:
-    dev: true
     resolution:
       integrity: sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=
   /configstore/5.0.1:
@@ -2645,16 +2638,8 @@ packages:
       node: '>= 0.4'
     resolution:
       integrity: sha512-QCOllgZJtaUo9miYBcLChTUaHNjJF3PYs1VidD7AwiEj1kYxKeQTctLAezAOH5ZKRH0g2IgPn6KwB4IT8iRpvA==
-  /esbuild-register/2.2.0_esbuild@0.8.57:
-    dependencies:
-      esbuild: 0.8.57
-      jsonc-parser: 3.0.0
-    dev: false
-    peerDependencies:
-      esbuild: '>=0.8.31'
-    resolution:
-      integrity: sha512-27039YMtpC3lI8yYGGm78SAQBtBo/4IPMReWVsNh4++VtvozmasBd1a2HiTdk0297iuA2pMzrzvL5cZJqQCKxQ==
   /esbuild/0.8.57:
+    dev: true
     hasBin: true
     requiresBuild: true
     resolution:
@@ -3334,7 +3319,6 @@ packages:
     resolution:
       integrity: sha512-hcg3ZmepS30/7BSFqRvoo3DOMQu7IjqxO5nCDt+zM9XWjb33Wg7ziNT+Qvqbuc3+gWpzO02JubVyk2G4Zvo1OQ==
   /fs.realpath/1.0.0:
-    dev: true
     resolution:
       integrity: sha1-FQStJSMVjKpA20onh8sBQRmU6k8=
   /fsevents/2.3.2:
@@ -3445,7 +3429,6 @@ packages:
       minimatch: 3.0.4
       once: 1.4.0
       path-is-absolute: 1.0.1
-    dev: true
     resolution:
       integrity: sha512-LwaxwyZ72Lk7vZINtNNrywX0ZuLyStrdDtabefZKAY5ZGJhVtgdznluResxNmPitE0SAO+O26sWTHeKSI2wMBA==
   /global-dirs/2.1.0:
@@ -3752,11 +3735,9 @@ packages:
     dependencies:
       once: 1.4.0
       wrappy: 1.0.2
-    dev: true
     resolution:
       integrity: sha1-Sb1jMdfQLQwJvJEKEHW6gWW1bfk=
   /inherits/2.0.4:
-    dev: true
     resolution:
       integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==
   /ini/1.3.7:
@@ -4705,10 +4686,6 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-f+8cldu7X/y7RAJurMEJmdoKXGB/X550w2Nr3tTbezL6RwEE/iMcm+tZnXeoZtKuOq6ft8+CqzEkrIgx1fPoQA==
-  /jsonc-parser/3.0.0:
-    dev: false
-    resolution:
-      integrity: sha512-fQzRfAbIBnR0IQvftw9FJveWiHp72Fg20giDrHz6TdfB12UH/uue0D3hm57UB5KgAVuniLMCaS8P1IMj9NR7cA==
   /jsonfile/6.1.0:
     dependencies:
       universalify: 2.0.0
@@ -4817,7 +4794,6 @@ packages:
     resolution:
       integrity: sha512-+bT2uH4E5LGE7h/n3evcS/sQlJXCpIp6ym8OWJ5eV6+67Dsql/LaaT7qJBAt2rzfoa/5QBGBhxDix1dMt2kQKQ==
   /lines-and-columns/1.1.6:
-    dev: true
     resolution:
       integrity: sha1-HADHQ7QzzQpOgHWPe2SldEDZ/wA=
   /load-json-file/2.0.0:
@@ -5035,7 +5011,6 @@ packages:
   /minimatch/3.0.4:
     dependencies:
       brace-expansion: 1.1.11
-    dev: true
     resolution:
       integrity: sha512-yJHVQEhyqPLUTgt9B83PXu6W3rx4MvvHvSUvToogpwoGDOUQ+yDrR0HRot+yOCdCO7u4hX3pWft6kWBBcqh0UA==
   /minimist/1.2.5:
@@ -5083,7 +5058,6 @@ packages:
       any-promise: 1.3.0
       object-assign: 4.1.1
       thenify-all: 1.6.0
-    dev: true
     resolution:
       integrity: sha512-z81GNO7nnYMEhrGh9LeymoE4+Yr0Wn5McHIZMK5cfQCl+NDX08sCZgUc9/6MHni9IWuFLm1Z3HTCXu2z9fN62Q==
   /nanoid/3.1.20:
@@ -5124,7 +5098,6 @@ packages:
     resolution:
       integrity: sha1-h6kGXNs1XTGC2PlM4RGIuCXGijs=
   /node-modules-regexp/1.0.0:
-    dev: true
     engines:
       node: '>=0.10.0'
     resolution:
@@ -5312,7 +5285,6 @@ packages:
   /once/1.4.0:
     dependencies:
       wrappy: 1.0.2
-    dev: true
     resolution:
       integrity: sha1-WDsap3WWHUsROsF9nFC6753Xa9E=
   /onetime/5.1.2:
@@ -5494,7 +5466,6 @@ packages:
     resolution:
       integrity: sha512-ak9Qy5Q7jYb2Wwcey5Fpvg2KoAc/ZIhLSLOSBmRmygPsGwkVVt0fZa0qrtMz+m6tJTAHfZQ8FnmB4MG4LWy7/w==
   /path-is-absolute/1.0.1:
-    dev: true
     engines:
       node: '>=0.10.0'
     resolution:
@@ -5547,7 +5518,6 @@ packages:
   /pirates/4.0.1:
     dependencies:
       node-modules-regexp: 1.0.0
-    dev: true
     engines:
       node: '>= 6'
     resolution:
@@ -6677,7 +6647,6 @@ packages:
       mz: 2.7.0
       pirates: 4.0.1
       ts-interface-checker: 0.1.13
-    dev: true
     engines:
       node: '>=8'
     hasBin: true
@@ -6755,7 +6724,6 @@ packages:
   /thenify-all/1.6.0:
     dependencies:
       thenify: 3.3.1
-    dev: true
     engines:
       node: '>=0.8'
     resolution:
@@ -6763,7 +6731,6 @@ packages:
   /thenify/3.3.1:
     dependencies:
       any-promise: 1.3.0
-    dev: true
     resolution:
       integrity: sha512-RVZSIV5IG10Hk3enotrhvz0T9em6cyHBLkH/YAZuKqd8hRkKhSfCGIcP2KUY0EPxndzANBmNllzWPwak+bheSw==
   /throat/5.0.0:
@@ -6871,7 +6838,6 @@ packages:
     resolution:
       integrity: sha512-3n1qG+/5kg+jrbTzwAykB5yRYtQCTqOGKq5U5PE3b0a1/mzo6snDhjGS0zJVJunO0NrT3Dg1MLy5TjWP/UJppg==
   /ts-interface-checker/0.1.13:
-    dev: true
     resolution:
       integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==
   /ts-jest/26.5.3_jest@26.6.3+typescript@4.2.3:
@@ -7348,7 +7314,6 @@ packages:
     resolution:
       integrity: sha512-r6lPcBGxZXlIcymEu7InxDMhdW0KDxpLgoFLcguasxCaJ/SOIZwINatK9KY/tf+ZrlywOKU0UDj3ATXUBfxJXA==
   /wrappy/1.0.2:
-    dev: true
     resolution:
       integrity: sha1-tSQ9jz7BqjXxNkYFvA0QNuMKtp8=
   /write-file-atomic/3.0.3:
