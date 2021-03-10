@@ -13,8 +13,7 @@ export const PugTransformer: Transformer<TransformerOptions> = ({
 
   const render = (code : string) => {
     try {
-      // render with caching enabled
-      return Pug.compile(code)()
+      return Pug.compile(code, { filename: id })()
       // other build processes will catch pug errors
     } catch (e) {}
     return
