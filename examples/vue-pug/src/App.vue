@@ -1,5 +1,6 @@
 <script setup lang='ts'>
 import Foo from './Foo.vue'
+import InvalidPug from './InvalidPug.vue'
 </script>
 
 <template lang="pug">
@@ -9,6 +10,7 @@ div
   h2.btn Button
   .bar Bar
   Foo
+  InvalidPug
   router-link
   .bg-black.bg-blue-200.bg-red-200 Without ! (red)
   .bg-black.bg-red-200(class="!bg-blue-200")
