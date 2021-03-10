@@ -11,13 +11,14 @@ export const PugTransformer: Transformer<TransformerOptions> = ({
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   const Pug = require('pug') as typeof import('pug')
 
-  const compile = (code : string) => {
+  const compile = (code: string) => {
     try {
       return Pug.compile(code, { filename: id })()
       // other build processes will catch pug errors
-    } catch (e) {}
-    return
+    }
+    catch {}
   }
+
   if (id.match(/\.vue$/)) {
     const matches = Array.from(code.matchAll(regexTemplate))
     let tail = ''
@@ -27,7 +28,8 @@ export const PugTransformer: Transformer<TransformerOptions> = ({
     }
     if (tail)
       return `${code}\n\n${tail}`
-  } else {
+  }
+  else {
     return compile(code)
   }
 }
