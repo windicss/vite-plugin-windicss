@@ -51,7 +51,7 @@ export function createUtils(
   let configFilePath: string | undefined
 
   const globs = getGlobs()
-  const excludeGlobs = getExcludeGlob()
+  const excludeGlobs = scanOptions.exclude
   const files: string[] = []
 
   const regexId = new RegExp(`\\.(?:${scanOptions.fileExtensions.join('|')})$`, 'i')
@@ -141,10 +141,6 @@ export function createUtils(
 
     debug.glob('globs', globs)
     return globs
-  }
-
-  function getExcludeGlob() {
-    return ['node_modules', '.git', ...scanOptions.exclude]
   }
 
   async function getFiles() {

@@ -263,7 +263,7 @@ export function resolveOptions(options: UserOptions | ResolvedOptions = {}): Res
     {
       fileExtensions: ['html', 'vue', 'md', 'mdx', 'pug', 'jsx', 'tsx', 'svelte'],
       dirs: ['src'],
-      exclude: [] as string[],
+      exclude: ['node_modules', '.git'],
       include: [] as string[],
       runOnStartup: true,
       transformers: getDefaultTransformers(),
