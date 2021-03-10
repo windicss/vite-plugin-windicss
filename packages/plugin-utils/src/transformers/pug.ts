@@ -11,7 +11,7 @@ export const PugTransformer: Transformer<TransformerOptions> = ({
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   const Pug = require('pug') as typeof import('pug')
 
-  const render = (code : string) => {
+  const compile = (code : string) => {
     try {
       return Pug.compile(code, { filename: id })()
       // other build processes will catch pug errors
@@ -23,11 +23,11 @@ export const PugTransformer: Transformer<TransformerOptions> = ({
     let tail = ''
     for (const match of matches) {
       if (match && match[1])
-        tail += `\n\n${render(match[1])}`
+        tail += `\n\n${compile(match[1])}`
     }
     if (tail)
       return `${code}\n\n${tail}`
   } else {
-    return render(code)
+    return compile(code)
   }
 }
