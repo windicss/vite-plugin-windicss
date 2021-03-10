@@ -41,7 +41,7 @@ export default {
 
 ```ts
 // your code entry
-import '@virtual/windi.css'
+import 'virtual:windi.css'
 ```
 
 That's all.

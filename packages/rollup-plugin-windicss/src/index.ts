@@ -3,7 +3,7 @@ import _debug from 'debug'
 import { resolveOptions, UserOptions, WindiPluginUtils } from '@windicss/plugin-utils'
 
 const NAME = 'rollup-plugin-windicss'
-const MODULE_IDS = ['windi.css', '@virtual/windi.css']
+const MODULE_IDS = ['virtual:windi.css', 'windi.css', '@virtual/windi.css']
 const MODULE_ID_VIRTUAL = '/@windicss/windi.css'
 
 const debug = {

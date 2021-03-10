@@ -44,7 +44,7 @@ export default {
 
 ```ts
 // main.js
-import '@virtual/windi.css'
+import 'virtual:windi.css'
 ```
 
 That's all. Build your app just like what you would do with Tailwind CSS, but much faster! ⚡️
@@ -123,7 +123,7 @@ export default {
 Import `@virtual/windi.css` in your code entry.
 
 ```ts
-import '@virtual/windi.css'
+import 'virtual:windi.css'
 ```
 
 ### `main.css`

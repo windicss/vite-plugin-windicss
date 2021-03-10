@@ -4,7 +4,7 @@ import _debug from 'debug'
 import { UserOptions, WindiPluginUtils, resolveOptions, createUtils } from '@windicss/plugin-utils'
 
 const NAME = 'vite-plugin-windicss'
-const MODULE_IDS = ['windi.css', '@virtual/windi.css']
+const MODULE_IDS = ['virtual:windi.css', 'windi.css', '@virtual/windi.css']
 const MODULE_ID_VIRTUAL = '/@windicss/windi.css'
 
 const debug = {
