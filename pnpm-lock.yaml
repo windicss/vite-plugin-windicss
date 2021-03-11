@@ -11,7 +11,7 @@ importers:
       '@typescript-eslint/eslint-plugin': 4.17.0_eslint@7.21.0+typescript@4.2.3
       bumpp: 6.0.6
       debug: 4.3.2
-      esbuild: 0.9.0
+      esbuild: 0.8.57
       eslint: 7.21.0
       eslint-plugin-jest: 24.2.1_eslint@7.21.0+typescript@4.2.3
       fast-glob: 3.2.5
@@ -36,7 +36,7 @@ importers:
       '@typescript-eslint/eslint-plugin': ^4.17.0
       bumpp: ^6.0.6
       debug: ^4.3.2
-      esbuild: ^0.9.0
+      esbuild: ^0.8.57
       eslint: ^7.21.0
       eslint-plugin-jest: ^24.2.1
       fast-glob: ^3.2.5
@@ -2698,12 +2698,6 @@ packages:
     requiresBuild: true
     resolution:
       integrity: sha512-j02SFrUwFTRUqiY0Kjplwjm1psuzO1d6AjaXKuOR9hrY0HuPsT6sV42B6myW34h1q4CRy+Y3g4RU/cGJeI/nNA==
-  /esbuild/0.9.0:
-    dev: true
-    hasBin: true
-    requiresBuild: true
-    resolution:
-      integrity: sha512-IqYFO7ZKHf0y4uJpJfGqInmSRn8jMPMbyI1W0Y2PSjSjJcVP538tC8TleJAS4Y8QeqwajqBTwFKayWVzYlMIgg==
   /escalade/3.1.1:
     dev: true
     engines:
