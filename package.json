@@ -28,7 +28,6 @@
     "@typescript-eslint/eslint-plugin": "^4.17.0",
     "bumpp": "^6.0.6",
     "debug": "^4.3.2",
-    "esbuild": "^0.8.57",
     "eslint": "^7.21.0",
     "eslint-plugin-jest": "^24.2.1",
     "fast-glob": "^3.2.5",
