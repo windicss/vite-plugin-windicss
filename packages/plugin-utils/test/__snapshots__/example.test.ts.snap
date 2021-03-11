@@ -156,10 +156,6 @@ abbr[title] {
   -webkit-text-decoration: underline dotted;
   text-decoration: underline dotted;
 }
-a {
-  color: inherit;
-  text-decoration: inherit;
-}
 body {
   margin: 0;
   font-family: inherit;
@@ -170,10 +166,33 @@ html {
   font-family: ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,\\"Segoe UI\\",Roboto,\\"Helvetica Neue\\",Arial,\\"Noto Sans\\",sans-serif,\\"Apple Color Emoji\\",\\"Segoe UI Emoji\\",\\"Segoe UI Symbol\\",\\"Noto Color Emoji\\";
   line-height: 1.5;
 }
+a {
+  color: inherit;
+  text-decoration: inherit;
+}
 h2 {
   margin: 0;
   font-size: inherit;
   font-weight: inherit;
+}
+.btn {
+  border-radius: 0.25rem;
+  border-width: 1px;
+  --tw-border-opacity: 1;
+  border-color: rgba(209, 213, 219, var(--tw-border-opacity));
+  --tw-text-opacity: 1;
+  color: rgba(75, 85, 99, var(--tw-text-opacity));
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  margin: 0.5rem;
+  display: inline-block;
+}
+.btn:hover {
+  --tw-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  -webkit-box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 .bg-teal-100 {
   --tw-bg-opacity: 1;
@@ -199,6 +218,9 @@ h2 {
   --tw-bg-opacity: 1;
   background-color: rgba(253, 230, 138, var(--tw-bg-opacity));
 }
+.hover\\\\:rounded-full:hover {
+  border-radius: 9999px;
+}
 .mt-2 {
   margin-top: 0.5rem;
 }
@@ -223,30 +245,8 @@ h2 {
   --tw-text-opacity: 1;
   color: rgba(209, 250, 229, var(--tw-text-opacity));
 }
-.hover\\\\:rounded-full:hover {
-  border-radius: 9999px;
-}
 .hover\\\\:w-1\\\\/3:hover {
   width: 33.333333%;
-}
-.btn {
-  border-radius: 0.25rem;
-  border-width: 1px;
-  --tw-border-opacity: 1;
-  border-color: rgba(209, 213, 219, var(--tw-border-opacity));
-  --tw-text-opacity: 1;
-  color: rgba(75, 85, 99, var(--tw-text-opacity));
-  padding-left: 1rem;
-  padding-right: 1rem;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  margin: 0.5rem;
-  display: inline-block;
-}
-.btn:hover {
-  --tw-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-  -webkit-box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }"
 `;
 

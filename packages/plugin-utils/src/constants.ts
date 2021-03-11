@@ -10,11 +10,6 @@ export const defaultAlias: Record<string, TagNames> = {
   'router-link': 'a',
 }
 
-export const tagsEnableAttrs: Record<string, boolean> = {
-  input: true,
-  select: true,
-}
-
 export const preflightTags = ['html', 'body', 'div']
 
 export const htmlTags = [

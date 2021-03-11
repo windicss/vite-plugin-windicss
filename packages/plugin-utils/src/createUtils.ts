@@ -6,7 +6,7 @@ import { CSSParser } from 'windicss/utils/parser'
 import fg from 'fast-glob'
 import _debug from 'debug'
 import micromatch from 'micromatch'
-import { preflightTags, htmlTags, configureFiles, tagsEnableAttrs } from './constants'
+import { preflightTags, htmlTags, configureFiles } from './constants'
 import { regexQuotedString, regexClassSplitter, regexClassCheck, regexHtmlTag } from './regexes'
 import { resolveOptions, WindiCssOptions, WindiPluginUtilsOptions, UserOptions, ResolvedOptions } from './options'
 import { kebabCase, include, exclude, slash, transformGroups, transformGroupsWithSourcemap } from './utils'
@@ -44,7 +44,6 @@ export function createUtils(
     scanTransform: _debug(`${name}:scan:transform`),
     detectClass: _debug(`${name}:detect:class`),
     detectTag: _debug(`${name}:detect:tag`),
-    detectAttr: _debug(`${name}:detect:attr`),
   }
 
   let processor: WindiCssProcessor
@@ -63,7 +62,6 @@ export function createUtils(
   const tagsGenerated = new Set<string>()
   const tagsPending = new Set<string>()
   const attrsGenerated = new Set<string>()
-  const attrsPending = new Set<string>()
   const tagsAvailable = new Set<string>()
 
   function loadConfiguration() {
@@ -248,17 +246,12 @@ export function createUtils(
             tagsAvailable.delete(tag)
             changed = true
           }
-          if (tagsEnableAttrs[tag] && !attrsPending.has(full)) {
-            attrsPending.add(full)
-            changed = true
-          }
         })
     }
 
     if (changed) {
       debug.detectClass(classesPending)
       debug.detectTag(tagsPending)
-      debug.detectAttr(attrsPending)
     }
 
     return changed
@@ -303,19 +296,14 @@ export function createUtils(
         const preflightStyle = processor.preflight(
           preflightOptions.enableAll
             ? undefined
-            : [
-              ...Array.from(tagsPending).map(i => `<${i}/>`),
-              ...Array.from(attrsPending),
-            ].join(' '),
+            : Array.from(tagsPending).map(i => `<${i}/>`).join(' '),
           preflightOptions.includeBase,
           preflightOptions.includeGlobal,
           preflightOptions.includePlugin,
         )
         style = style.extend(preflightStyle, true)
         include(tagsGenerated, tagsPending)
-        include(attrsGenerated, attrsPending)
         tagsPending.clear()
-        attrsPending.clear()
         changed = true
       }
     }
@@ -354,7 +342,6 @@ export function createUtils(
     classesGenerated.clear()
     tagsGenerated.clear()
     attrsGenerated.clear()
-    attrsPending.clear()
   }
 
   function init() {

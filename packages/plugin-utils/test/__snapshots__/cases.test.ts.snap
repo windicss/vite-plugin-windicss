@@ -10,17 +10,17 @@ Set {
 `;
 
 exports[`cases !important groups: generated-css 1`] = `
-".mt-10 {
-  margin-top: 2.5rem;
-}
-.pt-10 {
-  padding-top: 2.5rem;
-}
-.\\\\!hover\\\\:m-2:hover {
+".\\\\!hover\\\\:m-2:hover {
   margin: 0.5rem !important;
+}
+.mt-10 {
+  margin-top: 2.5rem;
 }
 .\\\\!hover\\\\:p-2:hover {
   padding: 0.5rem !important;
+}
+.pt-10 {
+  padding-top: 2.5rem;
 }"
 `;
 
@@ -50,14 +50,14 @@ Set {
 `;
 
 exports[`cases conditional: generated-css 1`] = `
-".font-semibold {
+".block {
+  display: block;
+}
+.font-semibold {
   font-weight: 600;
 }
 .font-normal {
   font-weight: 400;
-}
-.block {
-  display: block;
 }
 .truncate {
   overflow: hidden;
@@ -75,11 +75,11 @@ Set {
 `;
 
 exports[`cases inline style: generated-css 1`] = `
-".top-0 {
-  top: 0px;
-}
-.relative {
+".relative {
   position: relative;
+}
+.top-0 {
+  top: 0px;
 }"
 `;
 
