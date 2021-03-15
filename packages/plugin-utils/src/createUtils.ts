@@ -236,6 +236,7 @@ export function createUtils(
     if (enablePreflight || !preflightOptions.enableAll) {
       // preflight
       Array.from(code.matchAll(regexHtmlTag))
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         .forEach(([full, tag]) => {
           if (!tagsAvailable.has(tag))
             tag = preflightOptions.alias[kebabCase(tag)]
