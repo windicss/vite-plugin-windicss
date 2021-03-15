@@ -194,7 +194,7 @@ You will need to set `transformCSS: 'pre'` to get it work.
 
 ## Example
 
-See [./example](./example) or [`Vitesse@feat/windicss`](https://github.com/antfu/vitesse/tree/feat/windicss)
+See [./example](./example) or [`Vitesse`](https://github.com/antfu/vitesse)
 
 ## Sponsors
 
