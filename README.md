@@ -194,7 +194,7 @@ You will need to set `transformCSS: 'pre'` to get it work.
 
 ## Example
 
-See [./example](./example) or [`Vitesse`](https://github.com/antfu/vitesse)
+See [./examples](./examples) for *react*, *vue* and *vue with pug* sample projects, or [`Vitesse`](https://github.com/antfu/vitesse)
 
 ## Sponsors
 
