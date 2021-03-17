@@ -12,7 +12,10 @@
     "skipLibCheck": true,
     "paths": {
       "@windicss/plugin-utils": ["packages/plugin-utils/src/index.ts"]
-    }
+    },
+    "types": [
+      "vite/client"
+    ]
   },
   "exclude": [
     "**/dist",

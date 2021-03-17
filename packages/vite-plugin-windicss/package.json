@@ -25,21 +25,23 @@
   ],
   "scripts": {
     "dev": "npm run build -- --watch",
-    "build": "tsup src/index.ts --dts --format cjs,esm",
+    "build": "tsup src/index.ts src/client.ts --dts --format cjs,esm",
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
     "@windicss/plugin-utils": "workspace:*",
-    "windicss": "^2.4.5"
+    "body-parser": "^1.19.0",
+    "windicss": "^2.4.7"
   },
   "peerDependencies": {
     "vite": "^2.0.1"
   },
   "devDependencies": {
     "@antfu/ni": "^0.5.5",
-    "@types/node": "^14.14.34",
+    "@types/body-parser": "^1.19.0",
+    "@types/node": "^14.14.35",
     "debug": "^4.3.2",
-    "tsup": "^4.7.1",
-    "vite": "^2.1.0"
+    "tsup": "^4.8.11",
+    "vite": "^2.1.1"
   }
 }
