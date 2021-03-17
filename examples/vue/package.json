@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "dev": "nodemon --watch ../dist/index.js -x \"cross-env DEBUG=vite-plugin-windicss:* vite --open\"",
+    "dev": "nodemon --watch ../../packages/vite-plugin-windicss/dist/index.js -x \"cross-env DEBUG=vite-plugin-windicss:devtools vite\"",
     "build": "cross-env DEBUG=vite-plugin-windicss:* vite build"
   },
   "dependencies": {
@@ -15,7 +15,7 @@
     "sass": "^1.32.8",
     "stylus": "^0.54.8",
     "typescript": "^4.2.3",
-    "vite": "^2.0.5",
+    "vite": "^2.1.2",
     "vite-plugin-windicss": "workspace:*"
   }
 }

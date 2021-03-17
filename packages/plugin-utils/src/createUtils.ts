@@ -206,6 +206,32 @@ export function createUtils(
     return false
   }
 
+  function addClasses(classes: string[]) {
+    let changed = false
+    classes.forEach((i) => {
+      if (!i || classesGenerated.has(i) || classesPending.has(i) || blocklist.has(i))
+        return
+      classesPending.add(i)
+      changed = true
+    })
+    return changed
+  }
+  function addTags(tags: string[]) {
+    let changed = false
+    tags.forEach((tag) => {
+      if (!tagsAvailable.has(tag))
+        tag = preflightOptions.alias[kebabCase(tag)]
+      if (preflightOptions.blocklist.has(tag))
+        return
+      if (tagsAvailable.has(tag) && !tagsPending.has(tag)) {
+        tagsPending.add(tag)
+        tagsAvailable.delete(tag)
+        changed = true
+      }
+    })
+    return changed
+  }
+
   function extractFile(code: string, id?: string, applyGroupTransform = true) {
     if (applyGroupTransform) {
       if (enableGroupsTransform)
@@ -223,31 +249,18 @@ export function createUtils(
 
     let changed = false
     // classes
-    Array.from(code.matchAll(regexQuotedString))
-      .flatMap(m => (m[2] || '').split(regexClassSplitter))
-      .filter(i => i.match(regexClassCheck))
-      .forEach((i) => {
-        if (!i || classesGenerated.has(i) || classesPending.has(i) || blocklist.has(i))
-          return
-        classesPending.add(i)
-        changed = true
-      })
+    changed = addClasses(
+      Array.from(code.matchAll(regexQuotedString))
+        .flatMap(m => (m[2] || '').split(regexClassSplitter))
+        .filter(i => i.match(regexClassCheck)),
+    ) || changed
 
     if (enablePreflight || !preflightOptions.enableAll) {
       // preflight
-      Array.from(code.matchAll(regexHtmlTag))
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        .forEach(([full, tag]) => {
-          if (!tagsAvailable.has(tag))
-            tag = preflightOptions.alias[kebabCase(tag)]
-          if (preflightOptions.blocklist.has(tag))
-            return
-          if (tagsAvailable.has(tag) && !tagsPending.has(tag)) {
-            tagsPending.add(tag)
-            tagsAvailable.delete(tag)
-            changed = true
-          }
-        })
+      changed = addTags(
+        Array.from(code.matchAll(regexHtmlTag))
+          .map(i => i[1]),
+      ) || changed
     }
 
     if (changed) {
@@ -373,6 +386,9 @@ export function createUtils(
     tagsGenerated,
     tagsPending,
     tagsAvailable,
+
+    addClasses,
+    addTags,
 
     get scanned() {
       return scanned
