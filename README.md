@@ -180,6 +180,8 @@ It will automatically enable Pug support for `.pug` and Vue SFC when dependency 
 
 ## "Design in DevTools"
 
+> ⚗️ Experimental
+
 It might be a common practice when you use the purge-based Tailwind where you have all the classes in your browser and you can try how things work by directly changing the classes in DevTools. While you might think this is some kind of limitation of "on-demand" where the DevTools don't know those you haven't used in your source code yet.
 
 But unfortunately, **we are here to BREAK the limitation** 😎 See the [video demo](https://twitter.com/antfu7/status/1372244287975387145).
