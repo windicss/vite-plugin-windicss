@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/triple-slash-reference
-/// <reference path="../node_modules/vite/client.d.ts" />
+/// <reference path="../../node_modules/vite/client.d.ts" />
 
 function post(data: any) {
   return fetch('__POST_PATH__', {
@@ -21,7 +21,11 @@ export function exclude<T>(set: Set<T>, v: T[] | Set<T>) {
     set.delete(i)
 }
 
-console.warn('[windicss] windicss devtools enabled')
+console.log(
+  '%c[windicss] devtools support enabled %c\nread more at https://windicss.org',
+  'background:#0ea5e9; color:white; padding: 1px 4px; border-radius: 3px;',
+  '',
+)
 
 const visitedClasses = new Set()
 const pendingClasses = new Set()

@@ -11,13 +11,13 @@ const debug = {
 }
 
 const DEVTOOLS_MODULE_ID = 'virtual:windi-devtools'
-const POST_PATH = '/@windicss/post'
+const POST_PATH = '/@windicss-devtools-update'
 
 export function createDevtoolsPlugin(ctx: { utils: WindiPluginUtils }): Plugin[] {
   let config: ResolvedConfig
 
   const clientCode = fs
-    .readFileSync(resolve(__dirname, 'client.mjs'), 'utf-8')
+    .readFileSync(resolve(__dirname, 'client/index.mjs'), 'utf-8')
     .replace('__POST_PATH__', POST_PATH)
 
   return [
