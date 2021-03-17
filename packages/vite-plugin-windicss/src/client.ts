@@ -47,7 +47,6 @@ function schedule() {
 const mutationObserver = new MutationObserver((mutations) => {
   mutations.forEach((mutation) => {
     if (mutation.attributeName === 'class') {
-      console.log(mutation)
       Array.from((mutation.target as any).classList || [])
         .forEach((i) => {
           if (!visitedClasses.has(i))
