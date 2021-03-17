@@ -17,7 +17,7 @@ export function createDevtoolsPlugin(ctx: { utils: WindiPluginUtils }): Plugin[]
   let config: ResolvedConfig
 
   const clientCode = fs
-    .readFileSync(resolve(__dirname, 'client/index.mjs'), 'utf-8')
+    .readFileSync(resolve(__dirname, 'client.mjs'), 'utf-8')
     .replace('__POST_PATH__', POST_PATH)
 
   return [
@@ -74,8 +74,11 @@ export function createDevtoolsPlugin(ctx: { utils: WindiPluginUtils }): Plugin[]
       },
 
       async load(id) {
-        if (id === DEVTOOLS_MODULE_ID)
-          return config.command === 'build' ? '' : clientCode
+        if (id === DEVTOOLS_MODULE_ID) {
+          return config.command === 'build'
+            ? ''
+            : clientCode
+        }
       },
     }]
 }
