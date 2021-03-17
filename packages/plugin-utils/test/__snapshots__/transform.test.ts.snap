@@ -1,3 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`transfrom group basic 1`] = `"bg-white font-light sm:hover:bg-gray-100 sm:hover:font-medium"`;
+exports[`transfrom groups: "+sm:(p-1 p-2)" 1`] = `"+sm:p-1 +sm:p-2"`;
+
+exports[`transfrom groups: "-sm:hover:(p-1 p-2)" 1`] = `"-sm:hover:p-1 -sm:hover:p-2"`;
+
+exports[`transfrom groups: "bg-white font-light sm:hover:(bg-gray-100 font-medium)" 1`] = `"bg-white font-light sm:hover:bg-gray-100 sm:hover:font-medium"`;
+
+exports[`transfrom groups: "dark:+lg:(p-1 p-2)" 1`] = `"dark:+lg:p-1 dark:+lg:p-2"`;
