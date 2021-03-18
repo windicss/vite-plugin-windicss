@@ -31,7 +31,7 @@
   "dependencies": {
     "@windicss/plugin-utils": "workspace:*",
     "body-parser": "^1.19.0",
-    "windicss": "^2.4.7"
+    "windicss": "^2.5.0"
   },
   "peerDependencies": {
     "vite": "^2.0.1"

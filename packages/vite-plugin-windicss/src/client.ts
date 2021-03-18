@@ -11,14 +11,9 @@ function post(data: any) {
   })
 }
 
-export function include<T>(set: Set<T>, v: T[] | Set<T>) {
+function include<T>(set: Set<T>, v: T[] | Set<T>) {
   for (const i of v)
     set.add(i)
-}
-
-export function exclude<T>(set: Set<T>, v: T[] | Set<T>) {
-  for (const i of v)
-    set.delete(i)
 }
 
 console.log(
@@ -46,7 +41,7 @@ function schedule() {
 
 const mutationObserver = new MutationObserver((mutations) => {
   mutations.forEach((mutation) => {
-    if (mutation.attributeName === 'class') {
+    if (mutation.attributeName === 'class' && mutation.target) {
       Array.from((mutation.target as any).classList || [])
         .forEach((i) => {
           if (!visitedClasses.has(i))

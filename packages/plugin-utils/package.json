@@ -30,7 +30,7 @@
     "fast-glob": "^3.2.5",
     "micromatch": "^4.0.2",
     "sucrase": "^3.17.1",
-    "windicss": "^2.4.7"
+    "windicss": "^2.5.0"
   },
   "devDependencies": {
     "@antfu/ni": "^0.5.5",

@@ -3,6 +3,7 @@ import { join, resolve } from 'path'
 import WindiCssProcessor from 'windicss'
 import { StyleSheet } from 'windicss/utils/style'
 import { CSSParser } from 'windicss/utils/parser'
+import { generateCompletions } from 'windicss/utils'
 import fg from 'fast-glob'
 import _debug from 'debug'
 import micromatch from 'micromatch'
@@ -10,6 +11,8 @@ import { preflightTags, htmlTags, configureFiles } from './constants'
 import { regexQuotedString, regexClassSplitter, regexClassCheck, regexHtmlTag } from './regexes'
 import { resolveOptions, WindiCssOptions, WindiPluginUtilsOptions, UserOptions, ResolvedOptions } from './options'
 import { kebabCase, include, exclude, slash, transformGroups, transformGroupsWithSourcemap } from './utils'
+
+export type CompletionsResult = ReturnType<typeof generateCompletions>
 
 export function createUtils(
   userOptions: UserOptions | ResolvedOptions = {},
@@ -48,6 +51,7 @@ export function createUtils(
 
   let processor: WindiCssProcessor
   let configFilePath: string | undefined
+  let completions: CompletionsResult | undefined
 
   const globs = getGlobs()
   const excludeGlobs = scanOptions.exclude
@@ -118,6 +122,7 @@ export function createUtils(
   }
 
   function initWindicss() {
+    completions = undefined
     return new WindiCssProcessor(loadConfiguration())
   }
 
@@ -139,6 +144,12 @@ export function createUtils(
 
     debug.glob('globs', globs)
     return globs
+  }
+
+  function getCompletions() {
+    if (!completions)
+      completions = generateCompletions(processor)
+    return completions
   }
 
   async function getFiles() {
@@ -389,6 +400,7 @@ export function createUtils(
 
     addClasses,
     addTags,
+    getCompletions,
 
     get scanned() {
       return scanned

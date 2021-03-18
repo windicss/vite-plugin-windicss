@@ -5,21 +5,31 @@ import { json } from 'body-parser'
 import { WindiPluginUtils } from '@windicss/plugin-utils'
 import _debug from 'debug'
 import { MODULE_ID_VIRTUAL, NAME } from './constants'
+import { cssEscape } from './utils'
 
 const debug = {
   devtools: _debug(`${NAME}:devtools`),
 }
 
 const DEVTOOLS_MODULE_ID = 'virtual:windi-devtools'
+const MOCK_CLASSES_MODULE_ID = 'virtual:windi-mock-classes'
+const MOCK_CLASSES_PATH = '/@windicss/mock-classes'
+const DEVTOOLS_PATH = '/@windicss/devtools'
+
+const MODULES_MAP: Record<string, string | undefined> = {
+  [DEVTOOLS_MODULE_ID]: DEVTOOLS_PATH,
+  [MOCK_CLASSES_MODULE_ID]: MOCK_CLASSES_PATH,
+}
 const POST_PATH = '/@windicss-devtools-update'
+
+function toClass(name: string) {
+  return `.${cssEscape(name)}{}`
+}
 
 export function createDevtoolsPlugin(ctx: { utils: WindiPluginUtils }): Plugin[] {
   let config: ResolvedConfig
 
-  const clientCode = fs
-    .readFileSync(resolve(__dirname, 'client.mjs'), 'utf-8')
-    .replace('__POST_PATH__', POST_PATH)
-
+  let clientCode = ''
   return [
     {
       name: `${NAME}:devtools`,
@@ -29,6 +39,13 @@ export function createDevtoolsPlugin(ctx: { utils: WindiPluginUtils }): Plugin[]
       },
 
       configureServer(server) {
+        clientCode = [
+          fs
+            .readFileSync(resolve(__dirname, 'client.mjs'), 'utf-8')
+            .replace('__POST_PATH__', POST_PATH),
+          `import('${MOCK_CLASSES_MODULE_ID}')`,
+        ].join('\n')
+
         function updateCSS() {
           const module = server.moduleGraph.getModuleById(MODULE_ID_VIRTUAL)
           if (module)
@@ -68,13 +85,25 @@ export function createDevtoolsPlugin(ctx: { utils: WindiPluginUtils }): Plugin[]
       },
 
       resolveId(id) {
-        return id === DEVTOOLS_MODULE_ID
-          ? DEVTOOLS_MODULE_ID
-          : null
+        return MODULES_MAP[id]
       },
 
       async load(id) {
-        if (id === DEVTOOLS_MODULE_ID) {
+        if (id === MOCK_CLASSES_PATH) {
+          const completions = ctx.utils.getCompletions()
+          const comment = '/* Windi CSS mock class names for devtools auto-completeion */ '
+          const css = [
+            ...completions.color,
+            ...completions.static,
+          ].map(toClass).join('')
+          return `
+const style = document.createElement('style')
+style.setAttribute('type', 'text/css')
+style.innerHTML = ${JSON.stringify(comment + css)}
+document.head.prepend(style)
+`
+        }
+        else if (id === DEVTOOLS_PATH) {
           return config.command === 'build'
             ? ''
             : clientCode
