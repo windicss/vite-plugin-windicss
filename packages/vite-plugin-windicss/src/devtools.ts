@@ -2,10 +2,10 @@ import fs from 'fs'
 import { resolve } from 'path'
 import { Plugin, ResolvedConfig } from 'vite'
 import { WindiPluginUtils } from '@windicss/plugin-utils'
+import { IncomingMessage } from 'connect'
 import _debug from 'debug'
 import { MODULE_ID_VIRTUAL, NAME } from './constants'
 import { cssEscape } from './utils'
-import createServer from 'connect';
 
 const debug = {
   devtools: _debug(`${NAME}:devtools`),
@@ -61,10 +61,12 @@ export function createDevtoolsPlugin(ctx: { utils: WindiPluginUtils }): Plugin[]
           })
         }
 
-        server.middlewares.use(async (req, res, next) => {
-          if (req.url === POST_PATH) {
+        server.middlewares.use(async(req, res, next) => {
+          if (req.url !== POST_PATH)
+            return next()
 
-            const data = (await getBodyJson(req)) || {}
+          try {
+            const data = await getBodyJson(req)
             const type = data?.type
             debug.devtools(data)
             let changed = false
@@ -75,11 +77,14 @@ export function createDevtoolsPlugin(ctx: { utils: WindiPluginUtils }): Plugin[]
             if (changed)
               updateCSS()
             res.statusCode = 200
-            res.write('')
-            return
           }
-
-          next()
+          catch (e) {
+            console.error(e)
+            res.statusCode = 500
+          }
+          finally {
+            res.write('')
+          }
         })
       },
 
@@ -111,22 +116,18 @@ document.head.prepend(style)
     }]
 }
 
-
-function getBodyJson(req: createServer.IncomingMessage): Record<string, any> {
-  return new Promise((resolve) => {
-    let body = '';
-    let json = {};
-    req.on('data', function (chunk: any) {
-      body += chunk;
-    });
-    req.on('end', function () {
+function getBodyJson(req: IncomingMessage) {
+  return new Promise<any>((resolve, reject) => {
+    let body = ''
+    req.on('data', chunk => body += chunk)
+    req.on('error', reject)
+    req.on('end', () => {
       try {
-        json = JSON.parse(body);
-      } catch (err) {
-        json = {};
+        resolve(JSON.parse(body) || {})
       }
-      resolve(json);
-      return;
-    });
-  });
+      catch (e) {
+        reject(e)
+      }
+    })
+  })
 }
