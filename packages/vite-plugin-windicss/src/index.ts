@@ -1,5 +1,5 @@
 import { resolve } from 'path'
-import { Plugin, ResolvedConfig } from 'vite'
+import type { Plugin, ResolvedConfig } from 'vite'
 import _debug from 'debug'
 import { UserOptions, WindiPluginUtils, resolveOptions, createUtils } from '@windicss/plugin-utils'
 import { createDevtoolsPlugin } from './devtools'

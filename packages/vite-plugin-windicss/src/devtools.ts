@@ -1,8 +1,8 @@
 import { promises as fs } from 'fs'
 import { resolve } from 'path'
-import { Plugin, ResolvedConfig, ViteDevServer } from 'vite'
-import { WindiPluginUtils } from '@windicss/plugin-utils'
-import { IncomingMessage } from 'connect'
+import type { Plugin, ResolvedConfig, ViteDevServer } from 'vite'
+import type { WindiPluginUtils } from '@windicss/plugin-utils'
+import type { IncomingMessage } from 'connect'
 import _debug from 'debug'
 import { MODULE_ID_VIRTUAL, NAME } from './constants'
 
