@@ -1,11 +1,11 @@
 import fs from 'fs'
 import { resolve } from 'path'
 import { Plugin, ResolvedConfig } from 'vite'
-import { json } from 'body-parser'
 import { WindiPluginUtils } from '@windicss/plugin-utils'
 import _debug from 'debug'
 import { MODULE_ID_VIRTUAL, NAME } from './constants'
 import { cssEscape } from './utils'
+import createServer from 'connect';
 
 const debug = {
   devtools: _debug(`${NAME}:devtools`),
@@ -61,11 +61,10 @@ export function createDevtoolsPlugin(ctx: { utils: WindiPluginUtils }): Plugin[]
           })
         }
 
-        server.middlewares.use(json())
-        server.middlewares.use((req, res, next) => {
+        server.middlewares.use(async (req, res, next) => {
           if (req.url === POST_PATH) {
-            // @ts-expect-error
-            const data = req.body || {}
+
+            const data = (await getBodyJson(req)) || {}
             const type = data?.type
             debug.devtools(data)
             let changed = false
@@ -110,4 +109,24 @@ document.head.prepend(style)
         }
       },
     }]
+}
+
+
+function getBodyJson(req: createServer.IncomingMessage): Record<string, any> {
+  return new Promise((resolve) => {
+    let body = '';
+    let json = {};
+    req.on('data', function (chunk: any) {
+      body += chunk;
+    });
+    req.on('end', function () {
+      try {
+        json = JSON.parse(body);
+      } catch (err) {
+        json = {};
+      }
+      resolve(json);
+      return;
+    });
+  });
 }
