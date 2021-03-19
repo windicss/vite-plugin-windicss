@@ -402,6 +402,9 @@ export function createUtils(
     addTags,
     getCompletions,
 
+    get processor() {
+      return processor
+    },
     get scanned() {
       return scanned
     },

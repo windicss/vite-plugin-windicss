@@ -1,11 +1,10 @@
-import fs from 'fs'
+import { promises as fs } from 'fs'
 import { resolve } from 'path'
-import { Plugin, ResolvedConfig } from 'vite'
+import { Plugin, ResolvedConfig, ViteDevServer } from 'vite'
 import { WindiPluginUtils } from '@windicss/plugin-utils'
 import { IncomingMessage } from 'connect'
 import _debug from 'debug'
 import { MODULE_ID_VIRTUAL, NAME } from './constants'
-import { cssEscape } from './utils'
 
 const debug = {
   devtools: _debug(`${NAME}:devtools`),
@@ -22,14 +21,64 @@ const MODULES_MAP: Record<string, string | undefined> = {
 }
 const POST_PATH = '/@windicss-devtools-update'
 
-function toClass(name: string) {
-  return `.${cssEscape(name)}{}`
+function getBodyJson(req: IncomingMessage) {
+  return new Promise<any>((resolve, reject) => {
+    let body = ''
+    req.on('data', chunk => body += chunk)
+    req.on('error', reject)
+    req.on('end', () => {
+      try {
+        resolve(JSON.parse(body) || {})
+      }
+      catch (e) {
+        reject(e)
+      }
+    })
+  })
 }
 
 export function createDevtoolsPlugin(ctx: { utils: WindiPluginUtils }): Plugin[] {
   let config: ResolvedConfig
-
+  let server: ViteDevServer | undefined
   let clientCode = ''
+
+  function updateCSS() {
+    if (!server)
+      return
+    const module = server.moduleGraph.getModuleById(MODULE_ID_VIRTUAL)
+    if (module)
+      server.moduleGraph.invalidateModule(module)
+    server.ws.send({
+      type: 'update',
+      updates: [{
+        acceptedPath: MODULE_ID_VIRTUAL,
+        path: MODULE_ID_VIRTUAL,
+        timestamp: +Date.now(),
+        type: 'js-update',
+      }],
+    })
+  }
+
+  function toClass(name: string) {
+    // css escape
+    return `.${ctx.utils.processor.e(name)}{}`
+  }
+
+  function getMockClassesInjector() {
+    const completions = ctx.utils.getCompletions()
+    const comment = '/* Windi CSS mock class names for devtools auto-completion */\n'
+    const css = [
+      ...completions.color,
+      ...completions.static,
+    ].map(toClass).join('')
+    return `
+const style = document.createElement('style')
+style.setAttribute('type', 'text/css')
+style.innerHTML = ${JSON.stringify(comment + css)}
+document.head.prepend(style)
+`
+  }
+
   return [
     {
       name: `${NAME}:devtools`,
@@ -38,28 +87,8 @@ export function createDevtoolsPlugin(ctx: { utils: WindiPluginUtils }): Plugin[]
         config = _config
       },
 
-      configureServer(server) {
-        clientCode = [
-          fs
-            .readFileSync(resolve(__dirname, 'client.mjs'), 'utf-8')
-            .replace('__POST_PATH__', POST_PATH),
-          `import('${MOCK_CLASSES_MODULE_ID}')`,
-        ].join('\n')
-
-        function updateCSS() {
-          const module = server.moduleGraph.getModuleById(MODULE_ID_VIRTUAL)
-          if (module)
-            server.moduleGraph.invalidateModule(module)
-          server.ws.send({
-            type: 'update',
-            updates: [{
-              acceptedPath: MODULE_ID_VIRTUAL,
-              path: MODULE_ID_VIRTUAL,
-              timestamp: +Date.now(),
-              type: 'js-update',
-            }],
-          })
-        }
+      configureServer(_server) {
+        server = _server
 
         server.middlewares.use(async(req, res, next) => {
           if (req.url !== POST_PATH)
@@ -93,41 +122,22 @@ export function createDevtoolsPlugin(ctx: { utils: WindiPluginUtils }): Plugin[]
       },
 
       async load(id) {
-        if (id === MOCK_CLASSES_PATH) {
-          const completions = ctx.utils.getCompletions()
-          const comment = '/* Windi CSS mock class names for devtools auto-completeion */ '
-          const css = [
-            ...completions.color,
-            ...completions.static,
-          ].map(toClass).join('')
-          return `
-const style = document.createElement('style')
-style.setAttribute('type', 'text/css')
-style.innerHTML = ${JSON.stringify(comment + css)}
-document.head.prepend(style)
-`
-        }
-        else if (id === DEVTOOLS_PATH) {
+        if (id === DEVTOOLS_PATH) {
+          if (!clientCode) {
+            clientCode = [
+              await fs.readFile(resolve(__dirname, 'client.mjs'), 'utf-8'),
+              `import('${MOCK_CLASSES_MODULE_ID}')`,
+            ]
+              .join('\n')
+              .replace('__POST_PATH__', POST_PATH)
+          }
           return config.command === 'build'
             ? ''
             : clientCode
         }
+        else if (id === MOCK_CLASSES_PATH) {
+          return getMockClassesInjector()
+        }
       },
     }]
-}
-
-function getBodyJson(req: IncomingMessage) {
-  return new Promise<any>((resolve, reject) => {
-    let body = ''
-    req.on('data', chunk => body += chunk)
-    req.on('error', reject)
-    req.on('end', () => {
-      try {
-        resolve(JSON.parse(body) || {})
-      }
-      catch (e) {
-        reject(e)
-      }
-    })
-  })
 }
