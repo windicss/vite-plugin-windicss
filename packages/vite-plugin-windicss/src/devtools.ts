@@ -1,8 +1,8 @@
 import fs from 'fs'
 import { resolve } from 'path'
 import { Plugin, ResolvedConfig } from 'vite'
-import { json } from 'body-parser'
 import { WindiPluginUtils } from '@windicss/plugin-utils'
+import { IncomingMessage } from 'connect'
 import _debug from 'debug'
 import { MODULE_ID_VIRTUAL, NAME } from './constants'
 import { cssEscape } from './utils'
@@ -61,11 +61,12 @@ export function createDevtoolsPlugin(ctx: { utils: WindiPluginUtils }): Plugin[]
           })
         }
 
-        server.middlewares.use(json())
-        server.middlewares.use((req, res, next) => {
-          if (req.url === POST_PATH) {
-            // @ts-expect-error
-            const data = req.body || {}
+        server.middlewares.use(async(req, res, next) => {
+          if (req.url !== POST_PATH)
+            return next()
+
+          try {
+            const data = await getBodyJson(req)
             const type = data?.type
             debug.devtools(data)
             let changed = false
@@ -76,11 +77,14 @@ export function createDevtoolsPlugin(ctx: { utils: WindiPluginUtils }): Plugin[]
             if (changed)
               updateCSS()
             res.statusCode = 200
-            res.write('')
-            return
           }
-
-          next()
+          catch (e) {
+            console.error(e)
+            res.statusCode = 500
+          }
+          finally {
+            res.write('')
+          }
         })
       },
 
@@ -110,4 +114,20 @@ document.head.prepend(style)
         }
       },
     }]
+}
+
+function getBodyJson(req: IncomingMessage) {
+  return new Promise<any>((resolve, reject) => {
+    let body = ''
+    req.on('data', chunk => body += chunk)
+    req.on('error', reject)
+    req.on('end', () => {
+      try {
+        resolve(JSON.parse(body) || {})
+      }
+      catch (e) {
+        reject(e)
+      }
+    })
+  })
 }
