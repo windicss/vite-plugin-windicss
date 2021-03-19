@@ -19,9 +19,9 @@ importers:
       jest: 26.6.3
       magic-string: 0.25.7
       pnpm: 5.18.7
-      rollup: 2.41.4
+      rollup: 2.42.0
       ts-jest: 26.5.4_jest@26.6.3+typescript@4.2.3
-      tsup: 4.8.11_typescript@4.2.3
+      tsup: 4.8.18_typescript@4.2.3
       typescript: 4.2.3
       vite: 2.1.2
       vite-plugin-restart: 0.0.1_vite@2.1.2
@@ -44,9 +44,9 @@ importers:
       jest: ^26.6.3
       magic-string: ^0.25.7
       pnpm: ^5.18.7
-      rollup: ^2.41.4
+      rollup: ^2.42.0
       ts-jest: ^26.5.4
-      tsup: ^4.8.11
+      tsup: ^4.8.18
       typescript: ^4.2.3
       vite: ^2.1.2
       vite-plugin-restart: ^0.0.1
@@ -125,7 +125,7 @@ importers:
       fast-glob: 3.2.5
       micromatch: 4.0.2
       sucrase: 3.17.1
-      windicss: 2.5.0
+      windicss: 2.5.2
     devDependencies:
       '@antfu/ni': 0.5.5
       '@types/debug': 4.1.5
@@ -134,7 +134,7 @@ importers:
       '@types/pug': 2.0.4
       debug: 4.3.2
       pug: 3.0.2
-      tsup: 4.8.11_typescript@4.2.3
+      tsup: 4.8.18_typescript@4.2.3
       typescript: 4.2.3
     specifiers:
       '@antfu/ni': ^0.5.5
@@ -147,37 +147,37 @@ importers:
       micromatch: ^4.0.2
       pug: ^3.0.2
       sucrase: ^3.17.1
-      tsup: ^4.8.11
+      tsup: ^4.8.18
       typescript: ^4.2.3
-      windicss: ^2.5.0
+      windicss: ^2.5.2
   packages/rollup-plugin-windicss:
     dependencies:
       '@windicss/plugin-utils': link:../plugin-utils
-      windicss: 2.5.0
+      windicss: 2.5.2
     devDependencies:
       '@antfu/ni': 0.5.5
       '@types/node': 14.14.35
       debug: 4.3.2
-      rollup: 2.41.4
-      tsup: 4.8.11
+      rollup: 2.42.0
+      tsup: 4.8.18
     specifiers:
       '@antfu/ni': ^0.5.5
       '@types/node': ^14.14.35
       '@windicss/plugin-utils': workspace:*
       debug: ^4.3.2
-      rollup: ^2.41.4
-      tsup: ^4.8.11
-      windicss: ^2.5.0
+      rollup: ^2.42.0
+      tsup: ^4.8.18
+      windicss: ^2.5.2
   packages/vite-plugin-windicss:
     dependencies:
       '@windicss/plugin-utils': link:../plugin-utils
-      windicss: 2.5.0
+      windicss: 2.5.2
     devDependencies:
       '@antfu/ni': 0.5.5
       '@types/connect': 3.4.34
       '@types/node': 14.14.35
       debug: 4.3.2
-      tsup: 4.8.11
+      tsup: 4.8.18
       vite: 2.1.2
     specifiers:
       '@antfu/ni': ^0.5.5
@@ -185,9 +185,9 @@ importers:
       '@types/node': ^14.14.35
       '@windicss/plugin-utils': workspace:*
       debug: ^4.3.2
-      tsup: ^4.8.11
+      tsup: ^4.8.18
       vite: ^2.1.2
-      windicss: ^2.5.0
+      windicss: ^2.5.2
 lockfileVersion: 5.2
 overrides:
   esbuild: 0.9.0
@@ -6131,6 +6131,15 @@ packages:
       fsevents: 2.3.2
     resolution:
       integrity: sha512-f9IHfMO8p2Y8OdisI7Oj3oKkPuaQ6cgSwYqAi0TDvP3w2p+oX1VejX/w28a1h8WTnrapzfO5d4Uqhww+gL0b0g==
+  /rollup/2.42.0:
+    dev: true
+    engines:
+      node: '>=10.0.0'
+    hasBin: true
+    optionalDependencies:
+      fsevents: 2.3.2
+    resolution:
+      integrity: sha512-P9bJnaZ2P0hawoJo+Jto8YZZqil9URogNVE4KJeyj6wrUSDIbdMvmj7CsyEFwdXu/I5SiWEzB1hfmLeMldH6ww==
   /rsvp/4.8.5:
     dev: true
     engines:
@@ -6867,7 +6876,7 @@ packages:
     dev: true
     resolution:
       integrity: sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==
-  /tsup/4.8.11:
+  /tsup/4.8.18:
     dependencies:
       cac: 6.7.2
       chalk: 4.1.0
@@ -6889,8 +6898,8 @@ packages:
       typescript:
         optional: true
     resolution:
-      integrity: sha512-f/51wLwGLiH5Qnzb7Lk8O/6seXQQWmgaWNHHG+qHF0RVF0mKcTpcSm960Iyp9X0dgp0GMX7wz2x1GubxNUzsdg==
-  /tsup/4.8.11_typescript@4.2.3:
+      integrity: sha512-GaCqp7u3OrrNdRUbh3opeBSH36vOHy+HRe/DT/2WdHSBcJ8bIFmoLot+N7EFvSMJ6O5Q2LJGI0CeJ28hPCsTwQ==
+  /tsup/4.8.18_typescript@4.2.3:
     dependencies:
       cac: 6.7.2
       chalk: 4.1.0
@@ -6913,7 +6922,7 @@ packages:
       typescript:
         optional: true
     resolution:
-      integrity: sha512-f/51wLwGLiH5Qnzb7Lk8O/6seXQQWmgaWNHHG+qHF0RVF0mKcTpcSm960Iyp9X0dgp0GMX7wz2x1GubxNUzsdg==
+      integrity: sha512-GaCqp7u3OrrNdRUbh3opeBSH36vOHy+HRe/DT/2WdHSBcJ8bIFmoLot+N7EFvSMJ6O5Q2LJGI0CeJ28hPCsTwQ==
   /tsutils/3.21.0_typescript@4.2.3:
     dependencies:
       tslib: 1.14.1
@@ -7294,13 +7303,13 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-NsmoXalsWVDMGupxZ5R08ka9flZjjiLvHVAWYOKtiKM8ujtZWr9cRffak+uSE48+Ob8ObalXpwyeUiyDD6QFgg==
-  /windicss/2.5.0:
+  /windicss/2.5.2:
     dev: false
     engines:
       node: '>= 12'
     hasBin: true
     resolution:
-      integrity: sha512-mQt42RmDPK9XayP8L+mJW4Gon2X/ftGlNB3/BKaz6hqi4Hywys0piuUjGQIG6KhMfC0LLIzDpHz5b9GFqxYMrQ==
+      integrity: sha512-WzynOx1rQGzgUq62wqyWjUzOEPArwP8oeWyLqymiF54LSFC7f0oIYXR01bxY/y6OK2wODyK/OuwahPNAsseqqg==
   /with/7.0.2:
     dependencies:
       '@babel/parser': 7.13.11

@@ -30,7 +30,7 @@
     "fast-glob": "^3.2.5",
     "micromatch": "^4.0.2",
     "sucrase": "^3.17.1",
-    "windicss": "^2.5.0"
+    "windicss": "^2.5.2"
   },
   "devDependencies": {
     "@antfu/ni": "^0.5.5",
@@ -40,7 +40,7 @@
     "@types/pug": "^2.0.4",
     "debug": "^4.3.2",
     "pug": "^3.0.2",
-    "tsup": "^4.8.11",
+    "tsup": "^4.8.18",
     "typescript": "^4.2.3"
   }
 }
