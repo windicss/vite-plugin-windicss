@@ -379,6 +379,7 @@ export function createUtils(
     init,
     extractFile,
     generateCSS,
+    getFiles,
     clearCache,
     transformCSS,
     transformGroups,
