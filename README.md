@@ -17,13 +17,14 @@
 ## Features
 
 - ⚡️ **It's FAST** - 20~100x times faster than Tailwind on Vite
-- 🧩 On-demand CSS utilities (Compatible with Tailwind CSS v2)
-- 📦 On-demand native elements style reseting
+- 🧩 On-demand CSS utilities (Fully compatible with Tailwind CSS v2)
+- 📦 On-demand native elements style reseting (preflight)
 - 🔥 Hot module replacement (HMR)
 - 🍃 Load configurations from `tailwind.config.js`
 - 🤝 Framework-agnostic - Vue, React, Svelte and vanilla!
 - 📄 CSS `@apply` / `@screen` directives transforms (also works for Vue SFC's `<style>`)
 - 🎳 Support Variant Groups - e.g. `bg-gray-200 hover:(bg-gray-100 text-red-300)`
+- 😎 ["Design in Devtools"](#design-in-devtools) - if you work this way in the traditional Tailwind, no reason we can't!
 
 ## Install
 
@@ -114,8 +115,8 @@ export default {
     WindiCSS({
       safelist: 'prose prose-sm m-auto'
     })
-  ],
-};
+  ]
+}
 ```
 
 ### `main.js`
@@ -202,17 +203,93 @@ Oh and don't worry about the final bundle, in production build `virtual:windi-de
 
 ## Configuration
 
-See [options.ts](https://github.com/windicss/vite-plugin-windicss/blob/main/packages/plugin-utils/src/options.ts) for configuration reference.
+### Preflight (style reseting)
+
+Preflight is also enables on demanded, if you'd like to completely disable it, you can configure it as below
+
+```ts
+// vite.config.js
+export default {
+  plugins: [
+    WindiCSS({
+      preflight: false
+    })
+  ]
+}
+```
+
+### Safelist
+
+By default, we scan your source code statically and find all the usages of the utilities then generated corresponding CSS on-demand. However, there is some limitation that utilities that decided in the runtime can not be matched efficiently, for example
+
+```tsx
+<div className={`p-${size}`}>
+```
+
+For that, you will need to specify the possible combinations in the `safelist` options of `vite.config.js`.
+
+```ts
+// vite.config.js
+export default {
+  plugins: [
+    WindiCSS({
+      safelist: `p-1 p-2 p-3 p-4`
+    })
+  ]
+}
+```
+
+Or you can do it this way
+
+```ts
+function range(size, startAt = 1) {
+  return Array.from(Array(size).keys()).map(i => i + startAt);
+}
+
+// vite.config.js
+export default {
+  plugins: [
+    WindiCSS({
+      safelist: [
+        range(30).map(i => `p-${i}`) // p-1 to p-3,
+        range(10).map(i => `mt-${i}`) // mt-1 to mt-10,
+      ]
+    })
+  ]
+}
+```
+
+### Scanning
+
+On server start, `vite-plugin-windicss` will scan your source code and extract the utilities usages. By default,
+only files under `src/` with extensions `vue, html, mdx, pug, jsx, tsx` will be included. If you want to enable scaning for other file type of locations, you can configure it via:
+
+```ts
+// vite.config.js
+export default {
+  plugins: [
+    WindiCSS({
+      scan: {
+        dirs: ['.'], // all files in the cwd
+        fileExtensions: ['vue', 'js', 'ts'], // also enabled scanning for js/ts
+      }
+    })
+  ]
+}
+```
+
+### More
+
+See [options.ts](https://github.com/windicss/vite-plugin-windicss/blob/main/packages/plugin-utils/src/options.ts) for more configuration reference.
 
 
 ## Caveats
 
 ### Scoped Style
 
-You will need to set `transformCSS: 'pre'` to get it work.
+You will need to **set `transformCSS: 'pre'` to get Scoped Style work**.
 
 `@media` directive with scoped style can **only works** with `css` `postcss` `scss` but not `sass`, `less` nor `stylus`
-
 
 ## Example
 
