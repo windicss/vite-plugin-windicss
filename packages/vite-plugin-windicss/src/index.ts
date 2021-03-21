@@ -74,9 +74,14 @@ function VitePluginWindicss(userOptions: UserOptions = {}): Plugin[] {
     apply: 'serve',
     enforce: 'post',
 
-    configureServer(server) {
+    async configureServer(server) {
       if (utils.configFilePath)
         server.watcher.add(utils.configFilePath)
+
+      // NOTE: Track changes to the files so that they are re-scanned as needed.
+      // Added files are only detected if the user explicitly enables globbing.
+      const supportsGlobs = server.config.server.watch?.disableGlobbing === false
+      server.watcher.add(supportsGlobs ? utils.globs : await utils.getFiles())
     },
 
     async handleHotUpdate({ server, file, read, modules }) {
