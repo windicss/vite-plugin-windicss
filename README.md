@@ -149,7 +149,9 @@ The following files can be removed if you don't use their other features.
 
 That's all, fire up Vite and enjoy the speed!
 
-## TypeScript
+## Supports
+
+### TypeScript
 
 Enable TypeScript for your `tailwind.config.js`? Sure, why not?
 
@@ -175,11 +177,11 @@ export default defineConfig({
 })
 ```
 
-## Pug Support
+### Pug Support
 
 It will automatically enable Pug support for `.pug` and Vue SFC when dependency `pug` is found in the workspace.
 
-## "Design in DevTools"
+### "Design in DevTools"
 
 > ⚗️ Experimental
 
@@ -205,7 +207,7 @@ Oh and don't worry about the final bundle, in production build `virtual:windi-de
 
 ### Preflight (style reseting)
 
-Preflight is also enables on demanded, if you'd like to completely disable it, you can configure it as below
+Preflight is enables on demanded, if you'd like to completely disable it, you can configure it as below
 
 ```ts
 // vite.config.js
@@ -223,6 +225,7 @@ export default {
 By default, we scan your source code statically and find all the usages of the utilities then generated corresponding CSS on-demand. However, there is some limitation that utilities that decided in the runtime can not be matched efficiently, for example
 
 ```tsx
+<!-- will not be detected -->
 <div className={`p-${size}`}>
 ```
 
@@ -251,8 +254,8 @@ export default {
   plugins: [
     WindiCSS({
       safelist: [
-        range(30).map(i => `p-${i}`) // p-1 to p-3,
-        range(10).map(i => `mt-${i}`) // mt-1 to mt-10,
+        range(30).map(i => `p-${i}`), // p-1 to p-3
+        range(10).map(i => `mt-${i}`) // mt-1 to mt-10
       ]
     })
   ]
@@ -281,7 +284,6 @@ export default {
 ### More
 
 See [options.ts](https://github.com/windicss/vite-plugin-windicss/blob/main/packages/plugin-utils/src/options.ts) for more configuration reference.
-
 
 ## Caveats
 
