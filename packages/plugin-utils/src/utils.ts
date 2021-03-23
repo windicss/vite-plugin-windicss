@@ -7,6 +7,10 @@ export function toArray<T>(v: T | T[]): T[] {
   return [v]
 }
 
+export function flattenArray<T>(v: T | (T | T[])[]): T[] {
+  return toArray(v).flat() as T[]
+}
+
 export function slash(str: string) {
   return str.replace(/\\/g, '/')
 }

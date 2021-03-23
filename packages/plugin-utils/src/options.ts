@@ -3,7 +3,7 @@
 import type { Config as WindiCssOptions } from 'windicss/types/interfaces'
 import { PugTransformer, TransformerFunction } from './transformers'
 import { defaultAlias, TagNames } from './constants'
-import { kebabCase, toArray } from './utils'
+import { flattenArray, kebabCase } from './utils'
 
 export { WindiCssOptions }
 
@@ -19,12 +19,12 @@ export interface UserOptions {
   /**
    * Safe class names to be always included.
    */
-  safelist?: string | string[]
+  safelist?: string | (string | string[])[]
 
   /**
    * Class names to be always excluded.
    */
-  blocklist?: string | string[]
+  blocklist?: string | (string | string[])[]
 
   /**
    * Enabled windicss preflight (a.k.a TailwindCSS style reset)
@@ -40,12 +40,12 @@ export interface UserOptions {
     /**
      * Safelist to always included
      */
-    safelist?: string | string[]
+    safelist?: string | (string | string[])[]
 
     /**
      * Blocklist to always excluded
      */
-    blocklist?: string | string[]
+    blocklist?: string | (string | string[])[]
 
     /**
       * Alias for resolving preflight
@@ -94,28 +94,28 @@ export interface UserOptions {
      *
      * @default 'src'
      */
-    dirs?: string[]
+    dirs?: string | string[]
 
     /**
      * File extension to search for classnames
      *
      * @default 'html', 'vue', 'md', 'mdx', 'pug', 'jsx', 'tsx', 'svelte'
      */
-    fileExtensions?: string[]
+    fileExtensions?: string | string[]
 
     /**
      * Exclude globs
      *
      * @default []
      */
-    exclude?: string[]
+    exclude?: string | string[]
 
     /**
      * Include globs
      *
      * @default []
      */
-    include?: string[]
+    include?: string | string[]
 
     /**
      * Transformers to apply before doing extraction
@@ -271,11 +271,11 @@ export function resolveOptions(options: UserOptions | ResolvedOptions = {}): Res
     typeof scan === 'boolean' ? {} : scan,
   )
 
-  const safelist = new Set(toArray(options.safelist || []).flatMap(i => i.split(' ')))
-  const blocklist = new Set(toArray(options.blocklist || []).flatMap(i => i.split(' ')))
+  const safelist = new Set(flattenArray(options.safelist || []).flatMap(i => i.split(' ')))
+  const blocklist = new Set(flattenArray(options.blocklist || []).flatMap(i => i.split(' ')))
 
   preflightOptions.safelist = new Set<string>(
-    toArray(preflightOptions.safelist || [])
+    flattenArray(preflightOptions.safelist || [])
       // @ts-expect-error cast
       .flatMap(i => i.split(' '))
       .map((i) => {
@@ -287,7 +287,7 @@ export function resolveOptions(options: UserOptions | ResolvedOptions = {}): Res
       }))
 
   preflightOptions.blocklist = new Set<string>(
-    toArray(preflightOptions.blocklist || [])
+    flattenArray(preflightOptions.blocklist || [])
       // @ts-expect-error cast
       .flatMap(i => i.split(' ')),
   )
