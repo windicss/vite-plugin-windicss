@@ -161,6 +161,18 @@ function VitePluginWindicss(userOptions: UserOptions = {}): Plugin[] {
     })
   }
 
+  plugins.push({
+    name: `${NAME}:css:svelte`,
+    // @ts-expect-error for svelte preprocess
+    sveltePreprocess: {
+      style({ content }: { content: string }) {
+        return {
+          code: utils.transformCSS(content),
+        }
+      },
+    },
+  })
+
   plugins.push(...createDevtoolsPlugin({ get utils() { return utils } }))
 
   return plugins
