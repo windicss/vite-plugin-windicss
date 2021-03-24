@@ -117,6 +117,11 @@ export function createUtils(
       resolved = config
     }
 
+    // allow to hook into resolved config
+    const modifiedConfigs = options.onConfigResolved?.(resolved, configFilePath)
+    if (modifiedConfigs != null)
+      resolved = modifiedConfigs
+
     debug.config(JSON.stringify(resolved, null, 2))
     return resolved
   }
