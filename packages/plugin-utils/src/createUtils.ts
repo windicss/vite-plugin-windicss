@@ -117,6 +117,12 @@ export function createUtils(
       resolved = config
     }
 
+    // allow to hook into resolved config
+    if (typeof options.onConfigResolved === 'function') {
+      // @ts-ignore
+      options.onConfigResolved({ configFilePath, config: resolved })
+    }
+
     debug.config(JSON.stringify(resolved, null, 2))
     return resolved
   }

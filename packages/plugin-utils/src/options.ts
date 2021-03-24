@@ -156,6 +156,16 @@ export interface UserOptions {
    */
   onGenerated?: (ctx: { classes: Set<string>; tags: Set<string> }) => void
 
+  /**
+   * Callback when the options are resolved. These are the plugin options and contain the windi config
+   */
+  onOptionsResolved?: (options: ResolvedOptions) => ResolvedOptions | void
+
+  /**
+   * Callback when the windi config is resolved. Not to be confused with the options which are the top level way to
+   * configure the util package
+   */
+  onConfigResolved?: (ctx: { config: WindiCssOptions, configFilePath: string } ) => WindiCssOptions | void
 }
 
 export interface WindiPluginUtilsOptions {
@@ -212,6 +222,8 @@ export interface ResolvedOptions {
   blocklist: Set<string>
   onBeforeGenerate: UserOptions['onBeforeGenerate']
   onGenerated: UserOptions['onGenerated']
+  onConfigResolved: UserOptions['onConfigResolved']
+  onOptionsResolved: UserOptions['onOptionsResolved']
 }
 
 function isResolvedOptions(options: UserOptions | ResolvedOptions): options is ResolvedOptions {
@@ -301,7 +313,7 @@ export function resolveOptions(options: UserOptions | ResolvedOptions = {}): Res
       .filter(([k, v]) => [kebabCase(k), v]),
   )
 
-  return {
+  let resolvedOptions = {
     ...options,
     scan: Boolean(scan),
     scanOptions,
@@ -312,7 +324,13 @@ export function resolveOptions(options: UserOptions | ResolvedOptions = {}): Res
     sortUtilities,
     safelist,
     blocklist,
-    // @ts-expect-error internal
     __windi_resolved: true,
+  } as ResolvedOptions
+
+  // allow the resolved options to be overwritten
+  if (typeof resolvedOptions.onOptionsResolved === 'function') {
+    resolvedOptions.onOptionsResolved(resolvedOptions)
   }
+
+  return resolvedOptions
 }
