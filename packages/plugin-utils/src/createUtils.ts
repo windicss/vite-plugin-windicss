@@ -118,10 +118,9 @@ export function createUtils(
     }
 
     // allow to hook into resolved config
-    if (typeof options.onConfigResolved === 'function') {
-      // @ts-ignore
-      options.onConfigResolved({ configFilePath, config: resolved })
-    }
+    const modifiedConfigs = options.onConfigResolved?.(resolved, configFilePath)
+    if (modifiedConfigs != null)
+      resolved = modifiedConfigs
 
     debug.config(JSON.stringify(resolved, null, 2))
     return resolved

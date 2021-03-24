@@ -165,7 +165,7 @@ export interface UserOptions {
    * Callback when the windi config is resolved. Not to be confused with the options which are the top level way to
    * configure the util package
    */
-  onConfigResolved?: (ctx: { config: WindiCssOptions, configFilePath: string } ) => WindiCssOptions | void
+  onConfigResolved?: (config: WindiCssOptions, configFilePath?: string) => WindiCssOptions | void
 }
 
 export interface WindiPluginUtilsOptions {
@@ -328,9 +328,9 @@ export function resolveOptions(options: UserOptions | ResolvedOptions = {}): Res
   } as ResolvedOptions
 
   // allow the resolved options to be overwritten
-  if (typeof resolvedOptions.onOptionsResolved === 'function') {
-    resolvedOptions.onOptionsResolved(resolvedOptions)
-  }
+  const modifiedOptions = resolvedOptions.onOptionsResolved?.(resolvedOptions)
+  if (modifiedOptions != null && modifiedOptions !== resolvedOptions)
+    resolvedOptions = Object.assign(resolvedOptions, modifiedOptions)
 
   return resolvedOptions
 }
