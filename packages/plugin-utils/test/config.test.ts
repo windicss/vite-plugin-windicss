@@ -38,4 +38,20 @@ describe('config', () => {
     expect(utils.options.safelist.size).toBe(3)
     expect(utils.options.blocklist.size).toBe(3)
   })
+
+  it('merge config', async() => {
+    const utils = createUtils({
+      config: {
+        preflight: {
+          includeBase: false,
+        },
+      },
+      preflight: {},
+      scan: false,
+    })
+    utils.init()
+
+    expect(utils.options.preflightOptions.includeBase).toBe(false)
+    expect(utils.options.preflightOptions.includeGlobal).toBe(true)
+  })
 })

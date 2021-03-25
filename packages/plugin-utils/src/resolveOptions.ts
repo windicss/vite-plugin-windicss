@@ -71,12 +71,17 @@ export function resolveOptions(
       includeGlobal: true,
       includePlugin: true,
       enableAll: false,
+      includeAll: false,
       safelist: [],
       blocklist: [],
       alias: {},
     },
+    typeof config.preflight === 'boolean' ? {} : config.preflight,
     typeof preflight === 'boolean' ? {} : preflight,
   ) as unknown as ResolvedOptions['preflightOptions']
+
+  // backward compatibility
+  preflightOptions.includeAll = preflightOptions.includeAll || preflightOptions.enableAll
 
   const scanOptions = Object.assign(
     {

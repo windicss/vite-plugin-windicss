@@ -38,8 +38,17 @@ export interface UserOptions {
   preflight?: boolean | {
     /**
      * Enable all the preflight regardless the template
+     *
+     * @deprecated
      */
     enableAll?: boolean
+
+    /**
+     * Enable all the preflight regardless the template
+     *
+     * @deprecated define this field in the windicss.config.ts instead
+     */
+    includeAll?: boolean
 
     /**
      * Safelist to always included
@@ -226,6 +235,10 @@ export interface ResolvedOptions {
     includeBase: boolean
     includeGlobal: boolean
     includePlugin: boolean
+    includeAll: boolean
+    /**
+     * @deprecated use includeAll
+     */
     enableAll: boolean
     safelist: Set<string>
     blocklist: Set<string>

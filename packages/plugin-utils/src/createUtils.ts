@@ -181,7 +181,7 @@ export function createUtils(
         .filter(i => i.match(regexClassCheck)),
     ) || changed
 
-    if (options.enablePreflight || !options.preflightOptions.enableAll) {
+    if (options.enablePreflight || !options.preflightOptions.includeAll) {
       // preflight
       changed = addTags(
         Array.from(code.matchAll(regexHtmlTag))
@@ -237,9 +237,9 @@ export function createUtils(
     }
 
     if (options.enablePreflight) {
-      if (options.preflightOptions.enableAll || tagsPending.size) {
+      if (options.preflightOptions.includeAll || tagsPending.size) {
         const preflightStyle = processor.preflight(
-          options.preflightOptions.enableAll
+          options.preflightOptions.includeAll
             ? undefined
             : Array.from(tagsPending).map(i => `<${i}/>`).join(' '),
           options.preflightOptions.includeBase,
