@@ -2,6 +2,7 @@
 
 exports[`example should allow access to generated tags and classes by a callback: classes 1`] = `
 Set {
+  "select-none",
   "p-5",
   "px-5",
   "p-1",
@@ -23,6 +24,7 @@ Set {
 
 exports[`example should allow access to generated tags and classes by a callback: classesPending 1`] = `
 Set {
+  "select-none",
   "en",
   "viewport",
   "app",
@@ -87,6 +89,7 @@ Set {
 
 exports[`example should work: classes 1`] = `
 Set {
+  "select-none",
   "p-5",
   "px-5",
   "p-1",
@@ -244,6 +247,12 @@ h2 {
 .hover\\\\:text-green-100:hover {
   --tw-text-opacity: 1;
   color: rgba(209, 250, 229, var(--tw-text-opacity));
+}
+.select-none {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 .hover\\\\:w-1\\\\/3:hover {
   width: 33.333333%;
