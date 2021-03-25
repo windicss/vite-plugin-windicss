@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "@windicss/plugin-utils": "workspace:*",
+    "chalk": "^4.1.0",
     "debug": "^4.3.2",
     "windicss": "^2.5.4"
   },

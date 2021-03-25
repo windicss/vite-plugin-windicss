@@ -1,6 +1,6 @@
 import { resolve } from 'path'
 import type { Plugin, ResolvedConfig } from 'vite'
-import _debug from 'debug'
+import _debug, { log } from 'debug'
 import { UserOptions, WindiPluginUtils, resolveOptions, createUtils } from '@windicss/plugin-utils'
 import { createDevtoolsPlugin } from './devtools'
 import { NAME, MODULE_IDS, MODULE_ID_VIRTUAL } from './constants'
@@ -90,7 +90,7 @@ function VitePluginWindicss(userOptions: UserOptions = {}): Plugin[] {
         debug.hmr(`config file changed: ${file}`)
         utils.init()
         setTimeout(() => {
-          console.log(`[${NAME}] configure file changed, reloading`)
+          log('configure file changed, reloading')
           server.ws.send({ type: 'full-reload' })
         }, 0)
         return [server.moduleGraph.getModuleById(MODULE_ID_VIRTUAL)!]

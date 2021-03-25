@@ -171,6 +171,7 @@ importers:
   packages/vite-plugin-windicss:
     dependencies:
       '@windicss/plugin-utils': link:../plugin-utils
+      chalk: 4.1.0
       debug: 4.3.2
       windicss: 2.5.4
     devDependencies:
@@ -184,6 +185,7 @@ importers:
       '@types/connect': ^3.4.34
       '@types/node': ^14.14.35
       '@windicss/plugin-utils': workspace:*
+      chalk: ^4.1.0
       debug: ^4.3.2
       tsup: ^4.8.19
       vite: ^2.1.2
@@ -1478,7 +1480,6 @@ packages:
   /ansi-styles/4.3.0:
     dependencies:
       color-convert: 2.0.1
-    dev: true
     engines:
       node: '>=8'
     resolution:
@@ -1952,7 +1953,6 @@ packages:
     dependencies:
       ansi-styles: 4.3.0
       supports-color: 7.2.0
-    dev: true
     engines:
       node: '>=10'
     resolution:
@@ -2079,7 +2079,6 @@ packages:
   /color-convert/2.0.1:
     dependencies:
       color-name: 1.1.4
-    dev: true
     engines:
       node: '>=7.0.0'
     resolution:
@@ -2089,7 +2088,6 @@ packages:
     resolution:
       integrity: sha1-p9BVi9icQveV3UIyj3QIMcpTvCU=
   /color-name/1.1.4:
-    dev: true
     resolution:
       integrity: sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==
   /colorette/1.2.2:
@@ -3503,7 +3501,6 @@ packages:
     resolution:
       integrity: sha1-tdRU3CGZriJWmfNGfloH87lVuv0=
   /has-flag/4.0.0:
-    dev: true
     engines:
       node: '>=8'
     resolution:
@@ -6670,7 +6667,6 @@ packages:
   /supports-color/7.2.0:
     dependencies:
       has-flag: 4.0.0
-    dev: true
     engines:
       node: '>=8'
     resolution:
