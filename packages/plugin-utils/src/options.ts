@@ -1,6 +1,6 @@
 /* eslint-disable no-use-before-define */
 
-import type { FullConfig as WindiCssOptions } from './temp'
+import type { FullConfig as WindiCssOptions } from 'windicss/types/interfaces'
 import { TransformerFunction } from './transformers'
 import { TagNames } from './constants'
 
