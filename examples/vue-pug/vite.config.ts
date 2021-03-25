@@ -7,8 +7,6 @@ export default defineConfig({
     Vue({
       include: [/\.vue$/, /\.md$/],
     }),
-    WindiCSS({
-      safelist: 'no-select',
-    }),
+    WindiCSS(),
   ],
 })

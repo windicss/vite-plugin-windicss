@@ -44,11 +44,17 @@ function buildGlobs(dirs: Arrayable<string>, fileExtensions: Arrayable<string>) 
   return globs
 }
 
-export function resolveOptions(options: UserOptions | ResolvedOptions = {}, utilsOptions: WindiPluginUtilsOptions = {}): ResolvedOptions {
+export function resolveOptions(
+  options: UserOptions | ResolvedOptions = {},
+  utilsOptions: WindiPluginUtilsOptions = {},
+  loadConfigFile = false,
+): ResolvedOptions {
   if (isResolvedOptions(options))
     return options
 
-  const { resolved: config, configFilePath } = loadConfiguration(options, utilsOptions)
+  const { resolved: config, configFilePath } = loadConfigFile
+    ? loadConfiguration(options, utilsOptions)
+    : { resolved: {} as WindiCssOptions, configFilePath: {} }
 
   const {
     root = utilsOptions.root || process.cwd(),
@@ -134,8 +140,8 @@ export function resolveOptions(options: UserOptions | ResolvedOptions = {}, util
     scanOptions,
     enablePreflight: config.preflight !== false && Boolean(preflight),
     preflightOptions,
-    enableTransformCSS: transformCSS,
-    enableTransformGroups: transformGroups,
+    transformCSS,
+    transformGroups,
     sortUtilities,
     safelist,
     blocklist,
@@ -153,6 +159,7 @@ export function resolveOptions(options: UserOptions | ResolvedOptions = {}, util
 export function loadConfiguration(options: UserOptions, utilsOptions: WindiPluginUtilsOptions) {
   let resolved: WindiCssOptions = {}
   let configFilePath: string | undefined
+  let error: Error | undefined
 
   const {
     name = 'windicss-plugin-utils',
@@ -199,7 +206,9 @@ export function loadConfiguration(options: UserOptions, utilsOptions: WindiPlugi
       catch (e) {
         console.error(`[${name}] failed to load config "${configFilePath}"`)
         console.error(`[${name}] ${e.toString()}`)
-        setTimeout(() => process.exit(1))
+        error = e
+        configFilePath = undefined
+        resolved = {}
       }
     }
   }
@@ -215,6 +224,7 @@ export function loadConfiguration(options: UserOptions, utilsOptions: WindiPlugi
   debug(resolved)
 
   return {
+    error,
     resolved,
     configFilePath,
   }

@@ -15,7 +15,7 @@ function VitePluginWindicss(userOptions: UserOptions = {}): Plugin[] {
   let utils: WindiPluginUtils
 
   let viteConfig: ResolvedConfig
-  const options = resolveOptions(userOptions)
+  const options = resolveOptions(userOptions, { name: NAME })
   const plugins: Plugin[] = []
 
   // Utilities grouping transform
@@ -49,7 +49,7 @@ function VitePluginWindicss(userOptions: UserOptions = {}): Plugin[] {
 
     configResolved(_config) {
       viteConfig = _config
-      utils = createUtils(options, {
+      utils = createUtils(userOptions, {
         name: NAME,
         root: _config.root,
       })

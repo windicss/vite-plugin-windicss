@@ -15,7 +15,7 @@ import { kebabCase, include, exclude, slash, transformGroups, transformGroupsWit
 export type CompletionsResult = ReturnType<typeof generateCompletions>
 
 export function createUtils(
-  userOptions: UserOptions = {},
+  userOptions: UserOptions | ResolvedOptions = {},
   utilsOptions: WindiPluginUtilsOptions = {
     name: 'windicss-plugin-utils',
   },
@@ -34,14 +34,11 @@ export function createUtils(
   }
 
   let processor: WindiCssProcessor
-  let configFilePath: string | undefined
   let completions: CompletionsResult | undefined
 
   let files: string[] = []
 
   let regexId: RegExp
-
-  const configSafelist = new Set<string>()
 
   const classesGenerated = new Set<string>()
   const classesPending = new Set<string>()
@@ -53,7 +50,7 @@ export function createUtils(
   function init() {
     completions = undefined
 
-    options = resolveOptions(userOptions, utilsOptions)
+    options = resolveOptions(userOptions, utilsOptions, true)
     regexId = new RegExp(`\\.(?:${options.scanOptions.fileExtensions.join('|')})$`, 'i')
     files = []
 
@@ -90,6 +87,8 @@ export function createUtils(
   let _searching: Promise<void> | null
 
   async function scan() {
+    if (!processor)
+      init()
     if (!_searching) {
       _searching = (async() => {
         files.push(...await getFiles())
@@ -161,7 +160,7 @@ export function createUtils(
 
   function extractFile(code: string, id?: string, applyGroupTransform = true) {
     if (applyGroupTransform) {
-      if (options.enableTransformGroups)
+      if (options.transformGroups)
         code = transformGroups(code)
     }
 
@@ -199,7 +198,9 @@ export function createUtils(
   }
 
   function transformCSS(css: string) {
-    if (!options.enableTransformCSS)
+    if (!processor)
+      init()
+    if (!options.transformCSS)
       return css
     const style = new CSSParser(css, processor).parse()
     return style.build()
@@ -209,6 +210,9 @@ export function createUtils(
   let _cssCache: string | undefined
 
   async function generateCSS() {
+    if (!processor)
+      init()
+
     if (options.enableScan && options.scanOptions.runOnStartup)
       await scan()
 
@@ -268,7 +272,6 @@ export function createUtils(
     style = new StyleSheet()
     _cssCache = undefined
 
-    include(classesPending, configSafelist)
     include(classesPending, options.safelist)
     include(classesPending, classesGenerated)
 
@@ -326,7 +329,7 @@ export function createUtils(
       return scanned
     },
     get configFilePath() {
-      return configFilePath
+      return options.configFilePath
     },
     get hasPending() {
       return Boolean(tagsPending.size || classesPending.size)

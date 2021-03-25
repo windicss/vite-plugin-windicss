@@ -8,9 +8,7 @@ export default defineConfig({
     Vue({
       include: [/\.vue$/, /\.md$/],
     }),
-    WindiCSS({
-      safelist: 'no-select',
-    }),
+    WindiCSS(),
     Restart({
       restart: ['../../packages/vite-plugin-windicss/dist/*.js'],
     }),

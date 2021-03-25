@@ -210,8 +210,8 @@ export interface ResolvedOptions {
 
   enableScan: boolean
   enablePreflight: boolean
-  enableTransformCSS: boolean | 'pre' | 'auto' | 'post'
-  enableTransformGroups: boolean
+  transformCSS: boolean | 'pre' | 'auto' | 'post'
+  transformGroups: boolean
 
   scanOptions: {
     fileExtensions: string[]
