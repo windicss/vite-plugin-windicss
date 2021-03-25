@@ -1,9 +1,8 @@
 /* eslint-disable no-use-before-define */
 
-import type { Config as WindiCssOptions } from 'windicss/types/interfaces'
-import { PugTransformer, TransformerFunction } from './transformers'
-import { defaultAlias, TagNames } from './constants'
-import { flattenArray, kebabCase } from './utils'
+import type { FullConfig as WindiCssOptions } from './temp'
+import { TransformerFunction } from './transformers'
+import { TagNames } from './constants'
 
 export { WindiCssOptions }
 
@@ -18,17 +17,22 @@ export interface UserOptions {
 
   /**
    * Safe class names to be always included.
+   *
+   * @deprecated define this field in the windicss.config.ts instead
    */
   safelist?: string | (string | string[])[]
 
   /**
    * Class names to be always excluded.
+   *
+   * @deprecated define this field in the windicss.config.ts instead
    */
   blocklist?: string | (string | string[])[]
 
   /**
    * Enabled windicss preflight (a.k.a TailwindCSS style reset)
    *
+   * @deprecated define this field in the windicss.config.ts instead
    * @default true
    */
   preflight?: boolean | {
@@ -39,11 +43,15 @@ export interface UserOptions {
 
     /**
      * Safelist to always included
+     *
+     * @deprecated define this field in the windicss.config.ts instead
      */
     safelist?: string | (string | string[])[]
 
     /**
      * Blocklist to always excluded
+     *
+     * @deprecated define this field in the windicss.config.ts instead
      */
     blocklist?: string | (string | string[])[]
 
@@ -54,16 +62,19 @@ export interface UserOptions {
 
     /**
      * @default true
+     * @deprecated define this field in the windicss.config.ts instead
      */
     includeBase?: boolean
 
     /**
      * @default true
+     * @deprecated define this field in the windicss.config.ts instead
      */
     includeGlobal?: boolean
 
     /**
      * @default true
+     * @deprecated define this field in the windicss.config.ts instead
      */
     includePlugin?: boolean
   }
@@ -194,8 +205,14 @@ export interface WindiPluginUtilsOptions {
 }
 
 export interface ResolvedOptions {
-  config: string | WindiCssOptions | undefined
-  scan: boolean
+  config: WindiCssOptions
+  configFilePath: string | undefined
+
+  enableScan: boolean
+  enablePreflight: boolean
+  enableTransformCSS: boolean | 'pre' | 'auto' | 'post'
+  enableTransformGroups: boolean
+
   scanOptions: {
     fileExtensions: string[]
     dirs: string[]
@@ -204,7 +221,7 @@ export interface ResolvedOptions {
     runOnStartup: boolean
     transformers: TransformerFunction[]
   }
-  preflight: boolean
+
   preflightOptions: {
     includeBase: boolean
     includeGlobal: boolean
@@ -212,11 +229,10 @@ export interface ResolvedOptions {
     enableAll: boolean
     safelist: Set<string>
     blocklist: Set<string>
-    alias: Record<string, TagNames>
+    alias: Record<string, string>
   }
+
   root: string
-  transformCSS: boolean | 'pre' | 'auto' | 'post'
-  transformGroups: boolean
   sortUtilities: boolean
   safelist: Set<string>
   blocklist: Set<string>
@@ -224,113 +240,4 @@ export interface ResolvedOptions {
   onGenerated: UserOptions['onGenerated']
   onConfigResolved: UserOptions['onConfigResolved']
   onOptionsResolved: UserOptions['onOptionsResolved']
-}
-
-function isResolvedOptions(options: UserOptions | ResolvedOptions): options is ResolvedOptions {
-  // @ts-expect-error internal flag
-  return options.__windi_resolved
-}
-
-function getDefaultTransformers() {
-  const transformers: TransformerFunction[] = []
-
-  // auto detect pug
-  try {
-    require.resolve('pug')
-    transformers.push(
-      PugTransformer(),
-    )
-  }
-  catch (e) {}
-
-  return transformers
-}
-
-export function resolveOptions(options: UserOptions | ResolvedOptions = {}): ResolvedOptions {
-  if (isResolvedOptions(options))
-    return options
-
-  const {
-    scan = true,
-    preflight = true,
-    transformCSS = true,
-    transformGroups = true,
-    sortUtilities = true,
-  } = options
-
-  const preflightOptions = Object.assign(
-    {
-      includeBase: true,
-      includeGlobal: true,
-      includePlugin: true,
-      enableAll: false,
-      safelist: [],
-      blocklist: [],
-      alias: {},
-    },
-    typeof preflight === 'boolean' ? {} : preflight,
-  ) as unknown as ResolvedOptions['preflightOptions']
-
-  const scanOptions = Object.assign(
-    {
-      fileExtensions: ['html', 'vue', 'md', 'mdx', 'pug', 'jsx', 'tsx', 'svelte'],
-      dirs: ['src'],
-      exclude: ['node_modules', '.git'],
-      include: [] as string[],
-      runOnStartup: true,
-      transformers: getDefaultTransformers(),
-    },
-    typeof scan === 'boolean' ? {} : scan,
-  )
-
-  const safelist = new Set(flattenArray(options.safelist || []).flatMap(i => i.split(' ')))
-  const blocklist = new Set(flattenArray(options.blocklist || []).flatMap(i => i.split(' ')))
-
-  preflightOptions.safelist = new Set<string>(
-    flattenArray(preflightOptions.safelist || [])
-      // @ts-expect-error cast
-      .flatMap(i => i.split(' '))
-      .map((i) => {
-        // selector
-        const match = i.match(/^\[(.*?)\]$/)?.[1]
-        if (match)
-          return `div ${match}`
-        return i
-      }))
-
-  preflightOptions.blocklist = new Set<string>(
-    flattenArray(preflightOptions.blocklist || [])
-      // @ts-expect-error cast
-      .flatMap(i => i.split(' ')),
-  )
-
-  preflightOptions.alias = Object.fromEntries(
-    Object
-      .entries({
-        ...defaultAlias,
-        ...preflightOptions.alias,
-      })
-      .filter(([k, v]) => [kebabCase(k), v]),
-  )
-
-  let resolvedOptions = {
-    ...options,
-    scan: Boolean(scan),
-    scanOptions,
-    preflight: Boolean(preflight),
-    preflightOptions,
-    transformCSS,
-    transformGroups,
-    sortUtilities,
-    safelist,
-    blocklist,
-    __windi_resolved: true,
-  } as ResolvedOptions
-
-  // allow the resolved options to be overwritten
-  const modifiedOptions = resolvedOptions.onOptionsResolved?.(resolvedOptions)
-  if (modifiedOptions != null && modifiedOptions !== resolvedOptions)
-    resolvedOptions = Object.assign(resolvedOptions, modifiedOptions)
-
-  return resolvedOptions
 }

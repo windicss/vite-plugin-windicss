@@ -1,5 +1,4 @@
-import { promises as fs, existsSync } from 'fs'
-import { join, resolve } from 'path'
+import { promises as fs } from 'fs'
 import WindiCssProcessor from 'windicss'
 import { StyleSheet } from 'windicss/utils/style'
 import { CSSParser } from 'windicss/utils/parser'
@@ -7,38 +6,23 @@ import { generateCompletions } from 'windicss/utils'
 import fg from 'fast-glob'
 import _debug from 'debug'
 import micromatch from 'micromatch'
-import { preflightTags, htmlTags, configureFiles } from './constants'
+import { preflightTags, htmlTags } from './constants'
 import { regexQuotedString, regexClassSplitter, regexClassCheck, regexHtmlTag } from './regexes'
-import { resolveOptions, WindiCssOptions, WindiPluginUtilsOptions, UserOptions, ResolvedOptions } from './options'
+import { WindiPluginUtilsOptions, UserOptions, ResolvedOptions } from './options'
+import { resolveOptions } from './resolveOptions'
 import { kebabCase, include, exclude, slash, transformGroups, transformGroupsWithSourcemap } from './utils'
 
 export type CompletionsResult = ReturnType<typeof generateCompletions>
 
 export function createUtils(
-  userOptions: UserOptions | ResolvedOptions = {},
-  utilsOptions: WindiPluginUtilsOptions = {},
+  userOptions: UserOptions = {},
+  utilsOptions: WindiPluginUtilsOptions = {
+    name: 'windicss-plugin-utils',
+  },
 ) {
-  const options = resolveOptions(userOptions)
+  let options = {} as ResolvedOptions
 
-  const {
-    config,
-    scan: enabledScan,
-    scanOptions,
-    transformGroups: enableGroupsTransform,
-    transformCSS: enableCssTransform,
-    preflight: enablePreflight,
-    preflightOptions,
-    root = utilsOptions.root || process.cwd(),
-    sortUtilities,
-    safelist,
-    blocklist,
-  } = options
-
-  const {
-    name = 'windicss-plugin-utils',
-    enabledTypeScriptConfig = true,
-  } = utilsOptions
-
+  const name = utilsOptions.name
   const debug = {
     config: _debug(`${name}:config`),
     debug: _debug(`${name}:debug`),
@@ -53,11 +37,9 @@ export function createUtils(
   let configFilePath: string | undefined
   let completions: CompletionsResult | undefined
 
-  const globs = getGlobs()
-  const excludeGlobs = scanOptions.exclude
-  const files: string[] = []
+  let files: string[] = []
 
-  const regexId = new RegExp(`\\.(?:${scanOptions.fileExtensions.join('|')})$`, 'i')
+  let regexId: RegExp
 
   const configSafelist = new Set<string>()
 
@@ -68,87 +50,16 @@ export function createUtils(
   const attrsGenerated = new Set<string>()
   const tagsAvailable = new Set<string>()
 
-  function loadConfiguration() {
-    let resolved: WindiCssOptions = {}
-    if (typeof config === 'string' || !config) {
-      let path = ''
-      if (!config) {
-        for (const name of configureFiles) {
-          const tryPath = resolve(root, name)
-          if (existsSync(tryPath)) {
-            path = tryPath
-            break
-          }
-        }
-      }
-      else {
-        path = resolve(root, config)
-        if (!existsSync(path)) {
-          console.warn(`[${name}] config file "${config}" not found, ignored`)
-          path = ''
-        }
-      }
-
-      if (path) {
-        try {
-          debug.config('loading from ', path)
-
-          if (enabledTypeScriptConfig && path.endsWith('.ts'))
-            require('sucrase/register/ts')
-
-          delete require.cache[require.resolve(path)]
-          resolved = require(path)
-          if (resolved.default)
-            resolved = resolved.default
-
-          configFilePath = path
-          configSafelist.clear()
-          // @ts-expect-error
-          include(configSafelist, resolved?.purge?.options?.safelist || resolved?.purge?.options?.whitelist || [])
-        }
-        catch (e) {
-          console.error(`[${name}] failed to load config "${path}"`)
-          console.error(`[${name}] ${e.toString()}`)
-          setTimeout(() => process.exit(1))
-        }
-      }
-    }
-    else {
-      resolved = config
-    }
-
-    // allow to hook into resolved config
-    const modifiedConfigs = options.onConfigResolved?.(resolved, configFilePath)
-    if (modifiedConfigs != null)
-      resolved = modifiedConfigs
-
-    debug.config(JSON.stringify(resolved, null, 2))
-    return resolved
-  }
-
-  function initWindicss() {
+  function init() {
     completions = undefined
-    return new WindiCssProcessor(loadConfiguration())
-  }
 
-  function getGlobs() {
-    const { dirs, fileExtensions, include } = scanOptions
-    const globs = fileExtensions.length
-      ? dirs.map(i => slash(
-        join(
-          i,
-          fileExtensions.length > 1
-            ? `**/*.{${fileExtensions.join(',')}}`
-            : `**/*.${fileExtensions[0]}`,
-        ),
-      ))
-      : []
+    options = resolveOptions(userOptions, utilsOptions)
+    regexId = new RegExp(`\\.(?:${options.scanOptions.fileExtensions.join('|')})$`, 'i')
+    files = []
 
-    globs.unshift('index.html')
-    globs.unshift(...include)
-
-    debug.glob('globs', globs)
-    return globs
+    processor = new WindiCssProcessor(options.config)
+    clearCache()
+    return processor
   }
 
   function getCompletions() {
@@ -159,10 +70,10 @@ export function createUtils(
 
   async function getFiles() {
     const files = await fg(
-      globs,
+      options.scanOptions.include,
       {
-        cwd: root,
-        ignore: excludeGlobs,
+        cwd: options.root,
+        ignore: options.scanOptions.exclude,
         onlyFiles: true,
         absolute: true,
       },
@@ -201,7 +112,7 @@ export function createUtils(
 
   function isExcluded(id: string) {
     return id.match(/\b(?:node_modules|.git)\b/)
-      || micromatch.isMatch(slash(id), excludeGlobs)
+      || micromatch.isMatch(slash(id), options.scanOptions.exclude)
   }
 
   function isDetectTarget(id: string) {
@@ -211,7 +122,7 @@ export function createUtils(
   }
 
   function isScanTarget(id: string) {
-    return enabledScan
+    return options.enableScan
       ? files.some(file => id.startsWith(file))
       : isDetectTarget(id)
   }
@@ -225,7 +136,7 @@ export function createUtils(
   function addClasses(classes: string[]) {
     let changed = false
     classes.forEach((i) => {
-      if (!i || classesGenerated.has(i) || classesPending.has(i) || blocklist.has(i))
+      if (!i || classesGenerated.has(i) || classesPending.has(i) || options.blocklist.has(i))
         return
       classesPending.add(i)
       changed = true
@@ -236,8 +147,8 @@ export function createUtils(
     let changed = false
     tags.forEach((tag) => {
       if (!tagsAvailable.has(tag))
-        tag = preflightOptions.alias[kebabCase(tag)]
-      if (preflightOptions.blocklist.has(tag))
+        tag = options.preflightOptions.alias[kebabCase(tag)]
+      if (options.preflightOptions.blocklist.has(tag))
         return
       if (tagsAvailable.has(tag) && !tagsPending.has(tag)) {
         tagsPending.add(tag)
@@ -250,13 +161,13 @@ export function createUtils(
 
   function extractFile(code: string, id?: string, applyGroupTransform = true) {
     if (applyGroupTransform) {
-      if (enableGroupsTransform)
+      if (options.enableTransformGroups)
         code = transformGroups(code)
     }
 
     if (id) {
       debug.scanTransform(id)
-      for (const trans of scanOptions.transformers) {
+      for (const trans of options.scanOptions.transformers) {
         const result = trans(code, id)
         if (result != null)
           code = result
@@ -271,7 +182,7 @@ export function createUtils(
         .filter(i => i.match(regexClassCheck)),
     ) || changed
 
-    if (enablePreflight || !preflightOptions.enableAll) {
+    if (options.enablePreflight || !options.preflightOptions.enableAll) {
       // preflight
       changed = addTags(
         Array.from(code.matchAll(regexHtmlTag))
@@ -288,7 +199,7 @@ export function createUtils(
   }
 
   function transformCSS(css: string) {
-    if (!enableCssTransform)
+    if (!options.enableTransformCSS)
       return css
     const style = new CSSParser(css, processor).parse()
     return style.build()
@@ -298,7 +209,7 @@ export function createUtils(
   let _cssCache: string | undefined
 
   async function generateCSS() {
-    if (enabledScan && scanOptions.runOnStartup)
+    if (options.enableScan && options.scanOptions.runOnStartup)
       await scan()
 
     options.onBeforeGenerate?.({
@@ -321,15 +232,15 @@ export function createUtils(
       }
     }
 
-    if (enablePreflight) {
-      if (preflightOptions.enableAll || tagsPending.size) {
+    if (options.enablePreflight) {
+      if (options.preflightOptions.enableAll || tagsPending.size) {
         const preflightStyle = processor.preflight(
-          preflightOptions.enableAll
+          options.preflightOptions.enableAll
             ? undefined
             : Array.from(tagsPending).map(i => `<${i}/>`).join(' '),
-          preflightOptions.includeBase,
-          preflightOptions.includeGlobal,
-          preflightOptions.includePlugin,
+          options.preflightOptions.includeBase,
+          options.preflightOptions.includeGlobal,
+          options.preflightOptions.includePlugin,
         )
         style = style.extend(preflightStyle, true)
         include(tagsGenerated, tagsPending)
@@ -339,7 +250,7 @@ export function createUtils(
     }
 
     if (changed || !_cssCache) {
-      if (sortUtilities)
+      if (options.sortUtilities)
         style.sort()
 
       _cssCache = style.build()
@@ -358,29 +269,23 @@ export function createUtils(
     _cssCache = undefined
 
     include(classesPending, configSafelist)
-    include(classesPending, safelist)
+    include(classesPending, options.safelist)
     include(classesPending, classesGenerated)
 
     include(tagsPending, tagsGenerated)
     include(tagsPending, preflightTags)
-    include(tagsPending, preflightOptions.safelist)
+    include(tagsPending, options.preflightOptions.safelist)
     include(tagsAvailable, htmlTags as any as string[])
 
     exclude(tagsAvailable, preflightTags)
-    exclude(tagsAvailable, preflightOptions.safelist)
+    exclude(tagsAvailable, options.preflightOptions.safelist)
 
     classesGenerated.clear()
     tagsGenerated.clear()
     attrsGenerated.clear()
   }
 
-  function init() {
-    processor = initWindicss()
-    clearCache()
-  }
-
   return {
-    options,
     init,
     extractFile,
     generateCSS,
@@ -395,9 +300,6 @@ export function createUtils(
     isExcluded,
     scan,
 
-    files,
-    globs,
-
     classesGenerated,
     classesPending,
     tagsGenerated,
@@ -408,6 +310,15 @@ export function createUtils(
     addTags,
     getCompletions,
 
+    get options() {
+      return options
+    },
+    get files() {
+      return files
+    },
+    get globs() {
+      return options.scanOptions.include
+    },
     get processor() {
       return processor
     },

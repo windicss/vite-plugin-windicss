@@ -1,5 +1,5 @@
-import { WindiCssOptions } from './options'
+import { FullConfig } from './temp'
 
-export function defineConfig(config: WindiCssOptions) {
+export function defineConfig(config: FullConfig) {
   return config
 }
