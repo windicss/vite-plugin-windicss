@@ -7,7 +7,7 @@ import fg from 'fast-glob'
 import _debug from 'debug'
 import micromatch from 'micromatch'
 import { preflightTags, htmlTags } from './constants'
-import { regexQuotedString, regexClassSplitter, regexClassCheck, regexHtmlTag } from './regexes'
+import { regexQuotedString, regexClassSplitter, regexHtmlTag, validClassName } from './regexes'
 import { WindiPluginUtilsOptions, UserOptions, ResolvedOptions } from './options'
 import { resolveOptions } from './resolveOptions'
 import { kebabCase, include, exclude, slash, transformGroups, transformGroupsWithSourcemap } from './utils'
@@ -178,7 +178,7 @@ export function createUtils(
     changed = addClasses(
       Array.from(code.matchAll(regexQuotedString))
         .flatMap(m => (m[2] || '').split(regexClassSplitter))
-        .filter(i => i.match(regexClassCheck)),
+        .filter(validClassName),
     ) || changed
 
     if (options.enablePreflight || !options.preflightOptions.includeAll) {
