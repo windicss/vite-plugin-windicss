@@ -54,4 +54,27 @@ describe('config', () => {
     expect(utils.options.preflightOptions.includeBase).toBe(false)
     expect(utils.options.preflightOptions.includeGlobal).toBe(true)
   })
+
+  // #114
+  it('merge config', async() => {
+    const utils = createUtils({
+      config: {
+        theme: {
+          extend: {
+            fontFamily: {
+              corsiva: 'monotype corsiva',
+            },
+          },
+        },
+      },
+      preflight: false,
+      scan: false,
+    })
+    await utils.init()
+
+    utils.addClasses(['font-corsiva'])
+    const css = await utils.generateCSS()
+    expect(utils.classesGenerated.size).toBe(1)
+    expect(css).toMatchSnapshot()
+  })
 })
