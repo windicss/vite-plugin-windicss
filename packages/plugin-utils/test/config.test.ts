@@ -14,8 +14,8 @@ describe('config', () => {
       scan: false,
     })
     await utils.init()
-
     await utils.generateCSS()
+
     expect(utils.classesGenerated.size).toBe(4)
   })
 
@@ -32,9 +32,9 @@ describe('config', () => {
       preflight: false,
       scan: false,
     })
-    utils.init()
-
+    await utils.init()
     await utils.generateCSS()
+
     expect(utils.options.safelist.size).toBe(3)
     expect(utils.options.blocklist.size).toBe(3)
   })
@@ -49,7 +49,7 @@ describe('config', () => {
       preflight: {},
       scan: false,
     })
-    utils.init()
+    await utils.init()
 
     expect(utils.options.preflightOptions.includeBase).toBe(false)
     expect(utils.options.preflightOptions.includeGlobal).toBe(true)
