@@ -5,7 +5,7 @@ describe('config hooks', () => {
     const utils = createUtils({
       config: {},
       onOptionsResolved: (config: ResolvedOptions) => {
-        expect(config.safelist).toEqual(new Set<String>(['px-1', 'px-2', 'px-3', 'px-4']))
+        expect(config.safelist).toEqual(new Set(['px-1', 'px-2', 'px-3', 'px-4']))
         config.safelist.add('px-5')
       },
       safelist: [
@@ -14,7 +14,7 @@ describe('config hooks', () => {
       ],
     })
     utils.init()
-    expect(utils.options.safelist).toEqual(new Set<String>(['px-1', 'px-2', 'px-3', 'px-4', 'px-5']))
+    expect(utils.options.safelist).toEqual(new Set(['px-1', 'px-2', 'px-3', 'px-4', 'px-5']))
   })
 
   it('work onOptionsResolved', () => {

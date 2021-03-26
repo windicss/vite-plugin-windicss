@@ -111,10 +111,7 @@ import WindiCSS from 'vite-plugin-windicss'
 
 export default {
   plugins: [
-    /* ... */
-    WindiCSS({
-      safelist: 'prose prose-sm m-auto'
-    })
+    WindiCSS()
   ]
 }
 ```
@@ -164,6 +161,7 @@ import formsPlugin from 'windicss/plugin/forms'
 
 export default defineConfig({
   darkMode: 'class',
+  safelist: 'p-3 p-4 p-5',
   theme: {
     extend: {
       colors: {
@@ -210,14 +208,12 @@ Oh and don't worry about the final bundle, in production build `virtual:windi-de
 Preflight is enables on demanded, if you'd like to completely disable it, you can configure it as below
 
 ```ts
-// vite.config.js
-export default {
-  plugins: [
-    WindiCSS({
-      preflight: false
-    })
-  ]
-}
+// windi.config.ts
+import { defineConfig } from 'vite-plugin-windicss'
+
+export default defineConfig({
+  preflight: false
+})
 ```
 
 ### Safelist
@@ -232,40 +228,50 @@ By default, we scan your source code statically and find all the usages of the u
 For that, you will need to specify the possible combinations in the `safelist` options of `vite.config.js`.
 
 ```ts
-// vite.config.js
-export default {
-  plugins: [
-    WindiCSS({
-      safelist: `p-1 p-2 p-3 p-4`
-    })
-  ]
-}
+// windi.config.ts
+import { defineConfig } from 'vite-plugin-windicss'
+
+export default defineConfig({
+  safelist: 'p-1 p-2 p-3 p-4'
+})
 ```
 
 Or you can do it this way
 
 ```ts
+// windi.config.ts
+import { defineConfig } from 'vite-plugin-windicss'
+
 function range(size, startAt = 1) {
   return Array.from(Array(size).keys()).map(i => i + startAt);
 }
 
-// vite.config.js
-export default {
-  plugins: [
-    WindiCSS({
-      safelist: [
-        range(30).map(i => `p-${i}`), // p-1 to p-3
-        range(10).map(i => `mt-${i}`) // mt-1 to mt-10
-      ]
-    })
+export default defineConfig({
+  safelist: [
+    range(30).map(i => `p-${i}`), // p-1 to p-3
+    range(10).map(i => `mt-${i}`) // mt-1 to mt-10
   ]
-}
+})
 ```
 
 ### Scanning
 
 On server start, `vite-plugin-windicss` will scan your source code and extract the utilities usages. By default,
 only files under `src/` with extensions `vue, html, mdx, pug, jsx, tsx` will be included. If you want to enable scaning for other file type of locations, you can configure it via:
+
+```ts
+// windicss.config.ts
+import { defineConfig } from 'vite-plugin-windicss'
+
+export default defineConfig({
+  extract: {
+    include: ['src/**/*.{vue,html,jsx,tsx}'], 
+    exclude: ['node_modules', '.git']
+  }
+})
+```
+
+Or in plugin options:
 
 ```ts
 // vite.config.js
