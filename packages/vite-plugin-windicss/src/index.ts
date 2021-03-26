@@ -1,7 +1,7 @@
 import { resolve } from 'path'
 import type { Plugin, ResolvedConfig } from 'vite'
 import _debug, { log } from 'debug'
-import { UserOptions, WindiPluginUtils, resolveOptions, createUtils } from '@windicss/plugin-utils'
+import { UserOptions, WindiPluginUtils, createUtils } from '@windicss/plugin-utils'
 import { createDevtoolsPlugin } from './devtools'
 import { NAME, MODULE_IDS, MODULE_ID_VIRTUAL } from './constants'
 
@@ -13,13 +13,12 @@ const debug = {
 
 function VitePluginWindicss(userOptions: UserOptions = {}): Plugin[] {
   let utils: WindiPluginUtils
-
   let viteConfig: ResolvedConfig
-  const options = resolveOptions(userOptions, { name: NAME })
+
   const plugins: Plugin[] = []
 
   // Utilities grouping transform
-  if (options.transformGroups) {
+  if (userOptions.transformGroups !== false) {
     plugins.push({
       name: `${NAME}:groups`,
       transform(code, id) {
@@ -115,8 +114,10 @@ function VitePluginWindicss(userOptions: UserOptions = {}): Plugin[] {
     },
   })
 
+  const { transformCSS = true } = userOptions
+
   // CSS transform
-  if (options.transformCSS === true) {
+  if (transformCSS === true) {
     plugins.push({
       name: `${NAME}:css`,
       transform(code, id) {
@@ -127,31 +128,10 @@ function VitePluginWindicss(userOptions: UserOptions = {}): Plugin[] {
       },
     })
   }
-  else if (options.transformCSS === 'auto') {
-    plugins.push({
-      name: `${NAME}:css:pre`,
-      enforce: 'pre',
-      transform(code, id) {
-        if (!id.match(/\.(?:postcss|scss|css)(?:$|\?)/i) || utils.isExcluded(id) || id === MODULE_ID_VIRTUAL)
-          return
-        debug.css('pre', id)
-        return utils.transformCSS(code)
-      },
-    })
+  else if (typeof transformCSS === 'string') {
     plugins.push({
       name: `${NAME}:css`,
-      transform(code, id) {
-        if (!id.match(/\.(?:sass|stylus|less)(?:$|\?)/i) || utils.isExcluded(id) || id === MODULE_ID_VIRTUAL)
-          return
-        debug.css('post', id)
-        return utils.transformCSS(code)
-      },
-    })
-  }
-  else if (typeof options.transformCSS === 'string') {
-    plugins.push({
-      name: `${NAME}:css`,
-      enforce: options.transformCSS,
+      enforce: transformCSS,
       transform(code, id) {
         if (!utils.isCssTransformTarget(id) || id === MODULE_ID_VIRTUAL)
           return

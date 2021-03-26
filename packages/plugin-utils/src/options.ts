@@ -179,13 +179,13 @@ export interface UserOptions {
   /**
    * Callback when the options are resolved. These are the plugin options and contain the windi config
    */
-  onOptionsResolved?: (options: ResolvedOptions) => ResolvedOptions | void
+  onOptionsResolved?: (options: ResolvedOptions) => ResolvedOptions | void | Promise<ResolvedOptions | void>
 
   /**
    * Callback when the windi config is resolved. Not to be confused with the options which are the top level way to
    * configure the util package
    */
-  onConfigResolved?: (config: WindiCssOptions, configFilePath?: string) => WindiCssOptions | void
+  onConfigResolved?: (config: WindiCssOptions, configFilePath?: string) => WindiCssOptions | void | Promise<WindiCssOptions | void>
 }
 
 export interface WindiPluginUtilsOptions {
