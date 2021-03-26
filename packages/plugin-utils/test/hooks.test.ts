@@ -13,7 +13,7 @@ describe('config hooks', () => {
         ['px-2 px-3', 'px-4'],
       ],
     })
-    utils.init()
+    await utils.init()
     expect(utils.options.safelist).toEqual(new Set<String>(['px-1', 'px-2', 'px-3', 'px-4', 'px-5']))
   })
 
@@ -27,7 +27,7 @@ describe('config hooks', () => {
         config.prefix = 'not-windi-'
       },
     })
-    utils.init()
+    await utils.init()
 
     expect(utils.processor.config('prefix')).toEqual('not-windi-')
   })
@@ -44,7 +44,7 @@ describe('config hooks', () => {
         }
       },
     })
-    utils.init()
+    await utils.init()
 
     expect(utils.processor.config('darkMode')).toEqual('class')
     expect(utils.processor.config('prefix')).toEqual(undefined)

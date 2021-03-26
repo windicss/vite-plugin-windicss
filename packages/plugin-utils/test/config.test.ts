@@ -12,7 +12,7 @@ describe('config', () => {
         ['px-2 px-3', 'px-4'],
       ],
     })
-    utils.init()
+    await utils.init()
 
     await utils.generateCSS()
     expect(utils.classesGenerated.size).toBe(4)

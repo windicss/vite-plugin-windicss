@@ -11,7 +11,7 @@ describe('plugins', () => {
       scan: false,
       preflight: false,
     })
-    utils.init()
+    await utils.init()
     utils.extractFile('"aspect-none aspect-w-16 aspect-h-9 aspect-16/9"')
 
     const css = await utils.generateCSS()
@@ -31,7 +31,7 @@ describe('plugins', () => {
       },
       scan: false,
     })
-    utils.init()
+    await utils.init()
 
     utils.extractFile('<input type="text"/><input type="number"/><select multiple/>')
 
@@ -53,7 +53,7 @@ describe('plugins', () => {
       },
       scan: false,
     })
-    utils.init()
+    await utils.init()
 
     const css = await utils.generateCSS()
     expect(utils.classesGenerated).toMatchSnapshot('classes')

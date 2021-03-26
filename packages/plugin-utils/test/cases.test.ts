@@ -5,7 +5,7 @@ describe('cases', () => {
 
   beforeEach(() => {
     utils = createUtils({ config: {}, preflight: false, scan: false })
-    utils.init()
+    await utils.init()
   })
 
   afterEach(async() => {
