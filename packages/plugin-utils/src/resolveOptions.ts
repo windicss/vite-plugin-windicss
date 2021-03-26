@@ -44,16 +44,16 @@ function buildGlobs(dirs: Arrayable<string>, fileExtensions: Arrayable<string>) 
   return globs
 }
 
-export function resolveOptions(
+export async function resolveOptions(
   options: UserOptions | ResolvedOptions = {},
   utilsOptions: WindiPluginUtilsOptions = {},
   loadConfigFile = false,
-): ResolvedOptions {
+): Promise<ResolvedOptions> {
   if (isResolvedOptions(options))
     return options
 
   const { resolved: config, configFilePath } = loadConfigFile
-    ? loadConfiguration(options, utilsOptions)
+    ? await loadConfiguration(options, utilsOptions)
     : { resolved: {} as WindiCssOptions, configFilePath: {} }
 
   const {
@@ -154,14 +154,14 @@ export function resolveOptions(
   } as ResolvedOptions
 
   // allow the resolved options to be overwritten
-  const modifiedOptions = resolvedOptions.onOptionsResolved?.(resolvedOptions)
+  const modifiedOptions = await resolvedOptions.onOptionsResolved?.(resolvedOptions)
   if (modifiedOptions != null && modifiedOptions !== resolvedOptions)
     resolvedOptions = Object.assign(resolvedOptions, modifiedOptions)
 
   return resolvedOptions
 }
 
-export function loadConfiguration(options: UserOptions, utilsOptions: WindiPluginUtilsOptions) {
+export async function loadConfiguration(options: UserOptions, utilsOptions: WindiPluginUtilsOptions) {
   let resolved: WindiCssOptions = {}
   let configFilePath: string | undefined
   let error: Error | undefined
@@ -222,7 +222,7 @@ export function loadConfiguration(options: UserOptions, utilsOptions: WindiPlugi
   }
 
   // allow to hook into resolved config
-  const modifiedConfigs = options.onConfigResolved?.(resolved, configFilePath)
+  const modifiedConfigs = await options.onConfigResolved?.(resolved, configFilePath)
   if (modifiedConfigs != null)
     resolved = modifiedConfigs
 

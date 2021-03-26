@@ -47,10 +47,10 @@ export function createUtils(
   const attrsGenerated = new Set<string>()
   const tagsAvailable = new Set<string>()
 
-  function init() {
+  async function init() {
     completions = undefined
 
-    options = resolveOptions(userOptions, utilsOptions, true)
+    options = await resolveOptions(userOptions, utilsOptions, true)
     regexId = new RegExp(`\\.(?:${options.scanOptions.fileExtensions.join('|')})$`, 'i')
     files = []
 
@@ -88,7 +88,7 @@ export function createUtils(
 
   async function scan() {
     if (!processor)
-      init()
+      await init()
     if (!_searching) {
       _searching = (async() => {
         files.push(...await getFiles())
@@ -198,8 +198,6 @@ export function createUtils(
   }
 
   function transformCSS(css: string) {
-    if (!processor)
-      init()
     if (!options.transformCSS)
       return css
     const style = new CSSParser(css, processor).parse()
@@ -211,7 +209,7 @@ export function createUtils(
 
   async function generateCSS() {
     if (!processor)
-      init()
+      await init()
 
     if (options.enableScan && options.scanOptions.runOnStartup)
       await scan()

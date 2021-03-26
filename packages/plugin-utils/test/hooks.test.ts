@@ -1,7 +1,7 @@
 import { createUtils, ResolvedOptions } from '../src'
 
 describe('config hooks', () => {
-  it('work onOptionsResolved', () => {
+  it('work onOptionsResolved', async() => {
     const utils = createUtils({
       config: {},
       onOptionsResolved: (config: ResolvedOptions) => {
@@ -13,11 +13,11 @@ describe('config hooks', () => {
         ['px-2 px-3', 'px-4'],
       ],
     })
-    utils.init()
-    expect(utils.options.safelist).toEqual(new Set(['px-1', 'px-2', 'px-3', 'px-4', 'px-5']))
+    await utils.init()
+    expect(utils.options.safelist).toEqual(new Set<String>(['px-1', 'px-2', 'px-3', 'px-4', 'px-5']))
   })
 
-  it('work onOptionsResolved', () => {
+  it('work onOptionsResolved', async() => {
     const utils = createUtils({
       config: {
         prefix: 'windi-',
@@ -27,12 +27,12 @@ describe('config hooks', () => {
         config.prefix = 'not-windi-'
       },
     })
-    utils.init()
+    await utils.init()
 
     expect(utils.processor.config('prefix')).toEqual('not-windi-')
   })
 
-  it('work onOptionsResolved to replace config', () => {
+  it('work onOptionsResolved to replace config', async() => {
     const utils = createUtils({
       config: {
         prefix: 'windi-',
@@ -44,7 +44,7 @@ describe('config hooks', () => {
         }
       },
     })
-    utils.init()
+    await utils.init()
 
     expect(utils.processor.config('darkMode')).toEqual('class')
     expect(utils.processor.config('prefix')).toEqual(undefined)

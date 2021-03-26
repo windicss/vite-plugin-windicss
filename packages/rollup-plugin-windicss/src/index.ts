@@ -1,6 +1,6 @@
 import { Plugin } from 'rollup'
 import _debug from 'debug'
-import { createUtils, resolveOptions, UserOptions } from '@windicss/plugin-utils'
+import { createUtils, UserOptions } from '@windicss/plugin-utils'
 
 const NAME = 'rollup-plugin-windicss'
 const MODULE_IDS = ['virtual:windi.css', 'windi.css', '@virtual/windi.css']
@@ -13,11 +13,10 @@ const debug = {
 }
 
 function WindiCssRollupPlugin(userOptions: UserOptions = {}): Plugin[] {
-  const options = resolveOptions(userOptions)
-  const utils = createUtils(options)
+  const utils = createUtils(userOptions)
   const plugins: Plugin[] = []
 
-  if (options.transformGroups) {
+  if (userOptions.transformGroups !== false) {
     plugins.push({
       name: `${NAME}:groups`,
       transform(code, id) {
@@ -39,13 +38,13 @@ function WindiCssRollupPlugin(userOptions: UserOptions = {}): Plugin[] {
     },
 
     async load(id) {
-      utils.init()
+      await utils.init()
       if (id === MODULE_ID_VIRTUAL)
         return utils.generateCSS()
     },
   })
 
-  if (options.transformCSS) {
+  if (userOptions.transformCSS != null) {
     plugins.push({
       name: `${NAME}:css`,
       transform(code, id) {

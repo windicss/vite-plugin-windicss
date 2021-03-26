@@ -3,9 +3,9 @@ import { createUtils, WindiPluginUtils } from '../src'
 describe('cases', () => {
   let utils: WindiPluginUtils
 
-  beforeEach(() => {
+  beforeEach(async () => {
     utils = createUtils({ config: {}, preflight: false, scan: false })
-    utils.init()
+    await utils.init()
   })
 
   afterEach(async() => {

@@ -6,7 +6,7 @@ describe('example', () => {
     const utils = createUtils({}, {
       root: resolve(__dirname, '../../../examples/vue'),
     })
-    utils.init()
+    await utils.init()
     const css = await utils.generateCSS()
     expect(utils.classesGenerated).toMatchSnapshot('classes')
     expect(utils.tagsGenerated).toMatchSnapshot('tags')
@@ -27,7 +27,7 @@ describe('example', () => {
     }, {
       root: resolve(__dirname, '../../../examples/vue'),
     })
-    utils.init()
+    await utils.init()
     await utils.generateCSS()
     expect(classesPending).toMatchSnapshot('classesPending')
     expect(tagsPending).toMatchSnapshot('tagsPending')
