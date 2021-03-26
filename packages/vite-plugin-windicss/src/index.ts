@@ -47,13 +47,13 @@ function VitePluginWindicss(userOptions: UserOptions = {}): Plugin[] {
     name: `${NAME}:entry`,
     enforce: 'post',
 
-    configResolved(_config) {
+    async configResolved(_config) {
       viteConfig = _config
       utils = createUtils(options, {
         name: NAME,
         root: _config.root,
       })
-      utils.init()
+      await utils.init()
     },
 
     resolveId(id) {
@@ -88,7 +88,7 @@ function VitePluginWindicss(userOptions: UserOptions = {}): Plugin[] {
       // resolve normalized file path to system path
       if (resolve(file) === utils.configFilePath) {
         debug.hmr(`config file changed: ${file}`)
-        utils.init()
+        await utils.init()
         setTimeout(() => {
           console.log(`[${NAME}] configure file changed, reloading`)
           server.ws.send({ type: 'full-reload' })

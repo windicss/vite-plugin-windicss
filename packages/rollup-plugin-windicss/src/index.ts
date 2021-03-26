@@ -39,7 +39,7 @@ function WindiCssRollupPlugin(userOptions: UserOptions = {}): Plugin[] {
     },
 
     async load(id) {
-      utils.init()
+      await utils.init()
       if (id === MODULE_ID_VIRTUAL)
         return utils.generateCSS()
     },

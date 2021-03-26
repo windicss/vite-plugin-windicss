@@ -68,7 +68,7 @@ export function createUtils(
   const attrsGenerated = new Set<string>()
   const tagsAvailable = new Set<string>()
 
-  function loadConfiguration() {
+  async function loadConfiguration() {
     let resolved: WindiCssOptions = {}
     if (typeof config === 'string' || !config) {
       let path = ''
@@ -118,7 +118,7 @@ export function createUtils(
     }
 
     // allow to hook into resolved config
-    const modifiedConfigs = options.onConfigResolved?.(resolved, configFilePath)
+    const modifiedConfigs = await options.onConfigResolved?.(resolved, configFilePath)
     if (modifiedConfigs != null)
       resolved = modifiedConfigs
 
@@ -126,9 +126,9 @@ export function createUtils(
     return resolved
   }
 
-  function initWindicss() {
+  async function initWindicss() {
     completions = undefined
-    return new WindiCssProcessor(loadConfiguration())
+    return new WindiCssProcessor(await loadConfiguration())
   }
 
   function getGlobs() {
@@ -374,8 +374,8 @@ export function createUtils(
     attrsGenerated.clear()
   }
 
-  function init() {
-    processor = initWindicss()
+  async function init() {
+    processor = await initWindicss()
     clearCache()
   }
 
