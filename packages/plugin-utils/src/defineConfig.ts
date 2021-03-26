@@ -1,5 +1,5 @@
-import { WindiCssOptions } from './options'
+import { FullConfig } from 'windicss/types/interfaces'
 
-export function defineConfig(config: WindiCssOptions) {
+export function defineConfig(config: FullConfig) {
   return config
 }

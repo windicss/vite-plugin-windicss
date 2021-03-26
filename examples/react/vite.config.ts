@@ -5,9 +5,7 @@ import WindiCSS from 'vite-plugin-windicss'
 export default defineConfig({
   plugins: [
     reactRefresh(),
-    WindiCSS({
-      safelist: 'no-select',
-    }),
+    WindiCSS(),
   ],
   build: {
     sourcemap: true,

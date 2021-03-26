@@ -1,14 +1,21 @@
 import MagicString from 'magic-string'
 import { regexClassGroup } from './regexes'
 
-export function toArray<T>(v: T | T[]): T[] {
+export type Arrayable<T> = T | T[]
+export type NestedArrayable<T> = T | (T | T[])[]
+
+export function toArray<T>(v: Arrayable<T>): T[] {
   if (Array.isArray(v))
     return v
   return [v]
 }
 
-export function flattenArray<T>(v: T | (T | T[])[]): T[] {
+export function flattenArray<T>(v: NestedArrayable<T>): T[] {
   return toArray(v).flat() as T[]
+}
+
+export function mergeArrays<T>(...args: (NestedArrayable<T> | undefined)[]): T[] {
+  return args.flatMap(i => flattenArray(i || []))
 }
 
 export function slash(str: string) {
