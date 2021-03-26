@@ -224,10 +224,10 @@ export function createUtils(
     if (classesPending.size) {
       const result = processor.interpret(Array.from(classesPending).join(' '))
       if (result.success.length) {
+        debug.compile(`compiled ${result.success.length} classes out of ${classesPending.size}`)
+        debug.compile(result.success)
         include(classesGenerated, result.success)
         classesPending.clear()
-        debug.compile(`compiled ${result.success.length} classes`)
-        debug.compile(result.success)
 
         style = style.extend(result.styleSheet)
         changed = true
