@@ -1,7 +1,7 @@
 import { createUtils, ResolvedOptions } from '../src'
 
 describe('config hooks', () => {
-  it('work onOptionsResolved', () => {
+  it('work onOptionsResolved', async () => {
     const utils = createUtils({
       config: {},
       onOptionsResolved: (config: ResolvedOptions) => {
@@ -17,7 +17,7 @@ describe('config hooks', () => {
     expect(utils.options.safelist).toEqual(new Set<String>(['px-1', 'px-2', 'px-3', 'px-4', 'px-5']))
   })
 
-  it('work onOptionsResolved', () => {
+  it('work onOptionsResolved', async () => {
     const utils = createUtils({
       config: {
         prefix: 'windi-',
@@ -32,7 +32,7 @@ describe('config hooks', () => {
     expect(utils.processor.config('prefix')).toEqual('not-windi-')
   })
 
-  it('work onOptionsResolved to replace config', () => {
+  it('work onOptionsResolved to replace config', async() => {
     const utils = createUtils({
       config: {
         prefix: 'windi-',
