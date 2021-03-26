@@ -4,10 +4,10 @@ importers:
       '@antfu/eslint-config': 0.6.2_eslint@7.22.0+typescript@4.2.3
       '@antfu/ni': 0.5.5
       '@types/debug': 4.1.5
-      '@types/fs-extra': 9.0.8
-      '@types/jest': 26.0.21
+      '@types/fs-extra': 9.0.9
+      '@types/jest': 26.0.22
       '@types/micromatch': 4.0.1
-      '@types/node': 14.14.35
+      '@types/node': 14.14.36
       '@typescript-eslint/eslint-plugin': 4.19.0_eslint@7.22.0+typescript@4.2.3
       bumpp: 6.0.6
       debug: 4.3.2
@@ -29,10 +29,10 @@ importers:
       '@antfu/eslint-config': ^0.6.2
       '@antfu/ni': ^0.5.5
       '@types/debug': ^4.1.5
-      '@types/fs-extra': ^9.0.8
-      '@types/jest': ^26.0.21
+      '@types/fs-extra': ^9.0.9
+      '@types/jest': ^26.0.22
       '@types/micromatch': ^4.0.1
-      '@types/node': ^14.14.35
+      '@types/node': ^14.14.36
       '@typescript-eslint/eslint-plugin': ^4.19.0
       bumpp: ^6.0.6
       debug: ^4.3.2
@@ -131,7 +131,7 @@ importers:
       '@antfu/ni': 0.5.5
       '@types/debug': 4.1.5
       '@types/micromatch': 4.0.1
-      '@types/node': 14.14.35
+      '@types/node': 14.14.36
       '@types/pug': 2.0.4
       pug: 3.0.2
       tsup: 4.8.19_typescript@4.2.3
@@ -140,7 +140,7 @@ importers:
       '@antfu/ni': ^0.5.5
       '@types/debug': ^4.1.5
       '@types/micromatch': ^4.0.1
-      '@types/node': ^14.14.35
+      '@types/node': ^14.14.36
       '@types/pug': ^2.0.4
       debug: ^4.3.2
       fast-glob: ^3.2.5
@@ -156,13 +156,13 @@ importers:
       windicss: 2.5.5
     devDependencies:
       '@antfu/ni': 0.5.5
-      '@types/node': 14.14.35
+      '@types/node': 14.14.36
       debug: 4.3.2
       rollup: 2.42.4
       tsup: 4.8.19
     specifiers:
       '@antfu/ni': ^0.5.5
-      '@types/node': ^14.14.35
+      '@types/node': ^14.14.36
       '@windicss/plugin-utils': workspace:*
       debug: ^4.3.2
       rollup: ^2.42.4
@@ -177,13 +177,13 @@ importers:
     devDependencies:
       '@antfu/ni': 0.5.5
       '@types/connect': 3.4.34
-      '@types/node': 14.14.35
+      '@types/node': 14.14.36
       tsup: 4.8.19
       vite: 2.1.3
     specifiers:
       '@antfu/ni': ^0.5.5
       '@types/connect': ^3.4.34
-      '@types/node': ^14.14.35
+      '@types/node': ^14.14.36
       '@windicss/plugin-utils': workspace:*
       chalk: ^4.1.0
       debug: ^4.3.2
@@ -928,7 +928,7 @@ packages:
     dependencies:
       '@types/istanbul-lib-coverage': 2.0.3
       '@types/istanbul-reports': 3.0.0
-      '@types/node': 14.14.35
+      '@types/node': 14.14.36
       '@types/yargs': 15.0.13
       chalk: 4.1.0
     dev: true
@@ -1047,12 +1047,12 @@ packages:
     dev: true
     resolution:
       integrity: sha512-Q1y515GcOdTHgagaVFhHnIFQ38ygs/kmxdNpvpou+raI9UO3YZcHDngBSYKQklcKlvA7iuQlmIKbzvmxcOE9CQ==
-  /@types/fs-extra/9.0.8:
+  /@types/fs-extra/9.0.9:
     dependencies:
-      '@types/node': 14.14.34
+      '@types/node': 14.14.36
     dev: true
     resolution:
-      integrity: sha512-bnlTVTwq03Na7DpWxFJ1dvnORob+Otb8xHyUqUWhqvz/Ksg8+JXPlR52oeMSZ37YEOa5PyccbgUNutiQdi13TA==
+      integrity: sha512-5TqDycCl0oMzwzd1cIjSJWMKMvLCDVErle4ZTjU4EmHDURR/+yZghe6GDHMCpHtcVfq0x0gMoOM546/5TbYHrg==
   /@types/graceful-fs/4.1.5:
     dependencies:
       '@types/node': 14.14.34
@@ -1075,13 +1075,13 @@ packages:
     dev: true
     resolution:
       integrity: sha512-nwKNbvnwJ2/mndE9ItP/zc2TCzw6uuodnF4EHYWD+gCQDVBuRQL5UzbZD0/ezy1iKsFU2ZQiDqg4M9dN4+wZgA==
-  /@types/jest/26.0.21:
+  /@types/jest/26.0.22:
     dependencies:
       jest-diff: 26.6.2
       pretty-format: 26.6.2
     dev: true
     resolution:
-      integrity: sha512-ab9TyM/69yg7eew9eOwKMUmvIZAKEGZYlq/dhe5/0IMUd/QLJv5ldRMdddSn+u22N13FP3s5jYyktxuBwY0kDA==
+      integrity: sha512-eeWwWjlqxvBxc4oQdkueW5OF/gtfSceKk4OnOAGlUSwS/liBRtZppbJuz1YkgbrbfGOoeBHun9fOvXnjNwrSOw==
   /@types/json-schema/7.0.7:
     dev: true
     resolution:
@@ -1104,6 +1104,10 @@ packages:
     dev: true
     resolution:
       integrity: sha512-Lt+wj8NVPx0zUmUwumiVXapmaLUcAk3yPuHCFVXras9k5VT9TdhJqKqGVUQCD60OTMCl0qxJ57OiTL0Mic3Iag==
+  /@types/node/14.14.36:
+    dev: true
+    resolution:
+      integrity: sha512-kjivUwDJfIjngzbhooRnOLhGYz6oRFi+L+EpMjxroDYXwDw9lHrJJ43E+dJ6KAd3V3WxWAJ/qZE9XKYHhjPOFQ==
   /@types/normalize-package-data/2.4.0:
     dev: true
     resolution:
