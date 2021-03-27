@@ -42,4 +42,7 @@ jobs:
         run: nr lint --if-present
 
       - name: Test
-        run: nr test --if-present
+        run: nr test
+
+      - name: Test Examples
+        run: nr test:examples
