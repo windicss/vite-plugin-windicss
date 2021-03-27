@@ -32,7 +32,7 @@
     "@windicss/plugin-utils": "workspace:*",
     "chalk": "^4.1.0",
     "debug": "^4.3.2",
-    "windicss": "^2.5.5"
+    "windicss": "^2.5.6"
   },
   "peerDependencies": {
     "vite": "^2.0.1"
@@ -40,8 +40,8 @@
   "devDependencies": {
     "@antfu/ni": "^0.5.5",
     "@types/connect": "^3.4.34",
-    "@types/node": "^14.14.36",
-    "tsup": "^4.8.19",
+    "@types/node": "^14.14.37",
+    "tsup": "^4.8.21",
     "vite": "^2.1.3"
   }
 }
