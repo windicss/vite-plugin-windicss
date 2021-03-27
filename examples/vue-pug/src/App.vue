@@ -1,6 +1,6 @@
 <script setup lang='ts'>
 import Foo from './Foo.vue'
-import InvalidPug from './InvalidPug.vue'
+// import InvalidPug from './InvalidPug_vue'
 </script>
 
 <template lang="pug">
