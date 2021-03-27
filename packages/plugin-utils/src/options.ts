@@ -206,11 +206,11 @@ export interface WindiPluginUtilsOptions {
   root?: string
 
   /**
-   * Use esbuild-register to load configs in TypeScript
+   * Use sucrase/register to load configs in ESM/TypeScript
    *
    * @default true
    */
-  enabledTypeScriptConfig?: boolean
+  enableSucrase?: boolean
 }
 
 export interface ResolvedOptions {

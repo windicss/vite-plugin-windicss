@@ -5,6 +5,7 @@ import { defaultAlias, configureFiles } from './constants'
 import { Arrayable, kebabCase, mergeArrays, toArray } from './utils'
 import { UserOptions, ResolvedOptions, WindiCssOptions, WindiPluginUtilsOptions } from './options'
 import { PugTransformer, TransformerFunction } from './transformers'
+import { registerSucrase } from './register'
 
 export function isResolvedOptions(options: UserOptions | ResolvedOptions): options is ResolvedOptions {
   // @ts-expect-error internal flag
@@ -168,7 +169,7 @@ export async function loadConfiguration(options: UserOptions, utilsOptions: Wind
 
   const {
     name = 'windicss-plugin-utils',
-    enabledTypeScriptConfig = true,
+    enableSucrase = true,
   } = utilsOptions
 
   const {
@@ -197,11 +198,12 @@ export async function loadConfiguration(options: UserOptions, utilsOptions: Wind
     }
 
     if (configFilePath) {
+      let revert = () => {}
       try {
         debug('loading from ', configFilePath)
 
-        if (enabledTypeScriptConfig && configFilePath.endsWith('.ts'))
-          require('sucrase/register/ts')
+        if (enableSucrase)
+          revert = registerSucrase()
 
         delete require.cache[require.resolve(configFilePath)]
         resolved = require(configFilePath)
@@ -214,6 +216,9 @@ export async function loadConfiguration(options: UserOptions, utilsOptions: Wind
         error = e
         configFilePath = undefined
         resolved = {}
+      }
+      finally {
+        revert()
       }
     }
   }

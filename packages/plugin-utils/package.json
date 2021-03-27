@@ -31,6 +31,7 @@
     "fast-glob": "^3.2.5",
     "magic-string": "^0.25.7",
     "micromatch": "^4.0.2",
+    "pirates": "^4.0.1",
     "sucrase": "^3.17.1",
     "windicss": "^2.5.7"
   },
