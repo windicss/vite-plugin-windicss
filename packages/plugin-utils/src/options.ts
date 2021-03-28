@@ -1,6 +1,6 @@
 /* eslint-disable no-use-before-define */
 
-import type { FullConfig as WindiCssOptions } from 'windicss/types/interfaces'
+import type { Extractor, FullConfig as WindiCssOptions } from 'windicss/types/interfaces'
 import { TransformerFunction } from './transformers'
 import { TagNames } from './constants'
 
@@ -229,6 +229,7 @@ export interface ResolvedOptions {
     include: string[]
     runOnStartup: boolean
     transformers: TransformerFunction[]
+    extractors: Extractor[]
   }
 
   preflightOptions: {

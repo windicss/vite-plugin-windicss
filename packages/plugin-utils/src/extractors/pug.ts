@@ -1,13 +1,9 @@
-import { Transformer, TransformerOptions } from './types'
+import { ExtractorResultDetailed } from 'windicss/types/interfaces'
+import { DefaultExtractor } from '../extractors/default'
 
 const regexTemplate = /<template.*?lang=['"]pug['"][^>]*?>\n([\s\S]*?\n)<\/template>/gm
 
-export const PugTransformer: Transformer<TransformerOptions> = ({
-  include = [/\.vue$/, /\.pug$/],
-} = {}) => (code: string, id: string) => {
-  if (!include.some(i => id.match(i)))
-    return
-
+export function PugExtractor(code: string, id?: string): ExtractorResultDetailed {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   const Pug = require('pug') as typeof import('pug')
 
@@ -19,7 +15,9 @@ export const PugTransformer: Transformer<TransformerOptions> = ({
     catch {}
   }
 
-  if (id.match(/\.vue$/)) {
+  let compiled: string | undefined
+
+  if (id && id.match(/\.vue$/)) {
     const matches = Array.from(code.matchAll(regexTemplate))
     let tail = ''
     for (const match of matches) {
@@ -27,9 +25,11 @@ export const PugTransformer: Transformer<TransformerOptions> = ({
         tail += `\n\n${compile(match[1])}`
     }
     if (tail)
-      return `${code}\n\n${tail}`
+      compiled = `${code}\n\n${tail}`
   }
   else {
-    return compile(code)
+    compiled = compile(code)
   }
+
+  return DefaultExtractor(compiled || code)
 }

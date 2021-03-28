@@ -12,7 +12,7 @@ describe('plugins', () => {
       preflight: false,
     })
     await utils.init()
-    utils.extractFile('"aspect-none aspect-w-16 aspect-h-9 aspect-16/9"')
+    await utils.extractFile('"aspect-none aspect-w-16 aspect-h-9 aspect-16/9"')
 
     const css = await utils.generateCSS()
     expect(utils.classesGenerated).toMatchSnapshot('classes')

@@ -7,10 +7,10 @@ import fg from 'fast-glob'
 import _debug from 'debug'
 import micromatch from 'micromatch'
 import { preflightTags, htmlTags } from './constants'
-import { regexQuotedString, regexClassSplitter, regexHtmlTag, validClassName } from './regexes'
 import { WindiPluginUtilsOptions, UserOptions, ResolvedOptions } from './options'
 import { resolveOptions } from './resolveOptions'
 import { kebabCase, include, exclude, slash, transformGroups, transformGroupsWithSourcemap } from './utils'
+import { applyExtractors } from './extractors/helper'
 
 export type CompletionsResult = ReturnType<typeof generateCompletions>
 
@@ -99,8 +99,9 @@ export function createUtils(
             .map(async id => [await fs.readFile(id, 'utf-8'), id]),
         )
 
-        for (const [content, id] of contents)
-          extractFile(content, id, true)
+        await Promise.all(contents.map(
+          ([content, id]) => extractFile(content, id, true),
+        ))
 
         scanned = true
       })()
@@ -158,7 +159,7 @@ export function createUtils(
     return changed
   }
 
-  function extractFile(code: string, id?: string, applyGroupTransform = true) {
+  async function extractFile(code: string, id?: string, applyGroupTransform = true) {
     if (applyGroupTransform) {
       if (options.transformGroups)
         code = transformGroups(code)
@@ -173,20 +174,15 @@ export function createUtils(
       }
     }
 
+    const { classes, tags } = await applyExtractors(code, id, options.scanOptions.extractors)
+
     let changed = false
     // classes
-    changed = addClasses(
-      Array.from(code.matchAll(regexQuotedString))
-        .flatMap(m => (m[2] || '').split(regexClassSplitter))
-        .filter(validClassName),
-    ) || changed
+    changed = addClasses(classes || []) || changed
 
     if (options.enablePreflight || !options.preflightOptions.includeAll) {
       // preflight
-      changed = addTags(
-        Array.from(code.matchAll(regexHtmlTag))
-          .map(i => i[1]),
-      ) || changed
+      changed = addTags(tags || []) || changed
     }
 
     if (changed) {
