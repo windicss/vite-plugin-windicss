@@ -33,7 +33,7 @@ describe('plugins', () => {
     })
     await utils.init()
 
-    utils.extractFile('<input type="text"/><input type="number"/><select multiple/>')
+    await utils.extractFile('<input type="text"/><input type="number"/><select multiple/>')
 
     const css = await utils.generateCSS()
     expect(utils.classesGenerated).toMatchSnapshot('classes')

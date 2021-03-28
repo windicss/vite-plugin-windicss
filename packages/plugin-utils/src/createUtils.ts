@@ -10,7 +10,7 @@ import { preflightTags, htmlTags } from './constants'
 import { WindiPluginUtilsOptions, UserOptions, ResolvedOptions } from './options'
 import { resolveOptions } from './resolveOptions'
 import { kebabCase, include, exclude, slash, transformGroups, transformGroupsWithSourcemap } from './utils'
-import { applyExtractors } from './extractors/helper'
+import { applyExtractors as _applyExtractors } from './extractors/helper'
 
 export type CompletionsResult = ReturnType<typeof generateCompletions>
 
@@ -159,6 +159,10 @@ export function createUtils(
     return changed
   }
 
+  async function applyExtractors(code: string, id?: string) {
+    return await _applyExtractors(code, id, options.scanOptions.extractors)
+  }
+
   async function extractFile(code: string, id?: string, applyGroupTransform = true) {
     if (applyGroupTransform) {
       if (options.transformGroups)
@@ -174,7 +178,7 @@ export function createUtils(
       }
     }
 
-    const { classes, tags } = await applyExtractors(code, id, options.scanOptions.extractors)
+    const { classes, tags } = await applyExtractors(code, id)
 
     let changed = false
     // classes
@@ -285,6 +289,7 @@ export function createUtils(
   return {
     init,
     extractFile,
+    applyExtractors,
     generateCSS,
     getFiles,
     clearCache,
