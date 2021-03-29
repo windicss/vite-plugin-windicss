@@ -1,30 +1,15 @@
 import { existsSync } from 'fs'
 import { resolve, posix } from 'path'
 import _debug from 'debug'
+import type { UserOptions, ResolvedOptions, WindiCssOptions, WindiPluginUtilsOptions } from './options'
 import { defaultAlias, configureFiles } from './constants'
 import { Arrayable, kebabCase, mergeArrays, toArray } from './utils'
-import { UserOptions, ResolvedOptions, WindiCssOptions, WindiPluginUtilsOptions } from './options'
-import { PugTransformer, TransformerFunction } from './transformers'
 import { registerSucrase } from './register'
+import { getDefaultExtractors } from './extractors/helper'
 
 export function isResolvedOptions(options: UserOptions | ResolvedOptions): options is ResolvedOptions {
   // @ts-expect-error internal flag
   return options.__windi_resolved
-}
-
-export function getDefaultTransformers() {
-  const transformers: TransformerFunction[] = []
-
-  // auto detect pug
-  try {
-    require.resolve('pug')
-    transformers.push(
-      PugTransformer(),
-    )
-  }
-  catch (e) {}
-
-  return transformers
 }
 
 function buildGlobs(dirs: Arrayable<string>, fileExtensions: Arrayable<string>) {
@@ -66,7 +51,7 @@ export async function resolveOptions(
     sortUtilities = true,
   } = options
 
-  const preflightOptions = Object.assign(
+  const preflightOptions: ResolvedOptions['preflightOptions'] = Object.assign(
     {
       includeBase: true,
       includeGlobal: true,
@@ -84,20 +69,22 @@ export async function resolveOptions(
   // backward compatibility
   preflightOptions.includeAll = preflightOptions.includeAll || preflightOptions.enableAll
 
-  const scanOptions = Object.assign(
+  const scanOptions: ResolvedOptions['scanOptions'] = Object.assign(
     {
       fileExtensions: ['html', 'vue', 'md', 'mdx', 'pug', 'jsx', 'tsx', 'svelte'],
       dirs: ['src'],
       exclude: ['node_modules', '.git'],
       include: ['index.html'],
       runOnStartup: true,
-      transformers: getDefaultTransformers(),
+      transformers: [],
+      extractors: [],
     },
     typeof scan === 'boolean' ? {} : scan,
   )
 
   scanOptions.exclude = mergeArrays(config.extract?.exclude, scanOptions.exclude)
   scanOptions.include = mergeArrays(config.extract?.include, scanOptions.include, buildGlobs(scanOptions.dirs, scanOptions.fileExtensions))
+  scanOptions.extractors = mergeArrays(getDefaultExtractors(), config.extract?.extractors)
 
   const safelist = new Set(mergeArrays(config.safelist, options.safelist).flatMap(i => i.split(' ')))
   const blocklist = new Set(mergeArrays(config.blocklist, options.blocklist).flatMap(i => i.split(' ')))

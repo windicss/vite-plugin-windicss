@@ -17,7 +17,7 @@ describe('detect', () => {
       scan: false,
     })
     await utils.init()
-    utils.extractFile('class="h-(custom)"')
+    await utils.extractFile('class="h-(custom)"')
     const css = await utils.generateCSS()
     expect(utils.classesGenerated.size).toBe(1)
     expect(css).toMatchSnapshot('generated-css')
