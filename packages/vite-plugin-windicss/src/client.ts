@@ -42,7 +42,7 @@ function schedule() {
 const mutationObserver = new MutationObserver((mutations) => {
   mutations.forEach((mutation) => {
     if (mutation.attributeName === 'class' && mutation.target) {
-      Array.from((mutation.target as any).classList || [])
+      Array.from((mutation.target as Element).classList || [])
         .forEach((i) => {
           if (!visitedClasses.has(i))
             pendingClasses.add(i)

@@ -113,6 +113,7 @@ document.head.prepend(style)
           }
           finally {
             res.write('')
+            res.end()
           }
         })
       },
