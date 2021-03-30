@@ -83,7 +83,11 @@ export async function resolveOptions(
   )
 
   scanOptions.exclude = mergeArrays(config.extract?.exclude, scanOptions.exclude)
-  scanOptions.include = mergeArrays(config.extract?.include, scanOptions.include, buildGlobs(scanOptions.dirs, scanOptions.fileExtensions))
+  scanOptions.include = mergeArrays(
+    config.extract?.include,
+    scanOptions.include,
+    config.extract?.include ? [] : buildGlobs(scanOptions.dirs, scanOptions.fileExtensions),
+  )
   scanOptions.extractors = mergeArrays(getDefaultExtractors(), config.extract?.extractors)
 
   const safelist = new Set(mergeArrays(config.safelist, options.safelist).flatMap(i => i.split(' ')))
