@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "dev": "nodemon --watch ../../packages/vite-plugin-windicss/dist/index.js -x \"cross-env DEBUG=vite-plugin-windicss:devtools vite\"",
+    "dev": "nodemon --watch ../../packages/vite-plugin-windicss/dist/index.js -x \"cross-env DEBUG=vite-plugin-windicss:memory vite\"",
     "build": "cross-env DEBUG=vite-plugin-windicss:* vite build"
   },
   "dependencies": {

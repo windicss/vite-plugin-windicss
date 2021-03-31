@@ -111,10 +111,8 @@ document.head.prepend(style)
             console.error(e)
             res.statusCode = 500
           }
-          finally {
-            res.write('')
-            res.end()
-          }
+
+          res.end()
         })
       },
 

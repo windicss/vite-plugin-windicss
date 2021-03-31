@@ -9,6 +9,11 @@ const debug = {
   hmr: _debug(`${NAME}:hmr`),
   css: _debug(`${NAME}:transform:css`),
   group: _debug(`${NAME}:transform:group`),
+  memory: _debug(`${NAME}:memory`),
+}
+
+function getMemoryUsageMB() {
+  return Math.round(process.memoryUsage().heapUsed / 1024 / 1024 * 100) / 100
 }
 
 function VitePluginWindicss(userOptions: UserOptions = {}): Plugin[] {
@@ -62,8 +67,14 @@ function VitePluginWindicss(userOptions: UserOptions = {}): Plugin[] {
     },
 
     async load(id) {
-      if (id === MODULE_ID_VIRTUAL)
-        return await utils.generateCSS()
+      if (id === MODULE_ID_VIRTUAL) {
+        const css = await utils.generateCSS()
+
+        if (debug.memory.enabled)
+          debug.memory(`${getMemoryUsageMB()} MB`)
+
+        return css
+      }
     },
   })
 
