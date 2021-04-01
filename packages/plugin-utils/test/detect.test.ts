@@ -22,4 +22,24 @@ describe('detect', () => {
     expect(utils.classesGenerated.size).toBe(1)
     expect(css).toMatchSnapshot('generated-css')
   })
+
+  it('false classes', async() => {
+    const utils = createUtils({
+      preflight: false,
+      scan: false,
+    })
+    await utils.init()
+    await utils.extractFile('class="100 200 (foo bar) 10.2 a"')
+    expect(utils.classesPending.size).toBe(0)
+  })
+
+  it('true classes', async() => {
+    const utils = createUtils({
+      preflight: false,
+      scan: false,
+    })
+    await utils.init()
+    await utils.extractFile('class="@sm:block <sm:block"')
+    expect(utils.classesPending.size).toBe(2)
+  })
 })
