@@ -48,8 +48,6 @@ export function createUtils(
   const tagsAvailable = new Set<string>()
 
   async function init() {
-    completions = undefined
-
     options = await resolveOptions(userOptions, utilsOptions, true)
     regexId = new RegExp(`\\.(?:${options.scanOptions.fileExtensions.join('|')})$`, 'i')
     files = []
@@ -57,6 +55,11 @@ export function createUtils(
     processor = new WindiCssProcessor(options.config)
     clearCache()
     return processor
+  }
+
+  async function ensureInit() {
+    if (!processor)
+      return await init()
   }
 
   function getCompletions() {
@@ -87,8 +90,7 @@ export function createUtils(
   let _searching: Promise<void> | null
 
   async function scan() {
-    if (!processor)
-      await init()
+    await ensureInit()
     if (!_searching) {
       _searching = (async() => {
         files.push(...await getFiles())
@@ -208,8 +210,7 @@ export function createUtils(
   let _cssCache: string | undefined
 
   async function generateCSS() {
-    if (!processor)
-      await init()
+    await ensureInit()
 
     if (options.enableScan && options.scanOptions.runOnStartup)
       await scan()
@@ -266,17 +267,25 @@ export function createUtils(
     return _cssCache
   }
 
-  function clearCache() {
+  function clearCache(clearAll = false) {
     style = new StyleSheet()
     _cssCache = undefined
+    completions = undefined
 
-    include(classesPending, options.safelist)
-    include(classesPending, classesGenerated)
+    if (clearAll) {
+      classesPending.clear()
+      tagsPending.clear()
+      tagsAvailable.clear()
+    }
+    else {
+      include(classesPending, options.safelist)
+      include(classesPending, classesGenerated)
 
-    include(tagsPending, tagsGenerated)
-    include(tagsPending, preflightTags)
-    include(tagsPending, options.preflightOptions.safelist)
-    include(tagsAvailable, htmlTags as any as string[])
+      include(tagsPending, tagsGenerated)
+      include(tagsPending, preflightTags)
+      include(tagsPending, options.preflightOptions.safelist)
+      include(tagsAvailable, htmlTags as any as string[])
+    }
 
     exclude(tagsAvailable, preflightTags)
     exclude(tagsAvailable, options.preflightOptions.safelist)
@@ -288,6 +297,7 @@ export function createUtils(
 
   return {
     init,
+    ensureInit,
     extractFile,
     applyExtractors,
     generateCSS,
@@ -312,6 +322,9 @@ export function createUtils(
     addTags,
     getCompletions,
 
+    get initialized() {
+      return !!processor
+    },
     get options() {
       return options
     },
