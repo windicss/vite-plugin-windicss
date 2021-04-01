@@ -135,7 +135,10 @@ function VitePluginWindicss(userOptions: UserOptions = {}): Plugin[] {
         if (!utils.isCssTransformTarget(id) || id === MODULE_ID_VIRTUAL)
           return
         debug.css(id)
-        return utils.transformCSS(code)
+        return {
+          code: utils.transformCSS(code),
+          map: { mappings: '' },
+        }
       },
     })
   }
@@ -147,7 +150,10 @@ function VitePluginWindicss(userOptions: UserOptions = {}): Plugin[] {
         if (!utils.isCssTransformTarget(id) || id === MODULE_ID_VIRTUAL)
           return
         debug.css(id)
-        return utils.transformCSS(code)
+        return {
+          code: utils.transformCSS(code),
+          map: { mappings: '' },
+        }
       },
     })
   }
