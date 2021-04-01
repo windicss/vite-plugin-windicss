@@ -156,7 +156,7 @@ export async function resolveOptions(
   if (modifiedOptions != null && modifiedOptions !== resolvedOptions)
     resolvedOptions = Object.assign(resolvedOptions, modifiedOptions)
 
-  debugOptions(resolveOptions)
+  debugOptions(resolvedOptions)
 
   return resolvedOptions
 }
