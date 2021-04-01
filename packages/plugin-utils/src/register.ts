@@ -10,7 +10,7 @@ export interface HookOptions {
 export type RevertFunction = () => void
 
 export function addHook(
-  extension: string,
+  extension: string[],
   options: Options,
   hookOptions?: HookOptions,
 ): RevertFunction {
@@ -25,16 +25,16 @@ export function addHook(
       const suffix = `//# sourceMappingURL=data:application/json;charset=utf-8;base64,${mapBase64}`
       return `${transformedCode}\n${suffix}`
     },
-    { ...hookOptions, exts: [extension] },
+    { ...hookOptions, exts: extension },
   )
 }
 
 export function registerJS(hookOptions?: HookOptions): RevertFunction {
-  return addHook('.js', { transforms: ['imports'] }, hookOptions)
+  return addHook(['.js', '.cjs', '.mjs'], { transforms: ['imports'] }, hookOptions)
 }
 
 export function registerTS(hookOptions?: HookOptions): RevertFunction {
-  return addHook('.ts', { transforms: ['imports', 'typescript'] }, hookOptions)
+  return addHook(['.ts'], { transforms: ['imports', 'typescript'] }, hookOptions)
 }
 
 export function registerSucrase() {
