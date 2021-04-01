@@ -38,6 +38,12 @@ export async function resolveOptions(
   if (isResolvedOptions(options))
     return options
 
+  const {
+    name = 'windicss-plugin-utils',
+  } = utilsOptions
+
+  const debugOptions = _debug(`${name}:options`)
+
   const { resolved: config, configFilePath } = loadConfigFile
     ? await loadConfiguration(options, utilsOptions)
     : { resolved: {} as WindiCssOptions, configFilePath: {} }
@@ -150,6 +156,8 @@ export async function resolveOptions(
   if (modifiedOptions != null && modifiedOptions !== resolvedOptions)
     resolvedOptions = Object.assign(resolvedOptions, modifiedOptions)
 
+  debugOptions(resolveOptions)
+
   return resolvedOptions
 }
 
@@ -163,12 +171,12 @@ export async function loadConfiguration(options: UserOptions, utilsOptions: Wind
     enableSucrase = true,
   } = utilsOptions
 
+  const debugConfig = _debug(`${name}:config`)
+
   const {
     config,
     root = utilsOptions.root || process.cwd(),
   } = options
-
-  const debug = _debug(`${name}:config`)
 
   if (typeof config === 'string' || !config) {
     if (!config) {
@@ -191,7 +199,7 @@ export async function loadConfiguration(options: UserOptions, utilsOptions: Wind
     if (configFilePath) {
       let revert = () => {}
       try {
-        debug('loading from ', configFilePath)
+        debugConfig('loading from ', configFilePath)
 
         if (enableSucrase)
           revert = registerSucrase()
@@ -222,7 +230,7 @@ export async function loadConfiguration(options: UserOptions, utilsOptions: Wind
   if (modifiedConfigs != null)
     resolved = modifiedConfigs
 
-  debug(resolved)
+  debugConfig(resolved)
 
   return {
     error,
