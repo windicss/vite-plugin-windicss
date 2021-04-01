@@ -107,13 +107,14 @@ Add this plugin into your configuration.
 
 ```ts
 // vite.config.js
+import { defineConfig } from 'vite'
 import WindiCSS from 'vite-plugin-windicss'
 
-export default {
+export default defineConfig({
   plugins: [
     WindiCSS()
   ]
-}
+})
 ```
 
 ### `main.js`
@@ -156,7 +157,7 @@ Rename it to `tailwind.config.ts` and things will just work!
 
 ```ts
 // tailwind.config.ts
-import { defineConfig } from 'vite-plugin-windicss'
+import { defineConfig } from 'windcss/helpers'
 import formsPlugin from 'windicss/plugin/forms'
 
 export default defineConfig({
@@ -198,8 +199,6 @@ It will be enabled automatically for you, have fun!
 Oh and don't worry about the final bundle, in production build `virtual:windi-devtools` will be an empty module and you don't have to do anything about it :)
 
 > ⚠️ Please use it with caution, under the hood we use [MutationObserver](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver) to detect the class changes. Which means not only your manual changes but also the changes made by your scripts will be detected and included in the stylesheet. This could cause some misalignment between dev and the production build when **using dynamically constructed classes** (false-positive). We recommended adding your dynamic parts to the `safelist` or setup UI regression tests for your production build if possible.
-
-💡 Idea by @ElMassimo.
 
 ## Configuration
 
@@ -260,8 +259,8 @@ On server start, `vite-plugin-windicss` will scan your source code and extract t
 only files under `src/` with extensions `vue, html, mdx, pug, jsx, tsx` will be included. If you want to enable scaning for other file type of locations, you can configure it via:
 
 ```ts
-// windicss.config.ts
-import { defineConfig } from 'vite-plugin-windicss'
+// windi.config.js
+import { defineConfig } from 'windcss/helpers'
 
 export default defineConfig({
   extract: {
@@ -275,16 +274,18 @@ Or in plugin options:
 
 ```ts
 // vite.config.js
-export default {
+import { defineConfig } from 'vite'
+
+export default defineConfig({
   plugins: [
     WindiCSS({
       scan: {
         dirs: ['.'], // all files in the cwd
         fileExtensions: ['vue', 'js', 'ts'], // also enabled scanning for js/ts
-      }
-    })
-  ]
-}
+      },
+    }),
+  ],
+})
 ```
 
 ### More
