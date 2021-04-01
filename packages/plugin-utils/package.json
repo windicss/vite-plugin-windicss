@@ -33,7 +33,7 @@
     "micromatch": "^4.0.2",
     "pirates": "^4.0.1",
     "sucrase": "^3.17.1",
-    "windicss": "^2.5.8"
+    "windicss": "^2.5.9"
   },
   "devDependencies": {
     "@antfu/ni": "^0.5.5",
