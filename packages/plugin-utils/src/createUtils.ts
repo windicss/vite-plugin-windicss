@@ -47,16 +47,6 @@ export function createUtils(
   const attrsGenerated = new Set<string>()
   const tagsAvailable = new Set<string>()
 
-  async function init() {
-    options = await resolveOptions(userOptions, utilsOptions, true)
-    regexId = new RegExp(`\\.(?:${options.scanOptions.fileExtensions.join('|')})$`, 'i')
-    files = []
-
-    processor = new WindiCssProcessor(options.config)
-    clearCache()
-    return processor
-  }
-
   async function ensureInit() {
     if (!processor)
       return await init()
@@ -278,14 +268,15 @@ export function createUtils(
       tagsAvailable.clear()
     }
     else {
-      include(classesPending, options.safelist)
       include(classesPending, classesGenerated)
 
       include(tagsPending, tagsGenerated)
       include(tagsPending, preflightTags)
-      include(tagsPending, options.preflightOptions.safelist)
       include(tagsAvailable, htmlTags as any as string[])
     }
+
+    include(classesPending, options.safelist)
+    include(tagsPending, options.preflightOptions.safelist)
 
     exclude(tagsAvailable, preflightTags)
     exclude(tagsAvailable, options.preflightOptions.safelist)
@@ -295,7 +286,7 @@ export function createUtils(
     attrsGenerated.clear()
   }
 
-  return {
+  const utils = {
     init,
     ensureInit,
     extractFile,
@@ -347,6 +338,21 @@ export function createUtils(
       return Boolean(tagsPending.size || classesPending.size)
     },
   }
+
+  async function init() {
+    options = await resolveOptions(userOptions, utilsOptions, true)
+    regexId = new RegExp(`\\.(?:${options.scanOptions.fileExtensions.join('|')})$`, 'i')
+    files = []
+
+    processor = new WindiCssProcessor(options.config)
+    clearCache(false)
+
+    options.onInitialized?.(utils)
+
+    return processor
+  }
+
+  return utils
 }
 
 export type WindiPluginUtils = ReturnType<typeof createUtils>

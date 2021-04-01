@@ -1,6 +1,7 @@
 /* eslint-disable no-use-before-define */
 
 import type { Extractor, FullConfig as WindiCssOptions } from 'windicss/types/interfaces'
+import { WindiPluginUtils } from 'packages/vite-plugin-windicss/dist'
 import { TransformerFunction } from './transformers'
 import { TagNames } from './constants'
 
@@ -186,6 +187,11 @@ export interface UserOptions {
    * configure the util package
    */
   onConfigResolved?: (config: WindiCssOptions, configFilePath?: string) => WindiCssOptions | void | Promise<WindiCssOptions | void>
+
+  /**
+   * Callback when the utils is initialized
+   */
+  onInitialized?: (utils: WindiPluginUtils) => void
 }
 
 export interface WindiPluginUtilsOptions {
@@ -254,4 +260,5 @@ export interface ResolvedOptions {
   onGenerated: UserOptions['onGenerated']
   onConfigResolved: UserOptions['onConfigResolved']
   onOptionsResolved: UserOptions['onOptionsResolved']
+  onInitialized: UserOptions['onInitialized']
 }
