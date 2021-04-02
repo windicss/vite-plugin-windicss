@@ -27,6 +27,8 @@ function buildGlobs(dirs: Arrayable<string>, fileExtensions: Arrayable<string>) 
     )
     : []
 
+  globs.push('index.html')
+
   return globs
 }
 
@@ -80,7 +82,7 @@ export async function resolveOptions(
       fileExtensions: ['html', 'vue', 'md', 'mdx', 'pug', 'jsx', 'tsx', 'svelte'],
       dirs: ['src'],
       exclude: ['node_modules', '.git'],
-      include: ['index.html'],
+      include: [],
       runOnStartup: true,
       transformers: [],
       extractors: [],
@@ -89,11 +91,13 @@ export async function resolveOptions(
   )
 
   scanOptions.exclude = mergeArrays(config.extract?.exclude, scanOptions.exclude)
+    .map(i => resolve(root, i))
   scanOptions.include = mergeArrays(
     config.extract?.include,
     scanOptions.include,
     config.extract?.include ? [] : buildGlobs(scanOptions.dirs, scanOptions.fileExtensions),
   )
+    .map(i => resolve(root, i))
   scanOptions.extractors = mergeArrays(getDefaultExtractors(), config.extract?.extractors)
 
   const safelist = new Set(mergeArrays(config.safelist, options.safelist).flatMap(i => i.split(' ')))

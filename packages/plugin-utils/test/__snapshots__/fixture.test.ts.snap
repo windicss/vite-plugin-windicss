@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`fixtures scan: classes 1`] = `
+Set {
+  "p-2",
+  "p-1",
+  "p-5",
+  "p-3",
+}
+`;
+
+exports[`fixtures scan: exclude 1`] = `
+Array [
+  "/Users/antfu/i/vite-plugin-windicss/packages/plugin-utils/fixtures/scan/node_modules",
+  "/Users/antfu/i/vite-plugin-windicss/packages/plugin-utils/fixtures/scan/.git",
+]
+`;
+
+exports[`fixtures scan: files 1`] = `
+Array [
+  "/Users/antfu/i/vite-plugin-windicss/packages/plugin-utils/fixtures/scan/a.js",
+  "/Users/antfu/i/vite-plugin-windicss/packages/plugin-utils/fixtures/scan/a.ts",
+  "/Users/antfu/i/vite-plugin-windicss/packages/plugin-utils/fixtures/scan/b.js",
+  "/Users/antfu/i/vite-plugin-windicss/packages/plugin-utils/fixtures/scan/nested/b.js",
+]
+`;
+
+exports[`fixtures scan: include 1`] = `
+Array [
+  "/Users/antfu/i/vite-plugin-windicss/packages/plugin-utils/fixtures/scan/**/*.js",
+  "/Users/antfu/i/vite-plugin-windicss/packages/plugin-utils/fixtures/scan/a.ts",
+]
+`;

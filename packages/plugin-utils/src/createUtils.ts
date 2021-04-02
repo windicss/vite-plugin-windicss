@@ -38,8 +38,6 @@ export function createUtils(
 
   let files: string[] = []
 
-  let regexId: RegExp
-
   const classesGenerated = new Set<string>()
   const classesPending = new Set<string>()
   const tagsGenerated = new Set<string>()
@@ -59,6 +57,9 @@ export function createUtils(
   }
 
   async function getFiles() {
+    debug.glob('include', options.scanOptions.include)
+    debug.glob('exclude', options.scanOptions.exclude)
+
     const files = await fg(
       options.scanOptions.include,
       {
@@ -103,14 +104,17 @@ export function createUtils(
   }
 
   function isExcluded(id: string) {
-    return id.match(/\b(?:node_modules|.git)\b/)
-      || micromatch.isMatch(slash(id), options.scanOptions.exclude)
+    return micromatch.isMatch(slash(id), options.scanOptions.exclude)
+  }
+
+  function isIncluded(id: string) {
+    return micromatch.isMatch(slash(id), options.scanOptions.include)
   }
 
   function isDetectTarget(id: string) {
-    if (files.some(file => id.startsWith(file)))
+    if (files.includes(id))
       return true
-    return id.match(regexId) && !isExcluded(id)
+    return isIncluded(id) && !isExcluded(id)
   }
 
   function isScanTarget(id: string) {
@@ -341,7 +345,6 @@ export function createUtils(
 
   async function init() {
     options = await resolveOptions(userOptions, utilsOptions, true)
-    regexId = new RegExp(`\\.(?:${options.scanOptions.fileExtensions.join('|')})$`, 'i')
     files = []
 
     processor = new WindiCssProcessor(options.config)
