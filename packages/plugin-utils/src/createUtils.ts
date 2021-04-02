@@ -115,6 +115,7 @@ export function createUtils(
   function isDetectTarget(id: string) {
     if (files.includes(id))
       return true
+    id = slash(id)
     return isIncluded(id) && !isExcluded(id)
   }
 
