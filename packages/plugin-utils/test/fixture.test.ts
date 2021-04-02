@@ -1,4 +1,4 @@
-import { resolve } from 'path'
+import { resolve, relative } from 'path'
 import { createUtils } from '../src'
 
 describe('fixtures', () => {
@@ -10,9 +10,9 @@ describe('fixtures', () => {
     })
     await utils.init()
     await utils.scan()
-    expect(utils.files).toMatchSnapshot('files')
-    expect(utils.options.scanOptions.include).toMatchSnapshot('include')
-    expect(utils.options.scanOptions.exclude).toMatchSnapshot('exclude')
+    expect(utils.files.map(i => relative(root, i))).toMatchSnapshot('files')
+    expect(utils.options.scanOptions.include.map(i => relative(root, i))).toMatchSnapshot('include')
+    expect(utils.options.scanOptions.exclude.map(i => relative(root, i))).toMatchSnapshot('exclude')
     expect(utils.classesPending).toMatchSnapshot('classes')
 
     expect(utils.isDetectTarget(resolve(root, 'index.html'))).toBe(false)

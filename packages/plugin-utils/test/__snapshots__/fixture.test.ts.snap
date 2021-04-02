@@ -11,23 +11,23 @@ Set {
 
 exports[`fixtures scan: exclude 1`] = `
 Array [
-  "/Users/antfu/i/vite-plugin-windicss/packages/plugin-utils/fixtures/scan/node_modules",
-  "/Users/antfu/i/vite-plugin-windicss/packages/plugin-utils/fixtures/scan/.git",
+  "node_modules",
+  ".git",
 ]
 `;
 
 exports[`fixtures scan: files 1`] = `
 Array [
-  "/Users/antfu/i/vite-plugin-windicss/packages/plugin-utils/fixtures/scan/a.js",
-  "/Users/antfu/i/vite-plugin-windicss/packages/plugin-utils/fixtures/scan/a.ts",
-  "/Users/antfu/i/vite-plugin-windicss/packages/plugin-utils/fixtures/scan/b.js",
-  "/Users/antfu/i/vite-plugin-windicss/packages/plugin-utils/fixtures/scan/nested/b.js",
+  "a.js",
+  "a.ts",
+  "b.js",
+  "nested/b.js",
 ]
 `;
 
 exports[`fixtures scan: include 1`] = `
 Array [
-  "/Users/antfu/i/vite-plugin-windicss/packages/plugin-utils/fixtures/scan/**/*.js",
-  "/Users/antfu/i/vite-plugin-windicss/packages/plugin-utils/fixtures/scan/a.ts",
+  "**/*.js",
+  "a.ts",
 ]
 `;
