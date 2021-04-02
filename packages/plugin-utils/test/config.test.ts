@@ -77,4 +77,22 @@ describe('config', () => {
     expect(utils.classesGenerated.size).toBe(1)
     expect(css).toMatchSnapshot()
   })
+
+  it('nested safelist', async() => {
+    const utils = createUtils({
+      config: {
+        safelist: 'shortcut',
+        shortcuts: {
+          shortcut: 'p-4',
+        },
+      },
+      safelist: ['p-3'],
+      preflight: false,
+      scan: false,
+    })
+    await utils.init()
+    await utils.generateCSS()
+
+    expect(utils.classesGenerated.size).toBe(2)
+  })
 })

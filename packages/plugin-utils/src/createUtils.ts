@@ -82,6 +82,7 @@ export function createUtils(
 
   async function scan() {
     await ensureInit()
+
     if (!_searching) {
       _searching = (async() => {
         files.push(...await getFiles())
@@ -139,6 +140,7 @@ export function createUtils(
     })
     return changed
   }
+
   function addTags(tags: string[]) {
     let changed = false
     tags.forEach((tag) => {
