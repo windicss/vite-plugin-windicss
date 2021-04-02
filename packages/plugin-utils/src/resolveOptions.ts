@@ -3,7 +3,7 @@ import { resolve, posix } from 'path'
 import _debug from 'debug'
 import type { UserOptions, ResolvedOptions, WindiCssOptions, WindiPluginUtilsOptions } from './options'
 import { defaultAlias, configureFiles } from './constants'
-import { Arrayable, kebabCase, mergeArrays, toArray } from './utils'
+import { Arrayable, kebabCase, mergeArrays, slash, toArray } from './utils'
 import { registerSucrase } from './register'
 import { getDefaultExtractors } from './extractors/helper'
 
@@ -91,13 +91,13 @@ export async function resolveOptions(
   )
 
   scanOptions.exclude = mergeArrays(config.extract?.exclude, scanOptions.exclude)
-    .map(i => resolve(root, i))
+    .map(i => slash(resolve(root, i)))
   scanOptions.include = mergeArrays(
     config.extract?.include,
     scanOptions.include,
     config.extract?.include ? [] : buildGlobs(scanOptions.dirs, scanOptions.fileExtensions),
   )
-    .map(i => resolve(root, i))
+    .map(i => slash(resolve(root, i)))
   scanOptions.extractors = mergeArrays(getDefaultExtractors(), config.extract?.extractors)
 
   const safelist = new Set(mergeArrays(config.safelist, options.safelist).flatMap(i => i.split(' ')))
