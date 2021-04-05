@@ -121,6 +121,33 @@ exports[`cases multiple lines: generated-css 1`] = `
 }"
 `;
 
+exports[`cases square brackets: classes 1`] = `
+Set {
+  "grid-rows-[auto,max-content,10px]",
+  "text-[1.5rem]",
+  "text-[#9254d2]",
+  "text-[rgb(123,123,23)]",
+}
+`;
+
+exports[`cases square brackets: generated-css 1`] = `
+".text-\\\\[1\\\\.5rem\\\\] {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+.text-\\\\[\\\\#9254d2\\\\] {
+  --tw-text-opacity: 1;
+  color: rgba(146, 84, 210, var(--tw-text-opacity));
+}
+.text-\\\\[rgb\\\\(123\\\\2c 123\\\\2c 23\\\\)\\\\] {
+  --tw-text-opacity: 1;
+  color: rgba(123, 123, 23, var(--tw-text-opacity));
+}
+.grid-rows-\\\\[auto\\\\2c max-content\\\\2c 10px\\\\] {
+  grid-template-rows: auto max-content 10px;
+}"
+`;
+
 exports[`cases uppercase classnames: classes 1`] = `
 Set {
   "text-light-blue-500",

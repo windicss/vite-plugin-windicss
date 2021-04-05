@@ -61,4 +61,8 @@ describe('cases', () => {
   it('!important groups', async() => {
     await utils.extractFile('<div class="mt-10 pt-10 !hover:(m-2 p-2)">')
   })
+
+  it('square brackets', async() => {
+    await utils.extractFile('<div class="grid-rows-[auto,max-content,10px] text-[1.5rem] text-[#9254d2] text-[rgb(123,123,23)]">')
+  })
 })
