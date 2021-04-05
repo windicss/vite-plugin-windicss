@@ -1,7 +1,7 @@
 {
   "name": "vite-plugin-windicss",
   "description": "Windi CSS for Vite, it's fast!",
-  "version": "0.12.4",
+  "version": "0.12.5",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
