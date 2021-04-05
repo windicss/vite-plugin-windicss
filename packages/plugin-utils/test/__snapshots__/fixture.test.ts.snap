@@ -11,8 +11,8 @@ Set {
 
 exports[`fixtures scan: exclude 1`] = `
 Array [
-  "node_modules",
-  ".git",
+  "node_modules/**/*",
+  ".git/**/*",
 ]
 `;
 

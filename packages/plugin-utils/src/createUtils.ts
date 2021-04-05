@@ -105,7 +105,7 @@ export function createUtils(
   }
 
   function isExcluded(id: string) {
-    return micromatch.isMatch(slash(id), options.scanOptions.exclude)
+    return micromatch.isMatch(slash(id), options.scanOptions.exclude, { dot: true })
   }
 
   function isIncluded(id: string) {

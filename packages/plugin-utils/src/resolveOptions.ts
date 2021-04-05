@@ -91,7 +91,7 @@ export async function resolveOptions(
     {
       fileExtensions: ['html', 'vue', 'md', 'mdx', 'pug', 'jsx', 'tsx', 'svelte'],
       dirs: ['src'],
-      exclude: ['node_modules', '.git'],
+      exclude: ['node_modules/**/*', '.git/**/*'],
       include: [],
       runOnStartup: true,
       transformers: [],
