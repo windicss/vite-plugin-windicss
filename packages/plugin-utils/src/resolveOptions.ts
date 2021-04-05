@@ -166,69 +166,12 @@ export async function resolveOptions(
 }
 
 export async function loadConfiguration(options: UserOptions, utilsOptions: WindiPluginUtilsOptions) {
-  let resolved: WindiCssOptions = {}
-  let configFilePath: string | undefined
-  let error: Error | undefined
-
-  const {
-    name = 'windicss-plugin-utils',
-    enableSucrase = true,
-  } = utilsOptions
-
-  const debugConfig = _debug(`${name}:config`)
-
-  const {
-    config,
-    root = utilsOptions.root || process.cwd(),
-  } = options
-
-  if (typeof config === 'string' || !config) {
-    if (!config) {
-      for (const name of configureFiles) {
-        const tryPath = resolve(root, name)
-        if (existsSync(tryPath)) {
-          configFilePath = tryPath
-          break
-        }
-      }
-    }
-    else {
-      configFilePath = resolve(root, config)
-      if (!existsSync(configFilePath)) {
-        console.warn(`[${name}] config file "${config}" not found, ignored`)
-        configFilePath = undefined
-      }
-    }
-
-    if (configFilePath) {
-      let revert = () => { }
-      try {
-        debugConfig('loading from ', configFilePath)
-
-        if (enableSucrase)
-          revert = registerSucrase()
-
-        delete require.cache[require.resolve(configFilePath)]
-        resolved = require(configFilePath)
-        if (resolved.default)
-          resolved = resolved.default
-      }
-      catch (e) {
-        console.error(`[${name}] failed to load config "${configFilePath}"`)
-        console.error(`[${name}] ${e.toString()}`)
-        error = e
-        configFilePath = undefined
-        resolved = {}
-      }
-      finally {
-        revert()
-      }
-    }
-  }
-  else {
-    resolved = config
-  }
-
+  let {
+    error,
+    resolved,
+    configFilePath,
+    debugConfig
+  } = loadConfig(options, utilsOptions)
   // allow to hook into resolved config
   const modifiedConfigs = await options.onConfigResolved?.(resolved, configFilePath)
   if (modifiedConfigs != null)
@@ -244,6 +187,19 @@ export async function loadConfiguration(options: UserOptions, utilsOptions: Wind
 }
 
 export function loadConfigurationSync(options: UserOptions, utilsOptions: WindiPluginUtilsOptions) {
+  let {
+    error,
+    resolved,
+    configFilePath,
+  } = loadConfig(options, utilsOptions)
+  return {
+    error,
+    resolved,
+    configFilePath,
+  }
+}
+
+function loadConfig(options: UserOptions, utilsOptions: WindiPluginUtilsOptions) {
   let resolved: WindiCssOptions = {}
   let configFilePath: string | undefined
   let error: Error | undefined
@@ -313,5 +269,6 @@ export function loadConfigurationSync(options: UserOptions, utilsOptions: WindiP
     error,
     resolved,
     configFilePath,
+    debugConfig
   }
 }
