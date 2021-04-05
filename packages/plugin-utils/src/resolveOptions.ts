@@ -46,9 +46,19 @@ export async function resolveOptions(
 
   const debugOptions = _debug(`${name}:options`)
 
-  const { resolved: config, configFilePath } = loadConfigFile
-    ? await loadConfiguration(options, utilsOptions)
-    : { resolved: {} as WindiCssOptions, configFilePath: {} }
+  // eslint-disable-next-line prefer-const
+  let { resolved: config, configFilePath } = loadConfigFile
+    ? loadConfiguration({
+      ...utilsOptions,
+      root: utilsOptions.root || options.root,
+      config: options.config,
+    })
+    : { resolved: {} as WindiCssOptions, configFilePath: undefined }
+
+  // allow to hook into resolved config
+  const modifiedConfigs = await options.onConfigResolved?.(config, configFilePath)
+  if (modifiedConfigs != null)
+    config = modifiedConfigs
 
   const {
     root = utilsOptions.root || process.cwd(),
@@ -165,41 +175,14 @@ export async function resolveOptions(
   return resolvedOptions
 }
 
-export async function loadConfiguration(options: UserOptions, utilsOptions: WindiPluginUtilsOptions) {
-  let {
-    error,
-    resolved,
-    configFilePath,
-    debugConfig
-  } = loadConfig(options, utilsOptions)
-  // allow to hook into resolved config
-  const modifiedConfigs = await options.onConfigResolved?.(resolved, configFilePath)
-  if (modifiedConfigs != null)
-    resolved = modifiedConfigs
-
-  debugConfig(resolved)
-
-  return {
-    error,
-    resolved,
-    configFilePath,
-  }
+export interface LoadConfigurationOptions {
+  name?: string
+  enableSucrase?: boolean
+  config?: WindiCssOptions | string
+  root?: string
 }
 
-export function loadConfigurationSync(options: UserOptions, utilsOptions: WindiPluginUtilsOptions) {
-  let {
-    error,
-    resolved,
-    configFilePath,
-  } = loadConfig(options, utilsOptions)
-  return {
-    error,
-    resolved,
-    configFilePath,
-  }
-}
-
-function loadConfig(options: UserOptions, utilsOptions: WindiPluginUtilsOptions) {
+export function loadConfiguration(options: LoadConfigurationOptions) {
   let resolved: WindiCssOptions = {}
   let configFilePath: string | undefined
   let error: Error | undefined
@@ -207,14 +190,11 @@ function loadConfig(options: UserOptions, utilsOptions: WindiPluginUtilsOptions)
   const {
     name = 'windicss-plugin-utils',
     enableSucrase = true,
-  } = utilsOptions
+    config,
+    root = process.cwd(),
+  } = options
 
   const debugConfig = _debug(`${name}:config`)
-
-  const {
-    config,
-    root = utilsOptions.root || process.cwd(),
-  } = options
 
   if (typeof config === 'string' || !config) {
     if (!config) {
@@ -269,6 +249,5 @@ function loadConfig(options: UserOptions, utilsOptions: WindiPluginUtilsOptions)
     error,
     resolved,
     configFilePath,
-    debugConfig
   }
 }
