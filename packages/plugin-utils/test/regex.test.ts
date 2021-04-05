@@ -15,6 +15,10 @@ describe('regex', () => {
     expect(validClassName('!active:hover:text-green-500')).toBeTruthy()
     expect(validClassName('p-(hello)')).toBeTruthy()
     expect(validClassName('p-(hello)-world')).toBeTruthy()
+    expect(validClassName('p-[#12px]')).toBeTruthy()
+    expect(validClassName('p-[#123]')).toBeTruthy()
+    expect(validClassName('text-[hsl(360,100%,50%)]')).toBeTruthy()
+    expect(validClassName('grid-rows-[auto,max-content,10px]')).toBeTruthy()
 
     // falsy
     expect(validClassName('')).toBeFalsy()
