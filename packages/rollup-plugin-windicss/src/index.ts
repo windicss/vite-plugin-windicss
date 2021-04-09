@@ -13,7 +13,15 @@ const debug = {
 }
 
 function WindiCssRollupPlugin(userOptions: UserOptions = {}): Plugin[] {
-  const utils = createUtils(userOptions)
+  const utils = createUtils(
+    userOptions,
+    {
+      name: NAME,
+      onConfigurationError(e) {
+        throw e
+      },
+    },
+  )
   const plugins: Plugin[] = []
 
   if (userOptions.transformGroups !== false) {

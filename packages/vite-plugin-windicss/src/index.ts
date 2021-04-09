@@ -57,6 +57,15 @@ function VitePluginWindicss(userOptions: UserOptions = {}): Plugin[] {
       utils = createUtils(userOptions, {
         name: NAME,
         root: _config.root,
+        onConfigurationError(e) {
+          if (_config.command === 'build') {
+            throw e
+          }
+          else {
+            console.error(`[${NAME}] Error on loading configurations`)
+            console.error(e)
+          }
+        },
       })
       await utils.init()
     },

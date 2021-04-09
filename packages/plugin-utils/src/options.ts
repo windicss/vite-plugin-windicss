@@ -217,6 +217,11 @@ export interface WindiPluginUtilsOptions {
    * @default true
    */
   enableSucrase?: boolean
+
+  /**
+   * On loading configuration error
+   */
+  onConfigurationError?: (error: Error) => void
 }
 
 export interface ResolvedOptions {

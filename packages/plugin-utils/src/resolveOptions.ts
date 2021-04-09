@@ -181,6 +181,7 @@ export interface LoadConfigurationOptions {
   enableSucrase?: boolean
   config?: WindiCssOptions | string
   root?: string
+  onConfigurationError?: (error: Error) => void
 }
 
 export async function loadConfiguration(options: LoadConfigurationOptions) {
@@ -193,6 +194,7 @@ export async function loadConfiguration(options: LoadConfigurationOptions) {
     enableSucrase = true,
     config,
     root = process.cwd(),
+    onConfigurationError = e => console.error(e),
   } = options
 
   const debugConfig = _debug(`${name}:config`)
@@ -240,11 +242,10 @@ export async function loadConfiguration(options: LoadConfigurationOptions) {
         }
       }
       catch (e) {
-        console.error(`[${name}] failed to load config "${configFilePath}"`)
-        console.error(`[${name}] ${e.toString()}`)
         error = e
         configFilePath = undefined
         resolved = {}
+        onConfigurationError?.(e)
       }
       finally {
         revert()
