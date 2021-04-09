@@ -33,16 +33,16 @@
     "micromatch": "^4.0.2",
     "pirates": "^4.0.1",
     "sucrase": "^3.17.1",
-    "windicss": "^2.5.11"
+    "windicss": "^2.5.12"
   },
   "devDependencies": {
-    "@antfu/ni": "^0.5.6",
+    "@antfu/ni": "^0.5.7",
     "@types/debug": "^4.1.5",
     "@types/micromatch": "^4.0.1",
     "@types/node": "^14.14.37",
     "@types/pug": "^2.0.4",
     "pug": "^3.0.2",
     "tsup": "^4.8.21",
-    "typescript": "^4.2.3"
+    "typescript": "^4.2.4"
   }
 }
