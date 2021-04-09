@@ -77,6 +77,16 @@ importers:
       vite: 2.1.5
       vite-plugin-windicss: link:../../packages/vite-plugin-windicss
 
+  examples/vanilla-cjs:
+    specifiers:
+      vite: ^2.1.5
+      vite-plugin-windicss: workspace:*
+      windicss: ^2.5.12
+    devDependencies:
+      vite: 2.1.5
+      vite-plugin-windicss: link:../../packages/vite-plugin-windicss
+      windicss: 2.5.12
+
   examples/vanilla-esm:
     specifiers:
       vite: ^2.1.5
