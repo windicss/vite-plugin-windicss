@@ -1,12 +1,12 @@
 import { existsSync } from 'fs'
 import { resolve, posix } from 'path'
+import { pathToFileURL } from 'url'
 import _debug from 'debug'
 import type { UserOptions, ResolvedOptions, WindiCssOptions, WindiPluginUtilsOptions } from './options'
 import { defaultAlias, configureFiles } from './constants'
 import { Arrayable, kebabCase, mergeArrays, slash, toArray } from './utils'
 import { registerSucrase } from './register'
 import { getDefaultExtractors } from './extractors/helper'
-import { pathToFileURL } from "url";
 
 export function isResolvedOptions(options: UserOptions | ResolvedOptions): options is ResolvedOptions {
   // @ts-expect-error internal flag
@@ -216,7 +216,7 @@ export async function loadConfiguration(options: LoadConfigurationOptions) {
     }
 
     if (configFilePath) {
-      let revert = () => { }
+      let revert = () => {}
       try {
         debugConfig('loading from ', configFilePath)
 
