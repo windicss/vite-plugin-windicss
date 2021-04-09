@@ -1,5 +1,6 @@
 import { existsSync } from 'fs'
 import { resolve, posix } from 'path'
+import { pathToFileURL } from 'url'
 import _debug from 'debug'
 import type { UserOptions, ResolvedOptions, WindiCssOptions, WindiPluginUtilsOptions } from './options'
 import { defaultAlias, configureFiles } from './constants'
@@ -226,7 +227,8 @@ export async function loadConfiguration(options: LoadConfigurationOptions) {
           // hack to prevent `import` get transformed
           // eslint-disable-next-line no-new-func
           const _import = new Function('modulePath', 'return import(modulePath)')
-          resolved = (await _import(configFilePath))?.default || {}
+
+          resolved = (await _import(pathToFileURL(resolve(configFilePath))))?.default || {}
           if (resolved.default)
             resolved = resolved.default
         }
