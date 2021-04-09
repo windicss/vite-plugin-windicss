@@ -6,6 +6,7 @@ import { defaultAlias, configureFiles } from './constants'
 import { Arrayable, kebabCase, mergeArrays, slash, toArray } from './utils'
 import { registerSucrase } from './register'
 import { getDefaultExtractors } from './extractors/helper'
+import { pathToFileURL } from "url";
 
 export function isResolvedOptions(options: UserOptions | ResolvedOptions): options is ResolvedOptions {
   // @ts-expect-error internal flag
@@ -215,7 +216,7 @@ export async function loadConfiguration(options: LoadConfigurationOptions) {
     }
 
     if (configFilePath) {
-      let revert = () => {}
+      let revert = () => { }
       try {
         debugConfig('loading from ', configFilePath)
 
@@ -226,7 +227,8 @@ export async function loadConfiguration(options: LoadConfigurationOptions) {
           // hack to prevent `import` get transformed
           // eslint-disable-next-line no-new-func
           const _import = new Function('modulePath', 'return import(modulePath)')
-          resolved = (await _import(configFilePath))?.default || {}
+
+          resolved = (await _import(pathToFileURL(resolve(configFilePath))))?.default || {}
           if (resolved.default)
             resolved = resolved.default
         }
