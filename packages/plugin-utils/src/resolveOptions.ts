@@ -48,7 +48,7 @@ export async function resolveOptions(
 
   // eslint-disable-next-line prefer-const
   let { resolved: config, configFilePath } = loadConfigFile
-    ? loadConfiguration({
+    ? await loadConfiguration({
       ...utilsOptions,
       root: utilsOptions.root || options.root,
       config: options.config,
@@ -182,7 +182,7 @@ export interface LoadConfigurationOptions {
   root?: string
 }
 
-export function loadConfiguration(options: LoadConfigurationOptions) {
+export async function loadConfiguration(options: LoadConfigurationOptions) {
   let resolved: WindiCssOptions = {}
   let configFilePath: string | undefined
   let error: Error | undefined
@@ -215,17 +215,27 @@ export function loadConfiguration(options: LoadConfigurationOptions) {
     }
 
     if (configFilePath) {
-      let revert = () => { }
+      let revert = () => {}
       try {
         debugConfig('loading from ', configFilePath)
 
         if (enableSucrase)
           revert = registerSucrase()
 
-        delete require.cache[require.resolve(configFilePath)]
-        resolved = require(configFilePath)
-        if (resolved.default)
-          resolved = resolved.default
+        if (configFilePath.endsWith('.js')) {
+          // hack to prevent `import` get transformed
+          // eslint-disable-next-line no-new-func
+          const _import = new Function('modulePath', 'return import(modulePath)')
+          resolved = (await _import(configFilePath))?.default || {}
+          if (resolved.default)
+            resolved = resolved.default
+        }
+        else {
+          delete require.cache[require.resolve(configFilePath)]
+          resolved = require(configFilePath)
+          if (resolved.default)
+            resolved = resolved.default
+        }
       }
       catch (e) {
         console.error(`[${name}] failed to load config "${configFilePath}"`)

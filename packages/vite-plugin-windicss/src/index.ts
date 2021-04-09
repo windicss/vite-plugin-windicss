@@ -26,7 +26,8 @@ function VitePluginWindicss(userOptions: UserOptions = {}): Plugin[] {
   if (userOptions.transformGroups !== false) {
     plugins.push({
       name: `${NAME}:groups`,
-      transform(code, id) {
+      async transform(code, id) {
+        await utils.ensureInit()
         if (!utils.isDetectTarget(id))
           return
         debug.group(id)
@@ -131,7 +132,8 @@ function VitePluginWindicss(userOptions: UserOptions = {}): Plugin[] {
   if (transformCSS === true) {
     plugins.push({
       name: `${NAME}:css`,
-      transform(code, id) {
+      async transform(code, id) {
+        await utils.ensureInit()
         if (!utils.isCssTransformTarget(id) || id === MODULE_ID_VIRTUAL)
           return
         debug.css(id)

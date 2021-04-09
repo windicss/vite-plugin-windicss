@@ -1,11 +1,11 @@
 import { promises as fs } from 'fs'
-import WindiCssProcessor from 'windicss'
 import { StyleSheet } from 'windicss/utils/style'
 import { CSSParser } from 'windicss/utils/parser'
 import { generateCompletions } from 'windicss/utils'
 import fg from 'fast-glob'
 import _debug from 'debug'
 import micromatch from 'micromatch'
+import Processor from 'windicss'
 import { preflightTags, htmlTags } from './constants'
 import { WindiPluginUtilsOptions, UserOptions, ResolvedOptions } from './options'
 import { resolveOptions } from './resolveOptions'
@@ -33,7 +33,7 @@ export function createUtils(
     detectTag: _debug(`${name}:detect:tag`),
   }
 
-  let processor: WindiCssProcessor
+  let processor: Processor
   let completions: CompletionsResult | undefined
 
   let files: string[] = []
@@ -45,11 +45,6 @@ export function createUtils(
   const attrsGenerated = new Set<string>()
   const tagsAvailable = new Set<string>()
 
-  async function ensureInit() {
-    if (!processor)
-      return await init()
-  }
-
   function getCompletions() {
     if (!completions)
       completions = generateCompletions(processor)
@@ -57,6 +52,7 @@ export function createUtils(
   }
 
   async function getFiles() {
+    await ensureInit()
     debug.glob('include', options.scanOptions.include)
     debug.glob('exclude', options.scanOptions.exclude)
 
@@ -346,16 +342,32 @@ export function createUtils(
     },
   }
 
-  async function init() {
+  async function _init() {
     options = await resolveOptions(userOptions, utilsOptions, true)
     files = []
 
-    processor = new WindiCssProcessor(options.config)
+    processor = new Processor(options.config)
     clearCache(false)
 
     options.onInitialized?.(utils)
 
     return processor
+  }
+
+  // ensure only init once with `ensureInit`
+  let _promise_init: Promise<Processor> | undefined
+
+  async function init() {
+    _promise_init = _init()
+    return _promise_init
+  }
+
+  async function ensureInit(): Promise<Processor> {
+    if (processor)
+      return processor
+    if (!_promise_init)
+      _promise_init = _init()
+    return _promise_init
   }
 
   return utils

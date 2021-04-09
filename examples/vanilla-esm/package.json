@@ -1,0 +1,14 @@
+{
+  "name": "vanilla-esm",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^2.1.5",
+    "vite-plugin-windicss": "workspace:*",
+    "windicss": "^2.5.12"
+  }
+}

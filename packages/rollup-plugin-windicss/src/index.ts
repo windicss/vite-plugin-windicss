@@ -19,7 +19,8 @@ function WindiCssRollupPlugin(userOptions: UserOptions = {}): Plugin[] {
   if (userOptions.transformGroups !== false) {
     plugins.push({
       name: `${NAME}:groups`,
-      transform(code, id) {
+      async transform(code, id) {
+        await utils.ensureInit()
         if (!utils.isDetectTarget(id))
           return
         debug.group(id)
@@ -38,7 +39,7 @@ function WindiCssRollupPlugin(userOptions: UserOptions = {}): Plugin[] {
     },
 
     async load(id) {
-      await utils.init()
+      await utils.ensureInit()
       if (id === MODULE_ID_VIRTUAL)
         return utils.generateCSS()
     },
@@ -47,7 +48,8 @@ function WindiCssRollupPlugin(userOptions: UserOptions = {}): Plugin[] {
   if (userOptions.transformCSS != null) {
     plugins.push({
       name: `${NAME}:css`,
-      transform(code, id) {
+      async transform(code, id) {
+        await utils.ensureInit()
         if (!utils.isCssTransformTarget(id))
           return
         debug.css(id)
