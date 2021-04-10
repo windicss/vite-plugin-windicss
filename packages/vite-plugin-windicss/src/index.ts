@@ -2,18 +2,16 @@ import { resolve } from 'path'
 import type { Plugin, ResolvedConfig } from 'vite'
 import _debug, { log } from 'debug'
 import { UserOptions, WindiPluginUtils, createUtils } from '@windicss/plugin-utils'
+import { createVirtualModuleLoader, MODULE_ID_VIRTUAL_PREFIX } from '../../shared/virtual-module'
 import { createDevtoolsPlugin } from './devtools'
-import { NAME, MODULE_IDS, MODULE_ID_VIRTUAL } from './constants'
+import { NAME } from './constants'
+import { getCssModules, invalidateCssModules } from './modules'
 
 const debug = {
   hmr: _debug(`${NAME}:hmr`),
   css: _debug(`${NAME}:transform:css`),
   group: _debug(`${NAME}:transform:group`),
   memory: _debug(`${NAME}:memory`),
-}
-
-function getMemoryUsageMB() {
-  return Math.round(process.memoryUsage().heapUsed / 1024 / 1024 * 100) / 100
 }
 
 function VitePluginWindicss(userOptions: UserOptions = {}): Plugin[] {
@@ -70,22 +68,7 @@ function VitePluginWindicss(userOptions: UserOptions = {}): Plugin[] {
       await utils.init()
     },
 
-    resolveId(id) {
-      return MODULE_IDS.includes(id) || MODULE_IDS.some(i => id.startsWith(i))
-        ? MODULE_ID_VIRTUAL
-        : null
-    },
-
-    async load(id) {
-      if (id === MODULE_ID_VIRTUAL) {
-        const css = await utils.generateCSS()
-
-        if (debug.memory.enabled)
-          debug.memory(`${getMemoryUsageMB()} MB`)
-
-        return css
-      }
-    },
+    ...createVirtualModuleLoader({ get utils() { return utils } }),
   })
 
   // HMR
@@ -105,6 +88,11 @@ function VitePluginWindicss(userOptions: UserOptions = {}): Plugin[] {
     },
 
     async handleHotUpdate({ server, file, read, modules }) {
+      if (!utils.isDetectTarget(file))
+        return
+
+      const cssModules = getCssModules(server)
+
       // resolve normalized file path to system path
       if (resolve(file) === utils.configFilePath) {
         debug.hmr(`config file changed: ${file}`)
@@ -113,25 +101,20 @@ function VitePluginWindicss(userOptions: UserOptions = {}): Plugin[] {
           log('configure file changed, reloading')
           server.ws.send({ type: 'full-reload' })
         }, 0)
-        return [server.moduleGraph.getModuleById(MODULE_ID_VIRTUAL)!]
+        return cssModules
       }
-
-      if (!utils.isDetectTarget(file))
-        return
 
       const changed = await utils.extractFile(await read(), file, true)
       if (!changed)
         return
 
       debug.hmr(`refreshed by ${file}`)
-      const module = server.moduleGraph.getModuleById(MODULE_ID_VIRTUAL)
-      if (module)
-        server.moduleGraph.invalidateModule(module)
+      invalidateCssModules(server, cssModules)
 
       if (file.endsWith('.html'))
         return undefined
 
-      return [module!, ...modules].filter(Boolean)
+      return [...cssModules, ...modules].filter(Boolean)
     },
   })
 
@@ -143,7 +126,7 @@ function VitePluginWindicss(userOptions: UserOptions = {}): Plugin[] {
       name: `${NAME}:css`,
       async transform(code, id) {
         await utils.ensureInit()
-        if (!utils.isCssTransformTarget(id) || id === MODULE_ID_VIRTUAL)
+        if (!utils.isCssTransformTarget(id) || id.startsWith(MODULE_ID_VIRTUAL_PREFIX))
           return
         debug.css(id)
         return {
@@ -158,7 +141,7 @@ function VitePluginWindicss(userOptions: UserOptions = {}): Plugin[] {
       name: `${NAME}:css`,
       enforce: transformCSS,
       transform(code, id) {
-        if (!utils.isCssTransformTarget(id) || id === MODULE_ID_VIRTUAL)
+        if (!utils.isCssTransformTarget(id) || id.startsWith(MODULE_ID_VIRTUAL_PREFIX))
           return
         debug.css(id)
         return {

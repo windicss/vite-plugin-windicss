@@ -4,7 +4,8 @@ import type { Plugin, ResolvedConfig, ViteDevServer } from 'vite'
 import type { WindiPluginUtils } from '@windicss/plugin-utils'
 import type { IncomingMessage } from 'connect'
 import _debug from 'debug'
-import { MODULE_ID_VIRTUAL, NAME } from './constants'
+import { NAME } from './constants'
+import { getCssModules, invalidateCssModules, sendHmrReload } from './modules'
 
 const debug = {
   devtools: _debug(`${NAME}:devtools`),
@@ -45,18 +46,10 @@ export function createDevtoolsPlugin(ctx: { utils: WindiPluginUtils }): Plugin[]
   function updateCSS() {
     if (!server)
       return
-    const module = server.moduleGraph.getModuleById(MODULE_ID_VIRTUAL)
-    if (module)
-      server.moduleGraph.invalidateModule(module)
-    server.ws.send({
-      type: 'update',
-      updates: [{
-        acceptedPath: MODULE_ID_VIRTUAL,
-        path: MODULE_ID_VIRTUAL,
-        timestamp: +Date.now(),
-        type: 'js-update',
-      }],
-    })
+
+    const modules = getCssModules(server)
+    invalidateCssModules(server, modules)
+    sendHmrReload(server, modules)
   }
 
   function toClass(name: string) {

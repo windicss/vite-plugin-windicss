@@ -206,7 +206,7 @@ Oh and don't worry about the final bundle, in production build `virtual:windi-de
 
 ### Preflight (style reseting)
 
-Preflight is enables on demanded, if you'd like to completely disable it, you can configure it as below
+Preflight is enabled on-demanded, if you'd like to completely disable it, you can configure it as below
 
 ```ts
 // windi.config.ts
@@ -288,6 +288,29 @@ export default defineConfig({
     }),
   ],
 })
+```
+
+
+### Layers Ordering
+
+> Supported from v0.14.x
+
+By default, importing `virtual:windi.css` will imports all the three layers with the order `base - components - utilities`. If you want to have better controls over the orders, you can separate them by:
+
+```diff
+- import 'virtual:windi.css'
++ import 'virtual:windi-base.css'
++ import 'virtual:windi-components.css'
++ import 'virtual:windi-utilities.css'
+```
+
+You can also make your custom css been able to be override by certain layers:
+
+```diff
+  import 'virtual:windi-base.css'
+  import 'virtual:windi-components.css'
++ import './my-style.css'
+  import 'virtual:windi-utilities.css'
 ```
 
 ### More

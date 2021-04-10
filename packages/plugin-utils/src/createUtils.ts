@@ -13,6 +13,7 @@ import { kebabCase, include, exclude, slash, transformGroups, transformGroupsWit
 import { applyExtractors as _applyExtractors } from './extractors/helper'
 
 export type CompletionsResult = ReturnType<typeof generateCompletions>
+export type LayerName = 'base' | 'utilities' | 'components'
 
 export function createUtils(
   userOptions: UserOptions | ResolvedOptions = {},
@@ -199,10 +200,20 @@ export function createUtils(
     return style.build()
   }
 
-  let style: StyleSheet = new StyleSheet()
-  let _cssCache: string | undefined
+  let layers: Record<LayerName, StyleSheet> = {
+    base: new StyleSheet(),
+    utilities: new StyleSheet(),
+    components: new StyleSheet(),
+  }
 
-  async function generateCSS() {
+  let _layersCssCache: Record<LayerName, string> | undefined
+
+  function updateLayers(style: StyleSheet) {
+    for (const s of style.children)
+      layers[s.meta.type].children.push(s)
+  }
+
+  async function generateCSS(layer?: LayerName) {
     await ensureInit()
 
     if (options.enableScan && options.scanOptions.runOnStartup)
@@ -223,7 +234,7 @@ export function createUtils(
         include(classesGenerated, result.success)
         classesPending.clear()
 
-        style = style.extend(result.styleSheet)
+        updateLayers(result.styleSheet)
         changed = true
       }
     }
@@ -238,18 +249,22 @@ export function createUtils(
           options.preflightOptions.includeGlobal,
           options.preflightOptions.includePlugin,
         )
-        style = style.extend(preflightStyle, true)
+        updateLayers(preflightStyle)
         include(tagsGenerated, tagsPending)
         tagsPending.clear()
         changed = true
       }
     }
 
-    if (changed || !_cssCache) {
+    if (changed || !_layersCssCache) {
       if (options.sortUtilities)
-        style.sort()
+        Object.values(layers).map(l => l.sort())
 
-      _cssCache = style.build()
+      _layersCssCache = {
+        base: layers.base.build(),
+        utilities: layers.utilities.build(),
+        components: layers.components.build(),
+      }
 
       options.onGenerated?.({
         classes: classesGenerated,
@@ -257,12 +272,22 @@ export function createUtils(
       })
     }
 
-    return _cssCache
+    return layer
+      ? _layersCssCache[layer]
+      : [
+        _layersCssCache.base,
+        _layersCssCache.components,
+        _layersCssCache.utilities,
+      ].join('\n\n')
   }
 
   function clearCache(clearAll = false) {
-    style = new StyleSheet()
-    _cssCache = undefined
+    layers = {
+      base: new StyleSheet(),
+      utilities: new StyleSheet(),
+      components: new StyleSheet(),
+    }
+    _layersCssCache = undefined
     completions = undefined
 
     if (clearAll) {
