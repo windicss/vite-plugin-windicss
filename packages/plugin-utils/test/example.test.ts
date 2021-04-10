@@ -7,10 +7,15 @@ describe('example', () => {
       root: resolve(__dirname, '../../../examples/vue'),
     })
     await utils.init()
-    const css = await utils.generateCSS()
+    expect(await utils.generateCSS()).toMatchSnapshot('generated-css')
+
+    // layers
+    expect(await utils.generateCSS('base')).toMatchSnapshot('generated-css-base')
+    expect(await utils.generateCSS('components')).toMatchSnapshot('generated-css-components')
+    expect(await utils.generateCSS('utilities')).toMatchSnapshot('generated-css-utilities')
+
     expect(utils.classesGenerated).toMatchSnapshot('classes')
     expect(utils.tagsGenerated).toMatchSnapshot('tags')
-    expect(css).toMatchSnapshot('generated-css')
   })
 
   it('should allow access to generated tags and classes by a callback', async() => {

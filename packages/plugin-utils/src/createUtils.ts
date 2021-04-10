@@ -278,7 +278,7 @@ export function createUtils(
         _layersCssCache.base,
         _layersCssCache.components,
         _layersCssCache.utilities,
-      ].join('\n\n')
+      ].join('\n').trim()
   }
 
   function clearCache(clearAll = false) {
