@@ -29,7 +29,9 @@
 ## Install
 
 ```bash
-npm i vite-plugin-windicss -D # yarn add vite-plugin-windicss -D
+npm i -D vite-plugin-windicss windicss
+# or
+yarn add -D vite-plugin-windicss windicss
 ```
 
 ```ts
