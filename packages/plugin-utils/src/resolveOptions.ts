@@ -218,7 +218,7 @@ export async function loadConfiguration(options: LoadConfigurationOptions) {
     }
 
     if (configFilePath) {
-      let revert = () => {}
+      let revert = () => { }
       try {
         debugConfig('loading from ', configFilePath)
 
@@ -230,7 +230,7 @@ export async function loadConfiguration(options: LoadConfigurationOptions) {
           // eslint-disable-next-line no-new-func
           const _import = new Function('modulePath', 'return import(modulePath)')
 
-          resolved = (await _import(pathToFileURL(resolve(configFilePath))))?.default || {}
+          resolved = (await _import(pathToFileURL(configFilePath)))?.default || {}
           if (resolved.default)
             resolved = resolved.default
         }
