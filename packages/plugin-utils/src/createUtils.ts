@@ -1,5 +1,5 @@
 import { promises as fs } from 'fs'
-import { StyleSheet } from 'windicss/utils/style'
+import { StyleSheet, Style } from 'windicss/utils/style'
 import { CSSParser } from 'windicss/utils/parser'
 import { generateCompletions } from 'windicss/utils'
 import fg from 'fast-glob'
@@ -9,7 +9,7 @@ import Processor from 'windicss'
 import { preflightTags, htmlTags } from './constants'
 import { WindiPluginUtilsOptions, UserOptions, ResolvedOptions } from './options'
 import { resolveOptions } from './resolveOptions'
-import { kebabCase, include, exclude, slash, transformGroups, transformGroupsWithSourcemap } from './utils'
+import { kebabCase, include, exclude, slash, transformGroups, transformGroupsWithSourcemap, partition } from './utils'
 import { applyExtractors as _applyExtractors } from './extractors/helper'
 
 export type CompletionsResult = ReturnType<typeof generateCompletions>
@@ -197,6 +197,11 @@ export function createUtils(
     if (!options.transformCSS)
       return css
     const style = new CSSParser(css, processor).parse()
+    const [layerBlocks, blocks] = partition(style.children, i => i.meta.group === 'layer-block')
+    if (layerBlocks.length) {
+      updateLayers(layerBlocks)
+      style.children = blocks
+    }
     return style.build()
   }
 
@@ -212,9 +217,9 @@ export function createUtils(
     },
   }
 
-  function updateLayers(style: StyleSheet) {
+  function updateLayers(styles: Style[]) {
     const timestamp = +Date.now()
-    for (const s of style.children) {
+    for (const s of styles) {
       layers[s.meta.type].style.children.push(s)
       // invalid changed layer
       layers[s.meta.type].timestamp = timestamp
@@ -243,7 +248,7 @@ export function createUtils(
       if (result.success.length) {
         debug.compile(`compiled ${result.success.length} classes out of ${classesPending.size}`)
         debug.compile(result.success)
-        updateLayers(result.styleSheet)
+        updateLayers(result.styleSheet.children)
         include(classesGenerated, result.success)
         classesPending.clear()
       }
@@ -259,7 +264,7 @@ export function createUtils(
           options.preflightOptions.includeGlobal,
           options.preflightOptions.includePlugin,
         )
-        updateLayers(preflightStyle)
+        updateLayers(preflightStyle.children)
         include(tagsGenerated, tagsPending)
         tagsPending.clear()
       }
@@ -292,6 +297,9 @@ export function createUtils(
     layers.base = { style: new StyleSheet() }
     layers.utilities = { style: new StyleSheet() }
     layers.components = { style: new StyleSheet() }
+    layers.base.style.prefixer = options.config.prefixer ?? true
+    layers.utilities.style.prefixer = options.config.prefixer ?? true
+    layers.components.style.prefixer = options.config.prefixer ?? true
     completions = undefined
 
     if (clearAll) {

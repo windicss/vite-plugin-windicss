@@ -5,3 +5,17 @@ exports[`config merge config 1`] = `
   font-family: monotype corsiva;
 }"
 `;
+
+exports[`config prefixer: false: css 1`] = `
+".bg-gradient-to-r {
+  background-image: linear-gradient(to right, var(--tw-gradient-stops));
+}"
+`;
+
+exports[`config prefixer: true: css 1`] = `
+".bg-gradient-to-r {
+  background-image: -o-linear-gradient(left, var(--tw-gradient-stops));
+  background-image: -webkit-gradient(linear, left top, right top, from(var(--tw-gradient-stops)));
+  background-image: linear-gradient(to right, var(--tw-gradient-stops));
+}"
+`;

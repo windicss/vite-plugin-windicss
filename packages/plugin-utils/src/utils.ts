@@ -26,6 +26,12 @@ export function kebabCase(str: string) {
   return str.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()
 }
 
+export function partition<T>(array: T[], filter: (i: T, idx: number, arr: T[]) => any) {
+  const pass: T[] = []; const fail: T[] = []
+  array.forEach((e, idx, arr) => (filter(e, idx, arr) ? pass : fail).push(e))
+  return [pass, fail]
+}
+
 export function include<T>(set: Set<T>, v: T[] | Set<T>) {
   for (const i of v)
     set.add(i)
