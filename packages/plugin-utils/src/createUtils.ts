@@ -1,5 +1,5 @@
 import { promises as fs } from 'fs'
-import { StyleSheet } from 'windicss/utils/style'
+import { StyleSheet, Style } from 'windicss/utils/style'
 import { CSSParser } from 'windicss/utils/parser'
 import { generateCompletions } from 'windicss/utils'
 import fg from 'fast-glob'
@@ -9,10 +9,11 @@ import Processor from 'windicss'
 import { preflightTags, htmlTags } from './constants'
 import { WindiPluginUtilsOptions, UserOptions, ResolvedOptions } from './options'
 import { resolveOptions } from './resolveOptions'
-import { kebabCase, include, exclude, slash, transformGroups, transformGroupsWithSourcemap } from './utils'
+import { kebabCase, include, exclude, slash, transformGroups, transformGroupsWithSourcemap, partition } from './utils'
 import { applyExtractors as _applyExtractors } from './extractors/helper'
 
 export type CompletionsResult = ReturnType<typeof generateCompletions>
+export type LayerName = 'base' | 'utilities' | 'components'
 
 export function createUtils(
   userOptions: UserOptions | ResolvedOptions = {},
@@ -196,35 +197,60 @@ export function createUtils(
     if (!options.transformCSS)
       return css
     const style = new CSSParser(css, processor).parse()
+    const [layerBlocks, blocks] = partition(style.children, i => i.meta.group === 'layer-block')
+    if (layerBlocks.length) {
+      updateLayers(layerBlocks)
+      style.children = blocks
+    }
     return style.build()
   }
 
-  let style: StyleSheet = new StyleSheet()
-  let _cssCache: string | undefined
+  const layers: Record<LayerName, { style: StyleSheet; cssCache?: string; timestamp?: number }> = {
+    base: {
+      style: new StyleSheet(),
+    },
+    utilities: {
+      style: new StyleSheet(),
+    },
+    components: {
+      style: new StyleSheet(),
+    },
+  }
 
-  async function generateCSS() {
-    await ensureInit()
+  function updateLayers(styles: Style[]) {
+    const timestamp = +Date.now()
+    for (const s of styles) {
+      layers[s.meta.type].style.children.push(s)
+      // invalid changed layer
+      layers[s.meta.type].timestamp = timestamp
+      layers[s.meta.type].cssCache = undefined
+    }
+  }
 
-    if (options.enableScan && options.scanOptions.runOnStartup)
-      await scan()
+  function buildLayerCss(name: LayerName) {
+    const layer = layers[name]
+    if (layer.cssCache == null) {
+      if (options.sortUtilities)
+        layer.style.sort()
+      layer.cssCache = layer.style.build()
+    }
+    return layer.cssCache
+  }
 
+  function buildPendingStyles() {
     options.onBeforeGenerate?.({
       classesPending,
       tagsPending,
     })
-
-    let changed = false
 
     if (classesPending.size) {
       const result = processor.interpret(Array.from(classesPending).join(' '))
       if (result.success.length) {
         debug.compile(`compiled ${result.success.length} classes out of ${classesPending.size}`)
         debug.compile(result.success)
+        updateLayers(result.styleSheet.children)
         include(classesGenerated, result.success)
         classesPending.clear()
-
-        style = style.extend(result.styleSheet)
-        changed = true
       }
     }
 
@@ -238,31 +264,42 @@ export function createUtils(
           options.preflightOptions.includeGlobal,
           options.preflightOptions.includePlugin,
         )
-        style = style.extend(preflightStyle, true)
+        updateLayers(preflightStyle.children)
         include(tagsGenerated, tagsPending)
         tagsPending.clear()
-        changed = true
       }
     }
 
-    if (changed || !_cssCache) {
-      if (options.sortUtilities)
-        style.sort()
+    options.onGenerated?.({
+      classes: classesGenerated,
+      tags: tagsGenerated,
+    })
+  }
 
-      _cssCache = style.build()
+  async function generateCSS(layer?: LayerName) {
+    await ensureInit()
 
-      options.onGenerated?.({
-        classes: classesGenerated,
-        tags: tagsGenerated,
-      })
-    }
+    if (options.enableScan && options.scanOptions.runOnStartup)
+      await scan()
 
-    return _cssCache
+    buildPendingStyles()
+
+    return layer
+      ? buildLayerCss(layer)
+      : [
+        buildLayerCss('base'),
+        buildLayerCss('components'),
+        buildLayerCss('utilities'),
+      ].join('\n').trim()
   }
 
   function clearCache(clearAll = false) {
-    style = new StyleSheet()
-    _cssCache = undefined
+    layers.base = { style: new StyleSheet() }
+    layers.utilities = { style: new StyleSheet() }
+    layers.components = { style: new StyleSheet() }
+    layers.base.style.prefixer = options.config.prefixer ?? true
+    layers.utilities.style.prefixer = options.config.prefixer ?? true
+    layers.components.style.prefixer = options.config.prefixer ?? true
     completions = undefined
 
     if (clearAll) {
@@ -300,6 +337,7 @@ export function createUtils(
     transformCSS,
     transformGroups,
     transformGroupsWithSourcemap,
+    buildPendingStyles,
     isDetectTarget,
     isScanTarget,
     isCssTransformTarget,
@@ -311,6 +349,8 @@ export function createUtils(
     tagsGenerated,
     tagsPending,
     tagsAvailable,
+
+    layersMeta: layers,
 
     addClasses,
     addTags,

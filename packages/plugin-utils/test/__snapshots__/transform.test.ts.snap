@@ -1,5 +1,80 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`transfrom css directives: @layer all 1`] = `
+".btn-base {
+  --tw-text-opacity: 1;
+  color: rgba(252, 165, 165, var(--tw-text-opacity));
+  font-size: 1.5rem;
+}
+.btn-components {
+  --tw-text-opacity: 1;
+  color: rgba(248, 113, 113, var(--tw-text-opacity));
+  font-size: 1rem;
+}
+.p-4 {
+  padding: 1rem;
+}
+.btn-utilities {
+  --tw-text-opacity: 1;
+  color: rgba(254, 202, 202, var(--tw-text-opacity));
+  font-size: 2rem;
+}"
+`;
+
+exports[`transfrom css directives: @layer base 1`] = `
+".btn-base {
+  --tw-text-opacity: 1;
+  color: rgba(252, 165, 165, var(--tw-text-opacity));
+  font-size: 1.5rem;
+}"
+`;
+
+exports[`transfrom css directives: @layer components 1`] = `
+".btn-components {
+  --tw-text-opacity: 1;
+  color: rgba(248, 113, 113, var(--tw-text-opacity));
+  font-size: 1rem;
+}"
+`;
+
+exports[`transfrom css directives: @layer utilities 1`] = `
+".p-4 {
+  padding: 1rem;
+}
+.btn-utilities {
+  --tw-text-opacity: 1;
+  color: rgba(254, 202, 202, var(--tw-text-opacity));
+  font-size: 2rem;
+}"
+`;
+
+exports[`transfrom css directives: basic @apply 1`] = `
+".rounded-box {
+  border-radius: var(--rounded-box, 1rem);
+}
+.card {
+  color: black;
+  border-radius: var(--rounded-box, 1rem);
+  --tw-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  -webkit-box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+.card:hover {
+  --tw-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  -webkit-box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+.artboard {
+  border-radius: var(--rounded-box, 1rem);
+}"
+`;
+
+exports[`transfrom css directives: basic @layer 1`] = `
+".btn {
+  padding: 5px;
+}"
+`;
+
 exports[`transfrom groups: "+sm:(p-1 p-2)" 1`] = `"+sm:p-1 +sm:p-2"`;
 
 exports[`transfrom groups: "-sm:hover:(p-1 p-2)" 1`] = `"-sm:hover:p-1 -sm:hover:p-2"`;

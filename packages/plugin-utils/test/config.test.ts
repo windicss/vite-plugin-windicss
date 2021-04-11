@@ -95,4 +95,30 @@ describe('config', () => {
 
     expect(utils.classesGenerated.size).toBe(2)
   })
+
+  it('prefixer: true', async() => {
+    const utils = createUtils({
+      config: {
+        prefixer: true,
+      },
+      safelist: ['bg-gradient-to-r'],
+      preflight: false,
+      scan: false,
+    })
+    await utils.init()
+    expect(await utils.generateCSS()).toMatchSnapshot('css')
+  })
+
+  it('prefixer: false', async() => {
+    const utils = createUtils({
+      config: {
+        prefixer: false,
+      },
+      safelist: ['bg-gradient-to-r'],
+      preflight: false,
+      scan: false,
+    })
+    await utils.init()
+    expect(await utils.generateCSS()).toMatchSnapshot('css')
+  })
 })

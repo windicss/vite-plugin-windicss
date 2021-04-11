@@ -1,10 +1,9 @@
 import { Plugin } from 'rollup'
 import _debug from 'debug'
 import { createUtils, UserOptions } from '@windicss/plugin-utils'
+import { createVirtualModuleLoader } from '../../shared/virtual-module'
 
 const NAME = 'rollup-plugin-windicss'
-const MODULE_IDS = ['virtual:windi.css', 'windi.css', '@virtual/windi.css']
-const MODULE_ID_VIRTUAL = '/@windicss/windi.css'
 
 const debug = {
   hmr: _debug(`${NAME}:hmr`),
@@ -40,17 +39,7 @@ function WindiCssRollupPlugin(userOptions: UserOptions = {}): Plugin[] {
   plugins.push({
     name: `${NAME}:entry`,
 
-    resolveId(id) {
-      return MODULE_IDS.includes(id) || MODULE_IDS.some(i => id.startsWith(i))
-        ? MODULE_ID_VIRTUAL
-        : null
-    },
-
-    async load(id) {
-      await utils.ensureInit()
-      if (id === MODULE_ID_VIRTUAL)
-        return utils.generateCSS()
-    },
+    ...createVirtualModuleLoader({ utils }),
   })
 
   if (userOptions.transformCSS != null) {

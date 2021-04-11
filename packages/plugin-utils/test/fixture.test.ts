@@ -3,7 +3,7 @@ import { createUtils, slash } from '../src'
 
 describe('fixtures', () => {
   it('scan', async() => {
-    const root = resolve(__dirname, '../fixtures/scan')
+    const root = resolve(__dirname, 'fixtures/scan')
     const utils = createUtils({
       root,
       scan: true,
