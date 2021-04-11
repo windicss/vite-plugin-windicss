@@ -1,4 +1,4 @@
-import { validClassName } from '../src/regexes'
+import { validClassName } from '../packages/plugin-utils/src/regexes'
 
 describe('regex', () => {
   it('regexClassCheck', async() => {

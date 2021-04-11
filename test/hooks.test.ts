@@ -1,4 +1,4 @@
-import { createUtils, ResolvedOptions } from '../src'
+import { createUtils, ResolvedOptions } from '../packages/plugin-utils/src'
 
 describe('config hooks', () => {
   it('work onOptionsResolved', async() => {

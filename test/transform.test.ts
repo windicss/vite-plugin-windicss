@@ -1,4 +1,4 @@
-import { createUtils } from '../src'
+import { createUtils } from '../packages/plugin-utils/src'
 
 describe('transfrom', () => {
   it('groups', async() => {

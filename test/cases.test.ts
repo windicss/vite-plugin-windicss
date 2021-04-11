@@ -1,4 +1,4 @@
-import { createUtils, WindiPluginUtils } from '../src'
+import { createUtils, WindiPluginUtils } from '../packages/plugin-utils/src'
 
 describe('cases', () => {
   let utils: WindiPluginUtils

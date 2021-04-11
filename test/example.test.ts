@@ -1,10 +1,10 @@
 import { resolve } from 'path'
-import { createUtils } from '../src'
+import { createUtils } from '../packages/plugin-utils/src'
 
 describe('example', () => {
   it('should work', async() => {
     const utils = createUtils({}, {
-      root: resolve(__dirname, '../../../examples/vue'),
+      root: resolve(__dirname, '../examples/vue'),
     })
     await utils.init()
     expect(await utils.generateCSS()).toMatchSnapshot('generated-css')
@@ -30,7 +30,7 @@ describe('example', () => {
         tags = ctx.tags
       },
     }, {
-      root: resolve(__dirname, '../../../examples/vue'),
+      root: resolve(__dirname, '../examples/vue'),
     })
     await utils.init()
     await utils.generateCSS()

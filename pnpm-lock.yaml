@@ -29,6 +29,7 @@ importers:
       typescript: ^4.2.4
       vite: ^2.1.5
       vite-plugin-restart: ^0.0.1
+      windicss: ^2.5.14
     devDependencies:
       '@antfu/eslint-config': 0.6.2_eslint@7.24.0+typescript@4.2.4
       '@antfu/ni': 0.5.7
@@ -55,6 +56,7 @@ importers:
       typescript: 4.2.4
       vite: 2.1.5
       vite-plugin-restart: 0.0.1_vite@2.1.5
+      windicss: 2.5.14
 
   examples/react:
     specifiers:

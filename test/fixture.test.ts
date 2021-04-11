@@ -1,5 +1,5 @@
 import { relative, resolve } from 'path'
-import { createUtils, slash } from '../src'
+import { createUtils, slash } from '../packages/plugin-utils/src'
 
 describe('fixtures', () => {
   it('scan', async() => {
