@@ -5,10 +5,10 @@ export const MODULE_IDS = [/^virtual:windi(.*?)\.css/, /^windi(.*?)\.css/]
 export const MODULE_ID_VIRTUAL_PREFIX = '/@windicss/windi'
 export const MODULE_ID_VIRTUAL = /\/\@windicss\/windi-?(.*?)\.css/
 export const MODULE_ID_VIRTUAL_MODULES = [
-  '/@windicss/windi.css',
-  '/@windicss/windi-base.css',
-  '/@windicss/windi-utilities.css',
-  '/@windicss/windi-components.css',
+  `${MODULE_ID_VIRTUAL_PREFIX}.css`,
+  `${MODULE_ID_VIRTUAL_PREFIX}-base.css`,
+  `${MODULE_ID_VIRTUAL_PREFIX}-utilities.css`,
+  `${MODULE_ID_VIRTUAL_PREFIX}-components.css`,
 ]
 
 export function createVirtualModuleLoader(ctx: { utils: WindiPluginUtils }): Pick<Plugin, 'resolveId' | 'load'> {

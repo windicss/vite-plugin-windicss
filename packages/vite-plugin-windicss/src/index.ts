@@ -5,7 +5,7 @@ import { UserOptions, WindiPluginUtils, createUtils } from '@windicss/plugin-uti
 import { createVirtualModuleLoader, MODULE_ID_VIRTUAL_PREFIX } from '../../shared/virtual-module'
 import { createDevtoolsPlugin } from './devtools'
 import { NAME } from './constants'
-import { getCssModules, invalidateCssModules } from './modules'
+import { getChangedModuleNames, getCssModules, invalidateCssModules } from './modules'
 
 const debug = {
   hmr: _debug(`${NAME}:hmr`),
@@ -91,8 +91,6 @@ function VitePluginWindicss(userOptions: UserOptions = {}): Plugin[] {
       if (!utils.isDetectTarget(file))
         return
 
-      const cssModules = getCssModules(server)
-
       // resolve normalized file path to system path
       if (resolve(file) === utils.configFilePath) {
         debug.hmr(`config file changed: ${file}`)
@@ -101,12 +99,14 @@ function VitePluginWindicss(userOptions: UserOptions = {}): Plugin[] {
           log('configure file changed, reloading')
           server.ws.send({ type: 'full-reload' })
         }, 0)
-        return cssModules
+        return getCssModules(server)
       }
 
       const changed = await utils.extractFile(await read(), file, true)
       if (!changed)
         return
+
+      const cssModules = getCssModules(server, getChangedModuleNames(utils))
 
       debug.hmr(`refreshed by ${file}`)
       invalidateCssModules(server, cssModules)

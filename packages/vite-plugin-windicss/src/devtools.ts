@@ -5,7 +5,7 @@ import type { WindiPluginUtils } from '@windicss/plugin-utils'
 import type { IncomingMessage } from 'connect'
 import _debug from 'debug'
 import { NAME } from './constants'
-import { getCssModules, invalidateCssModules, sendHmrReload } from './modules'
+import { getChangedModuleNames, getCssModules, invalidateCssModules, sendHmrReload } from './modules'
 
 const debug = {
   devtools: _debug(`${NAME}:devtools`),
@@ -47,7 +47,8 @@ export function createDevtoolsPlugin(ctx: { utils: WindiPluginUtils }): Plugin[]
     if (!server)
       return
 
-    const modules = getCssModules(server)
+    const names = getChangedModuleNames(ctx.utils)
+    const modules = getCssModules(server, names)
     invalidateCssModules(server, modules)
     sendHmrReload(server, modules)
   }

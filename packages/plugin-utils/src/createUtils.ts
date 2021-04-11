@@ -200,42 +200,52 @@ export function createUtils(
     return style.build()
   }
 
-  let layers: Record<LayerName, StyleSheet> = {
-    base: new StyleSheet(),
-    utilities: new StyleSheet(),
-    components: new StyleSheet(),
+  const layers: Record<LayerName, { style: StyleSheet; cssCache?: string; timestamp?: number }> = {
+    base: {
+      style: new StyleSheet(),
+    },
+    utilities: {
+      style: new StyleSheet(),
+    },
+    components: {
+      style: new StyleSheet(),
+    },
   }
-
-  let _layersCssCache: Record<LayerName, string> | undefined
 
   function updateLayers(style: StyleSheet) {
-    for (const s of style.children)
-      layers[s.meta.type].children.push(s)
+    const timestamp = +Date.now()
+    for (const s of style.children) {
+      layers[s.meta.type].style.children.push(s)
+      // invalid changed layer
+      layers[s.meta.type].timestamp = timestamp
+      layers[s.meta.type].cssCache = undefined
+    }
   }
 
-  async function generateCSS(layer?: LayerName) {
-    await ensureInit()
+  function buildLayerCss(name: LayerName) {
+    const layer = layers[name]
+    if (layer.cssCache == null) {
+      if (options.sortUtilities)
+        layer.style.sort()
+      layer.cssCache = layer.style.build()
+    }
+    return layer.cssCache
+  }
 
-    if (options.enableScan && options.scanOptions.runOnStartup)
-      await scan()
-
+  function buildPendingStyles() {
     options.onBeforeGenerate?.({
       classesPending,
       tagsPending,
     })
-
-    let changed = false
 
     if (classesPending.size) {
       const result = processor.interpret(Array.from(classesPending).join(' '))
       if (result.success.length) {
         debug.compile(`compiled ${result.success.length} classes out of ${classesPending.size}`)
         debug.compile(result.success)
+        updateLayers(result.styleSheet)
         include(classesGenerated, result.success)
         classesPending.clear()
-
-        updateLayers(result.styleSheet)
-        changed = true
       }
     }
 
@@ -246,48 +256,56 @@ export function createUtils(
             ? undefined
             : Array.from(tagsPending).map(i => `<${i}/>`).join(' '),
           options.preflightOptions.includeBase,
-          options.preflightOptions.includeGlobal,
+          false,
           options.preflightOptions.includePlugin,
         )
         updateLayers(preflightStyle)
         include(tagsGenerated, tagsPending)
         tagsPending.clear()
-        changed = true
       }
     }
 
-    if (changed || !_layersCssCache) {
-      if (options.sortUtilities)
-        Object.values(layers).map(l => l.sort())
+    options.onGenerated?.({
+      classes: classesGenerated,
+      tags: tagsGenerated,
+    })
+  }
 
-      _layersCssCache = {
-        base: layers.base.build(),
-        utilities: layers.utilities.build(),
-        components: layers.components.build(),
-      }
+  async function generateCSS(layer?: LayerName) {
+    await ensureInit()
 
-      options.onGenerated?.({
-        classes: classesGenerated,
-        tags: tagsGenerated,
-      })
-    }
+    if (options.enableScan && options.scanOptions.runOnStartup)
+      await scan()
+
+    buildPendingStyles()
 
     return layer
-      ? _layersCssCache[layer]
+      ? buildLayerCss(layer)
       : [
-        _layersCssCache.base,
-        _layersCssCache.components,
-        _layersCssCache.utilities,
+        buildLayerCss('base'),
+        buildLayerCss('components'),
+        buildLayerCss('utilities'),
       ].join('\n').trim()
   }
 
+  function buildStaticPreflight() {
+    if (!options.enablePreflight || !options.preflightOptions.includeGlobal)
+      return
+
+    const preflightStyle = processor.preflight(
+      ' ',
+      false,
+      options.preflightOptions.includeGlobal,
+      options.preflightOptions.includePlugin,
+    )
+
+    updateLayers(preflightStyle)
+  }
+
   function clearCache(clearAll = false) {
-    layers = {
-      base: new StyleSheet(),
-      utilities: new StyleSheet(),
-      components: new StyleSheet(),
-    }
-    _layersCssCache = undefined
+    layers.base = { style: new StyleSheet() }
+    layers.utilities = { style: new StyleSheet() }
+    layers.components = { style: new StyleSheet() }
     completions = undefined
 
     if (clearAll) {
@@ -325,6 +343,7 @@ export function createUtils(
     transformCSS,
     transformGroups,
     transformGroupsWithSourcemap,
+    buildPendingStyles,
     isDetectTarget,
     isScanTarget,
     isCssTransformTarget,
@@ -336,6 +355,8 @@ export function createUtils(
     tagsGenerated,
     tagsPending,
     tagsAvailable,
+
+    layersMeta: layers,
 
     addClasses,
     addTags,
@@ -375,6 +396,8 @@ export function createUtils(
     clearCache(false)
 
     options.onInitialized?.(utils)
+
+    buildStaticPreflight()
 
     return processor
   }
