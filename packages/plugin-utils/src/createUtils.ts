@@ -256,7 +256,7 @@ export function createUtils(
             ? undefined
             : Array.from(tagsPending).map(i => `<${i}/>`).join(' '),
           options.preflightOptions.includeBase,
-          false,
+          options.preflightOptions.includeGlobal,
           options.preflightOptions.includePlugin,
         )
         updateLayers(preflightStyle)
@@ -286,20 +286,6 @@ export function createUtils(
         buildLayerCss('components'),
         buildLayerCss('utilities'),
       ].join('\n').trim()
-  }
-
-  function buildStaticPreflight() {
-    if (!options.enablePreflight || !options.preflightOptions.includeGlobal)
-      return
-
-    const preflightStyle = processor.preflight(
-      ' ',
-      false,
-      options.preflightOptions.includeGlobal,
-      options.preflightOptions.includePlugin,
-    )
-
-    updateLayers(preflightStyle)
   }
 
   function clearCache(clearAll = false) {
@@ -396,8 +382,6 @@ export function createUtils(
     clearCache(false)
 
     options.onInitialized?.(utils)
-
-    buildStaticPreflight()
 
     return processor
   }
