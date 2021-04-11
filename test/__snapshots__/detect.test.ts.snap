@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`detect custom classes with parentheses: generated-css 1`] = `
-".h-\\\\(custom\\\\) {
-  height: calc(100% - 4rem);
-}"
-`;

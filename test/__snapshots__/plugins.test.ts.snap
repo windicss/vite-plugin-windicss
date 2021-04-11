@@ -55,6 +55,12 @@ exports[`plugins aspect-ratio: generated-css 1`] = `
 }"
 `;
 
+exports[`plugins custom classes with parentheses: generated-css 1`] = `
+".h-\\\\(custom\\\\) {
+  height: calc(100% - 4rem);
+}"
+`;
+
 exports[`plugins forms: classes 1`] = `Set {}`;
 
 exports[`plugins forms: classes 2`] = `Set {}`;
