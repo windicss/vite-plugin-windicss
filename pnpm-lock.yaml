@@ -16,7 +16,7 @@ importers:
       bumpp: ^6.0.6
       debug: ^4.3.2
       eslint: ^7.24.0
-      eslint-plugin-jest: ^24.3.4
+      eslint-plugin-jest: ^24.3.5
       fast-glob: ^3.2.5
       fs-extra: ^9.1.0
       git-ensure: ^0.1.0
@@ -42,7 +42,7 @@ importers:
       bumpp: 6.0.6
       debug: 4.3.2
       eslint: 7.24.0
-      eslint-plugin-jest: 24.3.4_53c23ebd1e4a7a813a71449c0eb059df
+      eslint-plugin-jest: 24.3.5_53c23ebd1e4a7a813a71449c0eb059df
       fast-glob: 3.2.5
       fs-extra: 9.1.0
       git-ensure: 0.1.0
@@ -81,21 +81,21 @@ importers:
     specifiers:
       vite: ^2.1.5
       vite-plugin-windicss: workspace:*
-      windicss: ^2.5.13
+      windicss: ^2.5.14
     devDependencies:
       vite: 2.1.5
       vite-plugin-windicss: link:../../packages/vite-plugin-windicss
-      windicss: 2.5.13
+      windicss: 2.5.14
 
   examples/vanilla-esm:
     specifiers:
       vite: ^2.1.5
       vite-plugin-windicss: workspace:*
-      windicss: ^2.5.13
+      windicss: ^2.5.14
     devDependencies:
       vite: 2.1.5
       vite-plugin-windicss: link:../../packages/vite-plugin-windicss
-      windicss: 2.5.13
+      windicss: 2.5.14
 
   examples/vue:
     specifiers:
@@ -159,21 +159,21 @@ importers:
       debug: ^4.3.2
       fast-glob: ^3.2.5
       magic-string: ^0.25.7
-      micromatch: ^4.0.3
+      micromatch: ^4.0.4
       pirates: ^4.0.1
       pug: ^3.0.2
       sucrase: ^3.17.1
       tsup: ^4.8.21
       typescript: ^4.2.4
-      windicss: ^2.5.13
+      windicss: ^2.5.14
     dependencies:
       debug: 4.3.2
       fast-glob: 3.2.5
       magic-string: 0.25.7
-      micromatch: 4.0.3
+      micromatch: 4.0.4
       pirates: 4.0.1
       sucrase: 3.17.1
-      windicss: 2.5.13
+      windicss: 2.5.14
     devDependencies:
       '@antfu/ni': 0.5.7
       '@types/debug': 4.1.5
@@ -192,10 +192,10 @@ importers:
       debug: ^4.3.2
       rollup: ^2.45.1
       tsup: ^4.8.21
-      windicss: ^2.5.13
+      windicss: ^2.5.14
     dependencies:
       '@windicss/plugin-utils': link:../plugin-utils
-      windicss: 2.5.13
+      windicss: 2.5.14
     devDependencies:
       '@antfu/ni': 0.5.7
       '@types/node': 14.14.37
@@ -213,12 +213,12 @@ importers:
       debug: ^4.3.2
       tsup: ^4.8.21
       vite: ^2.1.5
-      windicss: ^2.5.13
+      windicss: ^2.5.14
     dependencies:
       '@windicss/plugin-utils': link:../plugin-utils
       chalk: 4.1.0
       debug: 4.3.2
-      windicss: 2.5.13
+      windicss: 2.5.14
     devDependencies:
       '@antfu/ni': 0.5.7
       '@types/connect': 3.4.34
@@ -330,10 +330,6 @@ packages:
     resolution: {integrity: sha512-3eJJ841uKxeV8dcN/2yGEUy+RfgQspPEgQat85umsE1rotuquQ2AbIub4S6j7c50a2d+4myc+zSlnXeIHrOnhQ==}
     dev: true
 
-  /@babel/compat-data/7.13.15:
-    resolution: {integrity: sha512-ltnibHKR1VnrU4ymHyQ/CXtNXI6yZC0oJThyW78Hft8XndANwi+9H+UIklBDraIjFEJzw8wmcM427oDd9KS5wA==}
-    dev: true
-
   /@babel/core/7.13.13:
     resolution: {integrity: sha512-1xEs9jZAyKIouOoCmpsgk/I26PoKyvzQ2ixdRpRzfbcp1fL+ozw7TUgdDgwonbTovqRaTfRh50IXuw4QrWO0GA==}
     engines: {node: '>=6.9.0'}
@@ -420,7 +416,7 @@ packages:
     peerDependencies:
       '@babel/core': ^7.0.0
     dependencies:
-      '@babel/compat-data': 7.13.15
+      '@babel/compat-data': 7.13.12
       '@babel/core': 7.13.15
       '@babel/helper-validator-option': 7.12.17
       browserslist: 4.16.3
@@ -2642,8 +2638,8 @@ packages:
       tsconfig-paths: 3.9.0
     dev: true
 
-  /eslint-plugin-jest/24.3.4_53c23ebd1e4a7a813a71449c0eb059df:
-    resolution: {integrity: sha512-3n5oY1+fictanuFkTWPwSlehugBTAgwLnYLFsCllzE3Pl1BwywHl5fL0HFxmMjoQY8xhUDk8uAWc3S4JOHGh3A==}
+  /eslint-plugin-jest/24.3.5_53c23ebd1e4a7a813a71449c0eb059df:
+    resolution: {integrity: sha512-XG4rtxYDuJykuqhsOqokYIR84/C8pRihRtEpVskYLbIIKGwPNW2ySxdctuVzETZE+MbF/e7wmsnbNVpzM0rDug==}
     engines: {node: '>=10'}
     peerDependencies:
       '@typescript-eslint/eslint-plugin': '>= 4'
@@ -4749,6 +4745,14 @@ packages:
       braces: 3.0.2
       picomatch: 2.2.2
 
+  /micromatch/4.0.4:
+    resolution: {integrity: sha512-pRmzw/XUcwXGpD9aI9q/0XOwLNygjETJ8y0ao0wdqprrzDa4YnxLcz7fQRZr8voh8V10kGhABbNcHVk5wHgWwg==}
+    engines: {node: '>=8.6'}
+    dependencies:
+      braces: 3.0.2
+      picomatch: 2.2.3
+    dev: false
+
   /mime-db/1.47.0:
     resolution: {integrity: sha512-QBmA/G2y+IfeS4oktet3qRZ+P5kPhCKRXxXnQEudYqUaEioAU1/Lq2us3D/t1Jfo4hE9REQPrbB7K5sOczJVIw==}
     engines: {node: '>= 0.6'}
@@ -5222,6 +5226,11 @@ packages:
   /picomatch/2.2.2:
     resolution: {integrity: sha512-q0M/9eZHzmr0AulXyPwNfZjtwZ/RBZlbN3K3CErVrk50T2ASYI7Bye0EvekFY3IP1Nt2DHu0re+V2ZHIpMkuWg==}
     engines: {node: '>=8.6'}
+
+  /picomatch/2.2.3:
+    resolution: {integrity: sha512-KpELjfwcCDUb9PeigTs2mBJzXUPzAuP2oPcA989He8Rte0+YUAjw1JVedDhuTKPkHjSYzMN3npC9luThGYEKdg==}
+    engines: {node: '>=8.6'}
+    dev: false
 
   /pify/2.3.0:
     resolution: {integrity: sha1-7RQaasBDqEnqWISY59yosVMw6Qw=}
@@ -5810,14 +5819,6 @@ packages:
     hasBin: true
     dependencies:
       glob: 7.1.6
-    dev: true
-
-  /rollup/2.43.0:
-    resolution: {integrity: sha512-FRsYGqlo1iF/w3bv319iStAK0hyhhwon35Cbo7sGUoXaOpsZFy6Lel7UoGb5bNDE4OsoWjMH94WiVvpOM26l3g==}
-    engines: {node: '>=10.0.0'}
-    hasBin: true
-    optionalDependencies:
-      fsevents: 2.3.2
     dev: true
 
   /rollup/2.45.1:
@@ -6529,7 +6530,7 @@ packages:
       joycon: 3.0.1
       postcss-load-config: 3.0.1
       resolve-from: 5.0.0
-      rollup: 2.43.0
+      rollup: 2.45.1
       sucrase: 3.17.1
     transitivePeerDependencies:
       - supports-color
@@ -6914,8 +6915,8 @@ packages:
       string-width: 4.2.0
     dev: true
 
-  /windicss/2.5.13:
-    resolution: {integrity: sha512-Am0Q05X8HN39czbX3as36elW0UcUvU07zsbBKRQlHBZbF6l7F7AbSeWo6aq4G+rm3VZPpgLU3PHqMFHqHvLMqw==}
+  /windicss/2.5.14:
+    resolution: {integrity: sha512-8Lm7U1M5AzJPbiaVSVz7qWdETRzlkv//5LBMICBBAojos1jo09lUGhNZ5rBzHeldB9JmqYMDOGgrrXHExu0EAg==}
     engines: {node: '>= 12'}
     hasBin: true
 
