@@ -1,4 +1,4 @@
-import { existsSync } from 'fs'
+import { existsSync, promises as fs } from 'fs'
 import { resolve, posix } from 'path'
 import { pathToFileURL } from 'url'
 import _debug from 'debug'
@@ -222,10 +222,13 @@ export async function loadConfiguration(options: LoadConfigurationOptions) {
       try {
         debugConfig('loading from ', configFilePath)
 
+        const isEsmJS = configFilePath.endsWith('.js')
+          && (await fs.readFile(configFilePath, 'utf-8')).includes('export default ')
+
         if (enableSucrase)
           revert = registerSucrase()
 
-        if (configFilePath.endsWith('.js')) {
+        if (isEsmJS) {
           // hack to prevent `import` get transformed
           // eslint-disable-next-line no-new-func
           const _import = new Function('modulePath', 'return import(modulePath)')
@@ -233,15 +236,7 @@ export async function loadConfiguration(options: LoadConfigurationOptions) {
           if (typeof require !== 'undefined')
             delete require.cache[require.resolve(configFilePath)]
 
-          try {
-            // add timestamp query to bypass cache
-            resolved = (await _import(`${pathToFileURL(configFilePath)}?ts${Date.now()}`))?.default || {}
-          }
-          catch {}
-
-          if (!resolved)
-            // if query in file path does not support
-            resolved = (await _import(pathToFileURL(configFilePath)))?.default || {}
+          resolved = (await _import(pathToFileURL(configFilePath)))?.default || {}
 
           if (resolved.default)
             resolved = resolved.default

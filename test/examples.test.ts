@@ -5,6 +5,9 @@ describe('example', () => {
   it('should work', async() => {
     const utils = createUtils({}, {
       root: resolve(__dirname, '../examples/vue'),
+      onConfigurationError(e) {
+        throw e
+      },
     })
     await utils.init()
     expect(await utils.generateCSS()).toMatchSnapshot('generated-css')
@@ -31,6 +34,9 @@ describe('example', () => {
       },
     }, {
       root: resolve(__dirname, '../examples/vue'),
+      onConfigurationError(e) {
+        throw e
+      },
     })
     await utils.init()
     await utils.generateCSS()
