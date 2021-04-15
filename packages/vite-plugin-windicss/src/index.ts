@@ -78,7 +78,7 @@ function VitePluginWindicss(userOptions: UserOptions = {}): Plugin[] {
     enforce: 'post',
 
     async configureServer(server) {
-      console.log(utils.configFilePath)
+      await utils.ensureInit()
       if (utils.configFilePath)
         server.watcher.add(utils.configFilePath)
 

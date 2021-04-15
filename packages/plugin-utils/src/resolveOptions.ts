@@ -230,7 +230,19 @@ export async function loadConfiguration(options: LoadConfigurationOptions) {
           // eslint-disable-next-line no-new-func
           const _import = new Function('modulePath', 'return import(modulePath)')
 
-          resolved = (await _import(pathToFileURL(configFilePath)))?.default || {}
+          if (typeof require !== 'undefined')
+            delete require.cache[require.resolve(configFilePath)]
+
+          try {
+            // add timestamp query to bypass cache
+            resolved = (await _import(`${pathToFileURL(configFilePath)}?ts${Date.now()}`))?.default || {}
+          }
+          catch {}
+
+          if (!resolved)
+            // if query in file path does not support
+            resolved = (await _import(pathToFileURL(configFilePath)))?.default || {}
+
           if (resolved.default)
             resolved = resolved.default
         }
