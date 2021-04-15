@@ -78,6 +78,7 @@ function VitePluginWindicss(userOptions: UserOptions = {}): Plugin[] {
     enforce: 'post',
 
     async configureServer(server) {
+      console.log(utils.configFilePath)
       if (utils.configFilePath)
         server.watcher.add(utils.configFilePath)
 
@@ -88,9 +89,6 @@ function VitePluginWindicss(userOptions: UserOptions = {}): Plugin[] {
     },
 
     async handleHotUpdate({ server, file, read, modules }) {
-      if (!utils.isDetectTarget(file))
-        return
-
       // resolve normalized file path to system path
       if (resolve(file) === utils.configFilePath) {
         debug.hmr(`config file changed: ${file}`)
@@ -101,6 +99,9 @@ function VitePluginWindicss(userOptions: UserOptions = {}): Plugin[] {
         }, 0)
         return getCssModules(server)
       }
+
+      if (!utils.isDetectTarget(file))
+        return
 
       const changed = await utils.extractFile(await read(), file, true)
       if (!changed)
