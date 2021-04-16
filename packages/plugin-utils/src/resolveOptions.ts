@@ -90,7 +90,7 @@ export async function resolveOptions(
 
   const scanOptions: ResolvedOptions['scanOptions'] = Object.assign(
     {
-      fileExtensions: ['html', 'vue', 'md', 'mdx', 'pug', 'jsx', 'tsx', 'svelte'],
+      fileExtensions: ['html', 'vue', 'md', 'mdx', 'pug', 'jsx', 'tsx', 'svelte', 'ts', 'js'],
       dirs: ['src'],
       exclude: ['node_modules/**/*', '.git/**/*'],
       include: [],
