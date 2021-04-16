@@ -40,7 +40,7 @@ export interface UserOptions {
     /**
      * Enable all the preflight regardless the template
      *
-     * @deprecated
+     * @deprecated define this field in the windicss.config.ts instead
      */
     enableAll?: boolean
 
@@ -114,13 +114,15 @@ export interface UserOptions {
      * Directories to search for classnames
      *
      * @default 'src'
+     * @deprecated use `extract.include` in the windicss.config.ts instead
      */
     dirs?: string | string[]
 
     /**
      * File extension to search for classnames
      *
-     * @default 'html', 'vue', 'md', 'mdx', 'pug', 'jsx', 'tsx', 'svelte'
+     * @default 'html', 'vue', 'md', 'mdx', 'pug', 'jsx', 'tsx', 'svelte', 'js', 'ts'
+     * @deprecated use `extract.include` in the windicss.config.ts instead
      */
     fileExtensions?: string | string[]
 

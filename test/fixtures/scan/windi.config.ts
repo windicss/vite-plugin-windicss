@@ -6,7 +6,6 @@ export default defineConfig({
       '**/*.js',
       'a.ts',
     ],
-    exclude: [
-    ],
+    exclude: [],
   },
 })

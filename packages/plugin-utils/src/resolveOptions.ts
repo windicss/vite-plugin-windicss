@@ -92,7 +92,7 @@ export async function resolveOptions(
     {
       fileExtensions: ['html', 'vue', 'md', 'mdx', 'pug', 'jsx', 'tsx', 'svelte', 'ts', 'js'],
       dirs: ['src'],
-      exclude: ['node_modules/**/*', '.git/**/*'],
+      exclude: [],
       include: [],
       runOnStartup: true,
       transformers: [],
@@ -101,14 +101,22 @@ export async function resolveOptions(
     typeof scan === 'boolean' ? {} : scan,
   )
 
-  scanOptions.exclude = mergeArrays(config.extract?.exclude, scanOptions.exclude)
+  scanOptions.exclude = mergeArrays(
+    config.extract?.exclude,
+    scanOptions.exclude,
+    // only set default value when exclude is not provided
+    config.extract?.exclude ? [] : ['node_modules/**/*', '.git/**/*'],
+  )
     .map(i => slash(resolve(root, i)))
+
   scanOptions.include = mergeArrays(
     config.extract?.include,
     scanOptions.include,
+    // only set default value when include is not provided
     config.extract?.include ? [] : buildGlobs(scanOptions.dirs, scanOptions.fileExtensions),
   )
     .map(i => slash(resolve(root, i)))
+
   scanOptions.extractors = mergeArrays(getDefaultExtractors(), config.extract?.extractors)
 
   const safelist = new Set(mergeArrays(config.safelist, options.safelist).flatMap(i => i.split(' ')))

@@ -9,12 +9,7 @@ Set {
 }
 `;
 
-exports[`fixtures scan: exclude 1`] = `
-Array [
-  "node_modules/**/*",
-  ".git/**/*",
-]
-`;
+exports[`fixtures scan: exclude 1`] = `Array []`;
 
 exports[`fixtures scan: files 1`] = `
 Array [
