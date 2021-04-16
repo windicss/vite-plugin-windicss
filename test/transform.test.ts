@@ -7,6 +7,9 @@ describe('transfrom', () => {
       '-sm:hover:(p-1 p-2)',
       '+sm:(p-1 p-2)',
       'dark:+lg:(p-1 p-2)',
+      '@lg:(p-1 p-2)',
+      'md:(w-40vw pr-4.5rem)',
+      '<md:(grid grid-cols-[1fr,50%])',
     ]
     const utils = createUtils()
 
