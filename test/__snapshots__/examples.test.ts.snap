@@ -52,6 +52,13 @@ Set {
   "pl-100px",
   "bg-yellow-200",
   "mt-2",
+  "vue",
+  "./App.vue",
+  "virtual:windi-base.css",
+  "virtual:windi-components.css",
+  "virtual:windi-utilities.css",
+  "virtual:windi-devtools",
+  "./main.css",
 }
 `;
 
