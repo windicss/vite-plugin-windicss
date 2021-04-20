@@ -2,7 +2,8 @@ import { promises as fs } from 'fs'
 import { StyleSheet, Style } from 'windicss/utils/style'
 import { CSSParser } from 'windicss/utils/parser'
 import { generateCompletions } from 'windicss/utils'
-import fg from 'fast-glob'
+import { crawl } from 'recrawl'
+import globrex from 'globrex'
 import _debug from 'debug'
 import micromatch from 'micromatch'
 import Processor from 'windicss'
@@ -57,15 +58,21 @@ export function createUtils(
     debug.glob('include', options.scanOptions.include)
     debug.glob('exclude', options.scanOptions.exclude)
 
-    const files = await fg(
-      options.scanOptions.include,
-      {
-        cwd: options.root,
-        ignore: options.scanOptions.exclude,
-        onlyFiles: true,
-        absolute: true,
-      },
-    )
+    const compileGlob = (glob: string) => {
+      if (glob.startsWith(options.root)) {
+        glob = glob.slice(options.root.length + 1)
+      }
+      return globrex(glob, {
+        globstar: true,
+        extended: true,
+      }).regex
+    }
+
+    const files = await crawl(options.root, {
+      only: options.scanOptions.include.map(compileGlob),
+      skip: options.scanOptions.exclude.map(compileGlob),
+      absolute: true,
+    })
 
     files.sort()
 
