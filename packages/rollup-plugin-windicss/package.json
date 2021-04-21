@@ -36,10 +36,10 @@
     "rollup": "^2.0.0"
   },
   "devDependencies": {
-    "@antfu/ni": "^0.5.7",
-    "@types/node": "^14.14.37",
+    "@antfu/ni": "^0.5.8",
+    "@types/node": "^14.14.41",
     "debug": "^4.3.2",
-    "rollup": "^2.45.1",
-    "tsup": "^4.8.21"
+    "rollup": "^2.45.2",
+    "tsup": "^4.9.1"
   }
 }

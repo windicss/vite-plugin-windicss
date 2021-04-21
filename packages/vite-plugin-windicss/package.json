@@ -38,10 +38,10 @@
     "vite": "^2.0.1"
   },
   "devDependencies": {
-    "@antfu/ni": "^0.5.7",
+    "@antfu/ni": "^0.5.8",
     "@types/connect": "^3.4.34",
-    "@types/node": "^14.14.37",
-    "tsup": "^4.8.21",
-    "vite": "^2.1.5"
+    "@types/node": "^14.14.41",
+    "tsup": "^4.9.1",
+    "vite": "^2.2.1"
   }
 }
