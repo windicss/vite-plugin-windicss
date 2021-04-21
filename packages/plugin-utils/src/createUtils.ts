@@ -58,9 +58,10 @@ export function createUtils(
     debug.glob('include', options.scanOptions.include)
     debug.glob('exclude', options.scanOptions.exclude)
 
+    const root = slash(options.root)
     const compileGlob = (glob: string) => {
-      if (glob.startsWith(options.root)) {
-        glob = glob.slice(options.root.length + 1)
+      if (glob.startsWith(root)) {
+        glob = glob.slice(root.length + 1)
       }
       return globrex(glob, {
         globstar: true,
@@ -68,7 +69,7 @@ export function createUtils(
       }).regex
     }
 
-    const files = await crawl(options.root, {
+    const files = await crawl(root, {
       only: options.scanOptions.include.map(compileGlob),
       skip: options.scanOptions.exclude.map(compileGlob),
       absolute: true,
