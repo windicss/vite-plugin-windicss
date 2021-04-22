@@ -15,6 +15,8 @@ import { applyExtractors as _applyExtractors } from './extractors/helper'
 export type CompletionsResult = ReturnType<typeof generateCompletions>
 export type LayerName = 'base' | 'utilities' | 'components'
 
+export const SupportedLayers = ['base', 'utilities', 'components']
+
 export function createUtils(
   userOptions: UserOptions | ResolvedOptions = {},
   utilsOptions: WindiPluginUtilsOptions = {
@@ -220,6 +222,8 @@ export function createUtils(
   function updateLayers(styles: Style[]) {
     const timestamp = +Date.now()
     for (const s of styles) {
+      if (!SupportedLayers.includes(s.meta.type))
+        continue
       layers[s.meta.type].style.children.push(s)
       // invalid changed layer
       layers[s.meta.type].timestamp = timestamp
@@ -232,7 +236,7 @@ export function createUtils(
     if (layer.cssCache == null) {
       if (options.sortUtilities)
         layer.style.sort()
-      layer.cssCache = layer.style.build()
+      layer.cssCache = `/* windicss layer ${name} */\n${layer.style.build()}`
     }
     return layer.cssCache
   }
