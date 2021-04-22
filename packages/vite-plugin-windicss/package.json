@@ -1,41 +1,41 @@
 {
   "name": "vite-plugin-windicss",
-  "description": "Windi CSS for Vite, it's fast!",
   "version": "0.14.6",
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
-  "license": "MIT",
-  "funding": "https://github.com/sponsors/antfu",
-  "author": "antfu <anthonyfu117@hotmail.com>",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/antfu/vite-plugin-windicss"
-  },
-  "homepage": "https://github.com/antfu/vite-plugin-windicss",
-  "bugs": "https://github.com/antfu/vite-plugin-windicss/issues",
-  "files": [
-    "dist"
-  ],
+  "description": "Windi CSS for Vite, it's fast!",
   "keywords": [
     "vite",
     "vite-plugin",
     "windicss",
     "tailwindcss"
   ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/antfu/vite-plugin-windicss"
+  },
+  "funding": "https://github.com/sponsors/antfu",
+  "author": "antfu <anthonyfu117@hotmail.com>",
+  "files": [
+    "dist"
+  ],
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "homepage": "https://github.com/antfu/vite-plugin-windicss",
+  "bugs": "https://github.com/antfu/vite-plugin-windicss/issues",
   "scripts": {
     "dev": "npm run build -- --watch",
     "build": "tsup src/index.ts src/client.ts --dts --format cjs,esm",
     "prepublishOnly": "npm run build"
+  },
+  "peerDependencies": {
+    "vite": "^2.0.1"
   },
   "dependencies": {
     "@windicss/plugin-utils": "workspace:*",
     "chalk": "^4.1.0",
     "debug": "^4.3.2",
     "windicss": "^2.5.14"
-  },
-  "peerDependencies": {
-    "vite": "^2.0.1"
   },
   "devDependencies": {
     "@antfu/ni": "^0.5.8",

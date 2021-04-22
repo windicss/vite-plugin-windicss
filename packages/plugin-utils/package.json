@@ -1,26 +1,26 @@
 {
   "name": "@windicss/plugin-utils",
-  "description": "Common utils for building integrations of Windi CSS",
   "version": "0.14.6",
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
-  "license": "MIT",
-  "funding": "https://github.com/sponsors/antfu",
-  "author": "antfu <anthonyfu117@hotmail.com>",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/antfu/vite-plugin-windicss"
-  },
-  "homepage": "https://github.com/antfu/vite-plugin-windicss",
-  "bugs": "https://github.com/antfu/vite-plugin-windicss/issues",
-  "files": [
-    "dist"
-  ],
+  "description": "Common utils for building integrations of Windi CSS",
   "keywords": [
     "windicss",
     "tailwindcss"
   ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/antfu/vite-plugin-windicss"
+  },
+  "funding": "https://github.com/sponsors/antfu",
+  "author": "antfu <anthonyfu117@hotmail.com>",
+  "files": [
+    "dist"
+  ],
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "homepage": "https://github.com/antfu/vite-plugin-windicss",
+  "bugs": "https://github.com/antfu/vite-plugin-windicss/issues",
   "scripts": {
     "dev": "npm run build -- --watch",
     "build": "tsup src/index.ts --dts --format cjs,esm --external sucrase/register/ts,pug,windicss/utils/style,windicss/utils/parser,windicss/utils",

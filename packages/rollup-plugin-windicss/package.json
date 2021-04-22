@@ -1,39 +1,39 @@
 {
   "name": "rollup-plugin-windicss",
-  "description": "Windi CSS for Rollup",
   "version": "0.14.6",
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
-  "license": "MIT",
-  "funding": "https://github.com/sponsors/antfu",
-  "author": "antfu <anthonyfu117@hotmail.com>",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/antfu/vite-plugin-windicss"
-  },
-  "homepage": "https://github.com/antfu/vite-plugin-windicss",
-  "bugs": "https://github.com/antfu/vite-plugin-windicss/issues",
-  "files": [
-    "dist"
-  ],
+  "description": "Windi CSS for Rollup",
   "keywords": [
     "rollup",
     "rollup-plugin",
     "windicss",
     "tailwindcss"
   ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/antfu/vite-plugin-windicss"
+  },
+  "funding": "https://github.com/sponsors/antfu",
+  "author": "antfu <anthonyfu117@hotmail.com>",
+  "files": [
+    "dist"
+  ],
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "homepage": "https://github.com/antfu/vite-plugin-windicss",
+  "bugs": "https://github.com/antfu/vite-plugin-windicss/issues",
   "scripts": {
     "dev": "npm run build -- --watch",
     "build": "tsup src/index.ts --dts --format cjs,esm",
     "prepublishOnly": "npm run build"
   },
+  "peerDependencies": {
+    "rollup": "^2.0.0"
+  },
   "dependencies": {
     "@windicss/plugin-utils": "workspace:*",
     "windicss": "^2.5.14"
-  },
-  "peerDependencies": {
-    "rollup": "^2.0.0"
   },
   "devDependencies": {
     "@antfu/ni": "^0.5.8",

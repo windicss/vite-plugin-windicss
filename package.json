@@ -13,6 +13,8 @@
     "dev": "pnpm -r --parallel --filter ./packages run dev",
     "build": "cp README.md packages/vite-plugin-windicss && pnpm -r --filter ./packages run build",
     "publish:ci": "pnpm -r --filter ./packages publish --access public --no-git-checks",
+    "lint": "eslint '**/*.{js,ts,vue,json}'",
+    "lint:fix": "nr lint --fix",
     "release": "npx git-ensure -a && npx bumpp package.json packages/*/package.json --commit --tag --push",
     "test": "jest --runInBand",
     "test:update": "jest --runInBand --u",
