@@ -17,7 +17,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [12.x, 14.x]
+        node-version: [12.x, 14.x, 16.x]
         os: [ubuntu-latest, windows-latest, macos-latest]
       fail-fast: false
 
@@ -38,11 +38,28 @@ jobs:
       - name: Build
         run: nr build
 
-      - name: Lint
-        run: nr lint --if-present
-
       - name: Test
         run: nr test
 
       - name: Test Examples
         run: nr test:examples
+
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js v14
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+
+      - name: Setup
+        run: npm i -g pnpm @antfu/ni
+
+      - name: Install
+        run: nci
+
+      - name: Lint
+        run: nr lint --if-present
