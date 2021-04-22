@@ -37,10 +37,10 @@ export function registerTS(hookOptions?: HookOptions): RevertFunction {
   return addHook(['.ts'], { transforms: ['imports', 'typescript'] }, hookOptions)
 }
 
-export function registerSucrase() {
+export function registerSucrase(hookOptions?: HookOptions) {
   const reverts = [
-    registerJS(),
-    registerTS(),
+    registerJS(hookOptions),
+    registerTS(hookOptions),
   ]
 
   return () => reverts.forEach(fn => fn())

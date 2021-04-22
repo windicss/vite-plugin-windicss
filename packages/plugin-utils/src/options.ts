@@ -1,6 +1,7 @@
 /* eslint-disable no-use-before-define */
 
 import type { Extractor, FullConfig as WindiCssOptions } from 'windicss/types/interfaces'
+import { LoadConfigurationOptions } from 'packages/vite-plugin-windicss/dist'
 import { TransformerFunction } from './transformers'
 import { TagNames } from './constants'
 import { WindiPluginUtils } from './createUtils'
@@ -196,35 +197,7 @@ export interface UserOptions {
   onInitialized?: (utils: WindiPluginUtils) => void
 }
 
-export interface WindiPluginUtilsOptions {
-  /**
-   * Name for debug
-   *
-   * @default 'windi-plugin-utils'
-   * @internal
-   */
-  name?: string
-
-  /**
-    * CWD
-    *
-    * @default process.cwd
-    * @internal
-    */
-  root?: string
-
-  /**
-   * Use sucrase/register to load configs in ESM/TypeScript
-   *
-   * @default true
-   */
-  enableSucrase?: boolean
-
-  /**
-   * On loading configuration error
-   */
-  onConfigurationError?: (error: Error) => void
-}
+export interface WindiPluginUtilsOptions extends LoadConfigurationOptions {}
 
 export interface ResolvedOptions {
   config: WindiCssOptions

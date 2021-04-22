@@ -3,9 +3,9 @@ import { resolve, posix } from 'path'
 import { pathToFileURL } from 'url'
 import _debug from 'debug'
 import type { UserOptions, ResolvedOptions, WindiCssOptions, WindiPluginUtilsOptions } from './options'
-import { defaultAlias, configureFiles } from './constants'
+import { defaultAlias, defaultConfigureFiles } from './constants'
 import { Arrayable, kebabCase, mergeArrays, slash, toArray } from './utils'
-import { registerSucrase } from './register'
+import { HookOptions, registerSucrase } from './register'
 import { getDefaultExtractors } from './extractors/helper'
 
 export function isResolvedOptions(options: UserOptions | ResolvedOptions): options is ResolvedOptions {
@@ -185,10 +185,41 @@ export async function resolveOptions(
 }
 
 export interface LoadConfigurationOptions {
+  /**
+   * Name for debug
+   *
+   * @default 'windi-plugin-utils'
+   * @internal
+   */
   name?: string
+  /**
+   * Use sucrase/register to load configs in ESM/TypeScript
+   *
+   * @default true
+   */
   enableSucrase?: boolean
+  /**
+   * Options for https://github.com/ariporad/pirates
+   */
+  hookOptions?: HookOptions
+  /**
+   * Config object or path
+   */
   config?: WindiCssOptions | string
+  /**
+   * CWD
+   *
+   * @default process.cwd
+   * @internal
+   */
   root?: string
+  /**
+   * A list of filename of paths to search of config files
+   */
+  configFiles?: string[]
+  /**
+   * On loading configuration error
+   */
   onConfigurationError?: (error: Error) => void
 }
 
@@ -202,7 +233,9 @@ export async function loadConfiguration(options: LoadConfigurationOptions) {
     enableSucrase = true,
     config,
     root = process.cwd(),
+    configFiles: configureFiles = defaultConfigureFiles,
     onConfigurationError = e => console.error(e),
+    hookOptions,
   } = options
 
   const debugConfig = _debug(`${name}:config`)
@@ -234,7 +267,7 @@ export async function loadConfiguration(options: LoadConfigurationOptions) {
           && (await fs.readFile(configFilePath, 'utf-8')).includes('export default ')
 
         if (enableSucrase)
-          revert = registerSucrase()
+          revert = registerSucrase(hookOptions)
 
         if (isEsmJS) {
           // hack to prevent `import` get transformed

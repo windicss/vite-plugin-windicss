@@ -1,5 +1,5 @@
 /* eslint-disable no-use-before-define */
-export const configureFiles = [
+export const defaultConfigureFiles = [
   'windi.config.ts',
   'windi.config.js',
   'windi.config.mjs',
