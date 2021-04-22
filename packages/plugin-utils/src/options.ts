@@ -1,10 +1,10 @@
 /* eslint-disable no-use-before-define */
 
 import type { Extractor, FullConfig as WindiCssOptions } from 'windicss/types/interfaces'
-import { LoadConfigurationOptions } from 'packages/vite-plugin-windicss/dist'
 import { TransformerFunction } from './transformers'
 import { TagNames } from './constants'
 import { WindiPluginUtils } from './createUtils'
+import { LoadConfigurationOptions } from './resolveOptions'
 
 export { WindiCssOptions }
 
