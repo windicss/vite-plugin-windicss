@@ -4,7 +4,7 @@ import type { Extractor, FullConfig as WindiCssOptions } from 'windicss/types/in
 import { TransformerFunction } from './transformers'
 import { TagNames } from './constants'
 import { WindiPluginUtils } from './createUtils'
-import { LoadConfigurationOptions } from './resolveOptions'
+import { HookOptions } from './register'
 
 export { WindiCssOptions }
 
@@ -16,6 +16,11 @@ export interface UserOptions {
    * @default auto searching for `windi.config.ts` / `tailwind.config.js`
    */
   config?: WindiCssOptions | string
+
+  /**
+   * A list of filename of paths to search of config files
+   */
+  configFiles?: string[]
 
   /**
    * Safe class names to be always included.
@@ -197,7 +202,46 @@ export interface UserOptions {
   onInitialized?: (utils: WindiPluginUtils) => void
 }
 
-export interface WindiPluginUtilsOptions extends LoadConfigurationOptions {}
+export interface LoadConfigurationOptions {
+  /**
+   * Name for debug
+   *
+   * @default 'windi-plugin-utils'
+   * @internal
+   */
+  name?: string
+  /**
+   * Use sucrase/register to load configs in ESM/TypeScript
+   *
+   * @default true
+   */
+  enableSucrase?: boolean
+  /**
+   * Options for https://github.com/ariporad/pirates
+   */
+  hookOptions?: HookOptions
+  /**
+   * Config object or path
+   */
+  config?: WindiCssOptions | string
+  /**
+   * CWD
+   *
+   * @default process.cwd
+   * @internal
+   */
+  root?: string
+  /**
+   * A list of filename of paths to search of config files
+   */
+  configFiles?: string[]
+  /**
+   * On loading configuration error
+   */
+  onConfigurationError?: (error: Error) => void
+}
+
+export type WindiPluginUtilsOptions = Omit<LoadConfigurationOptions, 'config' | 'configFiles'>
 
 export interface ResolvedOptions {
   config: WindiCssOptions

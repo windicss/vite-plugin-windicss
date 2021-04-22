@@ -2,10 +2,10 @@ import { existsSync, promises as fs } from 'fs'
 import { resolve, posix } from 'path'
 import { pathToFileURL } from 'url'
 import _debug from 'debug'
-import type { UserOptions, ResolvedOptions, WindiCssOptions, WindiPluginUtilsOptions } from './options'
+import type { UserOptions, ResolvedOptions, WindiCssOptions, WindiPluginUtilsOptions, LoadConfigurationOptions } from './options'
 import { defaultAlias, defaultConfigureFiles } from './constants'
 import { Arrayable, kebabCase, mergeArrays, slash, toArray } from './utils'
-import { HookOptions, registerSucrase } from './register'
+import { registerSucrase } from './register'
 import { getDefaultExtractors } from './extractors/helper'
 
 export function isResolvedOptions(options: UserOptions | ResolvedOptions): options is ResolvedOptions {
@@ -53,6 +53,7 @@ export async function resolveOptions(
       ...utilsOptions,
       root: utilsOptions.root || options.root,
       config: options.config,
+      configFiles: options.configFiles,
     })
     : { resolved: {} as WindiCssOptions, configFilePath: undefined }
 
@@ -182,45 +183,6 @@ export async function resolveOptions(
   debugOptions(resolvedOptions)
 
   return resolvedOptions
-}
-
-export interface LoadConfigurationOptions {
-  /**
-   * Name for debug
-   *
-   * @default 'windi-plugin-utils'
-   * @internal
-   */
-  name?: string
-  /**
-   * Use sucrase/register to load configs in ESM/TypeScript
-   *
-   * @default true
-   */
-  enableSucrase?: boolean
-  /**
-   * Options for https://github.com/ariporad/pirates
-   */
-  hookOptions?: HookOptions
-  /**
-   * Config object or path
-   */
-  config?: WindiCssOptions | string
-  /**
-   * CWD
-   *
-   * @default process.cwd
-   * @internal
-   */
-  root?: string
-  /**
-   * A list of filename of paths to search of config files
-   */
-  configFiles?: string[]
-  /**
-   * On loading configuration error
-   */
-  onConfigurationError?: (error: Error) => void
 }
 
 export async function loadConfiguration(options: LoadConfigurationOptions) {

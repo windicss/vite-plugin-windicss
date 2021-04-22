@@ -1,7 +1,7 @@
 import { resolve } from 'path'
 import type { Plugin, ResolvedConfig, ViteDevServer } from 'vite'
 import _debug, { log } from 'debug'
-import { UserOptions, WindiPluginUtils, createUtils } from '@windicss/plugin-utils'
+import { UserOptions, WindiPluginUtils, createUtils, WindiPluginUtilsOptions } from '@windicss/plugin-utils'
 import { createVirtualModuleLoader, MODULE_ID_VIRTUAL_PREFIX } from '../../shared/virtual-module'
 import { createDevtoolsPlugin } from './devtools'
 import { NAME } from './constants'
@@ -14,7 +14,7 @@ const debug = {
   memory: _debug(`${NAME}:memory`),
 }
 
-function VitePluginWindicss(userOptions: UserOptions = {}): Plugin[] {
+function VitePluginWindicss(userOptions: UserOptions = {}, utilsOptions: WindiPluginUtilsOptions = {}): Plugin[] {
   let utils: WindiPluginUtils
   let viteConfig: ResolvedConfig
   let server: ViteDevServer | undefined
@@ -69,6 +69,7 @@ function VitePluginWindicss(userOptions: UserOptions = {}): Plugin[] {
             console.error(e)
           }
         },
+        ...utilsOptions,
       })
       await utils.init()
     },
