@@ -41,3 +41,12 @@ export function sendHmrReload(server: ViteDevServer, modules: ModuleNode[] = get
     })),
   })
 }
+
+export function reloadChangedCssModules(server: ViteDevServer, utils: WindiPluginUtils) {
+  const cssModules = getCssModules(server, getChangedModuleNames(utils))
+
+  invalidateCssModules(server, cssModules)
+  sendHmrReload(server, cssModules)
+
+  return cssModules
+}

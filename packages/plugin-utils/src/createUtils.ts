@@ -30,10 +30,12 @@ export function createUtils(
     config: _debug(`${name}:config`),
     debug: _debug(`${name}:debug`),
     compile: _debug(`${name}:compile`),
-    glob: _debug(`${name}:scan:glob`),
+    scan: _debug(`${name}:scan`),
+    scanGlob: _debug(`${name}:scan:glob`),
     scanTransform: _debug(`${name}:scan:transform`),
     detectClass: _debug(`${name}:detect:class`),
     detectTag: _debug(`${name}:detect:tag`),
+    compileLayer: _debug(`${name}:compile:layer`),
   }
 
   let processor: Processor
@@ -56,8 +58,8 @@ export function createUtils(
 
   async function getFiles() {
     await ensureInit()
-    debug.glob('include', options.scanOptions.include)
-    debug.glob('exclude', options.scanOptions.exclude)
+    debug.scanGlob('include', options.scanOptions.include)
+    debug.scanGlob('exclude', options.scanOptions.exclude)
 
     const files = await fg(
       options.scanOptions.include,
@@ -71,7 +73,7 @@ export function createUtils(
 
     files.sort()
 
-    debug.glob('files', files)
+    debug.scanGlob('files', files)
 
     return files
   }
@@ -84,6 +86,7 @@ export function createUtils(
 
     if (!_searching) {
       _searching = (async() => {
+        debug.scan('started')
         files.push(...await getFiles())
 
         const contents = await Promise.all(
@@ -93,10 +96,16 @@ export function createUtils(
         )
 
         await Promise.all(contents.map(
-          ([content, id]) => extractFile(content, id, true),
+          async([content, id]) => {
+            if (isCssTransformTarget(id))
+              return transformCSS(content)
+            else
+              return extractFile(content, id, true)
+          },
         ))
 
         scanned = true
+        debug.scan('finished')
       })()
     }
 
@@ -195,16 +204,21 @@ export function createUtils(
     return changed
   }
 
-  function transformCSS(css: string) {
+  function transformCSS(css: string, transformOptions?: { onLayerUpdated?: () => void }) {
     if (!options.transformCSS)
       return css
     const style = new CSSParser(css, processor).parse()
-    const [layerBlocks, blocks] = partition(style.children, i => i.meta.group === 'layer-block')
+    const [layerBlocks, blocks] = partition(style.children, i => i.meta.group === 'layer-block' && SupportedLayers.includes(i.meta.type))
     if (layerBlocks.length) {
       updateLayers(layerBlocks)
       style.children = blocks
     }
-    return style.build()
+    const transformed = style.build()
+
+    if (layerBlocks.length)
+      transformOptions?.onLayerUpdated?.()
+
+    return transformed
   }
 
   const layers: Record<LayerName, { style: StyleSheet; cssCache?: string; timestamp?: number }> = {
@@ -222,17 +236,17 @@ export function createUtils(
   function updateLayers(styles: Style[]) {
     const timestamp = +Date.now()
     for (const s of styles) {
-      if (!SupportedLayers.includes(s.meta.type))
-        continue
-      layers[s.meta.type].style.children.push(s)
+      const layer = layers[s.meta.type]
+      layer.style.children.push(s)
       // invalid changed layer
-      layers[s.meta.type].timestamp = timestamp
-      layers[s.meta.type].cssCache = undefined
+      layer.timestamp = timestamp
+      layer.cssCache = undefined
     }
   }
 
   function buildLayerCss(name: LayerName) {
     const layer = layers[name]
+    debug.compileLayer(name, layer.style.children.length)
     if (layer.cssCache == null) {
       if (options.sortUtilities)
         layer.style.sort()

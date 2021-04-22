@@ -1,11 +1,11 @@
 import { resolve } from 'path'
-import type { Plugin, ResolvedConfig } from 'vite'
+import type { Plugin, ResolvedConfig, ViteDevServer } from 'vite'
 import _debug, { log } from 'debug'
 import { UserOptions, WindiPluginUtils, createUtils } from '@windicss/plugin-utils'
 import { createVirtualModuleLoader, MODULE_ID_VIRTUAL_PREFIX } from '../../shared/virtual-module'
 import { createDevtoolsPlugin } from './devtools'
 import { NAME } from './constants'
-import { getChangedModuleNames, getCssModules, invalidateCssModules } from './modules'
+import { getChangedModuleNames, getCssModules, invalidateCssModules, reloadChangedCssModules } from './modules'
 
 const debug = {
   hmr: _debug(`${NAME}:hmr`),
@@ -17,6 +17,7 @@ const debug = {
 function VitePluginWindicss(userOptions: UserOptions = {}): Plugin[] {
   let utils: WindiPluginUtils
   let viteConfig: ResolvedConfig
+  let server: ViteDevServer | undefined
 
   const plugins: Plugin[] = []
 
@@ -50,6 +51,10 @@ function VitePluginWindicss(userOptions: UserOptions = {}): Plugin[] {
     name: `${NAME}:entry`,
     enforce: 'post',
 
+    configureServer(_server) {
+      server = _server
+    },
+
     async configResolved(_config) {
       viteConfig = _config
       utils = createUtils(userOptions, {
@@ -77,7 +82,9 @@ function VitePluginWindicss(userOptions: UserOptions = {}): Plugin[] {
     apply: 'serve',
     enforce: 'post',
 
-    async configureServer(server) {
+    async configureServer(_server) {
+      server = _server
+
       await utils.ensureInit()
       if (utils.configFilePath)
         server.watcher.add(utils.configFilePath)
@@ -119,10 +126,17 @@ function VitePluginWindicss(userOptions: UserOptions = {}): Plugin[] {
     },
   })
 
-  const { transformCSS = true } = userOptions
+  const { transformCSS: transformCSSOptions = true } = userOptions
+
+  const transformCSS = (code: string) => utils.transformCSS(code, {
+    onLayerUpdated() {
+      if (server)
+        reloadChangedCssModules(server, utils)
+    },
+  })
 
   // CSS transform
-  if (transformCSS === true) {
+  if (transformCSSOptions === true) {
     plugins.push({
       name: `${NAME}:css`,
       async transform(code, id) {
@@ -131,22 +145,22 @@ function VitePluginWindicss(userOptions: UserOptions = {}): Plugin[] {
           return
         debug.css(id)
         return {
-          code: utils.transformCSS(code),
+          code: transformCSS(code),
           map: { mappings: '' },
         }
       },
     })
   }
-  else if (typeof transformCSS === 'string') {
+  else if (typeof transformCSSOptions === 'string') {
     plugins.push({
       name: `${NAME}:css`,
-      enforce: transformCSS,
+      enforce: transformCSSOptions,
       transform(code, id) {
         if (!utils.isCssTransformTarget(id) || id.startsWith(MODULE_ID_VIRTUAL_PREFIX))
           return
-        debug.css(id)
+        debug.css(id, transformCSSOptions)
         return {
-          code: utils.transformCSS(code),
+          code: transformCSS(code),
           map: { mappings: '' },
         }
       },
@@ -159,7 +173,7 @@ function VitePluginWindicss(userOptions: UserOptions = {}): Plugin[] {
     sveltePreprocess: {
       style({ content }: { content: string }) {
         return {
-          code: utils.transformCSS(content),
+          code: transformCSS(content),
         }
       },
     },
