@@ -10,7 +10,12 @@ Set {
 `;
 
 exports[`cases !important groups: generated-css 1`] = `
-".\\\\!hover\\\\:m-2:hover {
+"/* windicss layer base */
+
+/* windicss layer components */
+
+/* windicss layer utilities */
+.\\\\!hover\\\\:m-2:hover {
   margin: 0.5rem !important;
 }
 .mt-10 {
@@ -32,7 +37,12 @@ Set {
 `;
 
 exports[`cases !important: generated-css 1`] = `
-".\\\\!m-2 {
+"/* windicss layer base */
+
+/* windicss layer components */
+
+/* windicss layer utilities */
+.\\\\!m-2 {
   margin: 0.5rem !important;
 }
 .mt-10 {
@@ -50,7 +60,12 @@ Set {
 `;
 
 exports[`cases conditional: generated-css 1`] = `
-".block {
+"/* windicss layer base */
+
+/* windicss layer components */
+
+/* windicss layer utilities */
+.block {
   display: block;
 }
 .font-semibold {
@@ -75,7 +90,12 @@ Set {
 `;
 
 exports[`cases inline style: generated-css 1`] = `
-".relative {
+"/* windicss layer base */
+
+/* windicss layer components */
+
+/* windicss layer utilities */
+.relative {
   position: relative;
 }
 .top-0 {
@@ -91,7 +111,12 @@ Set {
 `;
 
 exports[`cases leading + and numbers: generated-css 1`] = `
-"@media (min-width: 1024px) and (max-width: 1280px) {
+"/* windicss layer base */
+
+/* windicss layer components */
+
+/* windicss layer utilities */
+@media (min-width: 1024px) and (max-width: 1280px) {
   .\\\\+lg\\\\:bg-red-900 {
     --tw-bg-opacity: 1;
     background-color: rgba(127, 29, 29, var(--tw-bg-opacity));
@@ -113,7 +138,12 @@ Set {
 `;
 
 exports[`cases multiple lines: generated-css 1`] = `
-".m-5 {
+"/* windicss layer base */
+
+/* windicss layer components */
+
+/* windicss layer utilities */
+.m-5 {
   margin: 1.25rem;
 }
 .p-4 {
@@ -131,7 +161,12 @@ Set {
 `;
 
 exports[`cases square brackets: generated-css 1`] = `
-".text-\\\\[1\\\\.5rem\\\\] {
+"/* windicss layer base */
+
+/* windicss layer components */
+
+/* windicss layer utilities */
+.text-\\\\[1\\\\.5rem\\\\] {
   font-size: 1.5rem;
   line-height: 1;
 }
@@ -155,7 +190,12 @@ Set {
 `;
 
 exports[`cases uppercase classnames: generated-css 1`] = `
-".text-light-blue-500 {
+"/* windicss layer base */
+
+/* windicss layer components */
+
+/* windicss layer utilities */
+.text-light-blue-500 {
   --tw-text-opacity: 1;
   color: rgba(14, 165, 233, var(--tw-text-opacity));
 }"
@@ -180,7 +220,12 @@ Set {
 `;
 
 exports[`cases utilities grouping: generated-css 1`] = `
-".bg-white {
+"/* windicss layer base */
+
+/* windicss layer components */
+
+/* windicss layer utilities */
+.bg-white {
   --tw-bg-opacity: 1;
   background-color: rgba(255, 255, 255, var(--tw-bg-opacity));
 }
@@ -205,7 +250,12 @@ Set {
 `;
 
 exports[`cases variables: generated-css 1`] = `
-".bg-\\\\$test-variable {
+"/* windicss layer base */
+
+/* windicss layer components */
+
+/* windicss layer utilities */
+.bg-\\\\$test-variable {
   background-color: var(--test-variable);
 }"
 `;

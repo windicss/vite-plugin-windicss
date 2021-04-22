@@ -1,19 +1,34 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`config merge config 1`] = `
-".font-corsiva {
+"/* windicss layer base */
+
+/* windicss layer components */
+
+/* windicss layer utilities */
+.font-corsiva {
   font-family: monotype corsiva;
 }"
 `;
 
 exports[`config prefixer: false: css 1`] = `
-".bg-gradient-to-r {
+"/* windicss layer base */
+
+/* windicss layer components */
+
+/* windicss layer utilities */
+.bg-gradient-to-r {
   background-image: linear-gradient(to right, var(--tw-gradient-stops));
 }"
 `;
 
 exports[`config prefixer: true: css 1`] = `
-".bg-gradient-to-r {
+"/* windicss layer base */
+
+/* windicss layer components */
+
+/* windicss layer utilities */
+.bg-gradient-to-r {
   background-image: -o-linear-gradient(left, var(--tw-gradient-stops));
   background-image: -webkit-gradient(linear, left top, right top, from(var(--tw-gradient-stops)));
   background-image: linear-gradient(to right, var(--tw-gradient-stops));

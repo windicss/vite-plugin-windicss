@@ -29,7 +29,7 @@ describe('transfrom', () => {
 
     await utils.init()
 
-    expect(await utils.generateCSS()).toBe('')
+    expect(await utils.generateCSS()).toMatchSnapshot()
 
     expect(utils.transformCSS(`
       .rounded-box {
@@ -42,9 +42,9 @@ describe('transfrom', () => {
       .artboard {
         @apply rounded-box;
       }
-    `)).toMatchSnapshot('basic @apply')
+    `, '')).toMatchSnapshot('basic @apply')
 
-    expect(await utils.generateCSS()).toBe('')
+    expect(await utils.generateCSS()).toMatchSnapshot()
 
     expect(utils.transformCSS(`
       .btn {
@@ -68,7 +68,7 @@ describe('transfrom', () => {
           font-size: 1rem;
         }
       }
-    `)).toMatchSnapshot('basic @layer')
+    `, '')).toMatchSnapshot('basic @layer')
 
     // should merge with utilities
     utils.addClasses(['p-4'])

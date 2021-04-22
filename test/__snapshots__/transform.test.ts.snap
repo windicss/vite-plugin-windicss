@@ -1,16 +1,35 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`transfrom css directives 1`] = `
+"/* windicss layer base */
+
+/* windicss layer components */
+
+/* windicss layer utilities */"
+`;
+
+exports[`transfrom css directives 2`] = `
+"/* windicss layer base */
+
+/* windicss layer components */
+
+/* windicss layer utilities */"
+`;
+
 exports[`transfrom css directives: @layer all 1`] = `
-".btn-base {
+"/* windicss layer base */
+.btn-base {
   --tw-text-opacity: 1;
   color: rgba(252, 165, 165, var(--tw-text-opacity));
   font-size: 1.5rem;
 }
+/* windicss layer components */
 .btn-components {
   --tw-text-opacity: 1;
   color: rgba(248, 113, 113, var(--tw-text-opacity));
   font-size: 1rem;
 }
+/* windicss layer utilities */
 .p-4 {
   padding: 1rem;
 }
@@ -22,7 +41,8 @@ exports[`transfrom css directives: @layer all 1`] = `
 `;
 
 exports[`transfrom css directives: @layer base 1`] = `
-".btn-base {
+"/* windicss layer base */
+.btn-base {
   --tw-text-opacity: 1;
   color: rgba(252, 165, 165, var(--tw-text-opacity));
   font-size: 1.5rem;
@@ -30,7 +50,8 @@ exports[`transfrom css directives: @layer base 1`] = `
 `;
 
 exports[`transfrom css directives: @layer components 1`] = `
-".btn-components {
+"/* windicss layer components */
+.btn-components {
   --tw-text-opacity: 1;
   color: rgba(248, 113, 113, var(--tw-text-opacity));
   font-size: 1rem;
@@ -38,7 +59,8 @@ exports[`transfrom css directives: @layer components 1`] = `
 `;
 
 exports[`transfrom css directives: @layer utilities 1`] = `
-".p-4 {
+"/* windicss layer utilities */
+.p-4 {
   padding: 1rem;
 }
 .btn-utilities {

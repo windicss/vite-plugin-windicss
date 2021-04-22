@@ -128,7 +128,7 @@ function VitePluginWindicss(userOptions: UserOptions = {}): Plugin[] {
 
   const { transformCSS: transformCSSOptions = true } = userOptions
 
-  const transformCSS = (code: string) => utils.transformCSS(code, {
+  const transformCSS = (code: string, id: string) => utils.transformCSS(code, id, {
     onLayerUpdated() {
       if (server)
         reloadChangedCssModules(server, utils)
@@ -145,7 +145,7 @@ function VitePluginWindicss(userOptions: UserOptions = {}): Plugin[] {
           return
         debug.css(id)
         return {
-          code: transformCSS(code),
+          code: transformCSS(code, id),
           map: { mappings: '' },
         }
       },
@@ -160,7 +160,7 @@ function VitePluginWindicss(userOptions: UserOptions = {}): Plugin[] {
           return
         debug.css(id, transformCSSOptions)
         return {
-          code: transformCSS(code),
+          code: transformCSS(code, id),
           map: { mappings: '' },
         }
       },
@@ -171,9 +171,9 @@ function VitePluginWindicss(userOptions: UserOptions = {}): Plugin[] {
     name: `${NAME}:css:svelte`,
     // @ts-expect-error for svelte preprocess
     sveltePreprocess: {
-      style({ content }: { content: string }) {
+      style({ content, id }: { content: string; id: string}) {
         return {
-          code: transformCSS(content),
+          code: transformCSS(content, id),
         }
       },
     },

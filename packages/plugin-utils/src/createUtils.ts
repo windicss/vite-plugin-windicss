@@ -15,7 +15,7 @@ import { applyExtractors as _applyExtractors } from './extractors/helper'
 export type CompletionsResult = ReturnType<typeof generateCompletions>
 export type LayerName = 'base' | 'utilities' | 'components'
 
-export const SupportedLayers = ['base', 'utilities', 'components']
+export const SupportedLayers = ['base', 'utilities', 'components'] as const
 
 export function createUtils(
   userOptions: UserOptions | ResolvedOptions = {},
@@ -98,7 +98,7 @@ export function createUtils(
         await Promise.all(contents.map(
           async([content, id]) => {
             if (isCssTransformTarget(id))
-              return transformCSS(content)
+              return transformCSS(content, id)
             else
               return extractFile(content, id, true)
           },
@@ -204,13 +204,13 @@ export function createUtils(
     return changed
   }
 
-  function transformCSS(css: string, transformOptions?: { onLayerUpdated?: () => void }) {
+  function transformCSS(css: string, id: string, transformOptions?: { onLayerUpdated?: () => void }) {
     if (!options.transformCSS)
       return css
     const style = new CSSParser(css, processor).parse()
     const [layerBlocks, blocks] = partition(style.children, i => i.meta.group === 'layer-block' && SupportedLayers.includes(i.meta.type))
     if (layerBlocks.length) {
-      updateLayers(layerBlocks)
+      updateLayers(layerBlocks, id)
       style.children = blocks
     }
     const transformed = style.build()
@@ -221,24 +221,27 @@ export function createUtils(
     return transformed
   }
 
-  const layers: Record<LayerName, { style: StyleSheet; cssCache?: string; timestamp?: number }> = {
-    base: {
-      style: new StyleSheet(),
-    },
-    utilities: {
-      style: new StyleSheet(),
-    },
-    components: {
-      style: new StyleSheet(),
-    },
+  interface LayerMeta {
+    cssCache?: string
+    timestamp?: number
   }
 
-  function updateLayers(styles: Style[]) {
+  const layers: Record<LayerName, LayerMeta> = {
+    base: {},
+    utilities: {},
+    components: {},
+  }
+
+  const layerStylesMap = new Map<string, Style[]>()
+
+  function updateLayers(styles: Style[], filepath: string) {
     const timestamp = +Date.now()
+
+    debug.compileLayer('update', filepath)
+    layerStylesMap.set(filepath, styles)
+
     for (const s of styles) {
       const layer = layers[s.meta.type]
-      layer.style.children.push(s)
-      // invalid changed layer
       layer.timestamp = timestamp
       layer.cssCache = undefined
     }
@@ -246,11 +249,13 @@ export function createUtils(
 
   function buildLayerCss(name: LayerName) {
     const layer = layers[name]
-    debug.compileLayer(name, layer.style.children.length)
     if (layer.cssCache == null) {
+      const style = new StyleSheet(Array.from(layerStylesMap.values()).flatMap(i => i).filter(i => i.meta.type === name))
+      style.prefixer = options.config.prefixer ?? true
+      debug.compileLayer(name, style.children.length)
       if (options.sortUtilities)
-        layer.style.sort()
-      layer.cssCache = `/* windicss layer ${name} */\n${layer.style.build()}`
+        style.sort()
+      layer.cssCache = `/* windicss layer ${name} */\n${style.build()}`
     }
     return layer.cssCache
   }
@@ -266,7 +271,7 @@ export function createUtils(
       if (result.success.length) {
         debug.compile(`compiled ${result.success.length} classes out of ${classesPending.size}`)
         debug.compile(result.success)
-        updateLayers(result.styleSheet.children)
+        updateLayers(result.styleSheet.children, '__classes')
         include(classesGenerated, result.success)
         classesPending.clear()
       }
@@ -282,7 +287,7 @@ export function createUtils(
           options.preflightOptions.includeGlobal,
           options.preflightOptions.includePlugin,
         )
-        updateLayers(preflightStyle.children)
+        updateLayers(preflightStyle.children, '__preflights')
         include(tagsGenerated, tagsPending)
         tagsPending.clear()
       }
@@ -312,12 +317,9 @@ export function createUtils(
   }
 
   function clearCache(clearAll = false) {
-    layers.base = { style: new StyleSheet() }
-    layers.utilities = { style: new StyleSheet() }
-    layers.components = { style: new StyleSheet() }
-    layers.base.style.prefixer = options.config.prefixer ?? true
-    layers.utilities.style.prefixer = options.config.prefixer ?? true
-    layers.components.style.prefixer = options.config.prefixer ?? true
+    layers.base = {}
+    layers.utilities = {}
+    layers.components = {}
     completions = undefined
 
     if (clearAll) {

@@ -10,7 +10,10 @@ Set {
 `;
 
 exports[`plugins aspect-ratio: generated-css 1`] = `
-".aspect-none {
+"/* windicss layer base */
+
+/* windicss layer components */
+.aspect-none {
   position: static;
   padding-bottom: 0;
 }
@@ -52,11 +55,17 @@ exports[`plugins aspect-ratio: generated-css 1`] = `
   right: 0;
   bottom: 0;
   left: 0;
-}"
+}
+/* windicss layer utilities */"
 `;
 
 exports[`plugins custom classes with parentheses: generated-css 1`] = `
-".h-\\\\(custom\\\\) {
+"/* windicss layer base */
+
+/* windicss layer components */
+
+/* windicss layer utilities */
+.h-\\\\(custom\\\\) {
   height: calc(100% - 4rem);
 }"
 `;
@@ -66,7 +75,8 @@ exports[`plugins forms: classes 1`] = `Set {}`;
 exports[`plugins forms: classes 2`] = `Set {}`;
 
 exports[`plugins forms: generated-css 1`] = `
-"[type='text'], [type='email'], [type='url'], [type='password'], [type='number'], [type='date'], [type='datetime-local'], [type='month'], [type='search'], [type='tel'], [type='time'], [type='week'], [multiple], textarea, select {
+"/* windicss layer base */
+[type='text'], [type='email'], [type='url'], [type='password'], [type='number'], [type='date'], [type='datetime-local'], [type='month'], [type='search'], [type='tel'], [type='time'], [type='week'], [multiple], textarea, select {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -210,11 +220,15 @@ select {
   padding-right: 2.5rem;
   -webkit-print-color-adjust: exact;
   color-adjust: exact;
-}"
+}
+/* windicss layer components */
+
+/* windicss layer utilities */"
 `;
 
 exports[`plugins forms: generated-css 2`] = `
-"[type='text'], [type='email'], [type='url'], [type='password'], [type='number'], [type='date'], [type='datetime-local'], [type='month'], [type='search'], [type='tel'], [type='time'], [type='week'], [multiple], textarea, select {
+"/* windicss layer base */
+[type='text'], [type='email'], [type='url'], [type='password'], [type='number'], [type='date'], [type='datetime-local'], [type='month'], [type='search'], [type='tel'], [type='time'], [type='week'], [multiple], textarea, select {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -358,5 +372,8 @@ select {
   padding-right: 2.5rem;
   -webkit-print-color-adjust: exact;
   color-adjust: exact;
-}"
+}
+/* windicss layer components */
+
+/* windicss layer utilities */"
 `;

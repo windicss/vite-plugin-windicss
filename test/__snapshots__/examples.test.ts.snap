@@ -117,7 +117,8 @@ Set {
 `;
 
 exports[`example should work: generated-css 1`] = `
-"*, ::before, ::after {
+"/* windicss layer base */
+*, ::before, ::after {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   border-width: 0;
@@ -185,6 +186,7 @@ h2 {
   font-size: inherit;
   font-weight: inherit;
 }
+/* windicss layer components */
 .btn {
   border-radius: 0.25rem;
   border-width: 1px;
@@ -204,6 +206,7 @@ h2 {
   -webkit-box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
+/* windicss layer utilities */
 .bg-teal-100 {
   --tw-bg-opacity: 1;
   background-color: rgba(0, 153, 102, var(--tw-bg-opacity));
@@ -267,7 +270,8 @@ h2 {
 `;
 
 exports[`example should work: generated-css-base 1`] = `
-"*, ::before, ::after {
+"/* windicss layer base */
+*, ::before, ::after {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   border-width: 0;
@@ -338,7 +342,8 @@ h2 {
 `;
 
 exports[`example should work: generated-css-components 1`] = `
-".btn {
+"/* windicss layer components */
+.btn {
   border-radius: 0.25rem;
   border-width: 1px;
   --tw-border-opacity: 1;
@@ -360,7 +365,8 @@ exports[`example should work: generated-css-components 1`] = `
 `;
 
 exports[`example should work: generated-css-utilities 1`] = `
-".bg-teal-100 {
+"/* windicss layer utilities */
+.bg-teal-100 {
   --tw-bg-opacity: 1;
   background-color: rgba(0, 153, 102, var(--tw-bg-opacity));
 }
