@@ -17,6 +17,11 @@ export type LayerName = 'base' | 'utilities' | 'components'
 
 export const SupportedLayers = ['base', 'utilities', 'components'] as const
 
+export interface LayerMeta {
+  cssCache?: string
+  timestamp?: number
+}
+
 export function createUtils(
   userOptions: UserOptions | ResolvedOptions = {},
   utilsOptions: WindiPluginUtilsOptions = {
@@ -219,11 +224,6 @@ export function createUtils(
       transformOptions?.onLayerUpdated?.()
 
     return transformed
-  }
-
-  interface LayerMeta {
-    cssCache?: string
-    timestamp?: number
   }
 
   const layers: Record<LayerName, LayerMeta> = {

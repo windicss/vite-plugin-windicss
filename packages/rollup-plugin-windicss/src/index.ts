@@ -50,7 +50,7 @@ function WindiCssRollupPlugin(userOptions: UserOptions = {}): Plugin[] {
         if (!utils.isCssTransformTarget(id))
           return
         debug.css(id)
-        return utils.transformCSS(code)
+        return utils.transformCSS(code, id)
       },
     })
   }
