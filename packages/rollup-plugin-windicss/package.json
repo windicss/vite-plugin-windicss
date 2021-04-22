@@ -1,6 +1,6 @@
 {
   "name": "rollup-plugin-windicss",
-  "version": "0.15.0",
+  "version": "0.15.1",
   "description": "Windi CSS for Rollup",
   "keywords": [
     "rollup",
