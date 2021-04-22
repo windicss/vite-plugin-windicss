@@ -42,7 +42,7 @@ describe('transfrom', () => {
       .artboard {
         @apply rounded-box;
       }
-    `, '')).toMatchSnapshot('basic @apply')
+    `, 'group0')).toMatchSnapshot('basic @apply')
 
     expect(await utils.generateCSS()).toMatchSnapshot()
 
@@ -68,7 +68,7 @@ describe('transfrom', () => {
           font-size: 1rem;
         }
       }
-    `, '')).toMatchSnapshot('basic @layer')
+    `, 'group1')).toMatchSnapshot('basic @layer')
 
     // should merge with utilities
     utils.addClasses(['p-4'])
@@ -76,6 +76,22 @@ describe('transfrom', () => {
     expect(await utils.generateCSS()).toMatchSnapshot('@layer all')
     expect(await utils.generateCSS('base')).toMatchSnapshot('@layer base')
     expect(await utils.generateCSS('components')).toMatchSnapshot('@layer components')
+    expect(await utils.generateCSS('utilities')).toMatchSnapshot('@layer utilities')
+
+    // should replace previous state
+    expect(utils.transformCSS(`
+      @layer components {
+        .btn-components {
+          @apply text-red-500;
+          font-size: 1.5rem;
+        }
+      }
+    `, 'group1')).toMatchSnapshot()
+
+    const base = await utils.generateCSS('base')
+    const components = await utils.generateCSS('components')
+    expect(base).not.toContain('.btn-base')
+    expect(components).toMatchSnapshot('@layer components')
     expect(await utils.generateCSS('utilities')).toMatchSnapshot('@layer utilities')
   })
 })

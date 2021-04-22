@@ -16,6 +16,8 @@ exports[`transfrom css directives 2`] = `
 /* windicss layer utilities */"
 `;
 
+exports[`transfrom css directives 3`] = `""`;
+
 exports[`transfrom css directives: @layer all 1`] = `
 "/* windicss layer base */
 .btn-base {
@@ -58,6 +60,15 @@ exports[`transfrom css directives: @layer components 1`] = `
 }"
 `;
 
+exports[`transfrom css directives: @layer components 2`] = `
+"/* windicss layer components */
+.btn-components {
+  --tw-text-opacity: 1;
+  color: rgba(239, 68, 68, var(--tw-text-opacity));
+  font-size: 1.5rem;
+}"
+`;
+
 exports[`transfrom css directives: @layer utilities 1`] = `
 "/* windicss layer utilities */
 .p-4 {
@@ -67,6 +78,13 @@ exports[`transfrom css directives: @layer utilities 1`] = `
   --tw-text-opacity: 1;
   color: rgba(254, 202, 202, var(--tw-text-opacity));
   font-size: 2rem;
+}"
+`;
+
+exports[`transfrom css directives: @layer utilities 2`] = `
+"/* windicss layer utilities */
+.p-4 {
+  padding: 1rem;
 }"
 `;
 

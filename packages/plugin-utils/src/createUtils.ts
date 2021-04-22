@@ -238,12 +238,17 @@ export function createUtils(
     const timestamp = +Date.now()
 
     debug.compileLayer('update', filepath)
+    const changedLayers = new Set<LayerName>()
+    styles.forEach(i => changedLayers.add(i.meta.type))
+    layerStylesMap.get(filepath)?.forEach(i => changedLayers.add(i.meta.type))
     layerStylesMap.set(filepath, styles)
 
-    for (const s of styles) {
-      const layer = layers[s.meta.type]
-      layer.timestamp = timestamp
-      layer.cssCache = undefined
+    for (const name of changedLayers) {
+      const layer = layers[name]
+      if (layer) {
+        layer.timestamp = timestamp
+        layer.cssCache = undefined
+      }
     }
   }
 
