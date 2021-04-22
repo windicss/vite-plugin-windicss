@@ -159,7 +159,7 @@ Rename it to `tailwind.config.ts` and things will just work!
 
 ```ts
 // tailwind.config.ts
-import { defineConfig } from 'windcss/helpers'
+import { defineConfig } from 'windicss/helpers'
 import formsPlugin from 'windicss/plugin/forms'
 
 export default defineConfig({
@@ -262,7 +262,7 @@ only files under `src/` with extensions `vue, html, mdx, pug, jsx, tsx` will be 
 
 ```ts
 // windi.config.js
-import { defineConfig } from 'windcss/helpers'
+import { defineConfig } from 'windicss/helpers'
 
 export default defineConfig({
   extract: {
