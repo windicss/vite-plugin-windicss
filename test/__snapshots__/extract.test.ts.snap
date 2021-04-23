@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`extract attributify 1`] = `
+Object {
+  "names": Array [
+    "p",
+    "sm",
+    "sm:hover",
+  ],
+  "values": Array [
+    "x-4 y-2 md:x-2 lg:hover:x-8",
+    "bg-red-500 bg-opacity-50 hover:bg-green-300",
+    "text-red-500 text-lg focus:bg-white",
+  ],
+}
+`;

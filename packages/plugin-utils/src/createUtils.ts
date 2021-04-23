@@ -40,6 +40,7 @@ export function createUtils(
     scanTransform: _debug(`${name}:scan:transform`),
     detectClass: _debug(`${name}:detect:class`),
     detectTag: _debug(`${name}:detect:tag`),
+    detectAttrs: _debug(`${name}:detect:attrs`),
     compileLayer: _debug(`${name}:compile:layer`),
   }
 
@@ -54,6 +55,7 @@ export function createUtils(
   const tagsPending = new Set<string>()
   const attrsGenerated = new Set<string>()
   const tagsAvailable = new Set<string>()
+  const attributes: [string, string][] = []
 
   function getCompletions() {
     if (!completions)
@@ -190,7 +192,9 @@ export function createUtils(
       }
     }
 
-    const { classes, tags } = await applyExtractors(code, id)
+    const extractResult = await applyExtractors(code, id)
+
+    const { classes, tags } = extractResult
 
     let changed = false
     // classes
@@ -201,9 +205,20 @@ export function createUtils(
       changed = addTags(tags || []) || changed
     }
 
+    if (options.config.attributify) {
+      const extractedAttrs = extractResult.attributes
+      if (extractedAttrs?.names.length) {
+        extractedAttrs.names.forEach((name, i) => {
+          attributes.push([name, extractedAttrs.values[i]])
+        })
+        changed = true
+      }
+    }
+
     if (changed) {
       debug.detectClass(classesPending)
       debug.detectTag(tagsPending)
+      debug.detectAttrs(attributes)
     }
 
     return changed
@@ -302,6 +317,25 @@ export function createUtils(
         updateLayers(preflightStyle.children, '__preflights', false)
         include(tagsGenerated, tagsPending)
         tagsPending.clear()
+      }
+    }
+
+    if (options.config.attributify) {
+      if (attributes.length) {
+        const attributesObject: Record<string, string[]> = {}
+
+        attributes.forEach(([name, value]) => {
+          if (!attributesObject[name])
+            attributesObject[name] = []
+          attributesObject[name].push(...value.split(/\s+/g).filter(Boolean))
+        })
+
+        const attributifyStyle = processor.attributify(
+          attributesObject,
+        )
+
+        updateLayers(attributifyStyle.styleSheet.children, '__attributify', false)
+        attributes.length = 0
       }
     }
 

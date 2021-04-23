@@ -46,6 +46,11 @@
     "typescript": "^4.2.4",
     "vite": "^2.2.1",
     "vite-plugin-restart": "^0.0.2",
-    "windicss": "^2.5.14"
+    "windicss": "npm:@knightly/windicss@pr265"
+  },
+  "pnpm": {
+    "overrides": {
+      "windicss": "npm:@knightly/windicss@pr265"
+    }
   }
 }

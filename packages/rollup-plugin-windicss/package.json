@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "@windicss/plugin-utils": "workspace:*",
-    "windicss": "^2.5.14"
+    "windicss": "npm:@knightly/windicss@pr265"
   },
   "devDependencies": {
     "@antfu/ni": "^0.5.8",
