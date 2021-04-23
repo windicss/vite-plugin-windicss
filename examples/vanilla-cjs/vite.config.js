@@ -5,4 +5,7 @@ export default defineConfig({
   plugins: [
     WindiCSS(),
   ],
+  optimizeDeps: {
+    
+  }
 })

@@ -234,14 +234,21 @@ export function createUtils(
 
   const layerStylesMap = new Map<string, Style[]>()
 
-  function updateLayers(styles: Style[], filepath: string) {
+  function updateLayers(styles: Style[], filepath: string, replace = true) {
     const timestamp = +Date.now()
 
     debug.compileLayer('update', filepath)
     const changedLayers = new Set<LayerName>()
+
     styles.forEach(i => changedLayers.add(i.meta.type))
-    layerStylesMap.get(filepath)?.forEach(i => changedLayers.add(i.meta.type))
-    layerStylesMap.set(filepath, styles)
+    if (replace) {
+      layerStylesMap.get(filepath)?.forEach(i => changedLayers.add(i.meta.type))
+      layerStylesMap.set(filepath, styles)
+    }
+    else {
+      const prevStyles = layerStylesMap.get(filepath) || []
+      layerStylesMap.set(filepath, styles.concat(prevStyles))
+    }
 
     for (const name of changedLayers) {
       const layer = layers[name]
@@ -276,7 +283,7 @@ export function createUtils(
       if (result.success.length) {
         debug.compile(`compiled ${result.success.length} classes out of ${classesPending.size}`)
         debug.compile(result.success)
-        updateLayers(result.styleSheet.children, '__classes')
+        updateLayers(result.styleSheet.children, '__classes', false)
         include(classesGenerated, result.success)
         classesPending.clear()
       }
@@ -292,7 +299,7 @@ export function createUtils(
           options.preflightOptions.includeGlobal,
           options.preflightOptions.includePlugin,
         )
-        updateLayers(preflightStyle.children, '__preflights')
+        updateLayers(preflightStyle.children, '__preflights', false)
         include(tagsGenerated, tagsPending)
         tagsPending.clear()
       }
