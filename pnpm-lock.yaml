@@ -1,7 +1,7 @@
 lockfileVersion: 5.3
 
 overrides:
-  windicss: npm:@knightly/windicss@pr265
+  windicss: ^3.0.0-beta.1
 
 importers:
 
@@ -32,7 +32,7 @@ importers:
       typescript: ^4.2.4
       vite: ^2.2.3
       vite-plugin-restart: ^0.0.2
-      windicss: npm:@knightly/windicss@pr265
+      windicss: ^3.0.0-beta.1
     devDependencies:
       '@antfu/eslint-config': 0.6.4_eslint@7.25.0+typescript@4.2.4
       '@antfu/ni': 0.5.8
@@ -59,7 +59,7 @@ importers:
       typescript: 4.2.4
       vite: 2.2.3
       vite-plugin-restart: 0.0.2_vite@2.2.3
-      windicss: /@knightly/windicss/3.0.0-knightly-pr265.202104270035
+      windicss: 3.0.0-beta.1
 
   examples/attributify:
     specifiers:
@@ -111,21 +111,21 @@ importers:
     specifiers:
       vite: ^2.2.3
       vite-plugin-windicss: workspace:*
-      windicss: npm:@knightly/windicss@pr265
+      windicss: ^3.0.0-beta.1
     devDependencies:
       vite: 2.2.3
       vite-plugin-windicss: link:../../packages/vite-plugin-windicss
-      windicss: /@knightly/windicss/3.0.0-knightly-pr265.202104270035
+      windicss: 3.0.0-beta.1
 
   examples/vanilla-esm:
     specifiers:
       vite: ^2.2.3
       vite-plugin-windicss: workspace:*
-      windicss: npm:@knightly/windicss@pr265
+      windicss: ^3.0.0-beta.1
     devDependencies:
       vite: 2.2.3
       vite-plugin-windicss: link:../../packages/vite-plugin-windicss
-      windicss: /@knightly/windicss/3.0.0-knightly-pr265.202104270035
+      windicss: 3.0.0-beta.1
 
   examples/vue:
     specifiers:
@@ -195,7 +195,7 @@ importers:
       sucrase: ^3.18.1
       tsup: ^4.10.0
       typescript: ^4.2.4
-      windicss: npm:@knightly/windicss@pr265
+      windicss: ^3.0.0-beta.1
     dependencies:
       debug: 4.3.2
       fast-glob: 3.2.5
@@ -203,7 +203,7 @@ importers:
       micromatch: 4.0.4
       pirates: 4.0.1
       sucrase: 3.18.1
-      windicss: /@knightly/windicss/3.0.0-knightly-pr265.202104270035
+      windicss: 3.0.0-beta.1
     devDependencies:
       '@antfu/ni': 0.5.8
       '@types/debug': 4.1.5
@@ -222,10 +222,10 @@ importers:
       debug: ^4.3.2
       rollup: ^2.45.2
       tsup: ^4.10.0
-      windicss: npm:@knightly/windicss@pr265
+      windicss: ^3.0.0-beta.1
     dependencies:
       '@windicss/plugin-utils': link:../plugin-utils
-      windicss: /@knightly/windicss/3.0.0-knightly-pr265.202104270035
+      windicss: 3.0.0-beta.1
     devDependencies:
       '@antfu/ni': 0.5.8
       '@types/node': 15.0.1
@@ -243,12 +243,12 @@ importers:
       debug: ^4.3.2
       tsup: ^4.10.0
       vite: ^2.2.3
-      windicss: npm:@knightly/windicss@pr265
+      windicss: ^3.0.0-beta.1
     dependencies:
       '@windicss/plugin-utils': link:../plugin-utils
       chalk: 4.1.1
       debug: 4.3.2
-      windicss: /@knightly/windicss/3.0.0-knightly-pr265.202104270035
+      windicss: 3.0.0-beta.1
     devDependencies:
       '@antfu/ni': 0.5.8
       '@types/connect': 3.4.34
@@ -927,11 +927,6 @@ packages:
       string-argv: 0.3.1
       type-detect: 4.0.8
     dev: true
-
-  /@knightly/windicss/3.0.0-knightly-pr265.202104270035:
-    resolution: {integrity: sha512-YNSCE/TzJynTzXXhw9Teb89rA1rZkLqRmvgBuRt41QgG9PKwQ1Ed4w1aV5bggEaTKYZaITPXGt/rdRvVHv+iBQ==}
-    engines: {node: '>= 12'}
-    hasBin: true
 
   /@kwsites/file-exists/1.1.1:
     resolution: {integrity: sha512-m9/5YGR18lIwxSFDwfE3oA7bWuq9kdau6ugN4H2rJeyhFQZcG9AgSHkQtSD15a8WvTgfz9aikZMrKPHvbpqFiw==}
@@ -6914,6 +6909,11 @@ packages:
     dependencies:
       string-width: 4.2.0
     dev: true
+
+  /windicss/3.0.0-beta.1:
+    resolution: {integrity: sha512-06fFMIj+OeW76snT8MVxcHH254nk5sDcm9Z26nJpi/Veau8NkML3QQy/IT1GgyGwy//j4IBJCX5uV/2ftjBCOQ==}
+    engines: {node: '>= 12'}
+    hasBin: true
 
   /with/7.0.2:
     resolution: {integrity: sha512-RNGKj82nUPg3g5ygxkQl0R937xLyho1J24ItRCBTr/m1YnZkzJy1hUiHUJrc/VlsDQzsCnInEGSg3bci0Lmd4w==}

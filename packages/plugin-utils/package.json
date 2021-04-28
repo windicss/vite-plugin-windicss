@@ -33,7 +33,7 @@
     "micromatch": "^4.0.4",
     "pirates": "^4.0.1",
     "sucrase": "^3.18.1",
-    "windicss": "npm:@knightly/windicss@pr265"
+    "windicss": "^3.0.0-beta.1"
   },
   "devDependencies": {
     "@antfu/ni": "^0.5.8",
