@@ -1,7 +1,11 @@
 <h1 align='center'>vite-plugin-windicss</h1>
 
 <p align='center'><a href="https://github.com/voorjaar/windicss">Windi CSS</a> for Vite, it's fast! ⚡️<br>
-<sup><em>a.k.a On-demand Tailwind CSS</em></sup>
+</p>
+
+
+<p align='center'>
+<a href="https://github.com/antfu/vite-plugin-windicss/blob/5732312514543f88468b5f7eaf3b3c493df531b2/packages/plugin-utils/src/index.ts#L11-L15">🆕 WindiCSS v3.0 support is on the `next` branch 🎉</a>
 </p>
 
 <p align='center'>
@@ -13,6 +17,7 @@
 <p align='center'>
 <a href='https://twitter.com/antfu7/status/1361398324587163648'>⚡️ See speed comparison with Tailwind</a>
 </p>
+
 
 ## Features
 
