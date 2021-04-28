@@ -6,7 +6,7 @@
     "serve": "vite preview"
   },
   "devDependencies": {
-    "vite": "^2.2.1",
+    "vite": "^2.2.3",
     "vite-plugin-windicss": "workspace:*",
     "windicss": "npm:@knightly/windicss@pr265"
   }
