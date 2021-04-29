@@ -33,13 +33,13 @@
   },
   "dependencies": {
     "@windicss/plugin-utils": "workspace:*",
-    "windicss": "^3.0.0-beta.1"
+    "windicss": "^3.0.0-beta.2"
   },
   "devDependencies": {
     "@antfu/ni": "^0.5.8",
     "@types/node": "^15.0.1",
     "debug": "^4.3.2",
-    "rollup": "^2.45.2",
+    "rollup": "^2.46.0",
     "tsup": "^4.10.1"
   }
 }
