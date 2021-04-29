@@ -56,7 +56,7 @@ import 'virtual:windi.css'
 
 ## New Features in v3.0
 
-### [Attributify Mode](http://localhost:4001/posts/v30.html#attributify-mode)
+### [Attributify Mode](https://windicss.org/posts/v30.html#attributify-mode)
 
 Enabled it by 
 
@@ -81,7 +81,7 @@ And use them as you would like:
 </button>
 ```
 
-### [Alias Config](http://localhost:4001/posts/v30.html#alias-config)
+### [Alias Config](https://windicss.org/posts/v30.html#alias-config)
 
 > TBD
 
@@ -99,4 +99,4 @@ Read the [documentation](https://windicss.org/integrations/vite.html) for more d
 
 ## License
 
-MIT License © 2021 [Anthony Fu](https://github.com/antfu)
+MIT License &copy; 2021 [Anthony Fu](https://github.com/antfu)
