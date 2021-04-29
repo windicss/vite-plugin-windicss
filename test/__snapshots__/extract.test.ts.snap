@@ -4,13 +4,17 @@ exports[`extract attributify 1`] = `
 Object {
   "names": Array [
     "p",
+    "border",
     "sm",
     "sm:hover",
+    "dark:border",
   ],
   "values": Array [
     "x-4 y-2 md:x-2 lg:hover:x-8",
+    "~",
     "bg-red-500 bg-opacity-50 hover:bg-green-300",
     "text-red-500 text-lg focus:bg-white",
+    "~ red-400",
   ],
 }
 `;

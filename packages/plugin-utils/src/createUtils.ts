@@ -194,15 +194,11 @@ export function createUtils(
 
     const extractResult = await applyExtractors(code, id)
 
-    const { classes, tags } = extractResult
-
     let changed = false
-    // classes
-    changed = addClasses(classes || []) || changed
 
     if (options.enablePreflight || !options.preflightOptions.includeAll) {
       // preflight
-      changed = addTags(tags || []) || changed
+      changed = addTags(extractResult.tags || []) || changed
     }
 
     if (options.config.attributify) {
@@ -213,6 +209,11 @@ export function createUtils(
         })
         changed = true
       }
+      changed = addClasses(extractedAttrs?.classes || extractResult.classes || []) || changed
+    }
+    else {
+      // classes
+      changed = addClasses(extractResult.classes || []) || changed
     }
 
     if (changed) {

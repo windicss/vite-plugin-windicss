@@ -45,4 +45,27 @@ describe('example', () => {
     expect(classes).toMatchSnapshot('classes')
     expect(tags).toMatchSnapshot('tags')
   })
+
+  it('attributify', async() => {
+    const utils = createUtils(
+      {
+        preflight: false,
+      },
+      {
+        root: resolve(__dirname, '../examples/attributify'),
+        onConfigurationError(e) {
+          throw e
+        },
+      },
+
+    )
+    await utils.init()
+    const base = await utils.generateCSS('base')
+    const components = await utils.generateCSS('components')
+    const utilities = await utils.generateCSS('utilities')
+
+    expect(base).toMatchSnapshot('base')
+    expect(components).toMatchSnapshot('components')
+    expect(utilities).toMatchSnapshot('utilities')
+  })
 })
