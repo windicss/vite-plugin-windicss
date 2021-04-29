@@ -7,9 +7,3 @@ export * from './extractors'
 export * from './utils'
 export * from './resolveOptions'
 export * from './merge'
-
-declare module 'windicss/types/interfaces' {
-  interface FullConfig {
-    attributify?: boolean
-  }
-}
