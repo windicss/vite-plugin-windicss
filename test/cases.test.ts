@@ -65,4 +65,8 @@ describe('cases', () => {
   it('square brackets', async() => {
     await utils.extractFile('<div class="grid-rows-[auto,max-content,10px] text-[1.5rem] text-[#9254d2] text-[rgb(123,123,23)]">')
   })
+
+  it('baskslash escape', async() => {
+    await utils.extractFile('<div class="text-xl \\" \r\rmt-10\nmb-2">')
+  })
 })
