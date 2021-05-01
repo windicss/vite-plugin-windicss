@@ -50,6 +50,28 @@ exports[`cases !important: generated-css 1`] = `
 }"
 `;
 
+exports[`cases baskslash escape 2: classes 1`] = `
+Set {
+  "text-xl",
+  "mt-10",
+}
+`;
+
+exports[`cases baskslash escape 2: generated-css 1`] = `
+"/* windicss layer base */
+
+/* windicss layer components */
+
+/* windicss layer utilities */
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+.mt-10 {
+  margin-top: 2.5rem;
+}"
+`;
+
 exports[`cases baskslash escape: classes 1`] = `
 Set {
   "text-xl",

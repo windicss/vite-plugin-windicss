@@ -69,4 +69,8 @@ describe('cases', () => {
   it('baskslash escape', async() => {
     await utils.extractFile('<div class="text-xl \\" \r\rmt-10\nmb-2">')
   })
+
+  it('baskslash escape 2', async() => {
+    await utils.extractFile('<div class="text-xl \\\\" this is not "\'mt-10\'">')
+  })
 })
