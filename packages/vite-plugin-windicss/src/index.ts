@@ -81,7 +81,7 @@ function VitePluginWindicss(userOptions: UserOptions = {}, utilsOptions: WindiPl
   plugins.push({
     name: `${NAME}:hmr`,
     apply: 'serve',
-    enforce: 'post',
+    enforce: 'pre',
 
     async configureServer(_server) {
       server = _server
