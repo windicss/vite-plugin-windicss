@@ -1,7 +1,7 @@
 lockfileVersion: 5.3
 
 overrides:
-  windicss: ^3.0.0-beta.1
+  windicss: ^3.0.0-beta.5
 
 importers:
 
@@ -32,7 +32,7 @@ importers:
       typescript: ^4.2.4
       vite: ^2.2.3
       vite-plugin-restart: ^0.0.2
-      windicss: ^3.0.0-beta.1
+      windicss: ^3.0.0-beta.5
     devDependencies:
       '@antfu/eslint-config': 0.6.4_eslint@7.25.0+typescript@4.2.4
       '@antfu/ni': 0.5.8
@@ -59,7 +59,7 @@ importers:
       typescript: 4.2.4
       vite: 2.2.3
       vite-plugin-restart: 0.0.2_vite@2.2.3
-      windicss: 3.0.0-beta.1
+      windicss: 3.0.0-beta.5
 
   examples/attributify:
     specifiers:
@@ -107,21 +107,21 @@ importers:
     specifiers:
       vite: ^2.2.3
       vite-plugin-windicss: workspace:*
-      windicss: ^3.0.0-beta.1
+      windicss: ^3.0.0-beta.5
     devDependencies:
       vite: 2.2.3
       vite-plugin-windicss: link:../../packages/vite-plugin-windicss
-      windicss: 3.0.0-beta.1
+      windicss: 3.0.0-beta.5
 
   examples/vanilla-esm:
     specifiers:
       vite: ^2.2.3
       vite-plugin-windicss: workspace:*
-      windicss: ^3.0.0-beta.1
+      windicss: ^3.0.0-beta.5
     devDependencies:
       vite: 2.2.3
       vite-plugin-windicss: link:../../packages/vite-plugin-windicss
-      windicss: 3.0.0-beta.1
+      windicss: 3.0.0-beta.5
 
   examples/vue:
     specifiers:
@@ -191,7 +191,7 @@ importers:
       sucrase: ^3.18.1
       tsup: ^4.10.1
       typescript: ^4.2.4
-      windicss: ^3.0.0-beta.1
+      windicss: ^3.0.0-beta.5
     dependencies:
       debug: 4.3.2
       fast-glob: 3.2.5
@@ -199,7 +199,7 @@ importers:
       micromatch: 4.0.4
       pirates: 4.0.1
       sucrase: 3.18.1
-      windicss: 3.0.0-beta.1
+      windicss: 3.0.0-beta.5
     devDependencies:
       '@antfu/ni': 0.5.8
       '@types/debug': 4.1.5
@@ -218,10 +218,10 @@ importers:
       debug: ^4.3.2
       rollup: ^2.46.0
       tsup: ^4.10.1
-      windicss: ^3.0.0-beta.1
+      windicss: ^3.0.0-beta.5
     dependencies:
       '@windicss/plugin-utils': link:../plugin-utils
-      windicss: 3.0.0-beta.1
+      windicss: 3.0.0-beta.5
     devDependencies:
       '@antfu/ni': 0.5.8
       '@types/node': 15.0.1
@@ -239,12 +239,12 @@ importers:
       debug: ^4.3.2
       tsup: ^4.10.1
       vite: ^2.2.3
-      windicss: ^3.0.0-beta.1
+      windicss: ^3.0.0-beta.5
     dependencies:
       '@windicss/plugin-utils': link:../plugin-utils
       chalk: 4.1.1
       debug: 4.3.2
-      windicss: 3.0.0-beta.1
+      windicss: 3.0.0-beta.5
     devDependencies:
       '@antfu/ni': 0.5.8
       '@types/connect': 3.4.34
@@ -6914,8 +6914,8 @@ packages:
       string-width: 4.2.0
     dev: true
 
-  /windicss/3.0.0-beta.1:
-    resolution: {integrity: sha512-06fFMIj+OeW76snT8MVxcHH254nk5sDcm9Z26nJpi/Veau8NkML3QQy/IT1GgyGwy//j4IBJCX5uV/2ftjBCOQ==}
+  /windicss/3.0.0-beta.5:
+    resolution: {integrity: sha512-3s2jPguZmobl49wiCbZiJcyFCN/wH3VJ76E2sdogxnQnKvbEF4pvx6zRAotuS97Jljal/Sp4VFhP3+b4b87nuA==}
     engines: {node: '>= 12'}
     hasBin: true
 
