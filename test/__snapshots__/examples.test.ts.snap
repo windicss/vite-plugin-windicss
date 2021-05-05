@@ -1,72 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`example attributify: base 1`] = `
-"/* windicss layer base */
-"
-`;
-
-exports[`example attributify: components 1`] = `
-"/* windicss layer components */
-"
-`;
-
-exports[`example attributify: utilities 1`] = `
-"/* windicss layer utilities */
-[hover\\\\:bg~=\\"gray-400\\"]:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgba(156, 163, 175, var(--tw-bg-opacity));
-}
-[hover\\\\:bg~=\\"opacity-10\\"]:hover {
-  --tw-bg-opacity: 0.1;
-}
-[rounded~=\\"md\\"] {
-  border-radius: 0.375rem;
-}
-[border~=\\"2\\"] {
-  border-width: 2px;
-}
-.grid {
-  display: -ms-grid;
-  display: grid;
-}
-[font~=\\"mono\\"] {
-  font-family: ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,\\"Liberation Mono\\",\\"Courier New\\",monospace;
-}
-[font~=\\"bold\\"] {
-  font-weight: 700;
-}
-[text~=\\"xl\\"] {
-  font-size: 1.25rem;
-  line-height: 1.75rem;
-}
-.opacity-10 {
-  opacity: 0.1;
-}
-.p-5 {
-  padding: 1.25rem;
-}
-[p~=\\"x-2\\"] {
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
-}
-[p~=\\"y-1\\"] {
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
-}
-[text~=\\"lime-400\\"] {
-  --tw-text-opacity: 1;
-  color: rgba(163, 230, 53, var(--tw-text-opacity));
-}
-.italic {
-  font-style: italic;
-}
-@media (min-width: 768px) {
-  [md~=\\"italic\\"] {
-    font-style: italic;
-  }
-}"
-`;
-
 exports[`example should allow access to generated tags and classes by a callback: classes 1`] = `
 Set {
   "select-none",
@@ -511,4 +444,79 @@ Set {
   "a",
   "style",
 }
+`;
+
+exports[`example v3: base 1`] = `
+"/* windicss layer base */
+"
+`;
+
+exports[`example v3: components 1`] = `
+"/* windicss layer components */
+"
+`;
+
+exports[`example v3: utilities 1`] = `
+"/* windicss layer utilities */
+[hover\\\\:bg~=\\"gray-400\\"]:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgba(156, 163, 175, var(--tw-bg-opacity));
+}
+[hover\\\\:bg~=\\"opacity-10\\"]:hover {
+  --tw-bg-opacity: 0.1;
+}
+.border-gray-200 {
+  --tw-border-opacity: 1;
+  border-color: rgba(229, 231, 235, var(--tw-border-opacity));
+}
+.dark .dark\\\\:border-dark-300 {
+  --tw-border-opacity: 1;
+  border-color: rgba(45, 45, 45, var(--tw-border-opacity));
+}
+[rounded~=\\"md\\"] {
+  border-radius: 0.375rem;
+}
+[border~=\\"2\\"] {
+  border-width: 2px;
+}
+.grid {
+  display: -ms-grid;
+  display: grid;
+}
+[font~=\\"mono\\"] {
+  font-family: ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,\\"Liberation Mono\\",\\"Courier New\\",monospace;
+}
+[font~=\\"bold\\"] {
+  font-weight: 700;
+}
+[text~=\\"xl\\"] {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+.opacity-10 {
+  opacity: 0.1;
+}
+.p-5 {
+  padding: 1.25rem;
+}
+[p~=\\"x-2\\"] {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+[p~=\\"y-1\\"] {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+[text~=\\"lime-400\\"] {
+  --tw-text-opacity: 1;
+  color: rgba(163, 230, 53, var(--tw-text-opacity));
+}
+.italic {
+  font-style: italic;
+}
+@media (min-width: 768px) {
+  [md~=\\"italic\\"] {
+    font-style: italic;
+  }
+}"
 `;

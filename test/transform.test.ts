@@ -15,10 +15,8 @@ describe('transfrom', () => {
     const utils = createUtils()
 
     for (const c of cases) {
-      const transformed = utils.transformGroups(c)
+      const transformed = utils.transformGroups(c)?.code
       expect(transformed).toMatchSnapshot(`"${c}"`)
-      const transformedSourceMap = utils.transformGroupsWithSourcemap(c)?.code
-      expect(transformedSourceMap).toBe(transformed)
     }
   })
 

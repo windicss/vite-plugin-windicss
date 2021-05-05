@@ -46,13 +46,13 @@ describe('example', () => {
     expect(tags).toMatchSnapshot('tags')
   })
 
-  it('attributify', async() => {
+  it('v3', async() => {
     const utils = createUtils(
       {
         preflight: false,
       },
       {
-        root: resolve(__dirname, '../examples/attributify'),
+        root: resolve(__dirname, '../examples/windicss-v3'),
         onConfigurationError(e) {
           throw e
         },
