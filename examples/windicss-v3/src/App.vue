@@ -15,4 +15,5 @@
   >
     BOLD MONO
   </div>
+  <div class="*app-border">app-border</div>
 </template>

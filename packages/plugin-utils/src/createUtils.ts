@@ -9,7 +9,8 @@ import Processor from 'windicss'
 import { preflightTags, htmlTags } from './constants'
 import { WindiPluginUtilsOptions, UserOptions, ResolvedOptions } from './options'
 import { resolveOptions } from './resolveOptions'
-import { kebabCase, include, exclude, slash, transformGroups, transformGroupsWithSourcemap, partition } from './utils'
+import { kebabCase, include, exclude, slash, partition } from './utils'
+import { buildAliasTransformer, transformGroups } from './transforms'
 import { applyExtractors as _applyExtractors } from './extractors/helper'
 
 export type CompletionsResult = ReturnType<typeof generateCompletions>
@@ -56,6 +57,8 @@ export function createUtils(
   const attrsGenerated = new Set<string>()
   const tagsAvailable = new Set<string>()
   const attributes: [string, string][] = []
+
+  let _transformAlias: ReturnType<typeof buildAliasTransformer> = () => null
 
   function getCompletions() {
     if (!completions)
@@ -180,7 +183,7 @@ export function createUtils(
   async function extractFile(code: string, id?: string, applyGroupTransform = true) {
     if (applyGroupTransform) {
       if (options.transformGroups)
-        code = transformGroups(code)
+        code = transformGroups(code, false)?.code ?? code
     }
 
     if (id) {
@@ -404,7 +407,9 @@ export function createUtils(
     clearCache,
     transformCSS,
     transformGroups,
-    transformGroupsWithSourcemap,
+    get transformAlias() {
+      return _transformAlias
+    },
     buildPendingStyles,
     isDetectTarget,
     isScanTarget,
@@ -458,6 +463,8 @@ export function createUtils(
     clearCache(false)
 
     options.onInitialized?.(utils)
+
+    _transformAlias = buildAliasTransformer(options.config.alias)
 
     return processor
   }

@@ -1,7 +1,7 @@
 /* eslint-disable no-use-before-define */
 
 import type { Extractor, FullConfig as WindiCssOptions } from 'windicss/types/interfaces'
-import { TransformerFunction } from './transformers'
+import { TransformerFunction } from './transforms'
 import { TagNames } from './constants'
 import { WindiPluginUtils } from './createUtils'
 

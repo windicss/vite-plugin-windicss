@@ -1,6 +1,3 @@
-import MagicString from 'magic-string'
-import { regexClassGroup } from './regexes'
-
 export type Arrayable<T> = T | T[]
 export type NestedArrayable<T> = T | (T | T[])[]
 
@@ -42,35 +39,6 @@ export function exclude<T>(set: Set<T>, v: T[] | Set<T>) {
     set.delete(i)
 }
 
-export function transformGroups(str: string) {
-  return str.replace(
-    regexClassGroup,
-    (_, a: string, b: string) => b.split(/\s/g).map(i => `${a}:${i}`).join(' '),
-  )
-}
-
-export function transformGroupsWithSourcemap(code: string) {
-  const s = new MagicString(code)
-  let hasReplaced = false
-  let match
-
-  regexClassGroup.lastIndex = 0
-  // eslint-disable-next-line no-cond-assign
-  while ((match = regexClassGroup.exec(code))) {
-    hasReplaced = true
-    const start = match.index
-    const end = start + match[0].length
-    const a = match[1]
-    const b = match[2]
-    const replacement = b.split(/\s/g).map(i => `${a}:${i}`).join(' ')
-    s.overwrite(start, end, replacement)
-  }
-
-  if (!hasReplaced)
-    return null
-
-  return {
-    code: s.toString(),
-    map: s.generateMap({ hires: true }),
-  }
+export function escapeRegExp(str: string) {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') // $& means the whole matched string
 }

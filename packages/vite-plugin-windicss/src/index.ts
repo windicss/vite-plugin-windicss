@@ -1,5 +1,5 @@
 import { resolve } from 'path'
-import type { Plugin, ResolvedConfig, ViteDevServer } from 'vite'
+import type { Plugin, ViteDevServer } from 'vite'
 import _debug, { log } from 'debug'
 import { UserOptions, WindiPluginUtils, createUtils, WindiPluginUtilsOptions } from '@windicss/plugin-utils'
 import { createVirtualModuleLoader, MODULE_ID_VIRTUAL_PREFIX } from '../../shared/virtual-module'
@@ -11,29 +11,41 @@ const debug = {
   hmr: _debug(`${NAME}:hmr`),
   css: _debug(`${NAME}:transform:css`),
   group: _debug(`${NAME}:transform:group`),
+  alias: _debug(`${NAME}:transform:alias`),
   memory: _debug(`${NAME}:memory`),
 }
 
 function VitePluginWindicss(userOptions: UserOptions = {}, utilsOptions: WindiPluginUtilsOptions = {}): Plugin[] {
   let utils: WindiPluginUtils
-  let viteConfig: ResolvedConfig
+  // let viteConfig: ResolvedConfig
   let server: ViteDevServer | undefined
 
   const plugins: Plugin[] = []
+
+  // transform alias
+  plugins.push({
+    name: `${NAME}:alias`,
+    enforce: 'pre',
+    async transform(code, id) {
+      await utils.ensureInit()
+      if (!utils.isDetectTarget(id))
+        return
+      debug.alias(id)
+      return utils.transformAlias(code)
+    },
+  })
 
   // Utilities grouping transform
   if (userOptions.transformGroups !== false) {
     plugins.push({
       name: `${NAME}:groups`,
+      enforce: 'pre',
       async transform(code, id) {
         await utils.ensureInit()
         if (!utils.isDetectTarget(id))
           return
         debug.group(id)
-        if (viteConfig.build.sourcemap)
-          return utils.transformGroupsWithSourcemap(code)
-        else
-          return utils.transformGroups(code)
+        return utils.transformGroups(code)
       },
     })
   }
@@ -56,7 +68,7 @@ function VitePluginWindicss(userOptions: UserOptions = {}, utilsOptions: WindiPl
     },
 
     async configResolved(_config) {
-      viteConfig = _config
+      // viteConfig = _config
       utils = createUtils(userOptions, {
         name: NAME,
         root: _config.root,
