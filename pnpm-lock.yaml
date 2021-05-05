@@ -61,27 +61,6 @@ importers:
       vite-plugin-restart: 0.0.2_vite@2.2.4
       windicss: 3.0.0-beta.5
 
-  examples/attributify:
-    specifiers:
-      '@vitejs/plugin-vue': ^1.2.2
-      '@vue/compiler-sfc': ^3.0.11
-      cross-env: ^7.0.3
-      nodemon: ^2.0.7
-      typescript: ^4.2.4
-      vite: ^2.2.4
-      vite-plugin-windicss: workspace:*
-      vue: ^3.0.11
-    dependencies:
-      vue: 3.0.11
-    devDependencies:
-      '@vitejs/plugin-vue': 1.2.2_@vue+compiler-sfc@3.0.11
-      '@vue/compiler-sfc': 3.0.11_vue@3.0.11
-      cross-env: 7.0.3
-      nodemon: 2.0.7
-      typescript: 4.2.4
-      vite: 2.2.4
-      vite-plugin-windicss: link:../../packages/vite-plugin-windicss
-
   examples/react:
     specifiers:
       '@types/react': ^17.0.5
@@ -171,6 +150,27 @@ importers:
       pug: 3.0.2
       sass: 1.32.12
       stylus: 0.54.8
+      typescript: 4.2.4
+      vite: 2.2.4
+      vite-plugin-windicss: link:../../packages/vite-plugin-windicss
+
+  examples/windicss-v3:
+    specifiers:
+      '@vitejs/plugin-vue': ^1.2.2
+      '@vue/compiler-sfc': ^3.0.11
+      cross-env: ^7.0.3
+      nodemon: ^2.0.7
+      typescript: ^4.2.4
+      vite: ^2.2.4
+      vite-plugin-windicss: workspace:*
+      vue: ^3.0.11
+    dependencies:
+      vue: 3.0.11
+    devDependencies:
+      '@vitejs/plugin-vue': 1.2.2_@vue+compiler-sfc@3.0.11
+      '@vue/compiler-sfc': 3.0.11_vue@3.0.11
+      cross-env: 7.0.3
+      nodemon: 2.0.7
       typescript: 4.2.4
       vite: 2.2.4
       vite-plugin-windicss: link:../../packages/vite-plugin-windicss
