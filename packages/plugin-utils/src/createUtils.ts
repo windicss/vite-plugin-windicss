@@ -180,8 +180,9 @@ export function createUtils(
     return await _applyExtractors(code, id, options.scanOptions.extractors)
   }
 
-  async function extractFile(code: string, id?: string, applyGroupTransform = true) {
-    if (applyGroupTransform) {
+  async function extractFile(code: string, id?: string, applyTransform = true) {
+    if (applyTransform) {
+      code = _transformAlias(code, false)?.code ?? code
       if (options.transformGroups)
         code = transformGroups(code, false)?.code ?? code
     }
