@@ -4,7 +4,6 @@ import type { Extractor, FullConfig as WindiCssOptions } from 'windicss/types/in
 import { TransformerFunction } from './transformers'
 import { TagNames } from './constants'
 import { WindiPluginUtils } from './createUtils'
-import { HookOptions } from './register'
 
 export { WindiCssOptions }
 
@@ -211,16 +210,6 @@ export interface LoadConfigurationOptions {
    */
   name?: string
   /**
-   * Use sucrase/register to load configs in ESM/TypeScript
-   *
-   * @default true
-   */
-  enableSucrase?: boolean
-  /**
-   * Options for https://github.com/ariporad/pirates
-   */
-  hookOptions?: HookOptions
-  /**
    * Config object or path
    */
   config?: WindiCssOptions | string
@@ -239,6 +228,18 @@ export interface LoadConfigurationOptions {
    * On loading configuration error
    */
   onConfigurationError?: (error: Error) => void
+  /**
+   * Use sucrase/register to load configs in ESM/TypeScript
+   *
+   * @default false
+   * @deperated no longer needed
+   */
+  enableSucrase?: boolean
+  /**
+    * Options for https://github.com/ariporad/pirates
+    * @deperated no longer needed
+    */
+  hookOptions?: any
 }
 
 export type WindiPluginUtilsOptions = Omit<LoadConfigurationOptions, 'config' | 'configFiles'>

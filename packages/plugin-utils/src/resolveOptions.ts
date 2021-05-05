@@ -1,12 +1,13 @@
-import { existsSync, promises as fs } from 'fs'
+import { existsSync } from 'fs'
 import { resolve, posix } from 'path'
-import { pathToFileURL } from 'url'
 import _debug from 'debug'
+import _jiti from 'jiti'
 import type { UserOptions, ResolvedOptions, WindiCssOptions, WindiPluginUtilsOptions, LoadConfigurationOptions } from './options'
 import { defaultAlias, defaultConfigureFiles } from './constants'
 import { Arrayable, kebabCase, mergeArrays, slash, toArray } from './utils'
-import { registerSucrase } from './register'
 import { getDefaultExtractors } from './extractors/helper'
+
+const jiti = _jiti(__filename, { cache: false })
 
 export function isResolvedOptions(options: UserOptions | ResolvedOptions): options is ResolvedOptions {
   // @ts-expect-error internal flag
@@ -192,12 +193,10 @@ export async function loadConfiguration(options: LoadConfigurationOptions) {
 
   const {
     name = 'windicss-plugin-utils',
-    enableSucrase = true,
     config,
     root = process.cwd(),
     configFiles: configureFiles = defaultConfigureFiles,
     onConfigurationError = e => console.error(e),
-    hookOptions,
   } = options
 
   const debugConfig = _debug(`${name}:config`)
@@ -221,44 +220,18 @@ export async function loadConfiguration(options: LoadConfigurationOptions) {
     }
 
     if (configFilePath) {
-      let revert = () => { }
       try {
         debugConfig('loading from ', configFilePath)
 
-        const isEsmJS = configFilePath.endsWith('.js')
-          && (await fs.readFile(configFilePath, 'utf-8')).includes('export default ')
-
-        if (enableSucrase)
-          revert = registerSucrase(hookOptions)
-
-        if (isEsmJS) {
-          // hack to prevent `import` get transformed
-          // eslint-disable-next-line no-new-func
-          const _import = new Function('modulePath', 'return import(modulePath)')
-
-          if (typeof require !== 'undefined')
-            delete require.cache[require.resolve(configFilePath)]
-
-          resolved = (await _import(pathToFileURL(configFilePath)))?.default || {}
-
-          if (resolved.default)
-            resolved = resolved.default
-        }
-        else {
-          delete require.cache[require.resolve(configFilePath)]
-          resolved = require(configFilePath)
-          if (resolved.default)
-            resolved = resolved.default
-        }
+        resolved = jiti(configFilePath)
+        if (resolved.default)
+          resolved = resolved.default
       }
       catch (e) {
         error = e
         configFilePath = undefined
         resolved = {}
         onConfigurationError?.(e)
-      }
-      finally {
-        revert()
       }
     }
   }
