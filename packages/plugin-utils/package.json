@@ -23,7 +23,7 @@
   "bugs": "https://github.com/antfu/vite-plugin-windicss/issues",
   "scripts": {
     "dev": "npm run build -- --watch",
-    "build": "tsup src/index.ts --dts --format cjs,esm --external sucrase/register/ts,pug,windicss/utils/style,windicss/utils/parser,windicss/utils",
+    "build": "tsup src/index.ts --dts --format cjs,esm --no-splitting --external sucrase/register/ts,pug,windicss/utils/style,windicss/utils/parser,windicss/utils",
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
