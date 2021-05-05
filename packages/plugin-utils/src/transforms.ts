@@ -50,8 +50,6 @@ export function buildAliasTransformer(alias?: Record<string, string>) {
     let hasReplaced = false
     let match
 
-    console.log(code)
-
     regex.lastIndex = 0
     // eslint-disable-next-line no-cond-assign
     while ((match = regex.exec(code))) {
@@ -59,7 +57,6 @@ export function buildAliasTransformer(alias?: Record<string, string>) {
       const start = match.index
       const end = start + match[0].length
       const name = code.slice(start + 1, end)
-      console.log('matched!!!', name)
       const replacement = alias[name]
       s.overwrite(start, end, replacement)
     }
