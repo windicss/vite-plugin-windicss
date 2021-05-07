@@ -43,7 +43,6 @@ export function buildAliasTransformer(alias?: Record<string, string>) {
   const keys = Object.keys(alias).sort((a, b) => b.length - a.length).map(i => escapeRegExp(i)).join('|')
   const regexText = `\\*(?:${keys})(?<=[^\w-])`
   const regex = new RegExp(regexText, 'g')
-  console.dir(regex)
 
   return function transformAlias(code: string, sourcemap = true) {
     const s = new MagicString(code)

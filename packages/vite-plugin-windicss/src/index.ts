@@ -89,6 +89,14 @@ function VitePluginWindicss(userOptions: UserOptions = {}, utilsOptions: WindiPl
     ...createVirtualModuleLoader({ get utils() { return utils } }),
   })
 
+  let _cssReloadTask: any
+  function reloadCssModules(server: ViteDevServer) {
+    clearTimeout(_cssReloadTask)
+    _cssReloadTask = setTimeout(() => {
+      reloadChangedCssModules(server, utils)
+    }, 1)
+  }
+
   // HMR
   plugins.push({
     name: `${NAME}:hmr`,
@@ -108,7 +116,7 @@ function VitePluginWindicss(userOptions: UserOptions = {}, utilsOptions: WindiPl
       server.watcher.add(supportsGlobs ? utils.globs : await utils.getFiles())
     },
 
-    async handleHotUpdate({ server, file, read, modules }) {
+    async handleHotUpdate({ server, file, read }) {
       // resolve normalized file path to system path
       if (resolve(file) === utils.configFilePath) {
         debug.hmr(`config file changed: ${file}`)
@@ -123,19 +131,13 @@ function VitePluginWindicss(userOptions: UserOptions = {}, utilsOptions: WindiPl
       if (!utils.isDetectTarget(file))
         return
 
-      const changed = await utils.extractFile(await read(), file, true)
-      if (!changed)
-        return
-
-      const cssModules = getCssModules(server, getChangedModuleNames(utils))
-
-      debug.hmr(`refreshed by ${file}`)
-      invalidateCssModules(server, cssModules)
-
-      if (file.endsWith('.html'))
-        return undefined
-
-      return [...cssModules, ...modules].filter(Boolean)
+      utils.extractFile(await read(), file, true)
+        .then((changed) => {
+          if (changed) {
+            debug.hmr(`refreshed by ${file}`)
+            reloadCssModules(server)
+          }
+        })
     },
   })
 
@@ -144,7 +146,7 @@ function VitePluginWindicss(userOptions: UserOptions = {}, utilsOptions: WindiPl
   const transformCSS = (code: string, id: string) => utils.transformCSS(code, id, {
     onLayerUpdated() {
       if (server)
-        reloadChangedCssModules(server, utils)
+        reloadCssModules(server)
     },
   })
 
