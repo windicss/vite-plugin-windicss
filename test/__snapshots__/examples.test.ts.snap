@@ -167,6 +167,10 @@ abbr[title] {
   -webkit-text-decoration: underline dotted;
   text-decoration: underline dotted;
 }
+a {
+  color: inherit;
+  text-decoration: inherit;
+}
 body {
   margin: 0;
   font-family: inherit;
@@ -177,10 +181,6 @@ html {
   font-family: ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,\\"Segoe UI\\",Roboto,\\"Helvetica Neue\\",Arial,\\"Noto Sans\\",sans-serif,\\"Apple Color Emoji\\",\\"Segoe UI Emoji\\",\\"Segoe UI Symbol\\",\\"Noto Color Emoji\\";
   line-height: 1.5;
 }
-a {
-  color: inherit;
-  text-decoration: inherit;
-}
 h2 {
   margin: 0;
   font-size: inherit;
@@ -188,18 +188,18 @@ h2 {
 }
 /* windicss layer components */
 .btn {
-  border-radius: 0.25rem;
-  border-width: 1px;
   --tw-border-opacity: 1;
   border-color: rgba(209, 213, 219, var(--tw-border-opacity));
-  --tw-text-opacity: 1;
-  color: rgba(75, 85, 99, var(--tw-text-opacity));
+  border-radius: 0.25rem;
+  border-width: 1px;
+  display: inline-block;
+  margin: 0.5rem;
   padding-left: 1rem;
   padding-right: 1rem;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
-  margin: 0.5rem;
-  display: inline-block;
+  --tw-text-opacity: 1;
+  color: rgba(75, 85, 99, var(--tw-text-opacity));
 }
 .btn:hover {
   --tw-shadow-color: 0, 0, 0;
@@ -321,6 +321,10 @@ abbr[title] {
   -webkit-text-decoration: underline dotted;
   text-decoration: underline dotted;
 }
+a {
+  color: inherit;
+  text-decoration: inherit;
+}
 body {
   margin: 0;
   font-family: inherit;
@@ -330,10 +334,6 @@ html {
   -webkit-text-size-adjust: 100%;
   font-family: ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,\\"Segoe UI\\",Roboto,\\"Helvetica Neue\\",Arial,\\"Noto Sans\\",sans-serif,\\"Apple Color Emoji\\",\\"Segoe UI Emoji\\",\\"Segoe UI Symbol\\",\\"Noto Color Emoji\\";
   line-height: 1.5;
-}
-a {
-  color: inherit;
-  text-decoration: inherit;
 }
 h2 {
   margin: 0;
@@ -345,18 +345,18 @@ h2 {
 exports[`example should work: generated-css-components 1`] = `
 "/* windicss layer components */
 .btn {
-  border-radius: 0.25rem;
-  border-width: 1px;
   --tw-border-opacity: 1;
   border-color: rgba(209, 213, 219, var(--tw-border-opacity));
-  --tw-text-opacity: 1;
-  color: rgba(75, 85, 99, var(--tw-text-opacity));
+  border-radius: 0.25rem;
+  border-width: 1px;
+  display: inline-block;
+  margin: 0.5rem;
   padding-left: 1rem;
   padding-right: 1rem;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
-  margin: 0.5rem;
-  display: inline-block;
+  --tw-text-opacity: 1;
+  color: rgba(75, 85, 99, var(--tw-text-opacity));
 }
 .btn:hover {
   --tw-shadow-color: 0, 0, 0;
