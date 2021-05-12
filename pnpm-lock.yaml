@@ -27,9 +27,9 @@ importers:
       ts-jest: ^26.5.6
       tsup: ^4.10.1
       typescript: ^4.2.4
-      vite: ^2.3.1
+      vite: ^2.3.2
       vite-plugin-restart: ^0.0.2
-      windicss: ^3.0.0-beta.13
+      windicss: ^3.0.0
     devDependencies:
       '@antfu/eslint-config': 0.6.5_eslint@7.26.0+typescript@4.2.4
       '@antfu/ni': 0.7.0
@@ -54,9 +54,9 @@ importers:
       ts-jest: 26.5.6_jest@26.6.3+typescript@4.2.4
       tsup: 4.10.1_typescript@4.2.4
       typescript: 4.2.4
-      vite: 2.3.1
-      vite-plugin-restart: 0.0.2_vite@2.3.1
-      windicss: 3.0.0-beta.13
+      vite: 2.3.2
+      vite-plugin-restart: 0.0.2_vite@2.3.2
+      windicss: 3.0.0
 
   examples/react:
     specifiers:
@@ -66,7 +66,7 @@ importers:
       react: ^17.0.2
       react-dom: ^17.0.2
       typescript: ^4.2.4
-      vite: ^2.3.1
+      vite: ^2.3.2
       vite-plugin-windicss: workspace:*
     dependencies:
       react: 17.0.2
@@ -76,28 +76,28 @@ importers:
       '@types/react-dom': 17.0.4
       '@vitejs/plugin-react-refresh': 1.3.3
       typescript: 4.2.4
-      vite: 2.3.1
+      vite: 2.3.2
       vite-plugin-windicss: link:../../packages/vite-plugin-windicss
 
   examples/vanilla-cjs:
     specifiers:
-      vite: ^2.3.1
+      vite: ^2.3.2
       vite-plugin-windicss: workspace:*
-      windicss: ^3.0.0-beta.13
+      windicss: ^3.0.0
     devDependencies:
-      vite: 2.3.1
+      vite: 2.3.2
       vite-plugin-windicss: link:../../packages/vite-plugin-windicss
-      windicss: 3.0.0-beta.13
+      windicss: 3.0.0
 
   examples/vanilla-esm:
     specifiers:
-      vite: ^2.3.1
+      vite: ^2.3.2
       vite-plugin-windicss: workspace:*
-      windicss: ^3.0.0-beta.13
+      windicss: ^3.0.0
     devDependencies:
-      vite: 2.3.1
+      vite: 2.3.2
       vite-plugin-windicss: link:../../packages/vite-plugin-windicss
-      windicss: 3.0.0-beta.13
+      windicss: 3.0.0
 
   examples/vue:
     specifiers:
@@ -105,10 +105,10 @@ importers:
       '@vue/compiler-sfc': ^3.0.11
       cross-env: ^7.0.3
       nodemon: ^2.0.7
-      sass: ^1.32.12
+      sass: ^1.32.13
       stylus: ^0.54.8
       typescript: ^4.2.4
-      vite: ^2.3.1
+      vite: ^2.3.2
       vite-plugin-windicss: workspace:*
       vue: ^3.0.11
     dependencies:
@@ -118,10 +118,10 @@ importers:
       '@vue/compiler-sfc': 3.0.11_vue@3.0.11
       cross-env: 7.0.3
       nodemon: 2.0.7
-      sass: 1.32.12
+      sass: 1.32.13
       stylus: 0.54.8
       typescript: 4.2.4
-      vite: 2.3.1
+      vite: 2.3.2
       vite-plugin-windicss: link:../../packages/vite-plugin-windicss
 
   examples/vue-pug:
@@ -131,10 +131,10 @@ importers:
       cross-env: ^7.0.3
       nodemon: ^2.0.7
       pug: ^3.0.2
-      sass: ^1.32.12
+      sass: ^1.32.13
       stylus: ^0.54.8
       typescript: ^4.2.4
-      vite: ^2.3.1
+      vite: ^2.3.2
       vite-plugin-windicss: workspace:*
       vue: ^3.0.11
     dependencies:
@@ -145,10 +145,10 @@ importers:
       cross-env: 7.0.3
       nodemon: 2.0.7
       pug: 3.0.2
-      sass: 1.32.12
+      sass: 1.32.13
       stylus: 0.54.8
       typescript: 4.2.4
-      vite: 2.3.1
+      vite: 2.3.2
       vite-plugin-windicss: link:../../packages/vite-plugin-windicss
 
   examples/windicss-v3:
@@ -158,7 +158,7 @@ importers:
       cross-env: ^7.0.3
       nodemon: ^2.0.7
       typescript: ^4.2.4
-      vite: ^2.3.1
+      vite: ^2.3.2
       vite-plugin-windicss: workspace:*
       vue: ^3.0.11
     dependencies:
@@ -169,7 +169,7 @@ importers:
       cross-env: 7.0.3
       nodemon: 2.0.7
       typescript: 4.2.4
-      vite: 2.3.1
+      vite: 2.3.2
       vite-plugin-windicss: link:../../packages/vite-plugin-windicss
 
   packages/plugin-utils:
@@ -187,14 +187,14 @@ importers:
       pug: ^3.0.2
       tsup: ^4.10.1
       typescript: ^4.2.4
-      windicss: ^3.0.0-beta.13
+      windicss: ^3.0.0
     dependencies:
       debug: 4.3.2
       fast-glob: 3.2.5
       jiti: 1.9.2
       magic-string: 0.25.7
       micromatch: 4.0.4
-      windicss: 3.0.0-beta.13
+      windicss: 3.0.0
     devDependencies:
       '@antfu/ni': 0.7.0
       '@types/debug': 4.1.5
@@ -213,10 +213,10 @@ importers:
       debug: ^4.3.2
       rollup: ^2.47.0
       tsup: ^4.10.1
-      windicss: ^3.0.0-beta.13
+      windicss: ^3.0.0
     dependencies:
       '@windicss/plugin-utils': link:../plugin-utils
-      windicss: 3.0.0-beta.13
+      windicss: 3.0.0
     devDependencies:
       '@antfu/ni': 0.7.0
       '@types/node': 15.0.2
@@ -233,19 +233,19 @@ importers:
       chalk: ^4.1.1
       debug: ^4.3.2
       tsup: ^4.10.1
-      vite: ^2.3.1
-      windicss: ^3.0.0-beta.13
+      vite: ^2.3.2
+      windicss: ^3.0.0
     dependencies:
       '@windicss/plugin-utils': link:../plugin-utils
       chalk: 4.1.1
       debug: 4.3.2
-      windicss: 3.0.0-beta.13
+      windicss: 3.0.0
     devDependencies:
       '@antfu/ni': 0.7.0
       '@types/connect': 3.4.34
       '@types/node': 15.0.2
       tsup: 4.10.1
-      vite: 2.3.1
+      vite: 2.3.2
 
 packages:
 
@@ -5792,8 +5792,8 @@ packages:
       walker: 1.0.7
     dev: true
 
-  /sass/1.32.12:
-    resolution: {integrity: sha512-zmXn03k3hN0KaiVTjohgkg98C3UowhL1/VSGdj4/VAAiMKGQOE80PFPxFP2Kyq0OUskPKcY5lImkhBKEHlypJA==}
+  /sass/1.32.13:
+    resolution: {integrity: sha512-dEgI9nShraqP7cXQH+lEXVf73WOPCse0QlFzSD8k+1TcOxCMwVXfQlr0jtoluZysQOyJGnfr21dLvYKDJq8HkA==}
     engines: {node: '>=8.9.0'}
     hasBin: true
     dependencies:
@@ -6674,18 +6674,18 @@ packages:
       extsprintf: 1.3.0
     dev: true
 
-  /vite-plugin-restart/0.0.2_vite@2.3.1:
+  /vite-plugin-restart/0.0.2_vite@2.3.2:
     resolution: {integrity: sha512-WZ2Qp8Jo83wqBcZFQo481JchQcNgEYLIjd3NbhwPXr/mbg1mUC7hCMCrvafF5WcEQPChd7agx6fBm8RYrRR46A==}
     peerDependencies:
       vite: ^2.0.0-beta.69
     dependencies:
       chalk: 4.1.1
       micromatch: 4.0.4
-      vite: 2.3.1
+      vite: 2.3.2
     dev: true
 
-  /vite/2.3.1:
-    resolution: {integrity: sha512-yvcLclv/G0syHL+bBtahdaymH0x6La8kbTlnAssRH+XFvDNb8VPRruHhILCCmZgtx6Zu/UKNFTQnQ4Gk/omyUA==}
+  /vite/2.3.2:
+    resolution: {integrity: sha512-QhLdOompDrfkyryCNTts9HE+eJhvhN9ibKNJ5Q8DpQai+6nOsuIlaveZNg67e1O/2QaWqXeBo82eHnAs1De2bQ==}
     engines: {node: '>=12.0.0'}
     hasBin: true
     dependencies:
@@ -6811,8 +6811,8 @@ packages:
       string-width: 4.2.2
     dev: true
 
-  /windicss/3.0.0-beta.13:
-    resolution: {integrity: sha512-F33D3QM7nrH3TvxoML1d8WIG5x8rZyevbP86pZro5k/8lllWhWQ8g3XYrUnzPK+oXAiOvOnTHc9YFJjqEA6vYA==}
+  /windicss/3.0.0:
+    resolution: {integrity: sha512-NTiPaIAOOtt+HMUXGJ5agMCdaQq2o5kREElIpX4RSG8g3oy6/7YM+dSbQMNelrMHSxqD7X/7DztHja2Bm8HblA==}
     engines: {node: '>= 12'}
     hasBin: true
 

@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "@windicss/plugin-utils": "workspace:*",
-    "windicss": "^3.0.0-beta.13"
+    "windicss": "^3.0.0"
   },
   "devDependencies": {
     "@antfu/ni": "^0.7.0",
