@@ -5,7 +5,7 @@ import { UserOptions, WindiPluginUtils, createUtils, WindiPluginUtilsOptions } f
 import { createVirtualModuleLoader, MODULE_ID_VIRTUAL_PREFIX } from '../../shared/virtual-module'
 import { createDevtoolsPlugin } from './devtools'
 import { NAME } from './constants'
-import { getChangedModuleNames, getCssModules, invalidateCssModules, reloadChangedCssModules } from './modules'
+import { getCssModules, reloadChangedCssModules } from './modules'
 
 const debug = {
   hmr: _debug(`${NAME}:hmr`),
