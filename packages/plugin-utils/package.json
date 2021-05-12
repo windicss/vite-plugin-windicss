@@ -29,10 +29,10 @@
   "dependencies": {
     "debug": "^4.3.2",
     "fast-glob": "^3.2.5",
-    "jiti": "^1.9.1",
+    "jiti": "^1.9.2",
     "magic-string": "^0.25.7",
     "micromatch": "^4.0.4",
-    "windicss": "^3.0.0-beta.5"
+    "windicss": "^3.0.0-beta.13"
   },
   "devDependencies": {
     "@antfu/ni": "^0.7.0",
