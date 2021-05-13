@@ -93,4 +93,31 @@ describe('transfrom', () => {
     expect(components).toMatchSnapshot('@layer components')
     expect(await utils.generateCSS('utilities')).toMatchSnapshot('@layer utilities')
   })
+  it('css keyframes', async() => {
+    const utils = createUtils({
+      preflight: false,
+      scan: false,
+    })
+
+    await utils.init()
+
+    expect(await utils.generateCSS()).toMatchSnapshot()
+
+    const css = `
+      .pulse-class {
+         @apply relative w-40 h-40 rounded-full bg-teal-600 opacity-80 animate-pulse;
+      }
+    `
+
+    await utils.extractFile(css, 'group0', true)
+
+    const transformed = utils.transformCSS(css, 'group0', { globalKeyframes: true })
+
+    expect(transformed).not.toContain('@keyframe')
+    expect(transformed).toMatchSnapshot('keyframes')
+
+    const moduleCSS = await utils.generateCSS()
+    expect(moduleCSS).toContain('@keyframe')
+    expect(moduleCSS).toMatchSnapshot('keyframe module')
+  })
 })

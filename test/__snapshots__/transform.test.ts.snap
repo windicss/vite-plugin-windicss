@@ -117,6 +117,47 @@ exports[`transfrom css directives: basic @layer 1`] = `
 }"
 `;
 
+exports[`transfrom css keyframes 1`] = `
+"/* windicss layer base */
+
+/* windicss layer components */
+
+/* windicss layer utilities */"
+`;
+
+exports[`transfrom css keyframes: keyframe module 1`] = `
+"/* windicss layer base */
+
+/* windicss layer components */
+@keyframes pulse {
+  .pulse-class {
+    opacity: 1;
+    opacity: .5;
+  }
+}
+@-webkit-keyframes pulse {
+  .pulse-class {
+    opacity: 1;
+    opacity: .5;
+  }
+}
+/* windicss layer utilities */"
+`;
+
+exports[`transfrom css keyframes: keyframes 1`] = `
+".pulse-class {
+  --tw-bg-opacity: 1;
+  background-color: rgba(13, 148, 136, var(--tw-bg-opacity));
+  border-radius: 9999px;
+  height: 10rem;
+  opacity: 0.8;
+  position: relative;
+  width: 10rem;
+  -webkit-animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}"
+`;
+
 exports[`transfrom groups: "!hover:(m-2 p-2)" 1`] = `"!hover:m-2 !hover:p-2"`;
 
 exports[`transfrom groups: "+sm:(p-1 p-2)" 1`] = `"+sm:p-1 +sm:p-2"`;
