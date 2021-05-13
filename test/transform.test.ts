@@ -93,7 +93,7 @@ describe('transfrom', () => {
     expect(components).toMatchSnapshot('@layer components')
     expect(await utils.generateCSS('utilities')).toMatchSnapshot('@layer utilities')
   })
-  it('css keyframes', async() => {
+  it('css windi keyframes', async() => {
     const utils = createUtils({
       preflight: false,
       scan: false,
@@ -113,11 +113,43 @@ describe('transfrom', () => {
 
     const transformed = utils.transformCSS(css, 'group0', { globaliseKeyframes: true })
 
-    expect(transformed).not.toContain('@keyframe')
+    expect(transformed).not.toContain('@keyframes')
     expect(transformed).toMatchSnapshot('keyframes')
 
     const moduleCSS = await utils.generateCSS()
-    expect(moduleCSS).toContain('@keyframe')
-    expect(moduleCSS).toMatchSnapshot('keyframe module')
+    expect(moduleCSS).toContain('@keyframes')
+    expect(moduleCSS).toMatchSnapshot('keyframes module')
+  })
+  it('css custom keyframes', async() => {
+    const utils = createUtils({
+      preflight: false,
+      scan: false,
+    })
+
+    await utils.init()
+
+    expect(await utils.generateCSS()).toMatchSnapshot()
+
+    const css = `
+      .test {
+        animation: my-animation 2s infinite linear;
+      }
+      @keyframes my-animation {
+        100% {
+          -webkit-transform: rotate(360deg);
+        }
+      }
+    `
+
+    await utils.extractFile(css, 'group0', true)
+
+    const transformed = utils.transformCSS(css, 'group0', { globaliseKeyframes: true })
+
+    expect(transformed).toContain('@keyframes')
+    expect(transformed).toMatchSnapshot('keyframes')
+
+    const moduleCSS = await utils.generateCSS()
+    expect(moduleCSS).not.toContain('@keyframes')
+    expect(moduleCSS).toMatchSnapshot('keyframes module')
   })
 })

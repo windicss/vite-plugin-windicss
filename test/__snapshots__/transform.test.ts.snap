@@ -1,5 +1,32 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`transfrom css custom keyframes 1`] = `
+"/* windicss layer base */
+
+/* windicss layer components */
+
+/* windicss layer utilities */"
+`;
+
+exports[`transfrom css custom keyframes: keyframes 1`] = `
+".test {
+  animation: my-animation 2s infinite linear;
+}
+@keyframes my-animation {
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}"
+`;
+
+exports[`transfrom css custom keyframes: keyframes module 1`] = `
+"/* windicss layer base */
+
+/* windicss layer components */
+
+/* windicss layer utilities */"
+`;
+
 exports[`transfrom css directives 1`] = `
 "/* windicss layer base */
 
@@ -117,7 +144,7 @@ exports[`transfrom css directives: basic @layer 1`] = `
 }"
 `;
 
-exports[`transfrom css keyframes 1`] = `
+exports[`transfrom css windi keyframes 1`] = `
 "/* windicss layer base */
 
 /* windicss layer components */
@@ -125,7 +152,21 @@ exports[`transfrom css keyframes 1`] = `
 /* windicss layer utilities */"
 `;
 
-exports[`transfrom css keyframes: keyframe module 1`] = `
+exports[`transfrom css windi keyframes: keyframes 1`] = `
+".pulse-class {
+  --tw-bg-opacity: 1;
+  background-color: rgba(13, 148, 136, var(--tw-bg-opacity));
+  border-radius: 9999px;
+  height: 10rem;
+  opacity: 0.8;
+  position: relative;
+  width: 10rem;
+  -webkit-animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}"
+`;
+
+exports[`transfrom css windi keyframes: keyframes module 1`] = `
 "/* windicss layer base */
 
 /* windicss layer components */
@@ -142,20 +183,6 @@ exports[`transfrom css keyframes: keyframe module 1`] = `
   }
 }
 /* windicss layer utilities */"
-`;
-
-exports[`transfrom css keyframes: keyframes 1`] = `
-".pulse-class {
-  --tw-bg-opacity: 1;
-  background-color: rgba(13, 148, 136, var(--tw-bg-opacity));
-  border-radius: 9999px;
-  height: 10rem;
-  opacity: 0.8;
-  position: relative;
-  width: 10rem;
-  -webkit-animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}"
 `;
 
 exports[`transfrom groups: "!hover:(m-2 p-2)" 1`] = `"!hover:m-2 !hover:p-2"`;
