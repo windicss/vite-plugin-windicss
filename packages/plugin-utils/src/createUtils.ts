@@ -2,6 +2,7 @@ import { promises as fs } from 'fs'
 import { StyleSheet, Style } from 'windicss/utils/style'
 import { CSSParser } from 'windicss/utils/parser'
 import { generateCompletions } from 'windicss/utils'
+import { createSingletonPromise } from '@antfu/utils'
 import fg from 'fast-glob'
 import _debug from 'debug'
 import micromatch from 'micromatch'
@@ -89,38 +90,31 @@ export function createUtils(
   }
 
   let scanned = false
-  let _searching: Promise<void> | null
 
-  async function scan() {
+  const scan = createSingletonPromise(async() => {
     await ensureInit()
 
-    if (!_searching) {
-      _searching = (async() => {
-        debug.scan('started')
-        files.push(...await getFiles())
+    debug.scan('started')
+    files.push(...await getFiles())
 
-        const contents = await Promise.all(
-          files
-            .filter(id => isDetectTarget(id))
-            .map(async id => [await fs.readFile(id, 'utf-8'), id]),
-        )
+    const contents = await Promise.all(
+      files
+        .filter(id => isDetectTarget(id))
+        .map(async id => [await fs.readFile(id, 'utf-8'), id]),
+    )
 
-        await Promise.all(contents.map(
-          async([content, id]) => {
-            if (isCssTransformTarget(id))
-              return transformCSS(content, id)
-            else
-              return extractFile(content, id, true)
-          },
-        ))
+    await Promise.all(contents.map(
+      async([content, id]) => {
+        if (isCssTransformTarget(id))
+          return transformCSS(content, id)
+        else
+          return extractFile(content, id, true)
+      },
+    ))
 
-        scanned = true
-        debug.scan('finished')
-      })()
-    }
-
-    return _searching
-  }
+    scanned = true
+    debug.scan('finished')
+  })
 
   function isExcluded(id: string) {
     return micromatch.contains(slash(id), options.scanOptions.exclude, { dot: true })

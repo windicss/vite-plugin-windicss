@@ -6,6 +6,7 @@ importers:
     specifiers:
       '@antfu/eslint-config': ^0.6.5
       '@antfu/ni': ^0.7.0
+      '@antfu/utils': ^0.1.5
       '@types/debug': ^4.1.5
       '@types/fs-extra': ^9.0.11
       '@types/jest': ^26.0.23
@@ -33,6 +34,7 @@ importers:
     devDependencies:
       '@antfu/eslint-config': 0.6.5_eslint@7.26.0+typescript@4.2.4
       '@antfu/ni': 0.7.0
+      '@antfu/utils': 0.1.5
       '@types/debug': 4.1.5
       '@types/fs-extra': 9.0.11
       '@types/jest': 26.0.23
@@ -175,6 +177,7 @@ importers:
   packages/plugin-utils:
     specifiers:
       '@antfu/ni': ^0.7.0
+      '@antfu/utils': ^0.1.5
       '@types/debug': ^4.1.5
       '@types/micromatch': ^4.0.1
       '@types/node': ^15.0.2
@@ -197,6 +200,7 @@ importers:
       windicss: 3.0.0
     devDependencies:
       '@antfu/ni': 0.7.0
+      '@antfu/utils': 0.1.5
       '@types/debug': 4.1.5
       '@types/micromatch': 4.0.1
       '@types/node': 15.0.2
@@ -327,6 +331,10 @@ packages:
   /@antfu/ni/0.7.0:
     resolution: {integrity: sha512-wXtpUOMu3l5QWVXBrsaxCbgD2dbKQ1N/5ji7Xl3FTrfSb96+BElRhmaLyZd1A5U4TXz6S/FLR8jQQ3XJ78aHIQ==}
     hasBin: true
+    dev: true
+
+  /@antfu/utils/0.1.5:
+    resolution: {integrity: sha512-yhiJF0NtcND5513OjEhnhKZWH+sAswC/six0X2oNDfmMunhXWQ3LOVVXBjdbx7bUD1vSEiHoY91rXY9Vs7KfLA==}
     dev: true
 
   /@babel/code-frame/7.12.11:
