@@ -225,7 +225,7 @@ export function createUtils(
   }
 
   function transformCSS(css: string, id: string, transformOptions?: {
-    onLayerUpdated?: () => void,
+    onLayerUpdated?: () => void
     globaliseKeyframes?: boolean
   }) {
     if (!options.transformCSS)
@@ -233,8 +233,8 @@ export function createUtils(
     const style = new CSSParser(css, processor).parse()
     // if we should move locally scoped keyframes to the global stylesheet, avoids possible duplicates
     if (transformOptions?.globaliseKeyframes) {
-      const [ nonKeyframeBlocks, keyframeBlocks ] = partition(style.children,
-              i => !i.atRules || !i.atRules[0].match(/keyframes (pulse|spin|ping|bounce)/)
+      const [nonKeyframeBlocks, keyframeBlocks] = partition(style.children,
+        i => !i.atRules || !i.atRules[0].match(/keyframes (pulse|spin|ping|bounce)/),
       )
       // register the keyframe blocks to our global classes
       updateLayers(keyframeBlocks, '__classes', false)
