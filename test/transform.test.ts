@@ -111,7 +111,7 @@ describe('transfrom', () => {
 
     await utils.extractFile(css, 'group0', true)
 
-    const transformed = utils.transformCSS(css, 'group0', { globalKeyframes: true })
+    const transformed = utils.transformCSS(css, 'group0', { globaliseKeyframes: true })
 
     expect(transformed).not.toContain('@keyframe')
     expect(transformed).toMatchSnapshot('keyframes')

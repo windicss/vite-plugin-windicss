@@ -233,7 +233,10 @@ export function createUtils(
     const style = new CSSParser(css, processor).parse()
     // if we should move locally scoped keyframes to the global stylesheet, avoids possible duplicates
     if (transformOptions?.globaliseKeyframes) {
-      const [ nonKeyframeBlocks, keyframeBlocks ] = partition(style.children, i => !i.atRules || i.atRules[0].indexOf('keyframes ') === -1)
+      const [ nonKeyframeBlocks, keyframeBlocks ] = partition(style.children, i => {
+        console.log(i)
+        return !i.atRules || i.atRules[0].indexOf('keyframes ') === -1
+      })
       // register the keyframe blocks to our global classes
       updateLayers(keyframeBlocks, '__classes', false)
       // set the children without the keyframes
