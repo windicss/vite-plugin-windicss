@@ -192,6 +192,7 @@ importers:
       typescript: ^4.2.4
       windicss: ^3.0.0
     dependencies:
+      '@antfu/utils': 0.1.5
       debug: 4.3.2
       fast-glob: 3.2.5
       jiti: 1.9.2
@@ -200,7 +201,6 @@ importers:
       windicss: 3.0.0
     devDependencies:
       '@antfu/ni': 0.7.0
-      '@antfu/utils': 0.1.5
       '@types/debug': 4.1.5
       '@types/micromatch': 4.0.1
       '@types/node': 15.0.2
@@ -335,7 +335,6 @@ packages:
 
   /@antfu/utils/0.1.5:
     resolution: {integrity: sha512-yhiJF0NtcND5513OjEhnhKZWH+sAswC/six0X2oNDfmMunhXWQ3LOVVXBjdbx7bUD1vSEiHoY91rXY9Vs7KfLA==}
-    dev: true
 
   /@babel/code-frame/7.12.11:
     resolution: {integrity: sha512-Zt1yodBx1UcyiePMSkWnU4hPqhwq7hGi2nFL1LeA3EUl+q2LQx16MISgJ0+z7dnmgvP9QtIleuETGOiOH1RcIw==}
