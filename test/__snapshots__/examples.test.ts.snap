@@ -3,6 +3,7 @@
 exports[`example should allow access to generated tags and classes by a callback: classes 1`] = `
 Set {
   "select-none",
+  "p-5",
   "px-5",
   "p-1",
   "text-white",
@@ -24,6 +25,13 @@ Set {
 exports[`example should allow access to generated tags and classes by a callback: classesPending 1`] = `
 Set {
   "select-none",
+  "en",
+  "viewport",
+  "module",
+  "modulepreload",
+  "stylesheet",
+  "app",
+  "p-5",
   "ts",
   "./Foo.vue",
   "px-5",
@@ -54,7 +62,11 @@ Set {
   "html",
   "body",
   "div",
+  "head",
+  "meta",
+  "title",
   "script",
+  "link",
   "nav",
   "h2",
   "a",
@@ -67,7 +79,11 @@ Set {
   "html",
   "body",
   "div",
+  "head",
+  "meta",
+  "title",
   "script",
+  "link",
   "nav",
   "h2",
   "a",
@@ -78,6 +94,7 @@ Set {
 exports[`example should work: classes 1`] = `
 Set {
   "select-none",
+  "p-5",
   "px-5",
   "p-1",
   "text-white",
@@ -217,6 +234,9 @@ h2 {
 }
 .mt-2 {
   margin-top: 0.5rem;
+}
+.p-5 {
+  padding: 1.25rem;
 }
 .p-1 {
   padding: 0.25rem;
@@ -375,6 +395,9 @@ exports[`example should work: generated-css-utilities 1`] = `
 .mt-2 {
   margin-top: 0.5rem;
 }
+.p-5 {
+  padding: 1.25rem;
+}
 .p-1 {
   padding: 0.25rem;
 }
@@ -409,7 +432,11 @@ Set {
   "html",
   "body",
   "div",
+  "head",
+  "meta",
+  "title",
   "script",
+  "link",
   "nav",
   "h2",
   "a",
