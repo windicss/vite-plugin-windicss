@@ -125,7 +125,7 @@ export function createUtils(
   }
 
   function isDetectTarget(id: string) {
-    if (options.scanOptions.extraTransformTargets.groups.includes(id))
+    if (options.scanOptions.extraTransformTargets.detect.includes(id))
       return true
     if (files.includes(id) || files.includes(id.slice(0, id.indexOf('?'))))
       return true

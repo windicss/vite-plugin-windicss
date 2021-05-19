@@ -101,7 +101,7 @@ export async function resolveOptions(
       extractors: [],
       extraTransformTargets: {
         css: [],
-        groups: [],
+        detect: [],
       },
     },
     typeof scan === 'boolean' ? {} : scan,
