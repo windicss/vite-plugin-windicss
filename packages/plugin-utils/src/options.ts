@@ -263,7 +263,7 @@ export interface ResolvedOptions {
     extractors: Extractor[]
     extraTransformTargets: {
       css: string[]
-      groups: string[]
+      detect: string[]
     }
   }
 
