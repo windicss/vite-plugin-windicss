@@ -3,7 +3,6 @@
 exports[`example should allow access to generated tags and classes by a callback: classes 1`] = `
 Set {
   "select-none",
-  "p-5",
   "px-5",
   "p-1",
   "text-white",
@@ -25,11 +24,6 @@ Set {
 exports[`example should allow access to generated tags and classes by a callback: classesPending 1`] = `
 Set {
   "select-none",
-  "en",
-  "viewport",
-  "app",
-  "p-5",
-  "module",
   "ts",
   "./Foo.vue",
   "px-5",
@@ -52,13 +46,6 @@ Set {
   "pl-100px",
   "bg-yellow-200",
   "mt-2",
-  "vue",
-  "./App.vue",
-  "virtual:windi-base.css",
-  "virtual:windi-components.css",
-  "virtual:windi-utilities.css",
-  "virtual:windi-devtools",
-  "./main.css",
 }
 `;
 
@@ -67,9 +54,6 @@ Set {
   "html",
   "body",
   "div",
-  "head",
-  "meta",
-  "title",
   "script",
   "nav",
   "h2",
@@ -83,9 +67,6 @@ Set {
   "html",
   "body",
   "div",
-  "head",
-  "meta",
-  "title",
   "script",
   "nav",
   "h2",
@@ -97,7 +78,6 @@ Set {
 exports[`example should work: classes 1`] = `
 Set {
   "select-none",
-  "p-5",
   "px-5",
   "p-1",
   "text-white",
@@ -237,9 +217,6 @@ h2 {
 }
 .mt-2 {
   margin-top: 0.5rem;
-}
-.p-5 {
-  padding: 1.25rem;
 }
 .p-1 {
   padding: 0.25rem;
@@ -398,9 +375,6 @@ exports[`example should work: generated-css-utilities 1`] = `
 .mt-2 {
   margin-top: 0.5rem;
 }
-.p-5 {
-  padding: 1.25rem;
-}
 .p-1 {
   padding: 0.25rem;
 }
@@ -435,9 +409,6 @@ Set {
   "html",
   "body",
   "div",
-  "head",
-  "meta",
-  "title",
   "script",
   "nav",
   "h2",
