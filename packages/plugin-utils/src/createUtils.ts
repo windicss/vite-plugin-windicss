@@ -125,6 +125,8 @@ export function createUtils(
   }
 
   function isDetectTarget(id: string) {
+    if (options.scanOptions.extraTransformTargets.groups.includes(id))
+      return true
     if (files.includes(id) || files.includes(id.slice(0, id.indexOf('?'))))
       return true
     id = slash(id)
@@ -138,6 +140,8 @@ export function createUtils(
   }
 
   function isCssTransformTarget(id: string) {
+    if (options.scanOptions.extraTransformTargets.css.includes(id))
+      return true
     if (id.match(/\.(?:postcss|scss|sass|css|stylus|less)(?:$|\?)/i) && !isExcluded(id))
       return true
     return false

@@ -19,15 +19,15 @@ function buildGlobs(dirs: Arrayable<string>, fileExtensions: Arrayable<string>) 
   const exts = toArray(fileExtensions)
 
   const globs = exts.length
-    ? dirs.map(i =>
-      posix.join(
-        i,
-        exts.length > 1
-          ? `**/*.{${exts.join(',')}}`
-          : `**/*.${exts[0]}`,
-      ),
-    )
-    : []
+      ? dirs.map(i =>
+          posix.join(
+              i,
+              exts.length > 1
+                  ? `**/*.{${exts.join(',')}}`
+                  : `**/*.${exts[0]}`,
+          ),
+      )
+      : []
 
   globs.push('index.html')
 
@@ -35,9 +35,9 @@ function buildGlobs(dirs: Arrayable<string>, fileExtensions: Arrayable<string>) 
 }
 
 export async function resolveOptions(
-  options: UserOptions | ResolvedOptions = {},
-  utilsOptions: WindiPluginUtilsOptions = {},
-  loadConfigFile = false,
+    options: UserOptions | ResolvedOptions = {},
+    utilsOptions: WindiPluginUtilsOptions = {},
+    loadConfigFile = false,
 ): Promise<ResolvedOptions> {
   if (isResolvedOptions(options))
     return options
@@ -50,13 +50,13 @@ export async function resolveOptions(
 
   // eslint-disable-next-line prefer-const
   let { resolved: config, configFilePath } = loadConfigFile
-    ? await loadConfiguration({
-      ...utilsOptions,
-      root: utilsOptions.root || options.root,
-      config: options.config,
-      configFiles: options.configFiles,
-    })
-    : { resolved: {} as WindiCssOptions, configFilePath: undefined }
+      ? await loadConfiguration({
+        ...utilsOptions,
+        root: utilsOptions.root || options.root,
+        config: options.config,
+        configFiles: options.configFiles,
+      })
+      : { resolved: {} as WindiCssOptions, configFilePath: undefined }
 
   // allow to hook into resolved config
   const modifiedConfigs = await options.onConfigResolved?.(config, configFilePath)
@@ -73,51 +73,55 @@ export async function resolveOptions(
   } = options
 
   const preflightOptions: ResolvedOptions['preflightOptions'] = Object.assign(
-    {
-      includeBase: true,
-      includeGlobal: true,
-      includePlugin: true,
-      enableAll: false,
-      includeAll: false,
-      safelist: [],
-      blocklist: [],
-      alias: {},
-    },
-    typeof config.preflight === 'boolean' ? {} : config.preflight,
-    typeof preflight === 'boolean' ? {} : preflight,
+      {
+        includeBase: true,
+        includeGlobal: true,
+        includePlugin: true,
+        enableAll: false,
+        includeAll: false,
+        safelist: [],
+        blocklist: [],
+        alias: {},
+      },
+      typeof config.preflight === 'boolean' ? {} : config.preflight,
+      typeof preflight === 'boolean' ? {} : preflight,
   ) as unknown as ResolvedOptions['preflightOptions']
 
   // backward compatibility
   preflightOptions.includeAll = preflightOptions.includeAll || preflightOptions.enableAll
 
   const scanOptions: ResolvedOptions['scanOptions'] = Object.assign(
-    {
-      fileExtensions: ['html', 'vue', 'md', 'mdx', 'pug', 'jsx', 'tsx', 'svelte', 'ts', 'js', 'css', 'postcss'],
-      dirs: ['src'],
-      exclude: [],
-      include: [],
-      runOnStartup: true,
-      transformers: [],
-      extractors: [],
-    },
-    typeof scan === 'boolean' ? {} : scan,
+      {
+        fileExtensions: ['html', 'vue', 'md', 'mdx', 'pug', 'jsx', 'tsx', 'svelte', 'ts', 'js', 'css', 'postcss'],
+        dirs: ['src'],
+        exclude: [],
+        include: [],
+        runOnStartup: true,
+        transformers: [],
+        extractors: [],
+        extraTransformTargets: {
+          css: [],
+          groups: []
+        }
+      },
+      typeof scan === 'boolean' ? {} : scan,
   )
 
   scanOptions.exclude = mergeArrays(
-    config.extract?.exclude,
-    scanOptions.exclude,
-    // only set default value when exclude is not provided
-    config.extract?.exclude ? [] : ['node_modules', '.git'],
+      config.extract?.exclude,
+      scanOptions.exclude,
+      // only set default value when exclude is not provided
+      config.extract?.exclude ? [] : ['node_modules', '.git'],
   )
-    .map(i => slash(resolve(root, i)))
+      .map(i => slash(resolve(root, i)))
 
   scanOptions.include = mergeArrays(
-    config.extract?.include,
-    scanOptions.include,
-    // only set default value when include is not provided
-    config.extract?.include ? [] : buildGlobs(scanOptions.dirs, scanOptions.fileExtensions),
+      config.extract?.include,
+      scanOptions.include,
+      // only set default value when include is not provided
+      config.extract?.include ? [] : buildGlobs(scanOptions.dirs, scanOptions.fileExtensions),
   )
-    .map(i => slash(resolve(root, i)))
+      .map(i => slash(resolve(root, i)))
 
   scanOptions.extractors = mergeArrays(getDefaultExtractors(), config.extract?.extractors)
 
@@ -128,35 +132,35 @@ export async function resolveOptions(
   const configPreflightOptions = typeof config.preflight === 'boolean' ? {} : config.preflight || {}
 
   preflightOptions.safelist = new Set<string>(
-    mergeArrays(
-      configPreflightOptions?.safelist,
-      Array.from(preflightOptions.safelist),
-    )
-      .flatMap(i => i.split(' '))
-      .map((i) => {
-        // selector
-        const match = i.match(/^\[(.*?)\]$/)?.[1]
-        if (match)
-          return `div ${match}`
-        return i
-      }))
+      mergeArrays(
+          configPreflightOptions?.safelist,
+          Array.from(preflightOptions.safelist),
+      )
+          .flatMap(i => i.split(' '))
+          .map((i) => {
+            // selector
+            const match = i.match(/^\[(.*?)\]$/)?.[1]
+            if (match)
+              return `div ${match}`
+            return i
+          }))
 
   preflightOptions.blocklist = new Set<string>(
-    mergeArrays(
-      configPreflightOptions?.blocklist,
-      Array.from(preflightOptions.blocklist),
-    )
-      .flatMap(i => i.split(' ')),
+      mergeArrays(
+          configPreflightOptions?.blocklist,
+          Array.from(preflightOptions.blocklist),
+      )
+          .flatMap(i => i.split(' ')),
   )
 
   preflightOptions.alias = Object.fromEntries(
-    Object
-      .entries({
-        ...defaultAlias,
-        ...configPreflightOptions.alias,
-        ...preflightOptions.alias,
-      })
-      .filter(([k, v]) => [kebabCase(k), v]),
+      Object
+          .entries({
+            ...defaultAlias,
+            ...configPreflightOptions.alias,
+            ...preflightOptions.alias,
+          })
+          .filter(([k, v]) => [kebabCase(k), v]),
   )
 
   let resolvedOptions = {

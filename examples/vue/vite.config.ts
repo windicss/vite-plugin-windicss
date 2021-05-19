@@ -2,13 +2,18 @@ import { defineConfig } from 'vite'
 import Vue from '@vitejs/plugin-vue'
 import WindiCSS from 'vite-plugin-windicss'
 import Restart from 'vite-plugin-restart'
+import { join } from 'path'
 
 export default defineConfig({
   plugins: [
     Vue({
       include: [/\.vue$/, /\.md$/],
     }),
-    WindiCSS(),
+    WindiCSS({
+      onOptionsResolved: (options) => {
+        options.scanOptions.extraTransformTargets.css.push(join(__dirname, 'excluded', 'included.css'))
+      }
+    }),
     Restart({
       restart: ['../../packages/vite-plugin-windicss/dist/*.js'],
     }),
