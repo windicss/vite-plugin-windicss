@@ -260,9 +260,9 @@ export interface ResolvedOptions {
     include: string[]
     runOnStartup: boolean
     transformers: TransformerFunction[]
-    extractors: Extractor[],
+    extractors: Extractor[]
     extraTransformTargets: {
-      css: string[],
+      css: string[]
       groups: string[]
     }
   }
