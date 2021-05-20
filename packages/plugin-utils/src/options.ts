@@ -261,6 +261,10 @@ export interface ResolvedOptions {
     runOnStartup: boolean
     transformers: TransformerFunction[]
     extractors: Extractor[]
+    extraTransformTargets: {
+      css: string[]
+      detect: string[]
+    }
   }
 
   preflightOptions: {

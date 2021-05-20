@@ -99,6 +99,10 @@ export async function resolveOptions(
       runOnStartup: true,
       transformers: [],
       extractors: [],
+      extraTransformTargets: {
+        css: [],
+        detect: [],
+      },
     },
     typeof scan === 'boolean' ? {} : scan,
   )
