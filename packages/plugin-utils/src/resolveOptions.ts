@@ -7,7 +7,7 @@ import { defaultAlias, defaultConfigureFiles } from './constants'
 import { Arrayable, kebabCase, mergeArrays, slash, toArray } from './utils'
 import { getDefaultExtractors } from './extractors/helper'
 
-const jiti = _jiti(__filename, { cache: false })
+const jiti = _jiti(__filename, { cache: false, requireCache: false })
 
 export function isResolvedOptions(options: UserOptions | ResolvedOptions): options is ResolvedOptions {
   // @ts-expect-error internal flag
