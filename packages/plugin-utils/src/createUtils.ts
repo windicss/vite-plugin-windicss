@@ -338,7 +338,7 @@ export function createUtils(
           attributesObject,
         )
 
-        updateLayers(attributifyStyle.styleSheet.children, '__attributify', false)
+        updateLayers(attributifyStyle.styleSheet.children, '__attributify')
         attributes.length = 0
       }
     }
