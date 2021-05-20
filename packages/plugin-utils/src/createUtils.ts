@@ -266,7 +266,7 @@ export function createUtils(
     }
     else {
       const prevStyles = layerStylesMap.get(filepath) || []
-      layerStylesMap.set(filepath, styles.concat(prevStyles))
+      layerStylesMap.set(filepath, prevStyles.concat(styles))
     }
 
     for (const name of changedLayers) {
