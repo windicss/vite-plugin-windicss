@@ -94,11 +94,11 @@ exports[`transfrom css directives: basic @apply 1`] = `
 }
 .card {
   color: black;
-  border-radius: var(--rounded-box, 1rem);
   --tw-shadow-color: 0, 0, 0;
   --tw-shadow: 0 1px 3px 0 rgba(var(--tw-shadow-color), 0.1), 0 1px 2px 0 rgba(var(--tw-shadow-color), 0.06);
   -webkit-box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  border-radius: var(--rounded-box, 1rem);
 }
 .card:hover {
   --tw-shadow-color: 0, 0, 0;
