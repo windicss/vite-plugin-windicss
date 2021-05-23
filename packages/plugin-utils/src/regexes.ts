@@ -2,6 +2,7 @@ export const regexQuotedString = /(["'`])((?:\\\1|\\\\|\n|\r|.)*?)\1/mg
 export const regexHtmlTag = /<(\w[\w-]*)([\S\s]*?)\/?>/mg
 export const regexClassSplitter = /[\s'"`{}]/g
 export const regexClassGroup = /([!\w+-<@][\w+:_/-]*?\w):\(([!\w\s:/\\,%#\[\].$-]*?)\)/gm
+export const regexAttributifyItem = /([\w+:_/-]+)=(['"])([!\w\s\n~:/\\,%#\[\].$-]*?)\2/gm
 
 export const regexClassCheck1 = /^[!a-z\d@<>.+-](?:\([\w,.%#-]*\)|[\w:/\\,%#\[\].$-])*$/
 export const regexClassCheck2 = /[a-z].*[\w)\]]$/

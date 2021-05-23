@@ -9,6 +9,7 @@ const debug = {
   hmr: _debug(`${NAME}:hmr`),
   css: _debug(`${NAME}:transform:css`),
   group: _debug(`${NAME}:transform:group`),
+  alias: _debug(`${NAME}:transform:alias`),
 }
 
 function WindiCssRollupPlugin(userOptions: UserOptions = {}): Plugin[] {
@@ -23,6 +24,17 @@ function WindiCssRollupPlugin(userOptions: UserOptions = {}): Plugin[] {
   )
   const plugins: Plugin[] = []
 
+  plugins.push({
+    name: `${NAME}:alias`,
+    async transform(code, id) {
+      await utils.ensureInit()
+      if (!utils.isDetectTarget(id))
+        return
+      debug.alias(id)
+      return utils.transformAlias(code, true)
+    },
+  })
+
   if (userOptions.transformGroups !== false) {
     plugins.push({
       name: `${NAME}:groups`,
@@ -31,7 +43,7 @@ function WindiCssRollupPlugin(userOptions: UserOptions = {}): Plugin[] {
         if (!utils.isDetectTarget(id))
           return
         debug.group(id)
-        return utils.transformGroupsWithSourcemap(code)
+        return utils.transformGroups(code, true)
       },
     })
   }

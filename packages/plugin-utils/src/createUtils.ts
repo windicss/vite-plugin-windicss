@@ -2,6 +2,7 @@ import { promises as fs } from 'fs'
 import { StyleSheet, Style } from 'windicss/utils/style'
 import { CSSParser } from 'windicss/utils/parser'
 import { generateCompletions } from 'windicss/utils'
+import { createSingletonPromise } from '@antfu/utils'
 import fg from 'fast-glob'
 import _debug from 'debug'
 import micromatch from 'micromatch'
@@ -9,7 +10,8 @@ import Processor from 'windicss'
 import { preflightTags, htmlTags } from './constants'
 import { WindiPluginUtilsOptions, UserOptions, ResolvedOptions } from './options'
 import { resolveOptions } from './resolveOptions'
-import { kebabCase, include, exclude, slash, transformGroups, transformGroupsWithSourcemap, partition } from './utils'
+import { kebabCase, include, exclude, slash, partition } from './utils'
+import { buildAliasTransformer, transformGroups } from './transforms'
 import { applyExtractors as _applyExtractors } from './extractors/helper'
 
 export type CompletionsResult = ReturnType<typeof generateCompletions>
@@ -40,6 +42,7 @@ export function createUtils(
     scanTransform: _debug(`${name}:scan:transform`),
     detectClass: _debug(`${name}:detect:class`),
     detectTag: _debug(`${name}:detect:tag`),
+    detectAttrs: _debug(`${name}:detect:attrs`),
     compileLayer: _debug(`${name}:compile:layer`),
   }
 
@@ -54,6 +57,9 @@ export function createUtils(
   const tagsPending = new Set<string>()
   const attrsGenerated = new Set<string>()
   const tagsAvailable = new Set<string>()
+  const attributes: [string, string][] = []
+
+  let _transformAlias: ReturnType<typeof buildAliasTransformer> = () => null
 
   function getCompletions() {
     if (!completions)
@@ -84,38 +90,31 @@ export function createUtils(
   }
 
   let scanned = false
-  let _searching: Promise<void> | null
 
-  async function scan() {
+  const scan = createSingletonPromise(async() => {
     await ensureInit()
 
-    if (!_searching) {
-      _searching = (async() => {
-        debug.scan('started')
-        files.push(...await getFiles())
+    debug.scan('started')
+    files.push(...await getFiles())
 
-        const contents = await Promise.all(
-          files
-            .filter(id => isDetectTarget(id))
-            .map(async id => [await fs.readFile(id, 'utf-8'), id]),
-        )
+    const contents = await Promise.all(
+      files
+        .filter(id => isDetectTarget(id))
+        .map(async id => [await fs.readFile(id, 'utf-8'), id]),
+    )
 
-        await Promise.all(contents.map(
-          async([content, id]) => {
-            if (isCssTransformTarget(id))
-              return transformCSS(content, id)
-            else
-              return extractFile(content, id, true)
-          },
-        ))
+    await Promise.all(contents.map(
+      async([content, id]) => {
+        if (isCssTransformTarget(id))
+          return transformCSS(content, id)
+        else
+          return extractFile(content, id, true)
+      },
+    ))
 
-        scanned = true
-        debug.scan('finished')
-      })()
-    }
-
-    return _searching
-  }
+    scanned = true
+    debug.scan('finished')
+  })
 
   function isExcluded(id: string) {
     return micromatch.contains(slash(id), options.scanOptions.exclude, { dot: true })
@@ -126,6 +125,8 @@ export function createUtils(
   }
 
   function isDetectTarget(id: string) {
+    if (options.scanOptions.extraTransformTargets.detect.includes(id))
+      return true
     if (files.includes(id) || files.includes(id.slice(0, id.indexOf('?'))))
       return true
     id = slash(id)
@@ -139,6 +140,8 @@ export function createUtils(
   }
 
   function isCssTransformTarget(id: string) {
+    if (options.scanOptions.extraTransformTargets.css.includes(id))
+      return true
     if (id.match(/\.(?:postcss|scss|sass|css|stylus|less)(?:$|\?)/i) && !isExcluded(id))
       return true
     return false
@@ -175,10 +178,11 @@ export function createUtils(
     return await _applyExtractors(code, id, options.scanOptions.extractors)
   }
 
-  async function extractFile(code: string, id?: string, applyGroupTransform = true) {
-    if (applyGroupTransform) {
+  async function extractFile(code: string, id?: string, applyTransform = true) {
+    if (applyTransform) {
+      code = _transformAlias(code, false)?.code ?? code
       if (options.transformGroups)
-        code = transformGroups(code)
+        code = transformGroups(code, false)?.code ?? code
     }
 
     if (id) {
@@ -190,20 +194,35 @@ export function createUtils(
       }
     }
 
-    const { classes, tags } = await applyExtractors(code, id)
+    const extractResult = await applyExtractors(code, id)
 
     let changed = false
-    // classes
-    changed = addClasses(classes || []) || changed
 
     if (options.enablePreflight || !options.preflightOptions.includeAll) {
       // preflight
-      changed = addTags(tags || []) || changed
+      changed = addTags(extractResult.tags || []) || changed
+    }
+
+    if (options.config.attributify) {
+      const extractedAttrs = extractResult.attributes
+      if (extractedAttrs?.names.length) {
+        extractedAttrs.names.forEach((name, i) => {
+          attributes.push([name, extractedAttrs.values[i]])
+        })
+        changed = true
+      }
+      // @ts-expect-error
+      changed = addClasses(extractedAttrs?.classes || extractResult.classes || []) || changed
+    }
+    else {
+      // classes
+      changed = addClasses(extractResult.classes || []) || changed
     }
 
     if (changed) {
       debug.detectClass(classesPending)
       debug.detectTag(tagsPending)
+      debug.detectAttrs(attributes)
     }
 
     return changed
@@ -305,6 +324,25 @@ export function createUtils(
       }
     }
 
+    if (options.config.attributify) {
+      if (attributes.length) {
+        const attributesObject: Record<string, string[]> = {}
+
+        attributes.forEach(([name, value]) => {
+          if (!attributesObject[name])
+            attributesObject[name] = []
+          attributesObject[name].push(...value.split(/\s+/g).filter(Boolean))
+        })
+
+        const attributifyStyle = processor.attributify(
+          attributesObject,
+        )
+
+        updateLayers(attributifyStyle.styleSheet.children, '__attributify')
+        attributes.length = 0
+      }
+    }
+
     options.onGenerated?.({
       classes: classesGenerated,
       tags: tagsGenerated,
@@ -368,7 +406,9 @@ export function createUtils(
     clearCache,
     transformCSS,
     transformGroups,
-    transformGroupsWithSourcemap,
+    get transformAlias() {
+      return _transformAlias
+    },
     buildPendingStyles,
     isDetectTarget,
     isScanTarget,
@@ -422,6 +462,8 @@ export function createUtils(
     clearCache(false)
 
     options.onInitialized?.(utils)
+
+    _transformAlias = buildAliasTransformer(options.config.alias)
 
     return processor
   }

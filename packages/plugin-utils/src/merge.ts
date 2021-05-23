@@ -1,4 +1,4 @@
-import { Config as WindiCssConfig } from 'windicss/types/interfaces'
+import { FullConfig } from 'windicss/types/interfaces'
 
 const isObject = (val: any) => toString.call(val) === '[object Object]'
 
@@ -15,7 +15,7 @@ function deepMerge(a: any, b: any, rootPath: string) {
   return a
 }
 
-export function mergeWindicssConfig(a: WindiCssConfig, b: WindiCssConfig) {
+export function mergeWindicssConfig(a: FullConfig, b: FullConfig) {
   // TODO: handle more special props
   return deepMerge(a, b, '')
 }

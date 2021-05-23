@@ -5,35 +5,51 @@ import { UserOptions, WindiPluginUtils, createUtils, WindiPluginUtilsOptions } f
 import { createVirtualModuleLoader, MODULE_ID_VIRTUAL_PREFIX } from '../../shared/virtual-module'
 import { createDevtoolsPlugin } from './devtools'
 import { NAME } from './constants'
-import { getChangedModuleNames, getCssModules, invalidateCssModules, reloadChangedCssModules } from './modules'
+import { getCssModules, reloadChangedCssModules } from './modules'
 
 const debug = {
   hmr: _debug(`${NAME}:hmr`),
   css: _debug(`${NAME}:transform:css`),
   group: _debug(`${NAME}:transform:group`),
+  alias: _debug(`${NAME}:transform:alias`),
   memory: _debug(`${NAME}:memory`),
 }
 
 function VitePluginWindicss(userOptions: UserOptions = {}, utilsOptions: WindiPluginUtilsOptions = {}): Plugin[] {
   let utils: WindiPluginUtils
-  let viteConfig: ResolvedConfig
+  // let viteConfig: ResolvedConfig
   let server: ViteDevServer | undefined
+  let viteConfig: ResolvedConfig
 
   const plugins: Plugin[] = []
+
+  // transform alias
+  plugins.push({
+    name: `${NAME}:alias`,
+    enforce: 'pre',
+    configResolved(_config) {
+      viteConfig = _config
+    },
+    async transform(code, id) {
+      await utils.ensureInit()
+      if (!utils.isDetectTarget(id))
+        return
+      debug.alias(id)
+      return utils.transformAlias(code, !!viteConfig.build.sourcemap)
+    },
+  })
 
   // Utilities grouping transform
   if (userOptions.transformGroups !== false) {
     plugins.push({
       name: `${NAME}:groups`,
+      enforce: 'pre',
       async transform(code, id) {
         await utils.ensureInit()
         if (!utils.isDetectTarget(id))
           return
         debug.group(id)
-        if (viteConfig.build.sourcemap)
-          return utils.transformGroupsWithSourcemap(code)
-        else
-          return utils.transformGroups(code)
+        return utils.transformGroups(code, !!viteConfig.build.sourcemap)
       },
     })
   }
@@ -56,7 +72,7 @@ function VitePluginWindicss(userOptions: UserOptions = {}, utilsOptions: WindiPl
     },
 
     async configResolved(_config) {
-      viteConfig = _config
+      // viteConfig = _config
       utils = createUtils(userOptions, {
         name: NAME,
         root: _config.root,
@@ -77,11 +93,19 @@ function VitePluginWindicss(userOptions: UserOptions = {}, utilsOptions: WindiPl
     ...createVirtualModuleLoader({ get utils() { return utils } }),
   })
 
+  let _cssReloadTask: any
+  function reloadCssModules(server: ViteDevServer) {
+    clearTimeout(_cssReloadTask)
+    _cssReloadTask = setTimeout(() => {
+      reloadChangedCssModules(server, utils)
+    }, 1)
+  }
+
   // HMR
   plugins.push({
     name: `${NAME}:hmr`,
     apply: 'serve',
-    enforce: 'post',
+    enforce: 'pre',
 
     async configureServer(_server) {
       server = _server
@@ -96,7 +120,7 @@ function VitePluginWindicss(userOptions: UserOptions = {}, utilsOptions: WindiPl
       server.watcher.add(supportsGlobs ? utils.globs : await utils.getFiles())
     },
 
-    async handleHotUpdate({ server, file, read, modules }) {
+    async handleHotUpdate({ server, file, read }) {
       // resolve normalized file path to system path
       if (resolve(file) === utils.configFilePath) {
         debug.hmr(`config file changed: ${file}`)
@@ -111,19 +135,13 @@ function VitePluginWindicss(userOptions: UserOptions = {}, utilsOptions: WindiPl
       if (!utils.isDetectTarget(file))
         return
 
-      const changed = await utils.extractFile(await read(), file, true)
-      if (!changed)
-        return
-
-      const cssModules = getCssModules(server, getChangedModuleNames(utils))
-
-      debug.hmr(`refreshed by ${file}`)
-      invalidateCssModules(server, cssModules)
-
-      if (file.endsWith('.html'))
-        return undefined
-
-      return [...cssModules, ...modules].filter(Boolean)
+      utils.extractFile(await read(), file, true)
+        .then((changed) => {
+          if (changed) {
+            debug.hmr(`refreshed by ${file}`)
+            reloadCssModules(server)
+          }
+        })
     },
   })
 
@@ -132,7 +150,7 @@ function VitePluginWindicss(userOptions: UserOptions = {}, utilsOptions: WindiPl
   const transformCSS = (code: string, id: string) => utils.transformCSS(code, id, {
     onLayerUpdated() {
       if (server)
-        reloadChangedCssModules(server, utils)
+        reloadCssModules(server)
     },
   })
 
@@ -145,9 +163,15 @@ function VitePluginWindicss(userOptions: UserOptions = {}, utilsOptions: WindiPl
         if (!utils.isCssTransformTarget(id) || id.startsWith(MODULE_ID_VIRTUAL_PREFIX))
           return
         debug.css(id)
-        return {
-          code: transformCSS(code, id),
-          map: { mappings: '' },
+        code = transformCSS(code, id)
+        if (viteConfig.build.sourcemap) {
+          return {
+            code: transformCSS(code, id),
+            map: { mappings: '' },
+          }
+        }
+        else {
+          return code
         }
       },
     })
@@ -160,9 +184,15 @@ function VitePluginWindicss(userOptions: UserOptions = {}, utilsOptions: WindiPl
         if (!utils.isCssTransformTarget(id) || id.startsWith(MODULE_ID_VIRTUAL_PREFIX))
           return
         debug.css(id, transformCSSOptions)
-        return {
-          code: transformCSS(code, id),
-          map: { mappings: '' },
+        code = transformCSS(code, id)
+        if (viteConfig.build.sourcemap) {
+          return {
+            code: transformCSS(code, id),
+            map: { mappings: '' },
+          }
+        }
+        else {
+          return code
         }
       },
     })

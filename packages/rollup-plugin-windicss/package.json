@@ -1,6 +1,6 @@
 {
   "name": "rollup-plugin-windicss",
-  "version": "0.15.10",
+  "version": "0.16.0",
   "description": "Windi CSS for Rollup",
   "keywords": [
     "rollup",
@@ -25,7 +25,7 @@
   "bugs": "https://github.com/antfu/vite-plugin-windicss/issues",
   "scripts": {
     "dev": "npm run build -- --watch",
-    "build": "tsup src/index.ts --dts --format cjs,esm",
+    "build": "tsup src/index.ts --dts --format cjs,esm --no-splitting",
     "prepublishOnly": "npm run build"
   },
   "peerDependencies": {
@@ -33,13 +33,13 @@
   },
   "dependencies": {
     "@windicss/plugin-utils": "workspace:*",
-    "windicss": "^2.5.14"
+    "windicss": "^3.0.9"
   },
   "devDependencies": {
-    "@antfu/ni": "^0.5.8",
-    "@types/node": "^14.14.41",
+    "@antfu/ni": "^0.7.0",
+    "@types/node": "^15.3.1",
     "debug": "^4.3.2",
-    "rollup": "^2.45.2",
-    "tsup": "^4.9.1"
+    "rollup": "^2.48.0",
+    "tsup": "^4.11.0"
   }
 }

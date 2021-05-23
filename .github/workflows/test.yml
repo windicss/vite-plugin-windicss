@@ -5,11 +5,13 @@ on:
     branches:
       - main
       - master
+      - next
 
   pull_request:
     branches:
       - main
       - master
+      - next
 
 jobs:
   build:
@@ -28,6 +30,15 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+      
+      - name: Setup cache
+        uses: actions/cache@v2
+        id: pnpm-cache
+        with:
+          path:  ${{ (runner.os == 'Windows' && 'D:\.pnpm-store') || '~/.pnpm-store' }}
+          key: ${{ runner.os }}-${{ matrix.node-version }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ matrix.node-version }}-pnpm-
 
       - name: Setup
         run: npm i -g pnpm @antfu/ni
