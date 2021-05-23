@@ -1,5 +1,5 @@
 import { resolve } from 'path'
-import type { Plugin, ViteDevServer } from 'vite'
+import type { Plugin, ResolvedConfig, ViteDevServer } from 'vite'
 import _debug, { log } from 'debug'
 import { UserOptions, WindiPluginUtils, createUtils, WindiPluginUtilsOptions } from '@windicss/plugin-utils'
 import { createVirtualModuleLoader, MODULE_ID_VIRTUAL_PREFIX } from '../../shared/virtual-module'
@@ -19,6 +19,7 @@ function VitePluginWindicss(userOptions: UserOptions = {}, utilsOptions: WindiPl
   let utils: WindiPluginUtils
   // let viteConfig: ResolvedConfig
   let server: ViteDevServer | undefined
+  let viteConfig: ResolvedConfig
 
   const plugins: Plugin[] = []
 
@@ -26,12 +27,15 @@ function VitePluginWindicss(userOptions: UserOptions = {}, utilsOptions: WindiPl
   plugins.push({
     name: `${NAME}:alias`,
     enforce: 'pre',
+    configResolved(_config) {
+      viteConfig = _config
+    },
     async transform(code, id) {
       await utils.ensureInit()
       if (!utils.isDetectTarget(id))
         return
       debug.alias(id)
-      return utils.transformAlias(code)
+      return utils.transformAlias(code, !!viteConfig.build.sourcemap)
     },
   })
 
@@ -45,7 +49,7 @@ function VitePluginWindicss(userOptions: UserOptions = {}, utilsOptions: WindiPl
         if (!utils.isDetectTarget(id))
           return
         debug.group(id)
-        return utils.transformGroups(code)
+        return utils.transformGroups(code, !!viteConfig.build.sourcemap)
       },
     })
   }
@@ -159,9 +163,15 @@ function VitePluginWindicss(userOptions: UserOptions = {}, utilsOptions: WindiPl
         if (!utils.isCssTransformTarget(id) || id.startsWith(MODULE_ID_VIRTUAL_PREFIX))
           return
         debug.css(id)
-        return {
-          code: transformCSS(code, id),
-          map: { mappings: '' },
+        code = transformCSS(code, id)
+        if (viteConfig.build.sourcemap) {
+          return {
+            code: transformCSS(code, id),
+            map: { mappings: '' },
+          }
+        }
+        else {
+          return code
         }
       },
     })
@@ -174,9 +184,15 @@ function VitePluginWindicss(userOptions: UserOptions = {}, utilsOptions: WindiPl
         if (!utils.isCssTransformTarget(id) || id.startsWith(MODULE_ID_VIRTUAL_PREFIX))
           return
         debug.css(id, transformCSSOptions)
-        return {
-          code: transformCSS(code, id),
-          map: { mappings: '' },
+        code = transformCSS(code, id)
+        if (viteConfig.build.sourcemap) {
+          return {
+            code: transformCSS(code, id),
+            map: { mappings: '' },
+          }
+        }
+        else {
+          return code
         }
       },
     })
