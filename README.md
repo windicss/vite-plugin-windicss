@@ -9,9 +9,6 @@
 </a>
 </p>
 
-<details>
-<summary>Features</summary>
-
 ## Features
 
 - ⚡️ **It's FAST** - 20~100x times faster than Tailwind on Vite
@@ -24,35 +21,9 @@
 - 🎳 Support Variant Groups - e.g. `bg-gray-200 hover:(bg-gray-100 text-red-300)`
 - 😎 ["Design in Devtools"](#design-in-devtools) - if you work this way in the traditional Tailwind, no reason we can't!
 
-</details>
+## Documentation
 
-## Install
-
-This branch is for [**Windi CSS v3.0**](https://windicss.org/posts/v30.html) support. Both `windicss` and `vite-plugin-windicss` are release under `@next` tag at this moment.
-
-Install them by:
-
-```bash
-npm i -D vite-plugin-windicss@next windicss
-# or
-yarn add -D vite-plugin-windicss@next windicss
-```
-
-```ts
-// vite.config.js
-import WindiCSS from 'vite-plugin-windicss'
-
-export default {
-  plugins: [
-    WindiCSS()
-  ],
-}
-```
-
-```ts
-// main.js
-import 'virtual:windi.css'
-```
+Read the [documentation](https://windicss.org/integrations/vite.html) for more details.
 
 ## New Features in v3.0
 
@@ -83,11 +54,18 @@ And use them as you would like:
 
 ### [Alias Config](https://windicss.org/posts/v30.html#alias-config)
 
-> TBD
-
-## Documentation
-
-Read the [documentation](https://windicss.org/integrations/vite.html) for more details.
+```ts
+// windi.config.ts
+export default {
+  alias: {
+    'hstack': 'flex items-center',
+    'vstack': 'flex flex-col',
+    'icon': 'w-6 h-6 fill-current',
+    'app': 'text-red',
+    'app-border': 'border-gray-200 dark:border-dark-300',
+  },
+}
+```
 
 ## Sponsors
 
