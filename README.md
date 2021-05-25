@@ -52,6 +52,31 @@ And use them as you would like:
 </button>
 ```
 
+#### Prefix
+
+If you are concerned about naming confliction, you can add custom prefix to attributify mode by:
+
+```ts
+// windi.config.ts
+export default {
+  attributify: {
+    prefix: 'w:'
+  }
+}
+```
+
+```html
+<button 
+  w:bg="blue-400 hover:blue-500 dark:blue-500 dark:hover:blue-600"
+  w:text="sm white"
+  w:font="mono light"
+  w:p="y-2 x-4"
+  w:border="2 rounded blue-200"
+>
+  Button
+</button>
+```
+
 ### [Alias Config](https://windicss.org/posts/v30.html#alias-config)
 
 ```ts
