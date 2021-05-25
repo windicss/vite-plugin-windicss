@@ -36,24 +36,26 @@ export function DefaultExtractor(code: string, id?: string): ExtractorResultDeta
         values: [],
       }
 
-      const blocks = ['class', 'className']
+      const attributesBlocklist = ['class', 'className']
+      const tagsBlocklist = ['meta', 'script', 'style', 'link']
 
-      tags.forEach((i) => {
-        return Array.from(i[2].matchAll(regexAttributifyItem) || [])
-          .forEach((match) => {
-            let name = match[1]
-            const [full,,, value] = match
-            // remove vue binding
-            name = name.replace(/^(:|v-bind:)/, '')
-            console.log(name, value)
-            if (blocks.includes(name))
-              return
-            attributes.names.push(name)
-            attributes.values.push(value)
-            if (match.index != null)
-              attrRanges.push([match.index, match.index + full.length])
-          })
-      })
+      tags
+        .filter(i => !tagsBlocklist.includes(i[1]))
+        .forEach((i) => {
+          return Array.from(i[2].matchAll(regexAttributifyItem) || [])
+            .forEach((match) => {
+              let name = match[1]
+              const [full,,, value] = match
+              // remove vue binding
+              name = name.replace(/^(:|v-bind:)/, '')
+              if (attributesBlocklist.includes(name))
+                return
+              attributes.names.push(name)
+              attributes.values.push(value)
+              if (match.index != null)
+                attrRanges.push([match.index, match.index + full.length])
+            })
+        })
 
       // Disable this feature for now as we need to find a way to avoid false-negative
       //
