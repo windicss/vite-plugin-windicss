@@ -1,6 +1,6 @@
 {
   "name": "vite-plugin-windicss",
-  "version": "0.16.0",
+  "version": "0.16.1",
   "description": "Windi CSS for Vite, it's fast!",
   "keywords": [
     "vite",
