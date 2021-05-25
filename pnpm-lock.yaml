@@ -81,6 +81,18 @@ importers:
       vite: 2.3.4
       vite-plugin-windicss: link:../../packages/vite-plugin-windicss
 
+  examples/plugins:
+    specifiers:
+      typescript: ^4.2.4
+      vite: ^2.3.4
+      vite-plugin-windicss: workspace:*
+      windicss: ^3.0.12
+    devDependencies:
+      typescript: 4.2.4
+      vite: 2.3.4
+      vite-plugin-windicss: link:../../packages/vite-plugin-windicss
+      windicss: 3.0.12
+
   examples/react:
     specifiers:
       '@types/react': ^17.0.7
