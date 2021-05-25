@@ -13,10 +13,10 @@
     "cross-env": "^7.0.3",
     "nodemon": "^2.0.7",
     "pug": "^3.0.2",
-    "sass": "^1.32.13",
+    "sass": "^1.34.0",
     "stylus": "^0.54.8",
     "typescript": "^4.2.4",
-    "vite": "^2.3.3",
+    "vite": "^2.3.4",
     "vite-plugin-windicss": "workspace:*"
   }
 }
