@@ -13,6 +13,7 @@ import { resolveOptions } from './resolveOptions'
 import { kebabCase, include, exclude, slash, partition } from './utils'
 import { buildAliasTransformer, transformGroups } from './transforms'
 import { applyExtractors as _applyExtractors } from './extractors/helper'
+import { regexClassSplitter } from './regexes'
 
 export type CompletionsResult = ReturnType<typeof generateCompletions>
 export type LayerName = 'base' | 'utilities' | 'components'
@@ -331,7 +332,7 @@ export function createUtils(
         attributes.forEach(([name, value]) => {
           if (!attributesObject[name])
             attributesObject[name] = []
-          attributesObject[name].push(...value.split(/\s+/g).filter(Boolean))
+          attributesObject[name].push(...value.split(regexClassSplitter).filter(Boolean))
         })
 
         const attributifyStyle = processor.attributify(

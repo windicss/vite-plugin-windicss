@@ -41,7 +41,11 @@ export function DefaultExtractor(code: string, id?: string): ExtractorResultDeta
       tags.forEach((i) => {
         return Array.from(i[2].matchAll(regexAttributifyItem) || [])
           .forEach((match) => {
-            const [full, name,, value] = match
+            let name = match[1]
+            const [full,,, value] = match
+            // remove vue binding
+            name = name.replace(/^(:|v-bind:)/, '')
+            console.log(name, value)
             if (blocks.includes(name))
               return
             attributes.names.push(name)

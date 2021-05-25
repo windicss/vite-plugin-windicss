@@ -1,0 +1,19 @@
+{
+  "private": true,
+  "scripts": {
+    "dev": "nodemon --watch ../../packages/vite-plugin-windicss/dist/index.js -x \"cross-env DEBUG=vite-plugin-windicss:* vite\"",
+    "build": "cross-env DEBUG=vite-plugin-windicss:* vite build"
+  },
+  "dependencies": {
+    "vue": "^3.0.11"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^1.2.2",
+    "@vue/compiler-sfc": "^3.0.11",
+    "cross-env": "^7.0.3",
+    "nodemon": "^2.0.7",
+    "typescript": "^4.2.4",
+    "vite": "^2.3.4",
+    "vite-plugin-windicss": "workspace:*"
+  }
+}
