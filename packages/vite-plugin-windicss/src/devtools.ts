@@ -1,4 +1,4 @@
-import fs from 'fs/promises'
+import fs from 'fs'
 import path from 'path'
 import type { Plugin, ResolvedConfig, ViteDevServer } from 'vite'
 import type { WindiPluginUtils } from '@windicss/plugin-utils'
@@ -118,7 +118,7 @@ document.head.prepend(style)
         if (id === DEVTOOLS_PATH) {
           if (!clientCode) {
             clientCode = [
-              await fs.readFile(path.resolve(__dirname, 'client.mjs'), 'utf-8'),
+              await fs.promises.readFile(path.resolve(__dirname, 'client.mjs'), 'utf-8'),
               `import('${MOCK_CLASSES_MODULE_ID}')`,
             ]
               .join('\n')

@@ -1,4 +1,4 @@
-import fs from 'fs/promises'
+import fs from 'fs'
 import { StyleSheet, Style } from 'windicss/utils/style'
 import { CSSParser } from 'windicss/utils/parser'
 import { generateCompletions } from 'windicss/utils'
@@ -101,7 +101,7 @@ export function createUtils(
     const contents = await Promise.all(
       files
         .filter(id => isDetectTarget(id))
-        .map(async id => [await fs.readFile(id, 'utf-8'), id]),
+        .map(async id => [await fs.promises.readFile(id, 'utf-8'), id]),
     )
 
     await Promise.all(contents.map(
