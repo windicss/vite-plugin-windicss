@@ -107,13 +107,19 @@ export async function resolveOptions(
     typeof scan === 'boolean' ? {} : scan,
   )
 
+  function resolveGlob(glob: string) {
+    if (glob.startsWith('!'))
+      return `!${slash(path.resolve(root, glob.slice(1)))}`
+    return slash(path.resolve(root, glob))
+  }
+
   scanOptions.exclude = mergeArrays(
     config.extract?.exclude,
     scanOptions.exclude,
     // only set default value when exclude is not provided
     config.extract?.exclude ? [] : ['node_modules', '.git'],
   )
-    .map(i => slash(path.resolve(root, i)))
+    .map(resolveGlob)
 
   scanOptions.include = mergeArrays(
     config.extract?.include,
@@ -121,7 +127,7 @@ export async function resolveOptions(
     // only set default value when include is not provided
     config.extract?.include ? [] : buildGlobs(scanOptions.dirs, scanOptions.fileExtensions),
   )
-    .map(i => slash(path.resolve(root, i)))
+    .map(resolveGlob)
 
   scanOptions.extractors = mergeArrays(getDefaultExtractors(), config.extract?.extractors)
 
