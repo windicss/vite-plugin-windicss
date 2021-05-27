@@ -1,5 +1,5 @@
-import { existsSync } from 'fs'
-import { resolve, posix } from 'path'
+import fs from 'fs'
+import path from 'path'
 import _debug from 'debug'
 import _jiti from 'jiti'
 import type { UserOptions, ResolvedOptions, WindiCssOptions, WindiPluginUtilsOptions, LoadConfigurationOptions } from './options'
@@ -20,7 +20,7 @@ function buildGlobs(dirs: Arrayable<string>, fileExtensions: Arrayable<string>) 
 
   const globs = exts.length
     ? dirs.map(i =>
-      posix.join(
+      path.posix.join(
         i,
         exts.length > 1
           ? `**/*.{${exts.join(',')}}`
@@ -113,7 +113,7 @@ export async function resolveOptions(
     // only set default value when exclude is not provided
     config.extract?.exclude ? [] : ['node_modules', '.git'],
   )
-    .map(i => slash(resolve(root, i)))
+    .map(i => slash(path.resolve(root, i)))
 
   scanOptions.include = mergeArrays(
     config.extract?.include,
@@ -121,7 +121,7 @@ export async function resolveOptions(
     // only set default value when include is not provided
     config.extract?.include ? [] : buildGlobs(scanOptions.dirs, scanOptions.fileExtensions),
   )
-    .map(i => slash(resolve(root, i)))
+    .map(i => slash(path.resolve(root, i)))
 
   scanOptions.extractors = mergeArrays(getDefaultExtractors(), config.extract?.extractors)
 
@@ -208,16 +208,16 @@ export async function loadConfiguration(options: LoadConfigurationOptions) {
   if (typeof config === 'string' || !config) {
     if (!config) {
       for (const name of configureFiles) {
-        const tryPath = resolve(root, name)
-        if (existsSync(tryPath)) {
+        const tryPath = path.resolve(root, name)
+        if (fs.existsSync(tryPath)) {
           configFilePath = tryPath
           break
         }
       }
     }
     else {
-      configFilePath = resolve(root, config)
-      if (!existsSync(configFilePath)) {
+      configFilePath = path.resolve(root, config)
+      if (!fs.existsSync(configFilePath)) {
         console.warn(`[${name}] config file "${config}" not found, ignored`)
         configFilePath = undefined
       }

@@ -1,6 +1,7 @@
 import { toArray } from '@antfu/utils'
 
-export { toArray, partition, slash, Arrayable } from '@antfu/utils'
+export type { Arrayable } from '@antfu/utils'
+export { toArray, partition, slash } from '@antfu/utils'
 
 export type NestedArrayable<T> = T | (T | T[])[]
 
