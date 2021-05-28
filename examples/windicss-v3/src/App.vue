@@ -18,4 +18,9 @@
   <div class="*app-border">
     app-border
   </div>
+  <Foo/>
 </template>
+
+<script setup lang="ts">
+import Foo from './B.vue'
+</script>

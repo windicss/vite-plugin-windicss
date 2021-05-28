@@ -339,7 +339,7 @@ export function createUtils(
           attributesObject,
         )
 
-        updateLayers(attributifyStyle.styleSheet.children, '__attributify')
+        updateLayers(attributifyStyle.styleSheet.children, '__attributify', false)
         attributes.length = 0
       }
     }
