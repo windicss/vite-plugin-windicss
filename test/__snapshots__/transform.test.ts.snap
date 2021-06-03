@@ -170,6 +170,8 @@ exports[`transfrom css windi keyframes: keyframes module 1`] = `
 "/* windicss layer base */
 
 /* windicss layer components */
+
+/* windicss layer utilities */
 @keyframes pulse {
   .pulse-class {
     opacity: 1;
@@ -181,8 +183,7 @@ exports[`transfrom css windi keyframes: keyframes module 1`] = `
     opacity: 1;
     opacity: .5;
   }
-}
-/* windicss layer utilities */"
+}"
 `;
 
 exports[`transfrom groups: "!hover:(m-2 p-2)" 1`] = `"!hover:m-2 !hover:p-2"`;
