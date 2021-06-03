@@ -37,9 +37,9 @@
   },
   "devDependencies": {
     "@antfu/ni": "^0.7.0",
-    "@types/node": "^15.6.1",
+    "@types/node": "^15.9.0",
     "debug": "^4.3.2",
-    "rollup": "^2.50.0",
-    "tsup": "^4.11.1"
+    "rollup": "^2.50.6",
+    "tsup": "^4.11.2"
   }
 }
