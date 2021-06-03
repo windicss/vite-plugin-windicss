@@ -1,6 +1,6 @@
 {
   "private": true,
-  "version": "0.16.7",
+  "version": "0.17.0",
   "keywords": [
     "vite",
     "vite-plugin",
