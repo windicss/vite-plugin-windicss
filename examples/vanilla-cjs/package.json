@@ -8,6 +8,6 @@
   "devDependencies": {
     "vite": "^2.3.6",
     "vite-plugin-windicss": "workspace:*",
-    "windicss": "^3.0.12"
+    "windicss": "^3.1.0"
   }
 }
