@@ -472,7 +472,7 @@ exports[`plugins typography rtl: generated-css 1`] = `
   font-style: italic;
   color: #111827;
   border-left-width: 0.25rem;
-  border-left-color: #e5e7eb;
+  border-color: #e5e7eb;
   quotes: \\"\\\\201C\\"\\"\\\\201D\\"\\"\\\\2018\\"\\"\\\\2019\\";
   margin-top: 1.6em;
   margin-bottom: 1.6em;
@@ -709,9 +709,7 @@ exports[`plugins typography rtl: generated-css 1`] = `
 }
 .prose[dir=\\"rtl\\"] blockquote {
   border-left-width: 0;
-  border-left-color: initial;
   border-right-width: 0.25rem;
-  border-right-color: #e5e7eb;
   padding-left: initial;
   padding-right: 1em;
 }
