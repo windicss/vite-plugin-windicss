@@ -160,6 +160,8 @@ export function createUtils(
   }
 
   function addTags(tags: string[]) {
+    if (options.preflightOptions.includeAll)
+      return false
     let changed = false
     tags.forEach((tag) => {
       if (!tagsAvailable.has(tag))
@@ -323,11 +325,21 @@ export function createUtils(
     }
 
     if (options.enablePreflight) {
-      if (options.preflightOptions.includeAll || tagsPending.size) {
+      if (options.preflightOptions.includeAll) {
+        // only on initialize
+        if (!layerStylesMap.has('__preflights')) {
+          const preflightStyle = processor.preflight(
+            undefined,
+            options.preflightOptions.includeBase,
+            options.preflightOptions.includeGlobal,
+            options.preflightOptions.includePlugin,
+          )
+          updateLayers(preflightStyle.children, '__preflights', true)
+        }
+      }
+      else if (tagsPending.size) {
         const preflightStyle = processor.preflight(
-          options.preflightOptions.includeAll
-            ? undefined
-            : Array.from(tagsPending).map(i => `<${i}/>`).join(' '),
+          Array.from(tagsPending).map(i => `<${i}/>`).join(' '),
           options.preflightOptions.includeBase,
           options.preflightOptions.includeGlobal,
           options.preflightOptions.includePlugin,
