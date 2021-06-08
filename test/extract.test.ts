@@ -15,4 +15,30 @@ dark:border="~ red-400"
     `),
     ).toMatchSnapshot()
   })
+
+  // #162, #193
+  it('partial 1', () => {
+    expect(DefaultExtractor(`
+      /* I'll fix this */
+      const class = 'p-2'
+    `).classes,
+    ).toEqual(['p-2'])
+  })
+
+  it('partial 2', () => {
+    expect(DefaultExtractor(`
+      <!-- I'll fix this -->
+      <p class='p-2'></p>
+    `).classes,
+    ).toEqual(['p-2'])
+  })
+
+  it('partial 3', () => {
+    expect(DefaultExtractor(`
+      <!-- I'll fix this -->
+      <p class="p-2"></p>
+      <!-- I'll fix that -->
+    `).classes,
+    ).toEqual(['p-2'])
+  })
 })
