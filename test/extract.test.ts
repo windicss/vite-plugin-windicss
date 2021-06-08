@@ -8,9 +8,11 @@ describe('extract', () => {
         border="~"
         sm="bg-red-500 bg-opacity-50 hover:bg-green-300"
         sm:hover="text-red-500 text-lg focus:bg-white"
-        dark:border="~ red-400"
+dark:border="~ red-400"
+        @click="a()"
+        class="text-red-400"
       />
-    `).attributes,
+    `),
     ).toMatchSnapshot()
   })
 })

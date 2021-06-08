@@ -1,16 +1,6 @@
 import type { ExtractorResultDetailed } from 'windicss/types/interfaces'
 import { regexQuotedString, regexClassSplitter, validClassName, regexHtmlTag, regexAttributifyItem } from '../regexes'
 
-// declare module 'windicss/types/interfaces' {
-//   export interface ExtractorResultDetailed {
-//     attributes?: {
-//       names: string[]
-//       values: string[]
-//       classes?: string[]
-//     }
-//   }
-// }
-
 export function DefaultExtractor(code: string, id?: string): ExtractorResultDetailed {
   if (id?.endsWith('.css') || id?.endsWith('.postcss')) {
     return {
