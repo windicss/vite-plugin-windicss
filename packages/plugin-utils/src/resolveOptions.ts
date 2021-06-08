@@ -117,7 +117,14 @@ export async function resolveOptions(
     config.extract?.exclude,
     scanOptions.exclude,
     // only set default value when exclude is not provided
-    config.extract?.exclude ? [] : ['node_modules', '.git'],
+    config.extract?.exclude
+      ? []
+      : [
+        'node_modules',
+        '.git',
+        'windi.config.{ts,js}',
+        'tailwind.config.{ts,js}',
+      ],
   )
     .map(resolveGlob)
 

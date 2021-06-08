@@ -19,15 +19,6 @@ Set {
   "pl-100px",
   "bg-yellow-200",
   "mt-2",
-  "rounded",
-  "border",
-  "border-gray-300",
-  "text-gray-600",
-  "px-4",
-  "py-2",
-  "m-2",
-  "inline-block",
-  "hover:shadow",
 }
 `;
 
@@ -76,21 +67,6 @@ Set {
   "vite-plugin-restart",
   "excluded",
   "included.css",
-  "windicss/helpers",
-  "vue,html,jsx,tsx,ts",
-  "node_modules",
-  ".git",
-  "dist",
-  "class",
-  "rounded",
-  "border",
-  "border-gray-300",
-  "text-gray-600",
-  "px-4",
-  "py-2",
-  "m-2",
-  "inline-block",
-  "hover:shadow",
 }
 `;
 
@@ -145,15 +121,6 @@ Set {
   "pl-100px",
   "bg-yellow-200",
   "mt-2",
-  "rounded",
-  "border",
-  "border-gray-300",
-  "text-gray-600",
-  "px-4",
-  "py-2",
-  "m-2",
-  "inline-block",
-  "hover:shadow",
 }
 `;
 
@@ -273,24 +240,8 @@ h2 {
   --tw-bg-opacity: 1;
   background-color: rgba(253, 230, 138, var(--tw-bg-opacity));
 }
-.border-gray-300 {
-  --tw-border-opacity: 1;
-  border-color: rgba(209, 213, 219, var(--tw-border-opacity));
-}
 .hover\\\\:rounded-full:hover {
   border-radius: 9999px;
-}
-.rounded {
-  border-radius: 0.25rem;
-}
-.border {
-  border-width: 1px;
-}
-.inline-block {
-  display: inline-block;
-}
-.m-2 {
-  margin: 0.5rem;
 }
 .mt-2 {
   margin-top: 0.5rem;
@@ -305,22 +256,8 @@ h2 {
   padding-left: 1.25rem;
   padding-right: 1.25rem;
 }
-.px-4 {
-  padding-left: 1rem;
-  padding-right: 1rem;
-}
-.py-2 {
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-}
 .pl-100px {
   padding-left: 100px;
-}
-.hover\\\\:shadow:hover {
-  --tw-shadow-color: 0, 0, 0;
-  --tw-shadow: 0 1px 3px 0 rgba(var(--tw-shadow-color), 0.1), 0 1px 2px 0 rgba(var(--tw-shadow-color), 0.06);
-  -webkit-box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 .text-white {
   --tw-text-opacity: 1;
@@ -329,10 +266,6 @@ h2 {
 .hover\\\\:text-green-100:hover {
   --tw-text-opacity: 1;
   color: rgba(209, 250, 229, var(--tw-text-opacity));
-}
-.text-gray-600 {
-  --tw-text-opacity: 1;
-  color: rgba(75, 85, 99, var(--tw-text-opacity));
 }
 .select-none {
   -webkit-user-select: none;
@@ -467,24 +400,8 @@ exports[`example should work: generated-css-utilities 1`] = `
   --tw-bg-opacity: 1;
   background-color: rgba(253, 230, 138, var(--tw-bg-opacity));
 }
-.border-gray-300 {
-  --tw-border-opacity: 1;
-  border-color: rgba(209, 213, 219, var(--tw-border-opacity));
-}
 .hover\\\\:rounded-full:hover {
   border-radius: 9999px;
-}
-.rounded {
-  border-radius: 0.25rem;
-}
-.border {
-  border-width: 1px;
-}
-.inline-block {
-  display: inline-block;
-}
-.m-2 {
-  margin: 0.5rem;
 }
 .mt-2 {
   margin-top: 0.5rem;
@@ -499,22 +416,8 @@ exports[`example should work: generated-css-utilities 1`] = `
   padding-left: 1.25rem;
   padding-right: 1.25rem;
 }
-.px-4 {
-  padding-left: 1rem;
-  padding-right: 1rem;
-}
-.py-2 {
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-}
 .pl-100px {
   padding-left: 100px;
-}
-.hover\\\\:shadow:hover {
-  --tw-shadow-color: 0, 0, 0;
-  --tw-shadow: 0 1px 3px 0 rgba(var(--tw-shadow-color), 0.1), 0 1px 2px 0 rgba(var(--tw-shadow-color), 0.06);
-  -webkit-box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 .text-white {
   --tw-text-opacity: 1;
@@ -523,10 +426,6 @@ exports[`example should work: generated-css-utilities 1`] = `
 .hover\\\\:text-green-100:hover {
   --tw-text-opacity: 1;
   color: rgba(209, 250, 229, var(--tw-text-opacity));
-}
-.text-gray-600 {
-  --tw-text-opacity: 1;
-  color: rgba(75, 85, 99, var(--tw-text-opacity));
 }
 .select-none {
   -webkit-user-select: none;
