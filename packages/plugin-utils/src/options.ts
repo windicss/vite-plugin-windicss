@@ -262,8 +262,8 @@ export interface ResolvedOptions {
     transformers: TransformerFunction[]
     extractors: Extractor[]
     extraTransformTargets: {
-      css: string[]
-      detect: string[]
+      css: (string | ((path: string) => boolean))[]
+      detect: (string | ((path: string) => boolean))[]
     }
   }
 

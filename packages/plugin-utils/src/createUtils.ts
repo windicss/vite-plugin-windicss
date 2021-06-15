@@ -126,7 +126,7 @@ export function createUtils(
   }
 
   function isDetectTarget(id: string) {
-    if (options.scanOptions.extraTransformTargets.detect.includes(id))
+    if (options.scanOptions.extraTransformTargets.detect.some(i => typeof i === 'string' ? i === id : i(id)))
       return true
     if (files.includes(id) || files.includes(id.slice(0, id.indexOf('?'))))
       return true
@@ -141,7 +141,7 @@ export function createUtils(
   }
 
   function isCssTransformTarget(id: string) {
-    if (options.scanOptions.extraTransformTargets.css.includes(id))
+    if (options.scanOptions.extraTransformTargets.css.some(i => typeof i === 'string' ? i === id : i(id)))
       return true
     if (id.match(/\.(?:postcss|scss|sass|css|stylus|less)(?:$|\?)/i) && !isExcluded(id))
       return true
