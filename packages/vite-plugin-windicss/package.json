@@ -40,8 +40,8 @@
   "devDependencies": {
     "@antfu/ni": "^0.7.0",
     "@types/connect": "^3.4.34",
-    "@types/node": "^15.12.2",
+    "@types/node": "^15.12.4",
     "tsup": "^4.11.2",
-    "vite": "^2.3.6"
+    "vite": "^2.3.8"
   }
 }
