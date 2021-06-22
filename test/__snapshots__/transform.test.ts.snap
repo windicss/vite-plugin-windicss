@@ -172,6 +172,25 @@ exports[`transfrom css windi keyframes: keyframes module 1`] = `
 /* windicss layer components */
 
 /* windicss layer utilities */
+.bg-teal-600 {
+  --tw-bg-opacity: 1;
+  background-color: rgba(13, 148, 136, var(--tw-bg-opacity));
+}
+.rounded-full {
+  border-radius: 9999px;
+}
+.h-40 {
+  height: 10rem;
+}
+.opacity-80 {
+  opacity: 0.8;
+}
+.relative {
+  position: relative;
+}
+.w-40 {
+  width: 10rem;
+}
 @keyframes pulse {
   .pulse-class {
     opacity: 1;

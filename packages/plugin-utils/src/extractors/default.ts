@@ -1,5 +1,5 @@
 import type { ExtractorResultDetailed } from 'windicss/types/interfaces'
-import { regexQuotedString, regexClassSplitter, validClassName, regexHtmlTag, regexAttributifyItem } from '../regexes'
+import { regexClassSplitter, validClassName, regexHtmlTag, regexAttributifyItem } from '../regexes'
 
 export function DefaultExtractor(code: string, id?: string): ExtractorResultDetailed {
   if (id?.endsWith('.css') || id?.endsWith('.postcss')) {
@@ -15,8 +15,8 @@ export function DefaultExtractor(code: string, id?: string): ExtractorResultDeta
   return {
     tags: tagNames,
     get classes() {
-      return Array.from(code.matchAll(regexQuotedString))
-        .flatMap(m => (m[2] || '').split(regexClassSplitter))
+      return code
+        .split(regexClassSplitter)
         .filter(validClassName)
     },
     get attributes() {
