@@ -12,5 +12,5 @@ export const regexClassChecks = [
 ]
 
 export function validClassName(i: string) {
-  return regexClassChecks.every(r => i.match(r))
+  return regexClassChecks.every(r => i.length > 2 && i.match(r))
 }

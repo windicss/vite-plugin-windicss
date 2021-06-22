@@ -19,6 +19,7 @@ Object {
     ],
   },
   "classes": Array [
+    "<div",
     "x-4",
     "y-2",
     "md:x-2",

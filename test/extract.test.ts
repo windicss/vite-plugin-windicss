@@ -22,7 +22,7 @@ dark:border="~ red-400"
       /* I'll fix this */
       const class = 'p-2'
     `).classes,
-    ).toEqual(['p-2'])
+    ).toContain('p-2')
   })
 
   it('partial 2', () => {
@@ -30,7 +30,7 @@ dark:border="~ red-400"
       <!-- I'll fix this -->
       <p class='p-2'></p>
     `).classes,
-    ).toEqual(['p-2'])
+    ).toContain('p-2')
   })
 
   it('partial 3', () => {
@@ -39,6 +39,13 @@ dark:border="~ red-400"
       <p class="p-2"></p>
       <!-- I'll fix that -->
     `).classes,
-    ).toEqual(['p-2'])
+    ).toContain('p-2')
+  })
+
+  it('partial 4', () => {
+    expect(DefaultExtractor(`
+      <p class="<sm:text-primary"></p>
+    `).classes,
+    ).toContain('<sm:text-primary')
   })
 })

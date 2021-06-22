@@ -2,6 +2,9 @@
 
 exports[`fixtures scan: classes 1`] = `
 Set {
+  "export",
+  "const",
+  "shouldBeIncluded",
   "p-2",
   "p-1",
   "p-5",
