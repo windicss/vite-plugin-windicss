@@ -27,7 +27,7 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@antfu/utils": "^0.2.2",
+    "@antfu/utils": "^0.2.3",
     "debug": "^4.3.2",
     "fast-glob": "^3.2.5",
     "jiti": "^1.10.1",

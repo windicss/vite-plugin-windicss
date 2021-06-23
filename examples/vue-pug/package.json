@@ -5,11 +5,11 @@
     "build": "cross-env DEBUG=vite-plugin-windicss:* vite build"
   },
   "dependencies": {
-    "vue": "^3.1.1"
+    "vue": "^3.1.2"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^1.2.3",
-    "@vue/compiler-sfc": "^3.1.1",
+    "@vue/compiler-sfc": "^3.1.2",
     "cross-env": "^7.0.3",
     "nodemon": "^2.0.7",
     "pug": "^3.0.2",
