@@ -143,7 +143,7 @@ export function createUtils(
   function isCssTransformTarget(id: string) {
     if (options.scanOptions.extraTransformTargets.css.some(i => typeof i === 'string' ? i === id : i(id)))
       return true
-    if (id.match(/\.(?:postcss|scss|sass|css|stylus|less)(?:$|\?)/i) && !isExcluded(id))
+    if (id.match(/\.(?:postcss|pcss|scss|sass|css|stylus|less)(?:$|\?)/i) && !isExcluded(id))
       return true
     return false
   }
