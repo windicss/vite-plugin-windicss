@@ -242,7 +242,12 @@ export interface LoadConfigurationOptions {
   hookOptions?: any
 }
 
-export type WindiPluginUtilsOptions = Omit<LoadConfigurationOptions, 'config' | 'configFiles'>
+export type WindiPluginUtilsOptions = Omit<LoadConfigurationOptions, 'config' | 'configFiles'> & {
+  /**
+   * Reuse existing plugin instance
+   */
+  utils?: WindiPluginUtils
+}
 
 export interface ResolvedOptions {
   config: WindiCssOptions

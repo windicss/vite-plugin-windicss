@@ -73,7 +73,7 @@ function VitePluginWindicss(userOptions: UserOptions = {}, utilsOptions: WindiPl
 
     async configResolved(_config) {
       // viteConfig = _config
-      utils = createUtils(userOptions, {
+      utils = utilsOptions.utils ?? createUtils(userOptions, {
         name: NAME,
         root: _config.root,
         onConfigurationError(e) {
@@ -87,7 +87,7 @@ function VitePluginWindicss(userOptions: UserOptions = {}, utilsOptions: WindiPl
         },
         ...utilsOptions,
       })
-      await utils.init()
+      await utils.ensureInit()
     },
 
     ...createVirtualModuleLoader({ get utils() { return utils } }),
