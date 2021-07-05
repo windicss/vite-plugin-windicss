@@ -37,7 +37,7 @@ export interface WindiPluginUtils {
   applyExtractors: typeof _applyExtractors
   generateCSS(layer?: LayerName): Promise<string>
   getFiles(): Promise<string[]>
-  clearCache(): void
+  clearCache(clearAll?: boolean): void
   transformCSS(css: string, id: string, transformOptions?: TransformCssOptions): string
   transformGroups: typeof transformGroups
   transformAlias: ReturnType<typeof buildAliasTransformer>
@@ -58,7 +58,7 @@ export interface WindiPluginUtils {
 
   addClasses(classes: string[]): boolean
   addTags(tags: string[]): boolean
-  getCompletions(prefix: string): ReturnType<typeof generateCompletions>
+  getCompletions(): ReturnType<typeof generateCompletions>
 
   initialized: boolean
   options: ResolvedOptions
@@ -246,7 +246,7 @@ export function createUtils(
 
     let changed = false
 
-    if (options.enablePreflight || !options.preflightOptions.includeAll) {
+    if (options.enablePreflight && !options.preflightOptions.includeAll) {
       // preflight
       changed = addTags(extractResult.tags || []) || changed
     }
@@ -450,8 +450,9 @@ export function createUtils(
 
       include(tagsPending, tagsGenerated)
       include(tagsPending, preflightTags)
-      include(tagsAvailable, htmlTags as any as string[])
     }
+
+    include(tagsAvailable, htmlTags as any as string[])
 
     include(classesPending, options.safelist)
     include(tagsPending, options.preflightOptions.safelist)
