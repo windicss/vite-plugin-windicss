@@ -50,6 +50,7 @@ export async function resolveOptions(
   // eslint-disable-next-line prefer-const
   let { config, filepath: configFilePath } = loadConfigFile
     ? loadConfiguration({
+      onConfigurationError: error => console.error(error),
       ...utilsOptions,
       root: utilsOptions.root || options.root,
       config: options.config,
