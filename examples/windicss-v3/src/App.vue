@@ -18,7 +18,7 @@
   <div class="*app-border">
     app-border
   </div>
-  <Foo/>
+  <Foo />
 </template>
 
 <script setup lang="ts">
