@@ -25,6 +25,51 @@ export interface LayerMeta {
   timestamp?: number
 }
 
+export interface TransformCssOptions {
+  onLayerUpdated?: () => void
+  globaliseKeyframes?: boolean
+}
+
+export interface WindiPluginUtils {
+  init(): Promise<Processor>
+  ensureInit(): Promise<Processor>
+  extractFile(code: string, id?: string, applyTransform?: boolean): Promise<boolean>
+  applyExtractors: typeof _applyExtractors
+  generateCSS(layer?: LayerName): Promise<string>
+  getFiles(): Promise<string[]>
+  clearCache(): void
+  transformCSS(css: string, id: string, transformOptions?: TransformCssOptions): string
+  transformGroups: typeof transformGroups
+  transformAlias: ReturnType<typeof buildAliasTransformer>
+  buildPendingStyles(): void
+  isDetectTarget(id: string): boolean
+  isScanTarget(id: string): boolean
+  isCssTransformTarget(id: string): boolean
+  isExcluded(id: string): boolean
+  scan(): Promise<void>
+
+  classesGenerated: Set<string>
+  classesPending: Set<string>
+  tagsGenerated: Set<string>
+  tagsPending: Set<string>
+  tagsAvailable: Set<string>
+
+  layersMeta: Record<LayerName, LayerMeta>
+
+  addClasses(classes: string[]): boolean
+  addTags(tags: string[]): boolean
+  getCompletions(prefix: string): ReturnType<typeof generateCompletions>
+
+  initialized: boolean
+  options: ResolvedOptions
+  files: string[]
+  globs: string[]
+  processor: Processor
+  scanned: boolean
+  configFilePath: string | undefined
+  hasPending: boolean
+}
+
 export function createUtils(
   userOptions: UserOptions | ResolvedOptions = {},
   utilsOptions: WindiPluginUtilsOptions = {
@@ -231,10 +276,7 @@ export function createUtils(
     return changed
   }
 
-  function transformCSS(css: string, id: string, transformOptions?: {
-    onLayerUpdated?: () => void
-    globaliseKeyframes?: boolean
-  }) {
+  function transformCSS(css: string, id: string, transformOptions?: TransformCssOptions) {
     if (!options.transformCSS)
       return css
     const style = new CSSParser(css, processor).parse()
@@ -422,7 +464,7 @@ export function createUtils(
     attrsGenerated.clear()
   }
 
-  const utils = {
+  const utils: WindiPluginUtils = {
     init,
     ensureInit,
     extractFile,
@@ -512,5 +554,3 @@ export function createUtils(
 
   return utils
 }
-
-export type WindiPluginUtils = ReturnType<typeof createUtils>

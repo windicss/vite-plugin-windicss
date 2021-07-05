@@ -11,7 +11,8 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "paths": {
-      "@windicss/plugin-utils": ["packages/plugin-utils/src/index.ts"]
+      "@windicss/plugin-utils": ["packages/plugin-utils/src/index.ts"],
+      "@windicss/config": ["packages/config/src/index.ts"]
     }
   },
   "exclude": [

@@ -31,6 +31,7 @@
     "@types/node": "^15.12.4",
     "@typescript-eslint/eslint-plugin": "^4.28.0",
     "@windicss/plugin-utils": "workspace:*",
+    "@windicss/config": "workspace:*",
     "bumpp": "^6.0.6",
     "debug": "^4.3.2",
     "eslint": "^7.29.0",

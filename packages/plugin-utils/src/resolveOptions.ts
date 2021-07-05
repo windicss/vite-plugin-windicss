@@ -1,13 +1,12 @@
-import fs from 'fs'
 import path from 'path'
 import _debug from 'debug'
-import _jiti from 'jiti'
-import type { UserOptions, ResolvedOptions, WindiCssOptions, WindiPluginUtilsOptions, LoadConfigurationOptions } from './options'
-import { defaultAlias, defaultConfigureFiles } from './constants'
+import { loadConfiguration } from '@windicss/config'
+import type { UserOptions, ResolvedOptions, WindiCssOptions, WindiPluginUtilsOptions } from './options'
+import { defaultAlias } from './constants'
 import { Arrayable, kebabCase, mergeArrays, slash, toArray } from './utils'
 import { getDefaultExtractors } from './extractors/helper'
 
-const jiti = _jiti(__filename, { requireCache: false, cache: false })
+export * from '@windicss/config'
 
 export function isResolvedOptions(options: UserOptions | ResolvedOptions): options is ResolvedOptions {
   // @ts-expect-error internal flag
@@ -49,14 +48,14 @@ export async function resolveOptions(
   const debugOptions = _debug(`${name}:options`)
 
   // eslint-disable-next-line prefer-const
-  let { resolved: config, configFilePath } = loadConfigFile
-    ? await loadConfiguration({
+  let { config, filepath: configFilePath } = loadConfigFile
+    ? loadConfiguration({
       ...utilsOptions,
       root: utilsOptions.root || options.root,
       config: options.config,
       configFiles: options.configFiles,
     })
-    : { resolved: {} as WindiCssOptions, configFilePath: undefined }
+    : { config: {} as WindiCssOptions, filepath: undefined }
 
   // allow to hook into resolved config
   const modifiedConfigs = await options.onConfigResolved?.(config, configFilePath)
@@ -201,66 +200,4 @@ export async function resolveOptions(
   debugOptions(resolvedOptions)
 
   return resolvedOptions
-}
-
-export async function loadConfiguration(options: LoadConfigurationOptions) {
-  let resolved: WindiCssOptions = {}
-  let configFilePath: string | undefined
-  let error: Error | undefined
-
-  const {
-    name = 'windicss-plugin-utils',
-    config,
-    root = process.cwd(),
-    configFiles: configureFiles = defaultConfigureFiles,
-    onConfigurationError = e => console.error(e),
-  } = options
-
-  const debugConfig = _debug(`${name}:config`)
-
-  if (typeof config === 'string' || !config) {
-    if (!config) {
-      for (const name of configureFiles) {
-        const tryPath = path.resolve(root, name)
-        if (fs.existsSync(tryPath)) {
-          configFilePath = tryPath
-          break
-        }
-      }
-    }
-    else {
-      configFilePath = path.resolve(root, config)
-      if (!fs.existsSync(configFilePath)) {
-        console.warn(`[${name}] config file "${config}" not found, ignored`)
-        configFilePath = undefined
-      }
-    }
-
-    if (configFilePath) {
-      try {
-        debugConfig('loading from ', configFilePath)
-
-        resolved = jiti(configFilePath)
-        if (resolved.default)
-          resolved = resolved.default
-      }
-      catch (e) {
-        error = e
-        configFilePath = undefined
-        resolved = {}
-        onConfigurationError?.(e)
-      }
-    }
-  }
-  else {
-    resolved = config
-  }
-
-  debugConfig(resolved)
-
-  return {
-    error,
-    resolved,
-    configFilePath,
-  }
 }

@@ -1,21 +1,4 @@
 /* eslint-disable no-use-before-define */
-export const defaultConfigureFiles = [
-  'windi.config.ts',
-  'windi.config.js',
-  'windi.config.mjs',
-  'windi.config.cjs',
-
-  'windicss.config.ts',
-  'windicss.config.js',
-  'windicss.config.mjs',
-  'windicss.config.cjs',
-
-  'tailwind.config.ts',
-  'tailwind.config.js',
-  'tailwind.config.mjs',
-  'tailwind.config.cjs',
-]
-
 export const defaultAlias: Record<string, TagNames> = {
   'router-link': 'a',
 }

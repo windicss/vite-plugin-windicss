@@ -1,6 +1,7 @@
 /* eslint-disable no-use-before-define */
 
-import type { Extractor, FullConfig as WindiCssOptions } from 'windicss/types/interfaces'
+import type { Extractor } from 'windicss/types/interfaces'
+import { LoadConfigurationOptions, WindiCssOptions } from '@windicss/config'
 import { TransformerFunction } from './transforms'
 import { TagNames } from './constants'
 import { WindiPluginUtils } from './createUtils'
@@ -199,47 +200,6 @@ export interface UserOptions {
    * Callback when the utils is initialized
    */
   onInitialized?: (utils: WindiPluginUtils) => void
-}
-
-export interface LoadConfigurationOptions {
-  /**
-   * Name for debug
-   *
-   * @default 'windi-plugin-utils'
-   * @internal
-   */
-  name?: string
-  /**
-   * Config object or path
-   */
-  config?: WindiCssOptions | string
-  /**
-   * CWD
-   *
-   * @default process.cwd
-   * @internal
-   */
-  root?: string
-  /**
-   * A list of filename of paths to search of config files
-   */
-  configFiles?: string[]
-  /**
-   * On loading configuration error
-   */
-  onConfigurationError?: (error: Error) => void
-  /**
-   * Use sucrase/register to load configs in ESM/TypeScript
-   *
-   * @default false
-   * @deperated no longer needed
-   */
-  enableSucrase?: boolean
-  /**
-    * Options for https://github.com/ariporad/pirates
-    * @deperated no longer needed
-    */
-  hookOptions?: any
 }
 
 export type WindiPluginUtilsOptions = Omit<LoadConfigurationOptions, 'config' | 'configFiles'> & {
