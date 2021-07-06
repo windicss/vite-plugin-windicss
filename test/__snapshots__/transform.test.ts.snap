@@ -219,4 +219,6 @@ exports[`transfrom groups: "bg-white font-light sm:hover:(bg-gray-100 font-mediu
 
 exports[`transfrom groups: "dark:+lg:(p-1 p-2)" 1`] = `"dark:+lg:p-1 dark:+lg:p-2"`;
 
+exports[`transfrom groups: "hover:(!m-2 p-2)" 1`] = `"!hover:m-2 hover:p-2"`;
+
 exports[`transfrom groups: "md:(w-40vw pr-4.5rem)" 1`] = `"md:w-40vw md:pr-4.5rem"`;

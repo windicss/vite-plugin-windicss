@@ -11,6 +11,7 @@ describe('transfrom', () => {
       'md:(w-40vw pr-4.5rem)',
       '<md:(grid grid-cols-[1fr,50%])',
       '!hover:(m-2 p-2)',
+      'hover:(!m-2 p-2)',
     ]
     const utils = createUtils()
 
