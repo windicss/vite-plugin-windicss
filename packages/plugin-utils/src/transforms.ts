@@ -23,7 +23,7 @@ export function transformGroups(code: string, sourcemap = true) {
     const end = start + match[0].length
     const a = match[1]
     const b = match[2]
-    const replacement = b.split(/\s/g).map(i => `${a}:${i}`).join(' ')
+    const replacement = b.split(/\s/g).map(i => i.replace(/^(!?)(.*)/, `$1${a}:$2`)).join(' ')
     s.overwrite(start, end, replacement)
   }
 
