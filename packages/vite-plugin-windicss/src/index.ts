@@ -200,12 +200,13 @@ function VitePluginWindicss(userOptions: UserOptions = {}, utilsOptions: WindiPl
 
   plugins.push({
     name: `${NAME}:css:svelte`,
-    // @ts-expect-error for svelte preprocess
-    sveltePreprocess: {
-      style({ content, id }: { content: string; id: string}) {
-        return {
-          code: transformCSS(content, id),
-        }
+    api: {
+      sveltePreprocess: {
+        style({ content, id }: { content: string; id: string}) {
+          return {
+            code: transformCSS(content, id),
+          }
+        },
       },
     },
   })
