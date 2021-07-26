@@ -30,17 +30,17 @@
     "@antfu/utils": "^0.2.4",
     "@windicss/config": "workspace:*",
     "debug": "^4.3.2",
-    "fast-glob": "^3.2.6",
+    "fast-glob": "^3.2.7",
     "magic-string": "^0.25.7",
     "micromatch": "^4.0.4",
-    "windicss": "^3.1.4"
+    "windicss": "^3.1.6"
   },
   "devDependencies": {
     "@antfu/ni": "^0.7.0",
-    "@types/debug": "^4.1.6",
+    "@types/debug": "^4.1.7",
     "@types/micromatch": "^4.0.2",
-    "@types/node": "^16.0.0",
-    "@types/pug": "^2.0.4",
+    "@types/node": "^16.4.3",
+    "@types/pug": "^2.0.5",
     "pug": "^3.0.2",
     "tsup": "^4.12.5",
     "typescript": "^4.3.5"

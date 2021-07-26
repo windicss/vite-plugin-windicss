@@ -8,8 +8,8 @@
   },
   "devDependencies": {
     "typescript": "^4.3.5",
-    "vite": "^2.4.1",
+    "vite": "^2.4.3",
     "vite-plugin-windicss": "workspace:*",
-    "windicss": "^3.1.4"
+    "windicss": "^3.1.6"
   }
 }

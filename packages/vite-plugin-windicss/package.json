@@ -35,13 +35,13 @@
     "@windicss/plugin-utils": "workspace:*",
     "chalk": "^4.1.1",
     "debug": "^4.3.2",
-    "windicss": "^3.1.4"
+    "windicss": "^3.1.6"
   },
   "devDependencies": {
     "@antfu/ni": "^0.7.0",
     "@types/connect": "^3.4.35",
-    "@types/node": "^16.0.0",
+    "@types/node": "^16.4.3",
     "tsup": "^4.12.5",
-    "vite": "^2.4.1"
+    "vite": "^2.4.3"
   }
 }
