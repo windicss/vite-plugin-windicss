@@ -39,3 +39,96 @@ Object {
   ],
 }
 `;
+
+exports[`attributify jsx 1`] = `
+Object {
+  "attributes": Object {
+    "names": Array [
+      "pos",
+      "w",
+      "z",
+      "bg",
+      "shadow",
+    ],
+    "values": Array [
+      "fixed top-0",
+      "full",
+      "30",
+      "props.scrolled() || props.opened() ? 'white' : 'transparent'",
+      "props.scrolled() ? 'md' : 'none'",
+    ],
+  },
+  "classes": Array [
+    "<nav",
+    "fixed",
+    "top-0",
+    "full",
+    "props.scrolled()",
+    "props.opened()",
+    "white",
+    "transparent",
+    "props.scrolled()",
+    "none",
+    "props.children",
+  ],
+  "tags": Array [
+    "nav",
+  ],
+}
+`;
+
+exports[`attributify jsx 2`] = `
+"/* windicss layer base */
+
+/* windicss layer components */
+
+/* windicss layer utilities */
+[bg~=\\"white\\"] {
+  --tw-bg-opacity: 1;
+  background-color: rgba(255, 255, 255, var(--tw-bg-opacity));
+}
+[bg~=\\"transparent\\"] {
+  background-color: transparent;
+}
+.bg-gradient-to-r {
+  background-image: -o-linear-gradient(left, var(--tw-gradient-stops));
+  background-image: -webkit-gradient(linear, left top, right top, from(var(--tw-gradient-stops)));
+  background-image: linear-gradient(to right, var(--tw-gradient-stops));
+}
+.fixed {
+  position: fixed;
+}
+[pos~=\\"fixed\\"] {
+  position: fixed;
+}
+.top-0 {
+  top: 0px;
+}
+[pos~=\\"top-0\\"] {
+  top: 0px;
+}
+[shadow~=\\"md\\"] {
+  --tw-shadow-color: 0, 0, 0;
+  --tw-shadow: 0 4px 6px -1px rgba(var(--tw-shadow-color), 0.1), 0 2px 4px -1px rgba(var(--tw-shadow-color), 0.06);
+  -webkit-box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+[shadow~=\\":\\"] {
+  --tw-shadow-color: 0, 0, 0;
+  --tw-shadow: 0 1px 3px 0 rgba(var(--tw-shadow-color), 0.1), 0 1px 2px 0 rgba(var(--tw-shadow-color), 0.06);
+  -webkit-box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+[shadow~=\\"none\\"] {
+  --tw-shadow-color: 0, 0, 0;
+  --tw-shadow: none;
+  -webkit-box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+[w~=\\"full\\"] {
+  width: 100%;
+}
+[z~=\\"30\\"] {
+  z-index: 30;
+}"
+`;

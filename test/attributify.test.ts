@@ -1,4 +1,5 @@
 import { DefaultExtractor } from '../packages/plugin-utils/src/extractors/default'
+import { createUtils } from '../packages/plugin-utils/src'
 
 describe('attributify', () => {
   it('basic', () => {
@@ -14,5 +15,32 @@ dark:border="~ red-400"
       />
     `),
     ).toMatchSnapshot()
+  })
+
+  it('jsx', async() => {
+    const utils = createUtils({
+      config: {
+        attributify: true,
+      },
+      safelist: ['bg-gradient-to-r'],
+      preflight: false,
+      scan: false,
+    })
+    const code = `
+    <nav
+      pos="fixed top-0"
+      w="full"
+      z="30"
+      bg={props.scrolled() || props.opened() ? 'white' : 'transparent'}
+      shadow={props.scrolled() ? 'md' : 'none'}
+    >
+      {props.children}
+    </nav>
+    `
+    expect(DefaultExtractor(code)).toMatchSnapshot()
+    await utils.ensureInit()
+    await utils.extractFile(code)
+
+    expect(await utils.generateCSS()).toMatchSnapshot()
   })
 })
