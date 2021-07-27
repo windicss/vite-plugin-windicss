@@ -47,12 +47,14 @@ export async function resolveOptions(
 
   const debugOptions = _debug(`${name}:options`)
 
+  const root = options.root || utilsOptions.root || process.cwd()
+
   // eslint-disable-next-line prefer-const
   let { config, filepath: configFilePath } = loadConfigFile
     ? loadConfiguration({
       onConfigurationError: error => console.error(error),
       ...utilsOptions,
-      root: options.root || utilsOptions.root,
+      root,
       config: options.config,
       configFiles: options.configFiles,
     })
@@ -64,7 +66,6 @@ export async function resolveOptions(
     config = modifiedConfigs
 
   const {
-    root = utilsOptions.root || process.cwd(),
     scan = true,
     preflight = true,
     transformCSS = true,
