@@ -52,7 +52,7 @@ export async function resolveOptions(
     ? loadConfiguration({
       onConfigurationError: error => console.error(error),
       ...utilsOptions,
-      root: utilsOptions.root || options.root,
+      root: options.root || utilsOptions.root,
       config: options.config,
       configFiles: options.configFiles,
     })
