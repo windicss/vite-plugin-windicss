@@ -281,6 +281,7 @@ importers:
       '@windicss/plugin-utils': workspace:*
       chalk: ^4.1.1
       debug: ^4.3.2
+      estree-walker: 2.0.1
       tsup: ^4.12.5
       vite: ^2.4.3
       windicss: ^3.1.6
@@ -293,7 +294,8 @@ importers:
       '@antfu/ni': 0.7.0
       '@types/connect': 3.4.35
       '@types/node': 16.4.3
-      tsup: 4.12.5_typescript@4.3.5
+      estree-walker: 2.0.1
+      tsup: 4.12.5
       vite: 2.4.3
 
 packages:
@@ -2927,6 +2929,10 @@ packages:
   /estraverse/5.2.0:
     resolution: {integrity: sha512-BxbNGGNm0RyRYvUdHpIwv9IWzeM9XClbOxwoATuFdOE7ZE6wHL+HQ5T8hoPM+zHvmKzzsEqhgy0GrQ5X13afiQ==}
     engines: {node: '>=4.0'}
+    dev: true
+
+  /estree-walker/2.0.1:
+    resolution: {integrity: sha512-tF0hv+Yi2Ot1cwj9eYHtxC0jB9bmjacjQs6ZBTj82H8JwUywFuc+7E83NWfNMwHXZc11mjfFcVXPe9gEP4B8dg==}
     dev: true
 
   /estree-walker/2.0.2:
@@ -5913,6 +5919,32 @@ packages:
 
   /tslib/1.14.1:
     resolution: {integrity: sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==}
+    dev: true
+
+  /tsup/4.12.5:
+    resolution: {integrity: sha512-3f0StcX+trOZvgaY/iU11U8HvvQ4v/LLgoP9OmxtOQVXP8e/Q8FSk69d0bXFb2pHB77CmVxvqiWdwybELQfx1A==}
+    hasBin: true
+    peerDependencies:
+      typescript: ^4.2.3
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+    dependencies:
+      cac: 6.7.3
+      chalk: 4.1.1
+      chokidar: 3.5.1
+      debug: 4.3.2
+      esbuild: 0.12.9
+      execa: 5.0.0
+      globby: 11.0.3
+      joycon: 3.0.1
+      postcss-load-config: 3.0.1
+      resolve-from: 5.0.0
+      rollup: 2.52.8
+      sucrase: 3.18.1
+      tree-kill: 1.2.2
+    transitivePeerDependencies:
+      - supports-color
     dev: true
 
   /tsup/4.12.5_typescript@4.3.5:

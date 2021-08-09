@@ -1,6 +1,8 @@
 import { resolve } from 'path'
 import type { Plugin, ResolvedConfig, ViteDevServer } from 'vite'
 import _debug, { log } from 'debug'
+import { walk } from 'estree-walker'
+import MagicString from 'magic-string'
 import { UserOptions, WindiPluginUtils, createUtils, WindiPluginUtilsOptions } from '@windicss/plugin-utils'
 import { createVirtualModuleLoader, MODULE_ID_VIRTUAL_PREFIX } from '../../shared/virtual-module'
 import { createDevtoolsPlugin } from './devtools'
@@ -53,6 +55,44 @@ function VitePluginWindicss(userOptions: UserOptions = {}, utilsOptions: WindiPl
       },
     })
   }
+
+  plugins.push({
+    name: `${NAME}:styled-components`,
+    enforce: 'pre',
+    async transform(code, id) {
+      await utils.ensureInit()
+      if (!utils.isDetectTarget(id) || !code.includes('styled/components'))
+        return
+      debug.group(id)
+      const parsed = this.parse(code, {})
+      let ms: MagicString
+      walk(parsed, {
+        enter: (node: any) => {
+          if (node.type === 'TemplateElement' && node.value.cooked.includes('@apply')) {
+            const next = utils.transformCSS(node.value.cooked, id)
+
+            ms = ms || new MagicString(code)
+            ms.overwrite(
+              node.start,
+              node.end,
+              next,
+            )
+          }
+        },
+      })
+      if (ms!) {
+        return {
+          code: ms.toString(),
+          map: ms.generateMap({
+            file: id,
+            includeContent: true,
+            hires: true,
+          }),
+        }
+      }
+      return null
+    },
+  })
 
   // exposing api
   plugins.push({

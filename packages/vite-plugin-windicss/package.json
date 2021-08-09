@@ -41,6 +41,7 @@
     "@antfu/ni": "^0.7.0",
     "@types/connect": "^3.4.35",
     "@types/node": "^16.4.3",
+    "estree-walker": "2.0.1",
     "tsup": "^4.12.5",
     "vite": "^2.4.3"
   }
