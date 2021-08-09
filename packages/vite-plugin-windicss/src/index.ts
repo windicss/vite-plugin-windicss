@@ -12,6 +12,7 @@ import { getCssModules, reloadChangedCssModules } from './modules'
 const debug = {
   hmr: _debug(`${NAME}:hmr`),
   css: _debug(`${NAME}:transform:css`),
+  styledComponents: _debug(`${NAME}:transform:styledComponents`),
   group: _debug(`${NAME}:transform:group`),
   alias: _debug(`${NAME}:transform:alias`),
   memory: _debug(`${NAME}:memory`),
@@ -56,43 +57,46 @@ function VitePluginWindicss(userOptions: UserOptions = {}, utilsOptions: WindiPl
     })
   }
 
-  plugins.push({
-    name: `${NAME}:styled-components`,
-    enforce: 'pre',
-    async transform(code, id) {
-      await utils.ensureInit()
-      if (!utils.isDetectTarget(id) || !code.includes('styled/components'))
-        return
-      debug.group(id)
-      const parsed = this.parse(code, {})
-      let ms: MagicString
-      walk(parsed, {
-        enter: (node: any) => {
-          if (node.type === 'TemplateElement' && node.value.cooked.includes('@apply')) {
-            const next = utils.transformCSS(node.value.cooked, id)
-
-            ms = ms || new MagicString(code)
-            ms.overwrite(
-              node.start,
-              node.end,
-              next,
-            )
+  if (userOptions.transformStyledComponents) {
+    plugins.push({
+      name: `${NAME}:styled-components`,
+      async transform(code, id) {
+        await utils.ensureInit()
+        if (!utils.isDetectTarget(id) || !code.includes('styled-components'))
+          return
+        debug.styledComponents(id)
+        const parsed = this.parse(code, {})
+        let ms: MagicString
+        walk(parsed, {
+          enter: (node: any) => {
+            if (node.type === 'TemplateElement' && node.value.cooked.includes('@apply')) {
+              const next = utils.transformCSS(node.value.cooked, id)
+  
+              ms = ms || new MagicString(code)
+              ms.overwrite(
+                node.start,
+                node.end,
+                next,
+              )
+            }
+          },
+        })
+        if (ms!) {
+          return {
+            code: ms.toString(),
+            map: ms.generateMap({
+              file: id,
+              includeContent: true,
+              hires: true,
+            }),
           }
-        },
-      })
-      if (ms!) {
-        return {
-          code: ms.toString(),
-          map: ms.generateMap({
-            file: id,
-            includeContent: true,
-            hires: true,
-          }),
         }
-      }
-      return null
-    },
-  })
+        return null
+      },
+    })
+  }
+
+  
 
   // exposing api
   plugins.push({

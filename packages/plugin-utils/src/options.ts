@@ -169,6 +169,13 @@ export interface UserOptions {
   transformGroups?: boolean
 
   /**
+   * Transform styled components like `styled.div`@apply m-0 p-0 w-100vw h-100vh overflow-hidden bg-blue-500;``
+   *
+   * @default false
+   */
+  transformStyledComponents?: boolean
+
+  /**
    * Sort the genrate utilities
    *
    * @default true
