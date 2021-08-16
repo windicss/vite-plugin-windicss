@@ -70,8 +70,14 @@ function VitePluginWindicss(userOptions: UserOptions = {}, utilsOptions: WindiPl
         walk(parsed, {
           enter: (node: any) => {
             if (node.type === 'TemplateElement' && node.value.cooked.includes('@apply')) {
-              const next = utils.transformCSS(node.value.cooked, id)
-  
+              const next = node.value.cooked.replace(
+                /(.*)@apply([^`$]*)\n/gm,
+                (_match: string, pre: string, applyCss: string) => {
+                  const parsed = utils.transformCSS(`&{@apply ${applyCss}}`, id)
+                  return `${pre} ${parsed}`
+                }
+              )
+
               ms = ms || new MagicString(code)
               ms.overwrite(
                 node.start,
