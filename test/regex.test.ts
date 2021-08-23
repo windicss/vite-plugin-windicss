@@ -21,6 +21,9 @@ describe('regex', () => {
     expect(validClassName('grid-rows-[auto,max-content,10px]')).toBeTruthy()
     expect(validClassName('!sm:w-full')).toBeTruthy()
     expect(validClassName('!<sm:w-full')).toBeTruthy()
+    expect(validClassName('!+sm:w-full')).toBeTruthy()
+    expect(validClassName('!-sm:w-full')).toBeTruthy()
+    expect(validClassName('!@sm:w-full')).toBeTruthy()
 
     // falsy
     expect(validClassName('')).toBeFalsy()

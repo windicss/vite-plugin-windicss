@@ -4,7 +4,7 @@ export const regexClassSplitter = /[\s'"`{}]/g
 export const regexClassGroup = /([!\w+-<@][\w+:_/-]*?\w):\(([!\w\s:/\\,%#\[\].$-]*?)\)/gm
 export const regexAttributifyItem = /(?:\s|^)([\w+:_/-]+)=(['"{])((?:\\\2|\\\\|\n|\r|.)*?)(?:\2|\})/gm
 
-export const regexClassCheck1 = /^[!a-z\d@<>.+-](?:\([\w,.%#-]*\)|[\w:/\\,%#\[\].$-])*$/
+export const regexClassCheck1 = /^!?[a-z\d@<>.+-](?:\([\w,.%#-]*\)|[\w:/\\,%#\[\].$-])*$/
 export const regexClassCheck2 = /[a-z].*[\w)\]]$/
 export const regexClassChecks = [
   regexClassCheck1,
