@@ -25,6 +25,7 @@ export function createVirtualModuleLoader(ctx: { utils: WindiPluginUtils }): Pic
     async load(id) {
       const match = id.match(MODULE_ID_VIRTUAL)
       if (match) {
+        ctx.utils.files.map(id => this.addWatchFile(id))
         const layer = (match[1] as LayerName | undefined) || undefined
         const css = await ctx.utils.generateCSS(layer)
         return css
