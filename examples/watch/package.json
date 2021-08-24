@@ -1,0 +1,13 @@
+{
+  "name": "watch",
+  "scripts": {
+    "dev": "DEBUG=vite-plugin-windicss:* vite build --watch",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^2.5.1",
+    "vite-plugin-windicss": "workspace:*",
+    "windicss": "^3.1.7"
+  }
+}

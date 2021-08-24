@@ -188,6 +188,16 @@ importers:
       vite: 2.5.1
       vite-plugin-windicss: link:../../packages/vite-plugin-windicss
 
+  examples/watch:
+    specifiers:
+      vite: ^2.5.1
+      vite-plugin-windicss: workspace:*
+      windicss: ^3.1.7
+    devDependencies:
+      vite: 2.5.1
+      vite-plugin-windicss: link:../../packages/vite-plugin-windicss
+      windicss: 3.1.7
+
   examples/windicss-v3:
     specifiers:
       '@vitejs/plugin-vue': ^1.5.0

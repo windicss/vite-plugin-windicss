@@ -60,6 +60,9 @@ export interface WindiPluginUtils {
   addTags(tags: string[]): boolean
   getCompletions(): ReturnType<typeof generateCompletions>
 
+  lock(fn: () => Promise<void>): Promise<void>
+  waitLocks(): Promise<void>
+
   initialized: boolean
   options: ResolvedOptions
   files: string[]
@@ -106,6 +109,8 @@ export function createUtils(
   const attributes: [string, string][] = []
 
   let _transformAlias: ReturnType<typeof buildAliasTransformer> = () => null
+
+  const _locks: Promise<void>[] = []
 
   function getCompletions() {
     if (!completions)
@@ -465,6 +470,19 @@ export function createUtils(
     attrsGenerated.clear()
   }
 
+  async function lock(fn: () => Promise<void>) {
+    const p = fn()
+    _locks.push(p)
+    await p
+    const i = _locks.indexOf(p)
+    if (i >= 0)
+      _locks.splice(i, 1)
+  }
+
+  async function waitLocks() {
+    return await Promise.all(_locks)
+  }
+
   const utils: WindiPluginUtils = {
     init,
     ensureInit,
@@ -496,6 +514,9 @@ export function createUtils(
     addClasses,
     addTags,
     getCompletions,
+
+    lock,
+    waitLocks,
 
     get initialized() {
       return !!processor
