@@ -33,16 +33,16 @@
     "fast-glob": "^3.2.7",
     "magic-string": "^0.25.7",
     "micromatch": "^4.0.4",
-    "windicss": "^3.1.6"
+    "windicss": "^3.1.7"
   },
   "devDependencies": {
     "@antfu/ni": "^0.7.0",
     "@types/debug": "^4.1.7",
     "@types/micromatch": "^4.0.2",
-    "@types/node": "^16.4.3",
+    "@types/node": "^16.7.1",
     "@types/pug": "^2.0.5",
     "pug": "^3.0.2",
-    "tsup": "^4.12.5",
+    "tsup": "^4.14.0",
     "typescript": "^4.3.5"
   }
 }
