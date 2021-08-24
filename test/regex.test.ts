@@ -19,6 +19,11 @@ describe('regex', () => {
     expect(validClassName('p-[#123]')).toBeTruthy()
     expect(validClassName('text-[hsl(360,100%,50%)]')).toBeTruthy()
     expect(validClassName('grid-rows-[auto,max-content,10px]')).toBeTruthy()
+    expect(validClassName('!sm:w-full')).toBeTruthy()
+    expect(validClassName('!<sm:w-full')).toBeTruthy()
+    expect(validClassName('!+sm:w-full')).toBeTruthy()
+    expect(validClassName('!-sm:w-full')).toBeTruthy()
+    expect(validClassName('!@sm:w-full')).toBeTruthy()
 
     // falsy
     expect(validClassName('')).toBeFalsy()
@@ -30,5 +35,6 @@ describe('regex', () => {
     expect(validClassName('(hello)')).toBeFalsy()
     expect(validClassName('p-(hello')).toBeFalsy()
     expect(validClassName('p-hello)')).toBeFalsy()
+    expect(validClassName('<!sm:w-full')).toBeFalsy()
   })
 })
