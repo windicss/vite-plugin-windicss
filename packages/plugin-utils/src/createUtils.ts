@@ -480,7 +480,7 @@ export function createUtils(
   }
 
   async function waitLocks() {
-    return await Promise.all(_locks)
+    await Promise.all(_locks)
   }
 
   const utils: WindiPluginUtils = {
