@@ -12,6 +12,7 @@ describe('transfrom', () => {
       '<md:(grid grid-cols-[1fr,50%])',
       '!hover:(m-2 p-2)',
       'hover:(!m-2 p-2)',
+      'md:(w-1/2 h-[calc(100%-4rem)])',
     ]
     const utils = createUtils()
 

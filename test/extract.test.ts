@@ -33,4 +33,11 @@ describe('extract', () => {
     `).classes,
     ).toContain('<sm:text-primary')
   })
+
+  it('before:', () => {
+    expect(DefaultExtractor(`
+      <p class="before:w-24"></p>
+    `).classes,
+    ).toContain('before:w-24')
+  })
 })
