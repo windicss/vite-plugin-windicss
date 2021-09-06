@@ -1,4 +1,5 @@
-import { DefaultExtractor } from '../packages/plugin-utils/src/extractors/default'
+import { SvelteExtractor } from '../packages/plugin-utils/src/extractors'
+import { DefaultExtractor } from '../packages/plugin-utils/src/extractors'
 
 describe('extract', () => {
   // #162, #193
@@ -39,5 +40,13 @@ describe('extract', () => {
       <p class="before:w-24"></p>
     `).classes,
     ).toContain('before:w-24')
+  })
+
+  // #228
+  it('svelte', () => {
+    expect(SvelteExtractor(`
+      <p class:bg-red-400={predicate}></p>
+    `).classes,
+    ).toContain('bg-red-400')
   })
 })

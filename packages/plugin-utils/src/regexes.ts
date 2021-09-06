@@ -11,6 +11,8 @@ export const regexClassChecks = [
   regexClassCheck2,
 ]
 
+export const regexSvelteClass = /class:([\w:/\\,%#\[\].$-]+?)=\{/g
+
 export function validClassName(i: string) {
   return regexClassChecks.every(r => i.length > 2 && i.match(r))
 }

@@ -2,9 +2,15 @@ import { extname } from 'path'
 import { Extractor } from 'windicss/types/interfaces'
 import { DefaultExtractor } from './default'
 import { PugExtractor } from './pug'
+import { SvelteExtractor } from './svelte'
 
 export function getDefaultExtractors() {
-  const extractors: Extractor[] = []
+  const extractors: Extractor[] = [
+    {
+      extractor: SvelteExtractor,
+      extensions: ['svelte'],
+    },
+  ]
 
   // auto detect pug
   try {
