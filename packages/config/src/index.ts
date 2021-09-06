@@ -53,7 +53,7 @@ export interface LoadConfigurationOptions {
    *
    * @default [throw error]
    */
-  onConfigurationError?: (error: Error) => void
+  onConfigurationError?: (error: unknown) => void
   /**
    * On configure file not found
    *
@@ -65,14 +65,14 @@ export interface LoadConfigurationOptions {
 export function loadConfiguration(options: LoadConfigurationOptions): {
   config: WindiCssOptions
   filepath?: string
-  error?: Error
+  error?: unknown
 } {
   if (!jiti)
     jiti = _jiti(__filename, { requireCache: false, cache: false })
 
   let resolved: WindiCssOptions = {}
   let configFilePath: string | undefined
-  let error: Error | undefined
+  let error: unknown
 
   const {
     name = 'windicss-config',
