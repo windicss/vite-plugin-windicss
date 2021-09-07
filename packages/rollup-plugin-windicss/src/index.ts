@@ -54,7 +54,7 @@ function WindiCssRollupPlugin(userOptions: UserOptions = {}): Plugin[] {
     ...createVirtualModuleLoader({ utils }),
   })
 
-  if (userOptions.transformCSS != null) {
+  if (userOptions.transformCSS !== false) {
     plugins.push({
       name: `${NAME}:css`,
       async transform(code, id) {
