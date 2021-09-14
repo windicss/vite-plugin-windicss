@@ -222,13 +222,13 @@ importers:
   packages/config:
     specifiers:
       debug: ^4.3.2
-      jiti: ^1.11.0
+      jiti: ^1.12.0
       tsup: ^4.14.0
       windicss: ^3.1.7
     dependencies:
       debug: 4.3.2
-      jiti: 1.11.0
-      tsup: 4.14.0
+      jiti: 1.12.0
+      tsup: 4.14.0_typescript@4.4.2
       windicss: 3.1.7
 
   packages/plugin-utils:
@@ -4580,8 +4580,8 @@ packages:
       - utf-8-validate
     dev: true
 
-  /jiti/1.11.0:
-    resolution: {integrity: sha512-/2c7e61hxxTIN34UeHBB0LCJ5Tq64kgJDV7GR+++e8XRxCKRIKmB8tH6ww1W+Z6Kgd6By+C3RSCu1lXjbPT68A==}
+  /jiti/1.12.0:
+    resolution: {integrity: sha512-0yGfdPjYZ+RkYR9HRo9cbeS7UiOleg+1Wg0QNk0vOjeSaXNw0dKp7fz+JeqEpHjmFuTN48eh7bY0FsizSYOLDQ==}
     hasBin: true
     dev: false
 
@@ -6308,6 +6308,7 @@ packages:
       tree-kill: 1.2.2
     transitivePeerDependencies:
       - supports-color
+    dev: true
 
   /tsup/4.14.0_typescript@4.3.5:
     resolution: {integrity: sha512-77rWdzhikTP9mQ34XMRzK83tw++LF6f4ox/HNERlgesB7g6g5VQ1iJlueG9O0P9HAZGVKavUwyoZv0+322p6rg==}
@@ -6361,7 +6362,6 @@ packages:
       typescript: 4.4.2
     transitivePeerDependencies:
       - supports-color
-    dev: true
 
   /tsutils/3.21.0_typescript@4.4.2:
     resolution: {integrity: sha512-mHKK3iUXL+3UF6xL5k0PEhKRUBKPBCv/+RkEOpjRWxxx27KKRBmmA60A9pgOUvMi8GKhRMPEmjBRPzs2W7O1OA==}
