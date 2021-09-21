@@ -38,10 +38,10 @@
     "windicss": "^3.1.7"
   },
   "devDependencies": {
-    "@antfu/ni": "^0.7.0",
+    "@antfu/ni": "^0.9.3",
     "@types/connect": "^3.4.35",
-    "@types/node": "^16.7.1",
-    "tsup": "^4.14.0",
-    "vite": "^2.5.1"
+    "@types/node": "^16.9.6",
+    "tsup": "^5.1.0",
+    "vite": "^2.5.10"
   }
 }

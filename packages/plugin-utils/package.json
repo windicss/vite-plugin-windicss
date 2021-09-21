@@ -27,7 +27,7 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@antfu/utils": "^0.2.4",
+    "@antfu/utils": "^0.3.0",
     "@windicss/config": "workspace:*",
     "debug": "^4.3.2",
     "fast-glob": "^3.2.7",
@@ -36,13 +36,13 @@
     "windicss": "^3.1.7"
   },
   "devDependencies": {
-    "@antfu/ni": "^0.7.0",
+    "@antfu/ni": "^0.9.3",
     "@types/debug": "^4.1.7",
     "@types/micromatch": "^4.0.2",
-    "@types/node": "^16.7.1",
+    "@types/node": "^16.9.6",
     "@types/pug": "^2.0.5",
     "pug": "^3.0.2",
-    "tsup": "^4.14.0",
-    "typescript": "^4.3.5"
+    "tsup": "^5.1.0",
+    "typescript": "^4.4.3"
   }
 }

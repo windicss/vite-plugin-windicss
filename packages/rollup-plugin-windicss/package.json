@@ -36,10 +36,10 @@
     "windicss": "^3.1.7"
   },
   "devDependencies": {
-    "@antfu/ni": "^0.7.0",
-    "@types/node": "^16.7.1",
+    "@antfu/ni": "^0.9.3",
+    "@types/node": "^16.9.6",
     "debug": "^4.3.2",
     "rollup": "^2.56.3",
-    "tsup": "^4.14.0"
+    "tsup": "^5.1.0"
   }
 }
