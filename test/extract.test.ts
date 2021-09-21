@@ -41,11 +41,13 @@ describe('extract', () => {
     ).toContain('before:w-24')
   })
 
-  // #228
+  // #228, #237
   it('svelte', () => {
-    expect(SvelteExtractor(`
+    const { classes } = SvelteExtractor(`
       <p class:bg-red-400={predicate}></p>
-    `).classes,
-    ).toContain('bg-red-400')
+      <p class:bg-red-500="{predicate}"></p>
+    `)
+    expect(classes).toContain('bg-red-400')
+    expect(classes).toContain('bg-red-500')
   })
 })
