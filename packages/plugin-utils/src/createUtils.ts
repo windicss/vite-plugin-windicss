@@ -443,6 +443,7 @@ export function createUtils(
     layers.base = {}
     layers.utilities = {}
     layers.components = {}
+    layerStylesMap.clear()
     completions = undefined
 
     if (clearAll) {
@@ -452,13 +453,11 @@ export function createUtils(
     }
     else {
       include(classesPending, classesGenerated)
-
       include(tagsPending, tagsGenerated)
       include(tagsPending, preflightTags)
     }
 
     include(tagsAvailable, htmlTags as any as string[])
-
     include(classesPending, options.safelist)
     include(tagsPending, options.preflightOptions.safelist)
 
