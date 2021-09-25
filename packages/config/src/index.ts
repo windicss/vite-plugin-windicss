@@ -68,7 +68,7 @@ export function loadConfiguration(options: LoadConfigurationOptions): {
   error?: unknown
 } {
   if (!jiti)
-    jiti = _jiti(__filename, { requireCache: false, cache: false, v8cache: false })
+    jiti = _jiti(undefined, { requireCache: false, cache: false, v8cache: false })
 
   let resolved: WindiCssOptions = {}
   let configFilePath: string | undefined
