@@ -8,28 +8,32 @@
     "windicss",
     "tailwindcss"
   ],
-  "license": "MIT",
+  "homepage": "https://github.com/antfu/vite-plugin-windicss",
+  "bugs": "https://github.com/antfu/vite-plugin-windicss/issues",
   "repository": {
     "type": "git",
     "url": "https://github.com/antfu/vite-plugin-windicss"
   },
   "funding": "https://github.com/sponsors/antfu",
+  "license": "MIT",
   "author": "antfu <anthonyfu117@hotmail.com>",
-  "files": [
-    "dist"
-  ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./*": "./*"
+  },
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
-  "homepage": "https://github.com/antfu/vite-plugin-windicss",
-  "bugs": "https://github.com/antfu/vite-plugin-windicss/issues",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "dev": "npm run build -- --watch",
     "build": "tsup src/index.ts --dts --format cjs,esm --no-splitting",
+    "dev": "npm run build -- --watch",
     "prepublishOnly": "npm run build"
-  },
-  "peerDependencies": {
-    "rollup": "^2.0.0"
   },
   "dependencies": {
     "@windicss/plugin-utils": "workspace:*",
@@ -41,5 +45,8 @@
     "debug": "^4.3.2",
     "rollup": "^2.56.3",
     "tsup": "^5.1.0"
+  },
+  "peerDependencies": {
+    "rollup": "^2.0.0"
   }
 }
