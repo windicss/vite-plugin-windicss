@@ -1,6 +1,6 @@
 {
   "name": "@windicss/plugin-utils",
-  "version": "1.4.6",
+  "version": "1.4.7",
   "description": "Common utils for building integrations of Windi CSS",
   "keywords": [
     "windicss",
