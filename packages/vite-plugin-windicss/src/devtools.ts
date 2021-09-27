@@ -1,11 +1,14 @@
 import fs from 'fs'
-import path from 'path'
+import path, { dirname } from 'path'
+import { fileURLToPath } from 'url'
 import type { Plugin, ResolvedConfig, ViteDevServer } from 'vite'
 import type { WindiPluginUtils } from '@windicss/plugin-utils'
 import type { IncomingMessage } from 'connect'
 import _debug from 'debug'
 import { NAME } from './constants'
 import { getChangedModuleNames, getCssModules, invalidateCssModules, sendHmrReload } from './modules'
+
+const __dirname = dirname(fileURLToPath(import.meta.url))
 
 const debug = {
   devtools: _debug(`${NAME}:devtools`),
