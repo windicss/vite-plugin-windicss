@@ -1,11 +1,16 @@
 import fs from 'fs'
-import path from 'path'
+import { dirname, resolve } from 'path'
+import { fileURLToPath } from 'url'
 import type { Plugin, ResolvedConfig, ViteDevServer } from 'vite'
 import type { WindiPluginUtils } from '@windicss/plugin-utils'
 import type { IncomingMessage } from 'connect'
 import _debug from 'debug'
 import { NAME } from './constants'
 import { getChangedModuleNames, getCssModules, invalidateCssModules, sendHmrReload } from './modules'
+
+const _dirname = typeof __dirname !== 'undefined'
+  ? __dirname
+  : dirname(fileURLToPath(import.meta.url))
 
 const debug = {
   devtools: _debug(`${NAME}:devtools`),
@@ -118,7 +123,7 @@ document.head.prepend(style)
         if (id === DEVTOOLS_PATH) {
           if (!clientCode) {
             clientCode = [
-              await fs.promises.readFile(path.resolve(__dirname, 'client.mjs'), 'utf-8'),
+              await fs.promises.readFile(resolve(_dirname, 'client.mjs'), 'utf-8'),
               `import('${MOCK_CLASSES_MODULE_ID}')`,
             ]
               .join('\n')
