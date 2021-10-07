@@ -127,7 +127,7 @@ document.head.prepend(style)
               `import('${MOCK_CLASSES_MODULE_ID}')`,
             ]
               .join('\n')
-              .replace('__POST_PATH__', POST_PATH)
+              .replace('__POST_PATH__', (config.server?.origin ?? '') + POST_PATH)
           }
           return config.command === 'build'
             ? ''
