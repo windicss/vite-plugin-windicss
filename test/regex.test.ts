@@ -24,6 +24,7 @@ describe('regex', () => {
     expect(validClassName('!+sm:w-full')).toBeTruthy()
     expect(validClassName('!-sm:w-full')).toBeTruthy()
     expect(validClassName('!@sm:w-full')).toBeTruthy()
+    expect(validClassName('p-[calc(10px+12rem)]')).toBeTruthy()
 
     // falsy
     expect(validClassName('')).toBeFalsy()
