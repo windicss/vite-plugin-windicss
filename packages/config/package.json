@@ -1,6 +1,6 @@
 {
   "name": "@windicss/config",
-  "version": "1.4.12",
+  "version": "1.5.0",
   "description": "Windi CSS configurations loader",
   "keywords": [
     "windicss",
