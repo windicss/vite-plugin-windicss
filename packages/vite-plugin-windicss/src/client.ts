@@ -4,6 +4,7 @@
 function post(data: any) {
   return fetch('__POST_PATH__', {
     method: 'POST',
+    mode: 'no-cors',
     headers: {
       'Content-Type': 'application/json',
     },
