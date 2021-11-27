@@ -44,8 +44,8 @@
   },
   "dependencies": {
     "@windicss/plugin-utils": "workspace:*",
-    "kolorist": "^1.5.0",
     "debug": "^4.3.3",
+    "kolorist": "^1.5.0",
     "windicss": "^3.2.1"
   },
   "devDependencies": {
