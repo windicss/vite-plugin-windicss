@@ -90,7 +90,7 @@ function VitePluginWindicss(userOptions: UserOptions = {}, utilsOptions: WindiPl
       await utils.ensureInit()
     },
 
-    ...createVirtualModuleLoader({ get utils() { return utils } }),
+    ...createVirtualModuleLoader({ get utils() { return utils } }) as Omit<Plugin, 'name'>,
   })
 
   let _cssReloadTask: any

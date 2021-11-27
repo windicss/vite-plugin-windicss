@@ -34,7 +34,7 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "debug": "^4.3.2",
+    "debug": "^4.3.3",
     "jiti": "^1.12.9",
     "windicss": "^3.2.1"
   }

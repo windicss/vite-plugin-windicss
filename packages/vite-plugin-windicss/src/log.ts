@@ -1,9 +1,9 @@
-import { dim, bold } from 'chalk'
+import { dim, bold, blue } from 'kolorist'
 
 export function log(msg: string) {
   console.log(
     dim(new Date().toLocaleTimeString())
-    + bold.blue` [windicss] `
+    + bold(blue(' [windicss] '))
     + msg,
   )
 }

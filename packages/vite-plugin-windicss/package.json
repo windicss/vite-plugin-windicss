@@ -44,11 +44,11 @@
   },
   "dependencies": {
     "@windicss/plugin-utils": "workspace:*",
-    "chalk": "^4.1.2",
-    "debug": "^4.3.2",
+    "kolorist": "^1.5.0",
+    "debug": "^4.3.3",
     "windicss": "^3.2.1"
   },
   "devDependencies": {
-    "vite": "^2.6.13"
+    "vite": "^2.6.14"
   }
 }

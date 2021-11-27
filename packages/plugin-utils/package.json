@@ -36,7 +36,7 @@
   "dependencies": {
     "@antfu/utils": "^0.3.0",
     "@windicss/config": "workspace:*",
-    "debug": "^4.3.2",
+    "debug": "^4.3.3",
     "fast-glob": "^3.2.7",
     "magic-string": "^0.25.7",
     "micromatch": "^4.0.4",
