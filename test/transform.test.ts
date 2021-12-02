@@ -13,6 +13,7 @@ describe('transfrom', () => {
       '!hover:(m-2 p-2)',
       'hover:(!m-2 p-2)',
       'md:(w-1/2 h-[calc(100%-4rem)])',
+      'hover:(\n!m-2 \np-2\n)',
     ]
     const utils = createUtils()
 
