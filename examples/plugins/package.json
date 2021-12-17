@@ -7,9 +7,9 @@
     "serve": "vite preview"
   },
   "devDependencies": {
-    "typescript": "^4.5.2",
-    "vite": "^2.6.14",
+    "typescript": "^4.5.4",
+    "vite": "^2.7.3",
     "vite-plugin-windicss": "workspace:*",
-    "windicss": "^3.2.1"
+    "windicss": "^3.4.0"
   }
 }

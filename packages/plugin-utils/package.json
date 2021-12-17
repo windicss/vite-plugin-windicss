@@ -40,7 +40,7 @@
     "fast-glob": "^3.2.7",
     "magic-string": "^0.25.7",
     "micromatch": "^4.0.4",
-    "windicss": "^3.2.1"
+    "windicss": "^3.4.0"
   },
   "devDependencies": {
     "pug": "^3.0.2"
