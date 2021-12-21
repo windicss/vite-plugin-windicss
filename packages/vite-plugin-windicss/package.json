@@ -49,6 +49,6 @@
     "windicss": "^3.4.0"
   },
   "devDependencies": {
-    "vite": "^2.7.3"
+    "vite": "^2.7.4"
   }
 }
