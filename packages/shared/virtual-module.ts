@@ -1,5 +1,5 @@
-import { promises as fs, existsSync } from 'fs'
-import { LayerName, WindiPluginUtils } from '@windicss/plugin-utils'
+import { existsSync, promises as fs } from 'fs'
+import type { LayerName, WindiPluginUtils } from '@windicss/plugin-utils'
 import type { Plugin } from 'rollup'
 
 export const MODULE_IDS = [/^virtual:windi(.*?)\.css/, /^windi(.*?)\.css/]

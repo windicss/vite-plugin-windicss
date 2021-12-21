@@ -1,5 +1,5 @@
 import type { ExtractorResultDetailed } from 'windicss/types/interfaces'
-import { regexClassSplitter, validClassName, regexHtmlTag, regexAttributifyItem } from '../regexes'
+import { regexAttributifyItem, regexClassSplitter, regexHtmlTag, validClassName } from '../regexes'
 
 export function DefaultExtractor(code: string, id?: string): ExtractorResultDetailed {
   if (id?.endsWith('.css') || id?.endsWith('.postcss')) {

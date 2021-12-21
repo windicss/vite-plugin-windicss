@@ -1,4 +1,4 @@
-import { SvelteExtractor, DefaultExtractor } from '../packages/plugin-utils/src/extractors'
+import { DefaultExtractor, SvelteExtractor } from '../packages/plugin-utils/src/extractors'
 
 describe('extract', () => {
   // #162, #193

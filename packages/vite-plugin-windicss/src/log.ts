@@ -1,4 +1,4 @@
-import { dim, bold, blue } from 'kolorist'
+import { blue, bold, dim } from 'kolorist'
 
 export function log(msg: string) {
   console.log(

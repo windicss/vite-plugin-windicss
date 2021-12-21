@@ -1,6 +1,7 @@
-import { Plugin } from 'rollup'
+import type { Plugin } from 'rollup'
 import _debug from 'debug'
-import { createUtils, UserOptions } from '@windicss/plugin-utils'
+import type { UserOptions } from '@windicss/plugin-utils'
+import { createUtils } from '@windicss/plugin-utils'
 import { createVirtualModuleLoader } from '../../shared/virtual-module'
 
 const NAME = 'rollup-plugin-windicss'

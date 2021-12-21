@@ -1,5 +1,5 @@
-import { WindiPluginUtils } from '@windicss/plugin-utils'
-import { ModuleNode, ViteDevServer, Update } from 'vite'
+import type { WindiPluginUtils } from '@windicss/plugin-utils'
+import type { ModuleNode, Update, ViteDevServer } from 'vite'
 import { MODULE_ID_VIRTUAL_MODULES, MODULE_ID_VIRTUAL_PREFIX } from '../../shared/virtual-module'
 
 export function getChangedModuleNames(utils: WindiPluginUtils) {

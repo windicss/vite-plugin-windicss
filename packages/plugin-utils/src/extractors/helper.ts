@@ -1,5 +1,5 @@
 import { extname } from 'path'
-import { Extractor } from 'windicss/types/interfaces'
+import type { Extractor } from 'windicss/types/interfaces'
 import { DefaultExtractor } from './default'
 import { PugExtractor } from './pug'
 import { SvelteExtractor } from './svelte'

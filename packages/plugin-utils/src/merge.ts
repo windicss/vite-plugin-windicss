@@ -1,4 +1,4 @@
-import { FullConfig } from 'windicss/types/interfaces'
+import type { FullConfig } from 'windicss/types/interfaces'
 
 const isObject = (val: any) => toString.call(val) === '[object Object]'
 

@@ -1,4 +1,4 @@
-import { ExtractorResultDetailed } from 'windicss/types/interfaces'
+import type { ExtractorResultDetailed } from 'windicss/types/interfaces'
 import { DefaultExtractor } from '../extractors/default'
 
 const regexTemplate = /<template.*?lang=['"]pug['"][^>]*?>\n([\s\S]*?\n)<\/template>/gm

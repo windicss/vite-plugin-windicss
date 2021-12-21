@@ -1,7 +1,8 @@
 import fs from 'fs'
 import path from 'path'
 import _debug from 'debug'
-import _jiti, { JITI } from 'jiti'
+import type { JITI } from 'jiti'
+import _jiti from 'jiti'
 import type { FullConfig as WindiCssOptions } from 'windicss/types/interfaces'
 
 let jiti: JITI

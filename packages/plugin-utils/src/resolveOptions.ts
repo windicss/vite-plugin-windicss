@@ -1,9 +1,10 @@
 import path from 'path'
 import _debug from 'debug'
 import { loadConfiguration } from '@windicss/config'
-import type { UserOptions, ResolvedOptions, WindiCssOptions, WindiPluginUtilsOptions } from './options'
+import type { ResolvedOptions, UserOptions, WindiCssOptions, WindiPluginUtilsOptions } from './options'
 import { defaultAlias } from './constants'
-import { Arrayable, kebabCase, mergeArrays, slash, toArray } from './utils'
+import type { Arrayable } from './utils'
+import { kebabCase, mergeArrays, slash, toArray } from './utils'
 import { getDefaultExtractors } from './extractors/helper'
 
 export * from '@windicss/config'
