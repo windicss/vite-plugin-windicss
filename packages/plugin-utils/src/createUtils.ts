@@ -265,7 +265,7 @@ export function createUtils(
         })
         changed = true
       }
-      // @ts-expect-error
+      // @ts-expect-error why
       changed = addClasses(extractedAttrs?.classes || extractResult.classes || []) || changed
     }
     else {

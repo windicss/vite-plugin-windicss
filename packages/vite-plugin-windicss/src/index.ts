@@ -203,7 +203,7 @@ function VitePluginWindicss(userOptions: UserOptions = {}, utilsOptions: WindiPl
     name: `${NAME}:css:svelte`,
     api: {
       sveltePreprocess: {
-        style({ content, id }: { content: string; id: string}) {
+        style({ content, id }: { content: string; id: string }) {
           return {
             code: transformCSS(content, id),
           }
