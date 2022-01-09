@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest'
 import { createUtils } from '../packages/plugin-utils/src'
 
 describe('config', () => {

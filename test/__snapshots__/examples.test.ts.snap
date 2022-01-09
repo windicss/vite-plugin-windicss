@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`example should allow access to generated tags and classes by a callback: classes 1`] = `
+exports[`example > should allow access to generated tags and classes by a callback > classes 1`] = `
 Set {
   "select-none",
   "p-5",
@@ -23,7 +23,7 @@ Set {
 }
 `;
 
-exports[`example should allow access to generated tags and classes by a callback: classesPending 1`] = `
+exports[`example > should allow access to generated tags and classes by a callback > classesPending 1`] = `
 Set {
   "select-none",
   "<html",
@@ -90,7 +90,7 @@ Set {
 }
 `;
 
-exports[`example should allow access to generated tags and classes by a callback: tags 1`] = `
+exports[`example > should allow access to generated tags and classes by a callback > tags 1`] = `
 Set {
   "html",
   "body",
@@ -106,7 +106,7 @@ Set {
 }
 `;
 
-exports[`example should allow access to generated tags and classes by a callback: tagsPending 1`] = `
+exports[`example > should allow access to generated tags and classes by a callback > tagsPending 1`] = `
 Set {
   "html",
   "body",
@@ -122,7 +122,7 @@ Set {
 }
 `;
 
-exports[`example should work: classes 1`] = `
+exports[`example > should work > classes 1`] = `
 Set {
   "select-none",
   "p-5",
@@ -145,7 +145,7 @@ Set {
 }
 `;
 
-exports[`example should work: generated-css 1`] = `
+exports[`example > should work > generated-css 1`] = `
 "/* windicss layer base */
 *, ::before, ::after {
   -webkit-box-sizing: border-box;
@@ -302,7 +302,7 @@ h2 {
 }"
 `;
 
-exports[`example should work: generated-css-base 1`] = `
+exports[`example > should work > generated-css-base 1`] = `
 "/* windicss layer base */
 *, ::before, ::after {
   -webkit-box-sizing: border-box;
@@ -374,7 +374,7 @@ h2 {
 }"
 `;
 
-exports[`example should work: generated-css-components 1`] = `
+exports[`example > should work > generated-css-components 1`] = `
 "/* windicss layer components */
 .btn {
   --tw-border-opacity: 1;
@@ -398,7 +398,7 @@ exports[`example should work: generated-css-components 1`] = `
 }"
 `;
 
-exports[`example should work: generated-css-utilities 1`] = `
+exports[`example > should work > generated-css-utilities 1`] = `
 "/* windicss layer utilities */
 .bg-teal-100 {
   --tw-bg-opacity: 1;
@@ -465,7 +465,7 @@ exports[`example should work: generated-css-utilities 1`] = `
 }"
 `;
 
-exports[`example should work: tags 1`] = `
+exports[`example > should work > tags 1`] = `
 Set {
   "html",
   "body",
@@ -481,17 +481,17 @@ Set {
 }
 `;
 
-exports[`example v3: base 1`] = `
+exports[`example > v3 > base 1`] = `
 "/* windicss layer base */
 "
 `;
 
-exports[`example v3: components 1`] = `
+exports[`example > v3 > components 1`] = `
 "/* windicss layer components */
 "
 `;
 
-exports[`example v3: utilities 1`] = `
+exports[`example > v3 > utilities 1`] = `
 "/* windicss layer utilities */
 [hover\\\\:bg~=\\"gray-400\\"]:hover {
   --tw-bg-opacity: 1;

@@ -1,14 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`transfrom css custom keyframes 1`] = `
-"/* windicss layer base */
-
-/* windicss layer components */
-
-/* windicss layer utilities */"
-`;
-
-exports[`transfrom css custom keyframes: keyframes 1`] = `
+exports[`transfrom > css custom keyframes > keyframes 1`] = `
 ".test {
   animation: my-animation 2s infinite linear;
 }
@@ -19,7 +11,7 @@ exports[`transfrom css custom keyframes: keyframes 1`] = `
 }"
 `;
 
-exports[`transfrom css custom keyframes: keyframes module 1`] = `
+exports[`transfrom > css custom keyframes > keyframes module 1`] = `
 "/* windicss layer base */
 
 /* windicss layer components */
@@ -27,7 +19,7 @@ exports[`transfrom css custom keyframes: keyframes module 1`] = `
 /* windicss layer utilities */"
 `;
 
-exports[`transfrom css directives 1`] = `
+exports[`transfrom > css custom keyframes 1`] = `
 "/* windicss layer base */
 
 /* windicss layer components */
@@ -35,17 +27,7 @@ exports[`transfrom css directives 1`] = `
 /* windicss layer utilities */"
 `;
 
-exports[`transfrom css directives 2`] = `
-"/* windicss layer base */
-
-/* windicss layer components */
-
-/* windicss layer utilities */"
-`;
-
-exports[`transfrom css directives 3`] = `""`;
-
-exports[`transfrom css directives: @layer all 1`] = `
+exports[`transfrom > css directives > @layer all 1`] = `
 "/* windicss layer base */
 .btn-base {
   --tw-text-opacity: 1;
@@ -69,7 +51,7 @@ exports[`transfrom css directives: @layer all 1`] = `
 }"
 `;
 
-exports[`transfrom css directives: @layer base 1`] = `
+exports[`transfrom > css directives > @layer base 1`] = `
 "/* windicss layer base */
 .btn-base {
   --tw-text-opacity: 1;
@@ -78,7 +60,7 @@ exports[`transfrom css directives: @layer base 1`] = `
 }"
 `;
 
-exports[`transfrom css directives: @layer components 1`] = `
+exports[`transfrom > css directives > @layer components 1`] = `
 "/* windicss layer components */
 .btn-components {
   --tw-text-opacity: 1;
@@ -87,7 +69,7 @@ exports[`transfrom css directives: @layer components 1`] = `
 }"
 `;
 
-exports[`transfrom css directives: @layer components 2`] = `
+exports[`transfrom > css directives > @layer components 2`] = `
 "/* windicss layer components */
 .btn-components {
   --tw-text-opacity: 1;
@@ -96,7 +78,7 @@ exports[`transfrom css directives: @layer components 2`] = `
 }"
 `;
 
-exports[`transfrom css directives: @layer utilities 1`] = `
+exports[`transfrom > css directives > @layer utilities 1`] = `
 "/* windicss layer utilities */
 .p-4 {
   padding: 1rem;
@@ -108,14 +90,14 @@ exports[`transfrom css directives: @layer utilities 1`] = `
 }"
 `;
 
-exports[`transfrom css directives: @layer utilities 2`] = `
+exports[`transfrom > css directives > @layer utilities 2`] = `
 "/* windicss layer utilities */
 .p-4 {
   padding: 1rem;
 }"
 `;
 
-exports[`transfrom css directives: basic @apply 1`] = `
+exports[`transfrom > css directives > basic @apply 1`] = `
 ".rounded-box {
   border-radius: var(--rounded-box, 1rem);
 }
@@ -138,13 +120,13 @@ exports[`transfrom css directives: basic @apply 1`] = `
 }"
 `;
 
-exports[`transfrom css directives: basic @layer 1`] = `
+exports[`transfrom > css directives > basic @layer 1`] = `
 ".btn {
   padding: 5px;
 }"
 `;
 
-exports[`transfrom css windi keyframes 1`] = `
+exports[`transfrom > css directives 1`] = `
 "/* windicss layer base */
 
 /* windicss layer components */
@@ -152,7 +134,17 @@ exports[`transfrom css windi keyframes 1`] = `
 /* windicss layer utilities */"
 `;
 
-exports[`transfrom css windi keyframes: keyframes 1`] = `
+exports[`transfrom > css directives 2`] = `
+"/* windicss layer base */
+
+/* windicss layer components */
+
+/* windicss layer utilities */"
+`;
+
+exports[`transfrom > css directives 3`] = `""`;
+
+exports[`transfrom > css windi keyframes > keyframes 1`] = `
 ".pulse-class {
   --tw-bg-opacity: 1;
   background-color: rgba(13, 148, 136, var(--tw-bg-opacity));
@@ -166,7 +158,7 @@ exports[`transfrom css windi keyframes: keyframes 1`] = `
 }"
 `;
 
-exports[`transfrom css windi keyframes: keyframes module 1`] = `
+exports[`transfrom > css windi keyframes > keyframes module 1`] = `
 "/* windicss layer base */
 
 /* windicss layer components */
@@ -205,27 +197,35 @@ exports[`transfrom css windi keyframes: keyframes module 1`] = `
 }"
 `;
 
-exports[`transfrom groups: "!hover:(m-2 p-2)" 1`] = `"!hover:m-2 !hover:p-2"`;
+exports[`transfrom > css windi keyframes 1`] = `
+"/* windicss layer base */
 
-exports[`transfrom groups: "+sm:(p-1 p-2)" 1`] = `"+sm:p-1 +sm:p-2"`;
+/* windicss layer components */
 
-exports[`transfrom groups: "<md:(grid grid-cols-[1fr,50%])" 1`] = `"<md:grid <md:grid-cols-[1fr,50%]"`;
+/* windicss layer utilities */"
+`;
 
-exports[`transfrom groups: "@lg:(p-1 p-2)" 1`] = `"@lg:p-1 @lg:p-2"`;
+exports[`transfrom > groups > "!hover:(m-2 p-2)" 1`] = `"!hover:m-2 !hover:p-2"`;
 
-exports[`transfrom groups: "-sm:hover:(p-1 p-2)" 1`] = `"-sm:hover:p-1 -sm:hover:p-2"`;
+exports[`transfrom > groups > "+sm:(p-1 p-2)" 1`] = `"+sm:p-1 +sm:p-2"`;
 
-exports[`transfrom groups: "bg-white font-light sm:hover:(bg-gray-100 font-medium)" 1`] = `"bg-white font-light sm:hover:bg-gray-100 sm:hover:font-medium"`;
+exports[`transfrom > groups > "<md:(grid grid-cols-[1fr,50%])" 1`] = `"<md:grid <md:grid-cols-[1fr,50%]"`;
 
-exports[`transfrom groups: "dark:+lg:(p-1 p-2)" 1`] = `"dark:+lg:p-1 dark:+lg:p-2"`;
+exports[`transfrom > groups > "@lg:(p-1 p-2)" 1`] = `"@lg:p-1 @lg:p-2"`;
 
-exports[`transfrom groups: "hover:(
+exports[`transfrom > groups > "-sm:hover:(p-1 p-2)" 1`] = `"-sm:hover:p-1 -sm:hover:p-2"`;
+
+exports[`transfrom > groups > "bg-white font-light sm:hover:(bg-gray-100 font-medium)" 1`] = `"bg-white font-light sm:hover:bg-gray-100 sm:hover:font-medium"`;
+
+exports[`transfrom > groups > "dark:+lg:(p-1 p-2)" 1`] = `"dark:+lg:p-1 dark:+lg:p-2"`;
+
+exports[`transfrom > groups > "hover:(
 !m-2 
 p-2
 )" 1`] = `"!hover:m-2 hover:p-2"`;
 
-exports[`transfrom groups: "hover:(!m-2 p-2)" 1`] = `"!hover:m-2 hover:p-2"`;
+exports[`transfrom > groups > "hover:(!m-2 p-2)" 1`] = `"!hover:m-2 hover:p-2"`;
 
-exports[`transfrom groups: "md:(w-1/2 h-[calc(100%-4rem)])" 1`] = `"md:w-1/2 md:h-[calc(100%-4rem)]"`;
+exports[`transfrom > groups > "md:(w-1/2 h-[calc(100%-4rem)])" 1`] = `"md:w-1/2 md:h-[calc(100%-4rem)]"`;
 
-exports[`transfrom groups: "md:(w-40vw pr-4.5rem)" 1`] = `"md:w-40vw md:pr-4.5rem"`;
+exports[`transfrom > groups > "md:(w-40vw pr-4.5rem)" 1`] = `"md:w-40vw md:pr-4.5rem"`;

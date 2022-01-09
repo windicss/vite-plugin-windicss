@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest'
 import { DefaultExtractor, SvelteExtractor } from '../packages/plugin-utils/src/extractors'
 
 describe('extract', () => {

@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest'
 import { DefaultExtractor } from '../packages/plugin-utils/src/extractors/default'
 import { createUtils } from '../packages/plugin-utils/src'
 

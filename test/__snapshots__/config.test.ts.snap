@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`config merge config 1`] = `
+exports[`config > merge config 1`] = `
 "/* windicss layer base */
 
 /* windicss layer components */
@@ -11,7 +11,7 @@ exports[`config merge config 1`] = `
 }"
 `;
 
-exports[`config prefixer: false: css 1`] = `
+exports[`config > prefixer: false > css 1`] = `
 "/* windicss layer base */
 
 /* windicss layer components */
@@ -22,7 +22,7 @@ exports[`config prefixer: false: css 1`] = `
 }"
 `;
 
-exports[`config prefixer: true: css 1`] = `
+exports[`config > prefixer: true > css 1`] = `
 "/* windicss layer base */
 
 /* windicss layer components */

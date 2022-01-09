@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`fixtures scan: classes 1`] = `
+exports[`fixtures > scan > classes 1`] = `
 Set {
   "export",
   "const",
@@ -12,10 +12,10 @@ Set {
 }
 `;
 
-exports[`fixtures scan: exclude 1`] = `Array []`;
+exports[`fixtures > scan > exclude 1`] = `[]`;
 
-exports[`fixtures scan: files 1`] = `
-Array [
+exports[`fixtures > scan > files 1`] = `
+[
   "a.js",
   "a.ts",
   "b.js",
@@ -23,8 +23,8 @@ Array [
 ]
 `;
 
-exports[`fixtures scan: include 1`] = `
-Array [
+exports[`fixtures > scan > include 1`] = `
+[
   "**/*.js",
   "a.ts",
 ]

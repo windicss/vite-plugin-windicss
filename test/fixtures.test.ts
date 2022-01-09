@@ -1,4 +1,5 @@
 import { relative, resolve } from 'path'
+import { describe, expect, it } from 'vitest'
 import { createUtils, slash } from '../packages/plugin-utils/src'
 
 describe('fixtures', () => {

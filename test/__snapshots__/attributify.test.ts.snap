@@ -1,16 +1,16 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`attributify basic 1`] = `
-Object {
-  "attributes": Object {
-    "names": Array [
+exports[`attributify > basic 1`] = `
+{
+  "attributes": {
+    "names": [
       "p",
       "border",
       "sm",
       "sm:hover",
       "dark:border",
     ],
-    "values": Array [
+    "values": [
       "x-4 y-2 md:x-2 lg:hover:x-8",
       "~",
       "bg-red-500 bg-opacity-50 hover:bg-green-300",
@@ -18,7 +18,7 @@ Object {
       "~ red-400",
     ],
   },
-  "classes": Array [
+  "classes": [
     "<div",
     "x-4",
     "y-2",
@@ -34,23 +34,23 @@ Object {
     "a()",
     "text-red-400",
   ],
-  "tags": Array [
+  "tags": [
     "div",
   ],
 }
 `;
 
-exports[`attributify jsx 1`] = `
-Object {
-  "attributes": Object {
-    "names": Array [
+exports[`attributify > jsx 1`] = `
+{
+  "attributes": {
+    "names": [
       "pos",
       "w",
       "z",
       "bg",
       "shadow",
     ],
-    "values": Array [
+    "values": [
       "fixed top-0",
       "full",
       "30",
@@ -58,7 +58,7 @@ Object {
       "props.scrolled() ? 'md' : 'none'",
     ],
   },
-  "classes": Array [
+  "classes": [
     "<nav",
     "fixed",
     "top-0",
@@ -71,13 +71,13 @@ Object {
     "none",
     "props.children",
   ],
-  "tags": Array [
+  "tags": [
     "nav",
   ],
 }
 `;
 
-exports[`attributify jsx 2`] = `
+exports[`attributify > jsx 2`] = `
 "/* windicss layer base */
 
 /* windicss layer components */

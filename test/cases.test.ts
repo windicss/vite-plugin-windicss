@@ -1,3 +1,4 @@
+import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import type { WindiPluginUtils } from '../packages/plugin-utils/src'
 import { createUtils } from '../packages/plugin-utils/src'
 

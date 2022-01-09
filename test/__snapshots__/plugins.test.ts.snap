@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`plugins aspect-ratio: classes 1`] = `
+exports[`plugins > aspect-ratio > classes 1`] = `
 Set {
   "aspect-none",
   "aspect-w-16",
@@ -9,7 +9,7 @@ Set {
 }
 `;
 
-exports[`plugins aspect-ratio: generated-css 1`] = `
+exports[`plugins > aspect-ratio > generated-css 1`] = `
 "/* windicss layer base */
 
 /* windicss layer components */
@@ -59,7 +59,7 @@ exports[`plugins aspect-ratio: generated-css 1`] = `
 /* windicss layer utilities */"
 `;
 
-exports[`plugins custom classes with parentheses: generated-css 1`] = `
+exports[`plugins > custom classes with parentheses > generated-css 1`] = `
 "/* windicss layer base */
 
 /* windicss layer components */
@@ -70,11 +70,11 @@ exports[`plugins custom classes with parentheses: generated-css 1`] = `
 }"
 `;
 
-exports[`plugins forms: classes 1`] = `Set {}`;
+exports[`plugins > forms > classes 1`] = `Set {}`;
 
-exports[`plugins forms: classes 2`] = `Set {}`;
+exports[`plugins > forms > classes 2`] = `Set {}`;
 
-exports[`plugins forms: generated-css 1`] = `
+exports[`plugins > forms > generated-css 1`] = `
 "/* windicss layer base */
 [type='text'], [type='email'], [type='url'], [type='password'], [type='number'], [type='date'], [type='datetime-local'], [type='month'], [type='search'], [type='tel'], [type='time'], [type='week'], [multiple], textarea, select {
   -webkit-appearance: none;
@@ -226,7 +226,7 @@ select {
 /* windicss layer utilities */"
 `;
 
-exports[`plugins forms: generated-css 2`] = `
+exports[`plugins > forms > generated-css 2`] = `
 "/* windicss layer base */
 [type='text'], [type='email'], [type='url'], [type='password'], [type='number'], [type='date'], [type='datetime-local'], [type='month'], [type='search'], [type='tel'], [type='time'], [type='week'], [multiple], textarea, select {
   -webkit-appearance: none;
@@ -378,13 +378,13 @@ select {
 /* windicss layer utilities */"
 `;
 
-exports[`plugins typography rtl: classes 1`] = `
+exports[`plugins > typography rtl > classes 1`] = `
 Set {
   "prose",
 }
 `;
 
-exports[`plugins typography rtl: generated-css 1`] = `
+exports[`plugins > typography rtl > generated-css 1`] = `
 "/* windicss layer base */
 
 /* windicss layer components */

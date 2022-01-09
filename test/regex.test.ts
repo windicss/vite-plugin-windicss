@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest'
 import { validClassName } from '../packages/plugin-utils/src/regexes'
 
 describe('regex', () => {
