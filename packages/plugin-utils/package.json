@@ -37,10 +37,10 @@
     "@antfu/utils": "^0.4.0",
     "@windicss/config": "workspace:*",
     "debug": "^4.3.3",
-    "fast-glob": "^3.2.10",
+    "fast-glob": "^3.2.11",
     "magic-string": "^0.25.7",
     "micromatch": "^4.0.4",
-    "windicss": "^3.4.2"
+    "windicss": "^3.4.3"
   },
   "devDependencies": {
     "pug": "^3.0.2"

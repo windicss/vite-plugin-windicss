@@ -21,7 +21,7 @@
     "test:update": "vitest -u"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^0.15.0",
+    "@antfu/eslint-config": "^0.16.0",
     "@antfu/ni": "^0.12.0",
     "@antfu/utils": "^0.4.0",
     "@types/connect": "^3.4.35",
@@ -34,19 +34,19 @@
     "@windicss/plugin-utils": "workspace:*",
     "bumpp": "^7.1.1",
     "debug": "^4.3.3",
-    "eslint": "^8.6.0",
-    "eslint-plugin-jest": "^25.3.4",
-    "fast-glob": "^3.2.10",
+    "eslint": "^8.7.0",
+    "eslint-plugin-jest": "^25.7.0",
+    "fast-glob": "^3.2.11",
     "fs-extra": "^10.0.0",
     "git-ensure": "^0.1.0",
     "magic-string": "^0.25.7",
-    "pnpm": "^6.25.1",
-    "rollup": "^2.63.0",
+    "pnpm": "^6.26.1",
+    "rollup": "^2.64.0",
     "tsup": "^5.11.11",
     "typescript": "^4.5.4",
-    "vite": "^2.7.10",
+    "vite": "^2.7.12",
     "vite-plugin-restart": "^0.1.0",
-    "vitest": "^0.0.139",
-    "windicss": "^3.4.2"
+    "vitest": "^0.1.17",
+    "windicss": "^3.4.3"
   }
 }

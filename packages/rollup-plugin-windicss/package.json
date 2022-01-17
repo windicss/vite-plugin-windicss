@@ -41,6 +41,6 @@
   "dependencies": {
     "@windicss/plugin-utils": "workspace:*",
     "debug": "^4.3.3",
-    "windicss": "^3.4.2"
+    "windicss": "^3.4.3"
   }
 }
