@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { DefaultExtractor, SvelteExtractor } from '../packages/plugin-utils/src/extractors'
+import { applyExtractors } from '../packages/plugin-utils'
 
 describe('extract', () => {
   // #162, #193
@@ -50,5 +51,40 @@ describe('extract', () => {
     `)
     expect(classes).toContain('bg-red-400')
     expect(classes).toContain('bg-red-500')
+  })
+
+  it('should merge result of multiple extractors', () => {
+    return applyExtractors(`
+      <div id="divId" class="divClass1 divClass2" title="divTitle"></div>
+      ![imgAlt](/test.png){#imgId .imgClass1 .imgClass2}
+    `,
+    'test.md',
+    [
+      {
+        extensions: ['html', 'md'],
+        extractor: () => ({
+          tags: ['div'],
+          ids: ['divId'],
+          classes: ['divClass1', 'divClass2'],
+          attributes: { names: ['title'], values: ['divTitle'] },
+        }),
+      },
+      {
+        extensions: ['md'],
+        extractor: () => ({
+          tags: ['img'],
+          ids: ['imgId'],
+          classes: ['imgClass1', 'imgClass2'],
+          attributes: { names: ['alt'], values: ['imgAlt'] },
+        }),
+      },
+    ],
+    ).then((results) => {
+      expect(results.tags).to.have.members(['div', 'img'])
+      expect(results.ids).to.have.members(['divId', 'imgId'])
+      expect(results.classes).to.have.members(['divClass1', 'divClass2', 'imgClass1', 'imgClass2'])
+      expect(results.attributes!.names).to.have.members(['title', 'alt'])
+      expect(results.attributes!.values).to.have.members(['divTitle', 'imgAlt'])
+    })
   })
 })

@@ -1,5 +1,6 @@
 import { extname } from 'path'
-import type { Extractor } from 'windicss/types/interfaces'
+import { uniq } from '@antfu/utils'
+import type { Extractor, ExtractorResultDetailed } from 'windicss/types/interfaces'
 import { DefaultExtractor } from './default'
 import { PugExtractor } from './pug'
 import { SvelteExtractor } from './svelte'
@@ -29,9 +30,25 @@ export async function applyExtractors(code: string, id?: string, extractors: Ext
   let ext = id ? extname(id) : '*'
   if (ext[0] === '.')
     ext = ext.slice(1)
-  for (const { extractor, extensions } of extractors) {
-    if (extensions.includes(ext))
-      return extractor(code, id)
-  }
-  return defaultExtract(code, id)
+
+  const matchingExtractors = extractors
+    .filter(extractor => extractor.extensions.includes(ext))
+    .map(extractor => extractor.extractor)
+  return Promise.all((matchingExtractors.length ? matchingExtractors : [defaultExtract])
+    .map(extractor => extractor(code, id)))
+    .then((results) => {
+      const attributesNames = results.flatMap(v => v.attributes?.names)
+      const attributesValues = results.flatMap(v => v.attributes?.values)
+      return {
+        tags: uniq(results.flatMap(v => v.tags)),
+        ids: uniq(results.flatMap(v => v.ids)),
+        classes: uniq(results.flatMap(v => v.classes)),
+        attributes: (attributesNames.length || attributesValues.length)
+          ? {
+            names: attributesNames,
+            values: attributesValues,
+          }
+          : undefined,
+      } as ExtractorResultDetailed
+    })
 }
