@@ -401,7 +401,9 @@ export function createUtils(
     if (options.config.attributify) {
       if (attributes.length) {
         const attributesObject: Record<string, string[]> = {}
-
+        /**
+        * name and value are undefined. So we need to check if name and value are defined
+        */
         attributes.forEach(([name, value]) => {
           if (name && !attributesObject[name])
             attributesObject[name] = [];
