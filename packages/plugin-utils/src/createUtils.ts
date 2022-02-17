@@ -401,12 +401,17 @@ export function createUtils(
     if (options.config.attributify) {
       if (attributes.length) {
         const attributesObject: Record<string, string[]> = {}
-
-        attributes.forEach(([name, value]) => {
-          if (!attributesObject[name])
-            attributesObject[name] = []
-          attributesObject[name].push(...value.split(regexClassSplitter).filter(Boolean))
-        })
+        attributes
+          .filter(i => i[0] && i[1])
+          .forEach(([name, value]) => {
+            if (!attributesObject[name])
+              attributesObject[name] = []
+            attributesObject[name].push(
+              ...String(value)
+                .split(regexClassSplitter)
+                .filter(Boolean),
+            )
+          })
 
         const attributifyStyle = processor.attributify(
           attributesObject,
