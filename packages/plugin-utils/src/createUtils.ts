@@ -401,15 +401,17 @@ export function createUtils(
     if (options.config.attributify) {
       if (attributes.length) {
         const attributesObject: Record<string, string[]> = {}
-        /**
-        * name and value are undefined. So we need to check if name and value are defined
-        */
-        attributes.forEach(([name, value]) => {
-          if (name && !attributesObject[name])
-            attributesObject[name] = [];
-          if(value)
-            attributesObject[name].push(...value.split(regexClassSplitter).filter(Boolean));
-        });
+        attributes
+          .filter(i => i[0] && i[1])
+          .forEach(([name, value]) => {
+            if (!attributesObject[name])
+              attributesObject[name] = []
+            attributesObject[name].push(
+              ...String(value)
+                .split(regexClassSplitter)
+                .filter(Boolean),
+            )
+          })
 
         const attributifyStyle = processor.attributify(
           attributesObject,
