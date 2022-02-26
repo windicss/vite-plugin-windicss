@@ -1,6 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { DefaultExtractor, SvelteExtractor } from '../packages/plugin-utils/src/extractors'
-import { applyExtractors } from '../packages/plugin-utils'
+import { DefaultExtractor, SvelteExtractor, applyExtractors } from '../packages/plugin-utils/src/extractors'
 
 describe('extract', () => {
   // #162, #193

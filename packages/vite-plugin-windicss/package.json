@@ -46,9 +46,9 @@
     "@windicss/plugin-utils": "workspace:*",
     "debug": "^4.3.3",
     "kolorist": "^1.5.1",
-    "windicss": "^3.4.3"
+    "windicss": "^3.5.0"
   },
   "devDependencies": {
-    "vite": "^2.7.12"
+    "vite": "^2.8.4"
   }
 }
