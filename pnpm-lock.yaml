@@ -29,7 +29,7 @@ importers:
       vite: ^2.8.4
       vite-plugin-restart: ^0.1.0
       vitest: ^0.5.5
-      windicss: ^3.5.0
+      windicss: ^3.5.1
     devDependencies:
       '@antfu/eslint-config': 0.16.1_eslint@8.7.0+typescript@4.5.5
       '@antfu/ni': 0.13.2
@@ -56,7 +56,7 @@ importers:
       vite: 2.8.4
       vite-plugin-restart: 0.1.0_vite@2.8.4
       vitest: 0.5.5
-      windicss: 3.5.0
+      windicss: 3.5.1
 
   examples/attributify-prefix:
     specifiers:
@@ -211,11 +211,11 @@ importers:
     specifiers:
       debug: ^4.3.3
       jiti: ^1.13.0
-      windicss: ^3.5.0
+      windicss: ^3.5.1
     dependencies:
       debug: 4.3.3
       jiti: 1.13.0
-      windicss: 3.5.0
+      windicss: 3.5.1
 
   packages/plugin-utils:
     specifiers:
@@ -226,7 +226,7 @@ importers:
       magic-string: ^0.25.7
       micromatch: ^4.0.4
       pug: ^3.0.2
-      windicss: ^3.5.0
+      windicss: ^3.5.1
     dependencies:
       '@antfu/utils': 0.5.0
       '@windicss/config': link:../config
@@ -234,7 +234,7 @@ importers:
       fast-glob: 3.2.11
       magic-string: 0.25.7
       micromatch: 4.0.4
-      windicss: 3.5.0
+      windicss: 3.5.1
     devDependencies:
       pug: 3.0.2
 
@@ -242,11 +242,11 @@ importers:
     specifiers:
       '@windicss/plugin-utils': workspace:*
       debug: ^4.3.3
-      windicss: ^3.5.0
+      windicss: ^3.5.1
     dependencies:
       '@windicss/plugin-utils': link:../plugin-utils
       debug: 4.3.3
-      windicss: 3.5.0
+      windicss: 3.5.1
 
   packages/vite-plugin-windicss:
     specifiers:
@@ -254,12 +254,12 @@ importers:
       debug: ^4.3.3
       kolorist: ^1.5.1
       vite: ^2.8.4
-      windicss: ^3.5.0
+      windicss: ^3.5.1
     dependencies:
       '@windicss/plugin-utils': link:../plugin-utils
       debug: 4.3.3
       kolorist: 1.5.1
-      windicss: 3.5.0
+      windicss: 3.5.1
     devDependencies:
       vite: 2.8.4
 
@@ -4459,6 +4459,12 @@ packages:
 
   /windicss/3.5.0:
     resolution: {integrity: sha512-+UNYm2Zy4TM2uLiz6bqY2a69LavMqGbILFIwuGhPEJ/uqsPT3kCGSaWlhMw/weIaFOkm1K1cEzZ015Y8pp8N1A==}
+    engines: {node: '>= 12'}
+    hasBin: true
+    dev: true
+
+  /windicss/3.5.1:
+    resolution: {integrity: sha512-E1hYZATcZFci/XhGS0sJAMRxULjnK+glNukE78Ku7xeb3jxgMY55fFOdIrav+GjQCsgR+IZxPq9/DwmO6eyc4Q==}
     engines: {node: '>= 12'}
     hasBin: true
 

@@ -36,6 +36,6 @@
   "dependencies": {
     "debug": "^4.3.3",
     "jiti": "^1.13.0",
-    "windicss": "^3.5.0"
+    "windicss": "^3.5.1"
   }
 }
