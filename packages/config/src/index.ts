@@ -30,7 +30,7 @@ export interface LoadConfigurationOptions {
   /**
    * Name for debug
    *
-   * @default 'windi-plugin-utils'
+   * @default 'windicss-config'
    * @internal
    */
   name?: string
