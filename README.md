@@ -34,7 +34,7 @@ Enabled it by
 ```ts
 // windi.config.ts
 export default {
-  attributify: true
+  attributify: true,
 }
 ```
 
@@ -60,8 +60,8 @@ If you are concerned about naming confliction, you can add custom prefix to attr
 // windi.config.ts
 export default {
   attributify: {
-    prefix: 'w:'
-  }
+    prefix: 'w:',
+  },
 }
 ```
 

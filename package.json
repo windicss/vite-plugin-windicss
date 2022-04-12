@@ -12,7 +12,7 @@
     "dev": "pnpm -r --parallel --filter ./packages run dev",
     "example:build": "npm -C examples/vue run build",
     "example:dev": "npm -C examples/vue run dev",
-    "lint": "eslint '**/*.{js,ts,vue,json}'",
+    "lint": "eslint .",
     "lint:fix": "nr lint --fix",
     "publish:ci": "pnpm -r --filter ./packages publish --access public --no-git-checks",
     "release": "npx bumpp package.json packages/*/package.json --commit --tag --push",
