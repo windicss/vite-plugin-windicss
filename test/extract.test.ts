@@ -86,4 +86,24 @@ describe('extract', () => {
       expect(results.attributes!.values).to.have.members(['divTitle', 'imgAlt'])
     })
   })
+
+  it('should work fine with the undefined property returned in extractor', () => {
+    return applyExtractors(
+      '<div className="flex justify-center items-center"></div>',
+      'test.jsx',
+      [
+        {
+          extensions: ['jsx'],
+          extractor: () => ({
+            classes: ['flex', 'justify-center', 'items-center'],
+          }),
+        },
+      ],
+    ).then((results) => {
+      expect(results.tags).toEqual([])
+      expect(results.ids).toEqual([])
+      expect(results.attributes).toBeUndefined()
+      expect(results.classes).toEqual(['flex', 'justify-center', 'items-center'])
+    })
+  })
 })

@@ -37,12 +37,12 @@ export async function applyExtractors(code: string, id?: string, extractors: Ext
   return Promise.all((matchingExtractors.length ? matchingExtractors : [defaultExtract])
     .map(extractor => extractor(code, id)))
     .then((results) => {
-      const attributesNames = results.flatMap(v => v.attributes?.names)
-      const attributesValues = results.flatMap(v => v.attributes?.values)
+      const attributesNames = results.flatMap(v => v.attributes?.names ?? [])
+      const attributesValues = results.flatMap(v => v.attributes?.values ?? [])
       return {
-        tags: uniq(results.flatMap(v => v.tags)),
-        ids: uniq(results.flatMap(v => v.ids)),
-        classes: uniq(results.flatMap(v => v.classes)),
+        tags: uniq(results.flatMap(v => v.tags ?? [])),
+        ids: uniq(results.flatMap(v => v.ids ?? [])),
+        classes: uniq(results.flatMap(v => v.classes ?? [])),
         attributes: (attributesNames.length || attributesValues.length)
           ? {
             names: attributesNames,
