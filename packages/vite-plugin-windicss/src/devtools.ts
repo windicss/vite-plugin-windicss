@@ -119,7 +119,10 @@ document.head.prepend(style)
         return MODULES_MAP[id]
       },
 
-      async load(id) {
+      async load(id, options) {
+        if (options?.ssr && [DEVTOOLS_PATH, MOCK_CLASSES_PATH].includes(id))
+          return ''
+
         if (id === DEVTOOLS_PATH) {
           if (!clientCode) {
             clientCode = [
