@@ -9,15 +9,15 @@
   "homepage": "https://github.com/antfu/vite-plugin-windicss",
   "bugs": "https://github.com/antfu/vite-plugin-windicss/issues",
   "license": "MIT",
+  "author": "antfu <anthonyfu117@hotmail.com>",
   "repository": {
     "type": "git",
     "url": "https://github.com/antfu/vite-plugin-windicss"
   },
   "funding": "https://github.com/sponsors/antfu",
-  "author": "antfu <anthonyfu117@hotmail.com>",
-  "files": [
-    "dist"
-  ],
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/index.mjs",
@@ -25,16 +25,16 @@
     },
     "./*": "./*"
   },
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup src/index.ts --dts --format cjs,esm --no-splitting --external sucrase/register/ts,pug,windicss/utils/style,windicss/utils/parser,windicss/utils",
     "dev": "npm run build -- --watch",
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "debug": "^4.3.3",
+    "debug": "^4.3.4",
     "jiti": "^1.13.0",
     "windicss": "^3.5.1"
   }

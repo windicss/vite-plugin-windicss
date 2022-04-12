@@ -1,3 +1,7 @@
+<script setup lang="ts">
+import Foo from './B.vue'
+</script>
+
 <template>
   <div
     text="xl lime-400"
@@ -20,7 +24,3 @@
   </div>
   <Foo />
 </template>
-
-<script setup lang="ts">
-import Foo from './B.vue'
-</script>
