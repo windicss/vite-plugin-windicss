@@ -25,9 +25,9 @@ jobs:
           cache: pnpm
 
       - run: npm i -g pnpm @antfu/ni
-      - run: npx conventional-github-releaser -p angular
+      - run: npx changelogithub
         env:
-          CONVENTIONAL_GITHUB_RELEASER_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
       - run: nci
       - run: nr build
