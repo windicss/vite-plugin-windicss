@@ -9,16 +9,16 @@
     "tailwindcss"
   ],
   "scripts": {
-    "build": "cp README.md packages/vite-plugin-windicss && pnpm -r --filter ./packages run build",
-    "dev": "pnpm -r --parallel --filter ./packages run dev",
+    "build": "cp README.md packages/vite-plugin-windicss && pnpm -r --filter=./packages/* run build",
+    "dev": "pnpm -r --parallel --filter=./packages/* run dev",
     "example:build": "npm -C examples/vue run build",
     "example:dev": "npm -C examples/vue run dev",
     "lint": "eslint .",
     "lint:fix": "nr lint --fix",
-    "publish:ci": "pnpm -r --filter ./packages publish --access public --no-git-checks",
+    "publish:ci": "pnpm -r --filter=./packages/* publish --access public --no-git-checks",
     "release": "npx bumpp package.json packages/*/package.json --commit --tag --push",
     "test": "vitest",
-    "test:examples": "pnpm -r --filter ./examples run build",
+    "test:examples": "pnpm -r --filter=./examples/* run build",
     "test:update": "vitest -u"
   },
   "devDependencies": {
