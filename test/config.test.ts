@@ -3,7 +3,7 @@ import { createUtils } from '../packages/plugin-utils/src'
 
 describe('config', () => {
   // #16
-  it('nested safelist', async() => {
+  it('nested safelist', async () => {
     const utils = createUtils({
       config: {
         safelist: [
@@ -20,7 +20,7 @@ describe('config', () => {
     expect(utils.classesGenerated.size).toBe(4)
   })
 
-  it('merge config', async() => {
+  it('merge config', async () => {
     const utils = createUtils({
       config: {
         safelist: [
@@ -40,7 +40,7 @@ describe('config', () => {
     expect(utils.options.blocklist.size).toBe(3)
   })
 
-  it('merge config', async() => {
+  it('merge config', async () => {
     const utils = createUtils({
       config: {
         preflight: {
@@ -57,7 +57,7 @@ describe('config', () => {
   })
 
   // #114
-  it('merge config', async() => {
+  it('merge config', async () => {
     const utils = createUtils({
       config: {
         theme: {
@@ -79,7 +79,7 @@ describe('config', () => {
     expect(css).toMatchSnapshot()
   })
 
-  it('nested safelist', async() => {
+  it('nested safelist', async () => {
     const utils = createUtils({
       config: {
         safelist: 'shortcut',
@@ -97,7 +97,7 @@ describe('config', () => {
     expect(utils.classesGenerated.size).toBe(2)
   })
 
-  it('prefixer: true', async() => {
+  it('prefixer: true', async () => {
     const utils = createUtils({
       config: {
         prefixer: true,
@@ -110,7 +110,7 @@ describe('config', () => {
     expect(await utils.generateCSS()).toMatchSnapshot('css')
   })
 
-  it('prefixer: false', async() => {
+  it('prefixer: false', async () => {
     const utils = createUtils({
       config: {
         prefixer: false,

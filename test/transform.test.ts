@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { createUtils } from '../packages/plugin-utils/src'
 
 describe('transfrom', () => {
-  it('groups', async() => {
+  it('groups', async () => {
     const cases = [
       'bg-white font-light sm:hover:(bg-gray-100 font-medium)',
       '-sm:hover:(p-1 p-2)',
@@ -24,7 +24,7 @@ describe('transfrom', () => {
     }
   })
 
-  it('css directives', async() => {
+  it('css directives', async () => {
     const utils = createUtils({
       preflight: false,
       scan: false,
@@ -97,7 +97,7 @@ describe('transfrom', () => {
     expect(components).toMatchSnapshot('@layer components')
     expect(await utils.generateCSS('utilities')).toMatchSnapshot('@layer utilities')
   })
-  it('css windi keyframes', async() => {
+  it('css windi keyframes', async () => {
     const utils = createUtils({
       preflight: false,
       scan: false,
@@ -124,7 +124,7 @@ describe('transfrom', () => {
     expect(moduleCSS).toContain('@keyframes')
     expect(moduleCSS).toMatchSnapshot('keyframes module')
   })
-  it('css custom keyframes', async() => {
+  it('css custom keyframes', async () => {
     const utils = createUtils({
       preflight: false,
       scan: false,

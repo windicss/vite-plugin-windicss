@@ -89,7 +89,7 @@ document.head.prepend(style)
       configureServer(_server) {
         server = _server
 
-        server.middlewares.use(async(req, res, next) => {
+        server.middlewares.use(async (req, res, next) => {
           if (req.url !== POST_PATH)
             return next()
 

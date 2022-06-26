@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { createUtils } from '../packages/plugin-utils/src'
 
 describe('plugins', () => {
-  it('aspect-ratio', async() => {
+  it('aspect-ratio', async () => {
     const utils = createUtils({
       config: {
         plugins: [
@@ -20,7 +20,7 @@ describe('plugins', () => {
     expect(css).toMatchSnapshot('generated-css')
   })
 
-  it('forms', async() => {
+  it('forms', async () => {
     const utils = createUtils({
       config: {
         plugins: [
@@ -41,7 +41,7 @@ describe('plugins', () => {
     expect(css).toMatchSnapshot('generated-css')
   })
 
-  it('forms', async() => {
+  it('forms', async () => {
     const utils = createUtils({
       config: {
         plugins: [
@@ -62,7 +62,7 @@ describe('plugins', () => {
   })
 
   // #111
-  it('custom classes with parentheses', async() => {
+  it('custom classes with parentheses', async () => {
     const utils = createUtils({
       config: {
         theme: {
@@ -83,7 +83,7 @@ describe('plugins', () => {
     expect(css).toMatchSnapshot('generated-css')
   })
 
-  it('typography rtl', async() => {
+  it('typography rtl', async () => {
     const utils = createUtils({
       config: {
         plugins: [

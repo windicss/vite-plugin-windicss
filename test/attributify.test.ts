@@ -18,7 +18,7 @@ dark:border="~ red-400"
     ).toMatchSnapshot()
   })
 
-  it('jsx', async() => {
+  it('jsx', async () => {
     const utils = createUtils({
       config: {
         attributify: true,

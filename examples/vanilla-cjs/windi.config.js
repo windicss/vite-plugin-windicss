@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 const { defineConfig } = require('windicss/helpers')
 
 module.exports = defineConfig({

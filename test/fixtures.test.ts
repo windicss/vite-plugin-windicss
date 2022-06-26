@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest'
 import { createUtils, slash } from '../packages/plugin-utils/src'
 
 describe('fixtures', () => {
-  it('scan', async() => {
+  it('scan', async () => {
     const root = resolve(__dirname, 'fixtures/scan')
     const utils = createUtils({
       root,

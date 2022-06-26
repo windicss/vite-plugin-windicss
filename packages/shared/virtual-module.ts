@@ -41,7 +41,7 @@ export function createVirtualModuleLoader(ctx: { utils: WindiPluginUtils }): Pic
         return
       if (!ctx.utils.isDetectTarget(id))
         return
-      ctx.utils.lock(async() => {
+      ctx.utils.lock(async () => {
         const content = await fs.readFile(id, 'utf-8')
         await ctx.utils.extractFile(content, id, true)
       })

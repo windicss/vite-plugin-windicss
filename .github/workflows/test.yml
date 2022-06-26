@@ -19,7 +19,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [12.x, 14.x, 16.x]
+        node-version: [14.x, 16.x, 18.x]
         os: [ubuntu-latest, windows-latest, macos-latest]
       fail-fast: false
 
@@ -28,15 +28,12 @@ jobs:
 
       - name: Install pnpm
         uses: pnpm/action-setup@v2
-        with:
-          version: 6
 
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
           registry-url: https://registry.npmjs.org/
-          cache: pnpm
 
       - name: Setup
         run: pnpm i -g @antfu/ni
@@ -61,15 +58,12 @@ jobs:
 
       - name: Install pnpm
         uses: pnpm/action-setup@v2
-        with:
-          version: 6
 
-      - name: Use Node.js v14
-        uses: actions/setup-node@v2
+      - name: Use Node.js v16
+        uses: actions/setup-node@v3
         with:
-          node-version: 14.x
+          node-version: 16.x
           registry-url: https://registry.npmjs.org/
-          cache: pnpm
 
       - name: Setup
         run: pnpm i -g @antfu/ni

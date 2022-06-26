@@ -7,8 +7,7 @@ import Foo from './Foo.vue'
     Windi CSS with Vite
   </nav>
   <div
-    class="px-5 p-1 text-white hover:(text-green-100 rounded-full)"
-    :class="{ 'bg-teal-100': true, 'hover:w-1/3': true }"
+    class="px-5 p-1 text-white hover:(text-green-100 rounded-full) bg-teal-100 hover:w-1/3"
   >
     Hello World
   </div>

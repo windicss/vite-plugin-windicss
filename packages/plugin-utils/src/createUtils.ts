@@ -143,7 +143,7 @@ export function createUtils(
 
   let scanned = false
 
-  const scan = createSingletonPromise(async() => {
+  const scan = createSingletonPromise(async () => {
     await ensureInit()
 
     debug.scan('started')
@@ -156,7 +156,7 @@ export function createUtils(
     )
 
     await Promise.all(contents.map(
-      async([content, id]) => {
+      async ([content, id]) => {
         if (isCssTransformTarget(id))
           return transformCSS(content, id)
         else
@@ -439,10 +439,10 @@ export function createUtils(
     return layer
       ? buildLayerCss(layer)
       : [
-        buildLayerCss('base'),
-        buildLayerCss('components'),
-        buildLayerCss('utilities'),
-      ].join('\n').trim()
+          buildLayerCss('base'),
+          buildLayerCss('components'),
+          buildLayerCss('utilities'),
+        ].join('\n').trim()
   }
 
   function clearCache(clearAll = false) {
