@@ -122,11 +122,11 @@ export async function resolveOptions(
     config.extract?.exclude
       ? []
       : [
-        'node_modules',
-        '.git',
-        'windi.config.{ts,js}',
-        'tailwind.config.{ts,js}',
-      ],
+          'node_modules',
+          '.git',
+          'windi.config.{ts,js}',
+          'tailwind.config.{ts,js}',
+        ],
   )
     .map(resolveGlob)
 

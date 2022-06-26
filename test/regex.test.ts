@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { validClassName } from '../packages/plugin-utils/src/regexes'
 
 describe('regex', () => {
-  it('regexClassCheck', async() => {
+  it('regexClassCheck', async () => {
     // truthy
     expect(validClassName('p-4')).toBeTruthy()
     expect(validClassName('p-3.2em')).toBeTruthy()

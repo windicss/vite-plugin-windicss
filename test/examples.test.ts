@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest'
 import { createUtils } from '../packages/plugin-utils/src'
 
 describe('example', () => {
-  it('should work', async() => {
+  it('should work', async () => {
     const utils = createUtils({}, {
       root: resolve(__dirname, '../examples/vue'),
       onConfigurationError(e) {
@@ -22,7 +22,7 @@ describe('example', () => {
     expect(utils.tagsGenerated).toMatchSnapshot('tags')
   })
 
-  it('should allow access to generated tags and classes by a callback', async() => {
+  it('should allow access to generated tags and classes by a callback', async () => {
     let classes, tags, classesPending, tagsPending
     const utils = createUtils({
       onBeforeGenerate(ctx) {
@@ -47,7 +47,7 @@ describe('example', () => {
     expect(tags).toMatchSnapshot('tags')
   })
 
-  it('v3', async() => {
+  it('v3', async () => {
     const utils = createUtils(
       {
         preflight: false,

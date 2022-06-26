@@ -45,9 +45,9 @@ export async function applyExtractors(code: string, id?: string, extractors: Ext
         classes: uniq(results.flatMap(v => v.classes ?? [])),
         attributes: (attributesNames.length || attributesValues.length)
           ? {
-            names: attributesNames,
-            values: attributesValues,
-          }
+              names: attributesNames,
+              values: attributesValues,
+            }
           : undefined,
       } as ExtractorResultDetailed
     })

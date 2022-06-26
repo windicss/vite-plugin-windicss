@@ -1,4 +1,3 @@
-/* eslint-disable no-use-before-define */
 export const defaultAlias: Record<string, TagNames> = {
   'router-link': 'a',
 }

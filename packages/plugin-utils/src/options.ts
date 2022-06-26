@@ -1,5 +1,3 @@
-/* eslint-disable no-use-before-define */
-
 import type { Extractor } from 'windicss/types/interfaces'
 import type { LoadConfigurationOptions, WindiCssOptions } from '@windicss/config'
 import type { TransformerFunction } from './transforms'

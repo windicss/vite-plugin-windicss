@@ -107,7 +107,7 @@ exports[`plugins > forms > generated-css 1`] = `
   appearance: none;
   padding: 0;
   -webkit-print-color-adjust: exact;
-  color-adjust: exact;
+  print-color-adjust: exact;
   display: inline-block;
   vertical-align: middle;
   background-origin: border-box;
@@ -161,7 +161,7 @@ exports[`plugins > forms > generated-css 1`] = `
   background-size: initial;
   padding-right: 0.75rem;
   -webkit-print-color-adjust: unset;
-  color-adjust: unset;
+  print-color-adjust: unset;
 }
 [type='checkbox'] {
   border-radius: 0px;
@@ -215,7 +215,7 @@ select {
   background-size: 1.5em 1.5em;
   padding-right: 2.5rem;
   -webkit-print-color-adjust: exact;
-  color-adjust: exact;
+  print-color-adjust: exact;
 }
 /* windicss layer components */
 
@@ -255,7 +255,7 @@ exports[`plugins > forms > generated-css 2`] = `
   appearance: none;
   padding: 0;
   -webkit-print-color-adjust: exact;
-  color-adjust: exact;
+  print-color-adjust: exact;
   display: inline-block;
   vertical-align: middle;
   background-origin: border-box;
@@ -309,7 +309,7 @@ exports[`plugins > forms > generated-css 2`] = `
   background-size: initial;
   padding-right: 0.75rem;
   -webkit-print-color-adjust: unset;
-  color-adjust: unset;
+  print-color-adjust: unset;
 }
 [type='checkbox'] {
   border-radius: 0px;
@@ -363,7 +363,7 @@ select {
   background-size: 1.5em 1.5em;
   padding-right: 2.5rem;
   -webkit-print-color-adjust: exact;
-  color-adjust: exact;
+  print-color-adjust: exact;
 }
 /* windicss layer components */
 
