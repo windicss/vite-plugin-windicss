@@ -1,5 +1,6 @@
 {
   "version": "1.8.4",
+  "packageManager": "pnpm@7.3.0",
   "private": true,
   "keywords": [
     "vite",

@@ -15,16 +15,14 @@ jobs:
 
       - name: Install pnpm
         uses: pnpm/action-setup@v2
-        with:
-          version: 6
 
       - uses: actions/setup-node@v2
         with:
-          node-version: '14'
+          node-version: '16'
           registry-url: https://registry.npmjs.org/
           cache: pnpm
 
-      - run: npm i -g pnpm @antfu/ni
+      - run: npm i -g @antfu/ni
       - run: npx changelogithub
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
