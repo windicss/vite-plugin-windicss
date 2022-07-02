@@ -10,6 +10,6 @@
     "typescript": "^4.7.4",
     "vite": "^2.9.12",
     "vite-plugin-windicss": "workspace:*",
-    "windicss": "^3.5.5"
+    "windicss": "^3.5.6"
   }
 }
