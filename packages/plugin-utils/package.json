@@ -1,6 +1,6 @@
 {
   "name": "@windicss/plugin-utils",
-  "version": "1.8.7",
+  "version": "1.8.8",
   "description": "Common utils for building integrations of Windi CSS",
   "author": "antfu <anthonyfu117@hotmail.com>",
   "license": "MIT",
