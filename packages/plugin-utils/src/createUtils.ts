@@ -181,7 +181,6 @@ export function createUtils(
       return true
     if (files.includes(id) || files.includes(id.slice(0, id.indexOf('?'))))
       return true
-    id = slash(id)
     return isIncluded(id) && !isExcluded(id)
   }
 
