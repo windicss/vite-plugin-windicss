@@ -15,7 +15,7 @@ export function getDefaultExtractors() {
 
   // auto detect pug
   try {
-    require('pug')
+    require.resolve('pug')
     extractors.push({
       extractor: PugExtractor,
       extensions: ['vue', 'pug'],
