@@ -1,6 +1,6 @@
 {
   "name": "@windicss/config",
-  "version": "1.8.8",
+  "version": "1.8.9",
   "description": "Windi CSS configurations loader",
   "author": "antfu <anthonyfu117@hotmail.com>",
   "license": "MIT",
