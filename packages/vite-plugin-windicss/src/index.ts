@@ -212,7 +212,9 @@ function VitePluginWindicss(userOptions: UserOptions = {}, utilsOptions: WindiPl
     },
   })
 
-  plugins.push(...createDevtoolsPlugin({ get utils() { return utils } }))
+  plugins.push(...createDevtoolsPlugin({
+    get utils() { return utils },
+  }))
 
   return plugins
 }

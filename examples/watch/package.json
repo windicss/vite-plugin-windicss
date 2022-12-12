@@ -6,7 +6,7 @@
     "serve": "vite preview"
   },
   "devDependencies": {
-    "vite": "^2.9.12",
+    "vite": "^4.0.1",
     "vite-plugin-windicss": "workspace:*",
     "windicss": "^3.5.6"
   }

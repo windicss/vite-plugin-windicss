@@ -15,9 +15,9 @@ export const MODULE_ID_VIRTUAL_MODULES = [
 export function createVirtualModuleLoader(ctx: { utils: WindiPluginUtils }): Pick<Plugin, 'resolveId' | 'load' | 'watchChange'> {
   return {
     resolveId(id) {
-      if (id.startsWith(MODULE_ID_VIRTUAL_PREFIX)) {
+      if (id.startsWith(MODULE_ID_VIRTUAL_PREFIX))
         return id
-      }
+
       for (const idRegex of MODULE_IDS) {
         const match = id.match(idRegex)
         if (match)

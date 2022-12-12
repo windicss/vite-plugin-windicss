@@ -38,7 +38,6 @@ export function transformGroups(code: string, sourcemap = true) {
 
 export function buildAliasTransformer(alias?: Record<string, string>) {
   if (!alias || !Object.keys(alias).length)
-    // eslint-disable-next-line react/display-name
     return () => null
 
   const keys = Object.keys(alias).sort((a, b) => b.length - a.length).map(i => escapeRegExp(i)).join('|')
