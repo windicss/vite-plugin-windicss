@@ -11,16 +11,19 @@ export type { WindiCssOptions }
 
 export const defaultConfigureFiles = [
   'windi.config.ts',
+  'windi.config.mts',
   'windi.config.js',
   'windi.config.mjs',
   'windi.config.cjs',
 
   'windicss.config.ts',
+  'windicss.config.mts',
   'windicss.config.js',
   'windicss.config.mjs',
   'windicss.config.cjs',
 
   'tailwind.config.ts',
+  'tailwind.config.mts',
   'tailwind.config.js',
   'tailwind.config.mjs',
   'tailwind.config.cjs',
