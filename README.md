@@ -1,3 +1,10 @@
+<p align="center" style="background-color: #FFFF99; padding: 15px; border-radius: 5px;">
+  <strong>⚠️ Windi CSS is Sunsetting ⚠️</strong><br>
+  We are sunsetting Windi CSS and we recommend new projects to seek for alternatives. Read the <a href="https://windicss.org/posts/sunsetting.html">full blog post</a>.
+</p>
+
+<hr>
+
 <h1 align='center'>vite-plugin-windicss</h1>
 
 <p align='center'><a href="https://github.com/voorjaar/windicss">Windi CSS</a> for Vite, it's fast! ⚡️<br>
