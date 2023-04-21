@@ -5,7 +5,7 @@ const regexTemplate = /<template.*?lang=['"]pug['"][^>]*?>\n([\s\S]*?\n)<\/templ
 
 export function PugExtractor(code: string, id?: string): ExtractorResultDetailed {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const Pug = require('pug') as typeof import('pug')
+  const Pug = require.resolve('pug') as typeof import('pug')
 
   const compile = (code: string) => {
     try {
