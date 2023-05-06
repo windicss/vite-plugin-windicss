@@ -14,6 +14,7 @@ import { resolveOptions } from './resolveOptions'
 import { exclude, include, kebabCase, partition, slash } from './utils'
 import { buildAliasTransformer, transformGroups } from './transforms'
 import { applyExtractors as _applyExtractors } from './extractors/helper'
+import { PugWrapper } from './extractors/pug'
 import { regexClassSplitter } from './regexes'
 
 export type CompletionsResult = ReturnType<typeof generateCompletions>
@@ -549,6 +550,10 @@ export function createUtils(
   }
 
   async function _init() {
+    try {
+      PugWrapper.Pug = (await import('pug')).default
+    } catch (e) {}
+
     options = await resolveOptions(userOptions, utilsOptions, true)
     files = []
 
