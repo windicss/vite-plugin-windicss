@@ -1,4 +1,4 @@
-import { extname } from 'path'
+import { extname } from 'node:path'
 import { uniq } from '@antfu/utils'
 import type { Extractor, ExtractorResultDetailed } from 'windicss/types/interfaces'
 import { DefaultExtractor } from './default'

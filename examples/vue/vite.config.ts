@@ -1,4 +1,4 @@
-import { join } from 'path'
+import { join } from 'node:path'
 import { defineConfig } from 'vite'
 import Vue from '@vitejs/plugin-vue'
 import WindiCSS from 'vite-plugin-windicss'

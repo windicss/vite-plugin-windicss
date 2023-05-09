@@ -1,4 +1,4 @@
-import { resolve } from 'path'
+import { resolve } from 'node:path'
 import type { Plugin, ResolvedConfig, ViteDevServer } from 'vite'
 import _debug, { log } from 'debug'
 import type { UserOptions, WindiPluginUtils, WindiPluginUtilsOptions } from '@windicss/plugin-utils'

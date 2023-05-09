@@ -1,4 +1,4 @@
-import { existsSync, promises as fs } from 'fs'
+import { existsSync, promises as fs } from 'node:fs'
 import type { LayerName, WindiPluginUtils } from '@windicss/plugin-utils'
 import type { Plugin } from 'rollup'
 

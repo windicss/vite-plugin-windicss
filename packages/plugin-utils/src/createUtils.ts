@@ -1,4 +1,4 @@
-import fs from 'fs'
+import fs from 'node:fs'
 import type { Style } from 'windicss/utils/style'
 import { StyleSheet } from 'windicss/utils/style'
 import { CSSParser } from 'windicss/utils/parser'

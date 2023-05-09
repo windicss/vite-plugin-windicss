@@ -1,4 +1,4 @@
-import { relative, resolve } from 'path'
+import { relative, resolve } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import { createUtils, slash } from '../packages/plugin-utils/src'
 

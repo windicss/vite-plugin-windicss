@@ -1,4 +1,4 @@
-import path from 'path'
+import path from 'node:path'
 import _debug from 'debug'
 import { loadConfiguration } from '@windicss/config'
 import type { ResolvedOptions, UserOptions, WindiCssOptions, WindiPluginUtilsOptions } from './options'
@@ -50,7 +50,6 @@ export async function resolveOptions(
 
   const root = options.root || utilsOptions.root || process.cwd()
 
-  // eslint-disable-next-line prefer-const
   let { config, filepath: configFilePath } = loadConfigFile
     ? loadConfiguration({
       onConfigurationError: error => console.error(error),
@@ -144,7 +143,7 @@ export async function resolveOptions(
   const blocklist = new Set(mergeArrays(config.blocklist, options.blocklist).flatMap(i => i.split(' ')))
 
   // preflightOptions from config file
-  const configPreflightOptions = typeof config.preflight === 'boolean' ? {} : config.preflight || {}
+  const configPreflightOptions = (typeof config.preflight === 'boolean' ? {} : config.preflight) || {}
 
   preflightOptions.safelist = new Set<string>(
     mergeArrays(
