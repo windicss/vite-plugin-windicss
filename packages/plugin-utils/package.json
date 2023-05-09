@@ -38,7 +38,7 @@
     "@windicss/config": "workspace:*",
     "debug": "^4.3.4",
     "fast-glob": "^3.2.12",
-    "magic-string": "^0.27.0",
+    "magic-string": "^0.30.0",
     "micromatch": "^4.0.5",
     "windicss": "^3.5.6"
   },
