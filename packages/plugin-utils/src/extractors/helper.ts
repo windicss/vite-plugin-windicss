@@ -2,7 +2,7 @@ import { extname } from 'path'
 import { uniq } from '@antfu/utils'
 import type { Extractor, ExtractorResultDetailed } from 'windicss/types/interfaces'
 import { DefaultExtractor } from './default'
-import { PugExtractor, PugWrapper } from './pug'
+import { PugExtractor, getPug } from './pug'
 import { SvelteExtractor } from './svelte'
 
 export function getDefaultExtractors() {
@@ -13,7 +13,7 @@ export function getDefaultExtractors() {
     },
   ]
 
-  if (PugWrapper.Pug) {
+  if (getPug()) {
     extractors.push({
       extractor: PugExtractor,
       extensions: ['vue', 'pug'],
