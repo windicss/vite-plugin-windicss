@@ -1,6 +1,6 @@
 {
   "name": "rollup-plugin-windicss",
-  "version": "1.8.10",
+  "version": "1.8.11",
   "description": "Windi CSS for Rollup",
   "author": "antfu <anthonyfu117@hotmail.com>",
   "license": "MIT",
