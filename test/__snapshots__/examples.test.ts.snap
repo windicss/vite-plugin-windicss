@@ -76,7 +76,7 @@ Set {
   "./main.css",
   "../excluded/included.css",
   "join",
-  "path",
+  "node:path",
   "defineConfig",
   "vite",
   "@vitejs/plugin-vue",
