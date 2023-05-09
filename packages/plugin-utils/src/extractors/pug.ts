@@ -3,13 +3,23 @@ import { DefaultExtractor } from '../extractors/default'
 
 const regexTemplate = /<template.*?lang=['"]pug['"][^>]*?>\n([\s\S]*?\n)<\/template>/gm
 
+let pug: typeof import('pug') | undefined
+
+export function getPug() {
+  return pug
+}
+
+export function setPug(_pug: typeof import('pug')) {
+  pug = _pug
+}
+
 export function PugExtractor(code: string, id?: string): ExtractorResultDetailed {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const Pug = require('pug') as typeof import('pug')
+  if (!pug)
+    return DefaultExtractor(code)
 
   const compile = (code: string) => {
     try {
-      return Pug.compile(code, { filename: id })()
+      return pug!.compile(code, { filename: id })()
       // other build processes will catch pug errors
     }
     catch {}

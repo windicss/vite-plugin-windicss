@@ -15,6 +15,7 @@ import { exclude, include, kebabCase, partition, slash } from './utils'
 import { buildAliasTransformer, transformGroups } from './transforms'
 import { applyExtractors as _applyExtractors } from './extractors/helper'
 import { regexClassSplitter } from './regexes'
+import { setPug } from './extractors'
 
 export type CompletionsResult = ReturnType<typeof generateCompletions>
 export type LayerName = 'base' | 'utilities' | 'components'
@@ -549,6 +550,11 @@ export function createUtils(
   }
 
   async function _init() {
+    try {
+      setPug((await import('pug')).default)
+    }
+    catch (e) {}
+
     options = await resolveOptions(userOptions, utilsOptions, true)
     files = []
 
