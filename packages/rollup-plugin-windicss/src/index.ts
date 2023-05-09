@@ -32,7 +32,7 @@ function WindiCssRollupPlugin(userOptions: UserOptions = {}): Plugin[] {
       if (!utils.isDetectTarget(id))
         return
       debug.alias(id)
-      return utils.transformAlias(code, true)
+      return utils.transformAlias(code, true) as any
     },
   })
 
@@ -44,15 +44,14 @@ function WindiCssRollupPlugin(userOptions: UserOptions = {}): Plugin[] {
         if (!utils.isDetectTarget(id))
           return
         debug.group(id)
-        return utils.transformGroups(code, true)
+        return utils.transformGroups(code, true) as any
       },
     })
   }
 
   plugins.push({
     name: `${NAME}:entry`,
-
-    ...createVirtualModuleLoader({ utils }),
+    ...createVirtualModuleLoader({ utils }) as any,
   })
 
   if (userOptions.transformCSS !== false) {
