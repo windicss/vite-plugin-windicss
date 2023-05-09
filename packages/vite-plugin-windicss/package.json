@@ -1,6 +1,6 @@
 {
   "name": "vite-plugin-windicss",
-  "version": "1.8.11",
+  "version": "1.9.0",
   "description": "Windi CSS for Vite, it's fast!",
   "author": "antfu <anthonyfu117@hotmail.com>",
   "license": "MIT",
