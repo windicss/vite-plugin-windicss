@@ -25,6 +25,7 @@
     },
     "./*": "./*",
     "./client": {
+      "types": "./dist/client.d.ts",
       "require": "./dist/client.js",
       "import": "./dist/client.mjs"
     }
