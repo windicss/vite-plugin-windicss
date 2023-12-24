@@ -40,7 +40,7 @@ export function createVirtualModuleLoader(ctx: { utils: WindiPluginUtils; inHmr?
     },
 
     async watchChange(id, change) {
-      // In vite5, `watchChange` is triggered before hmr even if it's started, which can cause hot updates to fail，Add `inHmr` flag to skip duplicate triggers (isomorphic to vite4)
+      // In vite5, watchChange is triggered before hmr even if the devServer is started, which causes the hot update to fail, add the inHmr flag to skip the repeat trigger (as in vite4)
       if (ctx.inHmr)
         return
 
