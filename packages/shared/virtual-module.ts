@@ -12,7 +12,7 @@ export const MODULE_ID_VIRTUAL_MODULES = [
   `${MODULE_ID_VIRTUAL_PREFIX}-components.css`,
 ]
 
-export function createVirtualModuleLoader(ctx: { utils: WindiPluginUtils }): Pick<Plugin, 'resolveId' | 'load' | 'watchChange'> {
+export function createVirtualModuleLoader(ctx: { utils: WindiPluginUtils; inHmr?: boolean }): Pick<Plugin, 'resolveId' | 'load' | 'watchChange'> {
   return {
     resolveId(id) {
       if (id.startsWith(MODULE_ID_VIRTUAL_PREFIX))
@@ -40,6 +40,10 @@ export function createVirtualModuleLoader(ctx: { utils: WindiPluginUtils }): Pic
     },
 
     async watchChange(id, change) {
+      // In vite5, watchChange is triggered before hmr even if the devServer is started, which causes the hot update to fail, add the inHmr flag to skip the repeat trigger (as in vite4)
+      if (ctx.inHmr)
+        return
+
       if (change.event === 'delete' || !existsSync(id))
         return
       if (!ctx.utils.isDetectTarget(id))
