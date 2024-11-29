@@ -35,15 +35,15 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@antfu/utils": "^0.7.2",
+    "@antfu/utils": "^0.7.10",
     "@windicss/config": "workspace:*",
-    "debug": "^4.3.4",
-    "fast-glob": "^3.2.12",
-    "magic-string": "^0.30.0",
-    "micromatch": "^4.0.5",
+    "debug": "^4.3.7",
+    "fast-glob": "^3.3.2",
+    "magic-string": "^0.30.14",
+    "micromatch": "^4.0.8",
     "windicss": "^3.5.6"
   },
   "devDependencies": {
-    "pug": "^3.0.2"
+    "pug": "^3.0.3"
   }
 }

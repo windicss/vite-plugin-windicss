@@ -37,11 +37,11 @@
     "prepublishOnly": "npm run build"
   },
   "peerDependencies": {
-    "rollup": "^2.0.0"
+    "rollup": "*"
   },
   "dependencies": {
     "@windicss/plugin-utils": "workspace:*",
-    "debug": "^4.3.4",
+    "debug": "^4.3.7",
     "windicss": "^3.5.6"
   }
 }
